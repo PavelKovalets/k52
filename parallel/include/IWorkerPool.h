@@ -10,6 +10,7 @@
 
 #include "ITask.h"
 #include "ITaskResult.h"
+#include <vector>
 
 //TODO implement template?
 //#include <boost/static_assert.hpp>
