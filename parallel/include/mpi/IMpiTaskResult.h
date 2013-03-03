@@ -8,6 +8,8 @@
 #ifndef IMPITASKRESULT_H_
 #define IMPITASKRESULT_H_
 
+#include "../ITaskResult.h"
+
 namespace k52
 {
 	namespace parallel
