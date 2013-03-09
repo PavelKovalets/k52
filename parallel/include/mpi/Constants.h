@@ -23,9 +23,9 @@ namespace k52
 
 				static const int CommonTag = 0;
 
-				static const std::string EndOfWorkTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
+				static const char EndOfWorkTaskId [100] = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
 
-				static const std::string GetStatisticsTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldSendItsStatistics";
+				static const char GetStatisticsTaskId [100] = "TheIdOfTheTaskThatMeanThatWorkerShouldSendItsStatistics";
 			}
 		}
 	}
