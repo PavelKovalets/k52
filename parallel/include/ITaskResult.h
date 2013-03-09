@@ -8,6 +8,8 @@
 #ifndef TASKRESULT_H_
 #define TASKRESULT_H_
 
+#include <boost/shared_ptr.hpp>
+
 namespace k52
 {
 	namespace parallel
@@ -15,6 +17,8 @@ namespace k52
 		class ITaskResult
 		{
 		public:
+			typedef boost::shared_ptr<ITaskResult> shared_ptr;
+
 			virtual ~ITaskResult() {}
 		};
 	}

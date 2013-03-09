@@ -24,7 +24,7 @@ namespace k52
 				int taskIndex;
 				int workerRank;
 				boost::mpi::request request;
-				boost::shared_ptr<IMpiTaskResult> result;
+				IMpiTaskResult::shared_ptr result;
 			};
 
 			ResultExpectation waitAndPopNextExpectation(std::list<ResultExpectation>& resultExpectations)
@@ -126,18 +126,18 @@ namespace k52
 
 					counted++;
 
-					boost::shared_ptr<IMpiTask> nextTask = createTask(taskId);
+					IMpiTask::shared_ptr nextTask = createTask(taskId);
 
 					nextTask->receive(_communicator);
 
-					boost::shared_ptr<IMpiTaskResult> result = nextTask->performMpi();
+					IMpiTaskResult::shared_ptr result = nextTask->performMpi();
 
 					result->send(_communicator);
 				}
 			}
 
 
-			boost::shared_ptr<IMpiTask> MpiWorkerPool::createTask(std::string taskId)
+			IMpiTask::shared_ptr MpiWorkerPool::createTask(std::string taskId)
 			{
 				const IMpiTask* task = dynamic_cast<const IMpiTask*>(IdentifyableObjectsManager::Instance().getObject(taskId));
 
@@ -150,10 +150,10 @@ namespace k52
 					throw std::invalid_argument(message.str());
 				}
 
-				return boost::shared_ptr<IMpiTask>( task->clone() );
+				return IMpiTask::shared_ptr( task->clone() );
 			}
 
-			std::vector< boost::shared_ptr<ITaskResult> > MpiWorkerPool::doTasks (const std::vector<const ITask*>& tasks)
+			std::vector< ITaskResult::shared_ptr > MpiWorkerPool::doTasks (const std::vector<const ITask*>& tasks)
 			{
 				checkIfServer();
 				checkAwailableWorkers();
@@ -162,7 +162,7 @@ namespace k52
 				bool wasFirstPartSent = false;
 
 				std::list<ResultExpectation> resultExpectations;
-				std::vector< boost::shared_ptr<ITaskResult> > results(tasks.size());
+				std::vector< ITaskResult::shared_ptr > results(tasks.size());
 
 				for(size_t i = 0; i < tasks.size(); i++)
 				{

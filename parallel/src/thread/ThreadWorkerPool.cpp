@@ -16,11 +16,11 @@ namespace k52
 			ThreadWorkerPool::ThreadWorkerPool(int numberOfWorkers):
 					_workerPool(numberOfWorkers) {}
 
-			std::vector< boost::shared_ptr<ITaskResult> > ThreadWorkerPool::doTasks (
+			std::vector< ITaskResult::shared_ptr > ThreadWorkerPool::doTasks (
 					const std::vector<const ITask*>& tasks
 					)
 			{
-				std::vector< boost::shared_ptr<ITaskResult> > results(tasks.size());
+				std::vector< ITaskResult::shared_ptr > results(tasks.size());
 				std::queue<ThreadWorkerPoolTask> tasksQueue;
 
 				for(size_t i=0; i<tasks.size(); i++)

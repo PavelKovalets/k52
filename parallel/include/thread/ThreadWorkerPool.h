@@ -23,7 +23,7 @@ namespace k52
 			public:
 				ThreadWorkerPool(int numberOfWorkers);
 
-				virtual std::vector< boost::shared_ptr<ITaskResult> > doTasks (
+				virtual std::vector< ITaskResult::shared_ptr > doTasks (
 						const std::vector<const ITask*>& tasks
 						);
 

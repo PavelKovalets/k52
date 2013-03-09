@@ -23,9 +23,11 @@ namespace k52
 		class IWorkerPool
 		{
 		public:
+			typedef boost::shared_ptr<IWorkerPool> shared_ptr;
+
 			virtual ~IWorkerPool(){}
 
-			virtual std::vector< boost::shared_ptr<ITaskResult> > doTasks (const std::vector<const ITask*>& tasks) = 0;
+			virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks) = 0;
 
 			//If you see an error here that means your TTask does not implement ITask
 			//BOOST_STATIC_ASSERT((boost::is_base_of<ITask, TTask>::value));

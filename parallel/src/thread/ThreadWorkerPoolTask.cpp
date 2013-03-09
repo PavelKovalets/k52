@@ -18,7 +18,7 @@ namespace k52
 
 			ThreadWorkerPoolTask::ThreadWorkerPoolTask(
 					const ITask* taskToDo,
-					boost::shared_ptr<ITaskResult>* resultToBeWritten):
+					ITaskResult::shared_ptr* resultToBeWritten):
 							_taskToDo(taskToDo), _resultToBeWritten(resultToBeWritten)	{}
 
 			void ThreadWorkerPoolTask::doTask()

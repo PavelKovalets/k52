@@ -28,7 +28,7 @@ namespace k52
 				MpiWorkerPool();
 				~MpiWorkerPool();
 
-				virtual std::vector< boost::shared_ptr<ITaskResult> > doTasks (const std::vector<const ITask*>& tasks);
+				virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks);
 				std::vector< WorkerStatistics > getStatistics();
 
 			private:
@@ -41,7 +41,7 @@ namespace k52
 				void checkIfServer();
 				void checkAwailableWorkers();
 				void runWorkerLoop();
-				boost::shared_ptr<IMpiTask> createTask(std::string taskId);
+				IMpiTask::shared_ptr createTask(std::string taskId);
 
 				MpiWorkerPool(const MpiWorkerPool&);
 				MpiWorkerPool& operator = (const MpiWorkerPool&);

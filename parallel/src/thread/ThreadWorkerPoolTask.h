@@ -23,13 +23,13 @@ namespace k52
 
 				ThreadWorkerPoolTask(
 						const ITask* taskToDo,
-						boost::shared_ptr<ITaskResult>* resultToBeWritten);
+						ITaskResult::shared_ptr* resultToBeWritten);
 
 				void doTask();
 
 			private:
 				const ITask* _taskToDo;
-				boost::shared_ptr<ITaskResult>* _resultToBeWritten;
+				ITaskResult::shared_ptr* _resultToBeWritten;
 			};
 		}
 	}

@@ -19,6 +19,8 @@ namespace k52
 			class IMpiTaskResult : public k52::parallel::ITaskResult
 			{
 			public:
+				typedef boost::shared_ptr<IMpiTaskResult> shared_ptr;
+
 				//TODO return boost::mpi::request? how?
 				virtual void ireceive(boost::mpi::communicator* communicator, int source, boost::mpi::request* returnedRequest) = 0;
 

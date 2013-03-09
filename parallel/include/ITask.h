@@ -19,9 +19,11 @@ namespace k52
 		class ITask
 		{
 		public:
+			typedef boost::shared_ptr<ITask> shared_ptr;
+
 			virtual ~ITask() {}
 
-			virtual boost::shared_ptr<ITaskResult> perform() const = 0;
+			virtual ITaskResult::shared_ptr perform() const = 0;
 		};
 
 	}
