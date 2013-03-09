@@ -16,7 +16,7 @@ namespace k52
 	{
 		namespace mpi
 		{
-			//TODO incapsulate and hide from user
+			//TODO incapsulate and hide from user - !!! to remove using namespace k52::parallel::mpi::Constants;
 			namespace Constants
 			{
 				static const int ServerRank = 0;
