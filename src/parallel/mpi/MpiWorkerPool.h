@@ -22,6 +22,9 @@ namespace parallel
 {
 namespace mpi
 {
+
+struct ResultExpectation;
+
 class MpiWorkerPool : public IWorkerPool
 {
 public:
@@ -43,6 +46,7 @@ private:
 	void checkIfServer();
 	void checkAwailableWorkers();
 	void runWorkerLoop();
+	ResultExpectation sendTask(const IMpiTask* task, int currentWorkerRank, ITaskResult::shared_ptr* resultToSet);
 	IMpiTask::shared_ptr createTask(std::string taskId);
 
 	MpiWorkerPool(const MpiWorkerPool&);

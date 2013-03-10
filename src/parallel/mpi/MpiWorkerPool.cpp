@@ -22,7 +22,6 @@ namespace mpi
 
 struct ResultExpectation
 {
-	int taskIndex;
 	int workerRank;
 	boost::mpi::request request;
 };
@@ -153,6 +152,21 @@ IMpiTask::shared_ptr MpiWorkerPool::createTask(std::string taskId)
 	return IMpiTask::shared_ptr( task->clone() );
 }
 
+ResultExpectation MpiWorkerPool::sendTask(const IMpiTask* task, int currentWorkerRank, ITaskResult::shared_ptr* resultToSet)
+{
+	_communicator->send(currentWorkerRank, Constants::CommonTag, IdentifyableObjectsManager::getId(task));
+	task->send(_communicator, currentWorkerRank);
+
+	IMpiTaskResult::shared_ptr mpiTaskResult = task->createEmptyResult();
+	(*resultToSet) = mpiTaskResult;
+
+	ResultExpectation expectaton;
+	expectaton.request = mpiTaskResult->ireceive(_communicator, currentWorkerRank);
+	expectaton.workerRank = currentWorkerRank;
+
+	return expectaton;
+}
+
 std::vector< ITaskResult::shared_ptr > MpiWorkerPool::doTasks (const std::vector<const ITask*>& tasks)
 {
 	checkIfServer();
@@ -173,19 +187,7 @@ std::vector< ITaskResult::shared_ptr > MpiWorkerPool::doTasks (const std::vector
 			throw std::logic_error("MpiWorkerPool can process only IMpiTask, not simple ITask.");
 		}
 
-		_communicator->send(currentWorkerRank, Constants::CommonTag, IdentifyableObjectsManager::getId(currentTask));
-
-		currentTask->send(_communicator, currentWorkerRank);
-
-		ResultExpectation expectaton;
-
-		IMpiTaskResult::shared_ptr mpiTaskResult = currentTask->createEmptyResult();
-		results[i] = mpiTaskResult;
-		expectaton.request = mpiTaskResult->ireceive(_communicator, currentWorkerRank);
-		expectaton.taskIndex = i;
-		expectaton.workerRank = currentWorkerRank;
-
-		resultExpectations.push_back(expectaton);
+		resultExpectations.push_back( sendTask(currentTask, currentWorkerRank, &(results[i])) );
 
 		if(!wasFirstPartSent)
 		{
