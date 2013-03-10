@@ -8,24 +8,27 @@
 #ifndef ITRANSFERABLE_H_
 #define ITRANSFERABLE_H_
 
-#include "BoostDeclaration.h"
+#include <include/mpi/BoostDeclaration.h>
 
 namespace k52
 {
-	namespace parallel
-	{
-		namespace mpi
-		{
-			class ITransferable
-			{
-			public:
-				virtual ~ITransferable() { }
+namespace parallel
+{
+namespace mpi
+{
 
-				virtual void send(boost::mpi::communicator* communicator, int target) const = 0;
+class ITransferable
+{
+public:
+	virtual ~ITransferable() { }
 
-				virtual void receive(boost::mpi::communicator* communicator) = 0;
-			};
-		}
-	}
-}
+	virtual void send(boost::mpi::communicator* communicator, int target) const = 0;
+
+	virtual void receive(boost::mpi::communicator* communicator) = 0;
+};
+
+} /* namespace mpi */
+} /* namespace parallel */
+} /* namespace k52 */
+
 #endif /* ITRANSFERABLE_H_ */

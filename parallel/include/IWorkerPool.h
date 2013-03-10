@@ -8,8 +8,8 @@
 #ifndef IWORKERPOOL_H_
 #define IWORKERPOOL_H_
 
-#include "ITask.h"
-#include "ITaskResult.h"
+#include <include/ITask.h>
+#include <include/ITaskResult.h>
 #include <vector>
 
 //TODO implement template?
@@ -17,21 +17,23 @@
 //#include <boost/type_traits/is_base_of.hpp>
 namespace k52
 {
-	namespace parallel
-	{
-		//template<class TTask>
-		class IWorkerPool
-		{
-		public:
-			typedef boost::shared_ptr<IWorkerPool> shared_ptr;
+namespace parallel
+{
 
-			virtual ~IWorkerPool(){}
+//template<class TTask>
+class IWorkerPool
+{
+public:
+	typedef boost::shared_ptr<IWorkerPool> shared_ptr;
 
-			virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks) = 0;
+	virtual ~IWorkerPool(){}
 
-			//If you see an error here that means your TTask does not implement ITask
-			//BOOST_STATIC_ASSERT((boost::is_base_of<ITask, TTask>::value));
-		};
-	}
-}
+	virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks) = 0;
+
+	//If you see an error here that means your TTask does not implement ITask
+	//BOOST_STATIC_ASSERT((boost::is_base_of<ITask, TTask>::value));
+};
+
+} /* parallel */
+} /* k52 */
 #endif /* IWORKERPOOL_H_ */

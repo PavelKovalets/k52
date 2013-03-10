@@ -18,37 +18,39 @@
 
 namespace k52
 {
-	namespace parallel
-	{
-		namespace mpi
-		{
-			class MpiWorkerPool : public IWorkerPool
-			{
-			public:
-				typedef boost::shared_ptr<MpiWorkerPool> shared_ptr;
+namespace parallel
+{
+namespace mpi
+{
+class MpiWorkerPool : public IWorkerPool
+{
+public:
+	typedef boost::shared_ptr<MpiWorkerPool> shared_ptr;
 
-				MpiWorkerPool();
-				~MpiWorkerPool();
+	MpiWorkerPool();
+	~MpiWorkerPool();
 
-				virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks);
-				std::vector< WorkerStatistics > getStatistics();
+	virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks);
+	std::vector< WorkerStatistics > getStatistics();
 
-			private:
-				boost::mpi::environment* _env;
-				boost::mpi::communicator* _communicator;
-				bool _wasFinalized;
+private:
+	boost::mpi::environment* _env;
+	boost::mpi::communicator* _communicator;
+	bool _wasFinalized;
 
-				void finalizeWorkers();
-				void clean();
-				void checkIfServer();
-				void checkAwailableWorkers();
-				void runWorkerLoop();
-				IMpiTask::shared_ptr createTask(std::string taskId);
+	void finalizeWorkers();
+	void clean();
+	void checkIfServer();
+	void checkAwailableWorkers();
+	void runWorkerLoop();
+	IMpiTask::shared_ptr createTask(std::string taskId);
 
-				MpiWorkerPool(const MpiWorkerPool&);
-				MpiWorkerPool& operator = (const MpiWorkerPool&);
-			};
-		}
-	}
-}
+	MpiWorkerPool(const MpiWorkerPool&);
+	MpiWorkerPool& operator = (const MpiWorkerPool&);
+};
+
+} /* namespace mpi */
+} /* namespace parallel */
+} /* namespace k52 */
+
 #endif /* MPIWORKERPOOL_H_ */

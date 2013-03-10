@@ -9,22 +9,24 @@
 
 namespace k52
 {
-	namespace parallel
-	{
-		namespace thread
-		{
-			ThreadWorkerPoolTask::ThreadWorkerPoolTask():
-							_taskToDo(NULL), _resultToBeWritten(NULL) {}
+namespace parallel
+{
+namespace thread
+{
 
-			ThreadWorkerPoolTask::ThreadWorkerPoolTask(
-					const ITask* taskToDo,
-					ITaskResult::shared_ptr* resultToBeWritten):
-							_taskToDo(taskToDo), _resultToBeWritten(resultToBeWritten)	{}
+ThreadWorkerPoolTask::ThreadWorkerPoolTask():
+				_taskToDo(NULL), _resultToBeWritten(NULL) {}
 
-			void ThreadWorkerPoolTask::doTask()
-			{
-				(*_resultToBeWritten) = _taskToDo->perform();
-			}
-		}
-	}
+ThreadWorkerPoolTask::ThreadWorkerPoolTask(
+		const ITask* taskToDo,
+		ITaskResult::shared_ptr* resultToBeWritten):
+				_taskToDo(taskToDo), _resultToBeWritten(resultToBeWritten)	{}
+
+void ThreadWorkerPoolTask::doTask()
+{
+	(*_resultToBeWritten) = _taskToDo->perform();
 }
+
+} /* namespace thread */
+} /* namespace parallel */
+} /* namespace k52 */

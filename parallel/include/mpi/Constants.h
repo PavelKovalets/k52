@@ -12,23 +12,26 @@
 
 namespace k52
 {
-	namespace parallel
-	{
-		namespace mpi
-		{
-			//TODO incapsulate and hide from user - !!! to remove using namespace k52::parallel::mpi::Constants;
-			namespace Constants
-			{
-				static const int ServerRank = 0;
+namespace parallel
+{
+namespace mpi
+{
+//TODO incapsulate and hide from user - !!! to remove using namespace k52::parallel::mpi::Constants;
+namespace Constants
+{
 
-				static const int CommonTag = 0;
+	static const int ServerRank = 0;
 
-				//TODO do not use class constants
-				static const std::string EndOfWorkTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
+	static const int CommonTag = 0;
 
-				static const std::string GetStatisticsTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldSendItsStatistics";
-			}
-		}
-	}
-}
+	//TODO do not use class constants
+	static const std::string EndOfWorkTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
+
+	static const std::string GetStatisticsTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldSendItsStatistics";
+
+} /* Constants */
+} /* mpi */
+} /* parallel */
+} /* k52 */
+
 #endif /* CONSTANTS_H_ */

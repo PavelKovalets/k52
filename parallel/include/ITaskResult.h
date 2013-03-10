@@ -12,15 +12,17 @@
 
 namespace k52
 {
-	namespace parallel
-	{
-		class ITaskResult
-		{
-		public:
-			typedef boost::shared_ptr<ITaskResult> shared_ptr;
+namespace parallel
+{
 
-			virtual ~ITaskResult() {}
-		};
-	}
-}
+class ITaskResult
+{
+public:
+	typedef boost::shared_ptr<ITaskResult> shared_ptr;
+
+	virtual ~ITaskResult() {}
+};
+
+} /* namespace parallel */
+} /* namespace k52 */
 #endif /* TASKRESULT_H_ */

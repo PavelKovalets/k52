@@ -14,28 +14,31 @@
 
 namespace k52
 {
-	namespace parallel
-	{
-		namespace thread
-		{
-			class ThreadWorkerPool : public IWorkerPool
-			{
-			public:
-				typedef boost::shared_ptr<ThreadWorkerPool> shared_ptr;
+namespace parallel
+{
+namespace thread
+{
 
-				ThreadWorkerPool();
+class ThreadWorkerPool : public IWorkerPool
+{
+public:
+	typedef boost::shared_ptr<ThreadWorkerPool> shared_ptr;
 
-				virtual std::vector< ITaskResult::shared_ptr > doTasks (
-						const std::vector<const ITask*>& tasks
-						);
+	ThreadWorkerPool();
 
-			private:
-				ThreadWorkerPoolTemplated<ThreadWorkerPoolTask> _workerPool;
+	virtual std::vector< ITaskResult::shared_ptr > doTasks (
+			const std::vector<const ITask*>& tasks
+			);
 
-				ThreadWorkerPool(const ThreadWorkerPool& a);
-				ThreadWorkerPool& operator = (const ThreadWorkerPool& a);
-			};
-		}
-	}
-}
+private:
+	ThreadWorkerPoolTemplated<ThreadWorkerPoolTask> _workerPool;
+
+	ThreadWorkerPool(const ThreadWorkerPool& a);
+	ThreadWorkerPool& operator = (const ThreadWorkerPool& a);
+};
+
+} /* namespace thread */
+} /* namespace parallel */
+} /* namespace k52 */
+
 #endif /* THREADWORKERPOOL_H_ */
