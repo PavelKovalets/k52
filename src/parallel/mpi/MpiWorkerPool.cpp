@@ -205,11 +205,10 @@ std::vector< ITaskResult::shared_ptr > MpiWorkerPool::doTasks (const std::vector
 		}
 	}
 
-	//TODO refactor receiving last
+	//receiving last tasks
 	while(!resultExpectations.empty())
 	{
-		ResultExpectation receivedExpectation = waitAndPopNextExpectation(resultExpectations);
-		currentWorkerRank = receivedExpectation.workerRank;
+		waitAndPopNextExpectation(resultExpectations);
 	}
 
 	return results;
