@@ -9,7 +9,7 @@
 #include <boost/mpi/request.hpp>
 #include <boost/serialization/vector.hpp>
 #include <list>
-#include "../../include/mpi/MpiWorkerPool.h"
+#include "MpiWorkerPool.h"
 #include "../../include/mpi/Constants.h"
 #include "../../include/mpi/IdentifyableObjectsManager.h"
 

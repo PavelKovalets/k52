@@ -20,6 +20,8 @@ namespace k52
 			class ThreadWorkerPoolTemplated
 			{
 			public:
+				ThreadWorkerPoolTemplated();
+
 				ThreadWorkerPoolTemplated(int numberOfWorkers);
 
 				~ThreadWorkerPoolTemplated();
@@ -31,6 +33,8 @@ namespace k52
 				ThreadWorkerPoolTemplated(const ThreadWorkerPoolTemplated& a);
 				ThreadWorkerPoolTemplated& operator = (const ThreadWorkerPoolTemplated& a);
 
+				void initialize();
+
 				int _numberOfWorkers;
 				Worker<Task>* _workers;
 				ThreadSafeQueue<Task> _tasksToDo;
@@ -38,13 +42,13 @@ namespace k52
 			};
 
 			template <class Task>
-			ThreadWorkerPoolTemplated<Task>::ThreadWorkerPoolTemplated(int numberOfWorkers)
+			void ThreadWorkerPoolTemplated<Task>::initialize()
 			{
-				if(numberOfWorkers <= 0)
+				if(_numberOfWorkers <= 0)
 				{
 					throw std::invalid_argument("numberOfWorkers must be positive");
 				}
-				_numberOfWorkers = numberOfWorkers;
+
 				_workers = new Worker<Task> [_numberOfWorkers];
 
 				//TODO do not start immediatelly?
@@ -52,6 +56,20 @@ namespace k52
 				{
 					_workers[i].start(&_tasksToDo, &_doneTasks);
 				}
+			}
+
+			template <class Task>
+			ThreadWorkerPoolTemplated<Task>::ThreadWorkerPoolTemplated()
+			{
+				_numberOfWorkers = boost::thread::hardware_concurrency();
+				initialize();
+			}
+
+			template <class Task>
+			ThreadWorkerPoolTemplated<Task>::ThreadWorkerPoolTemplated(int numberOfWorkers)
+			{
+				_numberOfWorkers = numberOfWorkers;
+				initialize();
 			}
 
 			template <class Task>

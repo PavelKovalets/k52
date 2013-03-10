@@ -23,9 +23,10 @@ namespace k52
 
 				static const int CommonTag = 0;
 
-				static const char EndOfWorkTaskId [100] = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
+				//TODO do not use class constants
+				static const std::string EndOfWorkTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
 
-				static const char GetStatisticsTaskId [100] = "TheIdOfTheTaskThatMeanThatWorkerShouldSendItsStatistics";
+				static const std::string GetStatisticsTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldSendItsStatistics";
 			}
 		}
 	}

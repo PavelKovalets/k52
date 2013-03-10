@@ -8,9 +8,9 @@
 #ifndef THREADWORKERPOOL_H_
 #define THREADWORKERPOOL_H_
 
-#include "../IWorkerPool.h"
-#include "../../src/thread/ThreadWorkerPoolTask.h"
-#include "../../src/thread/ThreadWorkerPoolTemplated.h"
+#include <include/IWorkerPool.h>
+#include "ThreadWorkerPoolTask.h"
+#include "ThreadWorkerPoolTemplated.h"
 
 namespace k52
 {
@@ -21,7 +21,9 @@ namespace k52
 			class ThreadWorkerPool : public IWorkerPool
 			{
 			public:
-				ThreadWorkerPool(int numberOfWorkers);
+				typedef boost::shared_ptr<ThreadWorkerPool> shared_ptr;
+
+				ThreadWorkerPool();
 
 				virtual std::vector< ITaskResult::shared_ptr > doTasks (
 						const std::vector<const ITask*>& tasks

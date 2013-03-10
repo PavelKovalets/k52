@@ -10,11 +10,11 @@
 
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include "WorkerStatistics.h"
-#include "IMpiTask.h"
-#include "IMpiTask.h"
-#include "BoostDeclaration.h"
-#include "../IWorkerPool.h"
+#include <include/mpi/WorkerStatistics.h>
+#include <include/mpi/IMpiTask.h>
+#include <include/mpi/IMpiTask.h>
+#include <include/mpi/BoostDeclaration.h>
+#include <include/IWorkerPool.h>
 
 namespace k52
 {
@@ -25,6 +25,8 @@ namespace k52
 			class MpiWorkerPool : public IWorkerPool
 			{
 			public:
+				typedef boost::shared_ptr<MpiWorkerPool> shared_ptr;
+
 				MpiWorkerPool();
 				~MpiWorkerPool();
 

@@ -5,7 +5,7 @@
  *      Author: feanor
  */
 
-#include "../../include/thread/ThreadWorkerPool.h"
+#include "ThreadWorkerPool.h"
 
 namespace k52
 {
@@ -13,8 +13,8 @@ namespace k52
 	{
 		namespace thread
 		{
-			ThreadWorkerPool::ThreadWorkerPool(int numberOfWorkers):
-					_workerPool(numberOfWorkers) {}
+			ThreadWorkerPool::ThreadWorkerPool():
+					_workerPool() {}
 
 			std::vector< ITaskResult::shared_ptr > ThreadWorkerPool::doTasks (
 					const std::vector<const ITask*>& tasks
