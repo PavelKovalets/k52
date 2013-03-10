@@ -46,6 +46,7 @@ private:
 	void checkIfServer();
 	void checkAwailableWorkers();
 	void runWorkerLoop();
+	const IMpiTask* getMpiTask(const ITask* task);
 	ResultExpectation sendTask(const IMpiTask* task, int currentWorkerRank, ITaskResult::shared_ptr* resultToSet);
 	IMpiTask::shared_ptr createTask(std::string taskId);
 

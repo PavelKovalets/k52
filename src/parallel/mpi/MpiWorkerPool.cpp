@@ -167,6 +167,18 @@ ResultExpectation MpiWorkerPool::sendTask(const IMpiTask* task, int currentWorke
 	return expectaton;
 }
 
+const IMpiTask* MpiWorkerPool::getMpiTask(const ITask* task)
+{
+	const IMpiTask* mpiTask = dynamic_cast<const IMpiTask*>( task );
+
+	if(mpiTask == NULL)
+	{
+		throw std::logic_error("MpiWorkerPool can process only IMpiTask, not simple ITask.");
+	}
+
+	return mpiTask;
+}
+
 std::vector< ITaskResult::shared_ptr > MpiWorkerPool::doTasks (const std::vector<const ITask*>& tasks)
 {
 	checkIfServer();
@@ -180,14 +192,11 @@ std::vector< ITaskResult::shared_ptr > MpiWorkerPool::doTasks (const std::vector
 
 	for(size_t i = 0; i < tasks.size(); i++)
 	{
-		const IMpiTask* currentTask = dynamic_cast<const IMpiTask*>( tasks[i] );
+		const IMpiTask* currentTask = getMpiTask(tasks[i]);
 
-		if(currentTask == NULL)
-		{
-			throw std::logic_error("MpiWorkerPool can process only IMpiTask, not simple ITask.");
-		}
+		ResultExpectation taskExpectation = sendTask(currentTask, currentWorkerRank, &(results[i]));
 
-		resultExpectations.push_back( sendTask(currentTask, currentWorkerRank, &(results[i])) );
+		resultExpectations.push_back( taskExpectation );
 
 		if(!wasFirstPartSent)
 		{
