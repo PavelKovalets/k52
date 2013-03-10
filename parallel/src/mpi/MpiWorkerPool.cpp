@@ -25,7 +25,6 @@ struct ResultExpectation
 	int taskIndex;
 	int workerRank;
 	boost::mpi::request request;
-	IMpiTaskResult::shared_ptr result;
 };
 
 ResultExpectation waitAndPopNextExpectation(std::list<ResultExpectation>& resultExpectations)
@@ -180,8 +179,9 @@ std::vector< ITaskResult::shared_ptr > MpiWorkerPool::doTasks (const std::vector
 
 		ResultExpectation expectaton;
 
-		results[i] = expectaton.result = currentTask->createEmptyResult();
-		expectaton.result->ireceive(_communicator, currentWorkerRank, &expectaton.request);
+		IMpiTaskResult::shared_ptr mpiTaskResult = currentTask->createEmptyResult();
+		results[i] = mpiTaskResult;
+		expectaton.request = mpiTaskResult->ireceive(_communicator, currentWorkerRank);
 		expectaton.taskIndex = i;
 		expectaton.workerRank = currentWorkerRank;
 
