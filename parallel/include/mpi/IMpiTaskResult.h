@@ -22,8 +22,7 @@ class IMpiTaskResult : public k52::parallel::ITaskResult
 public:
 	typedef boost::shared_ptr<IMpiTaskResult> shared_ptr;
 
-	//TODO return boost::mpi::request? how?
-	virtual void ireceive(boost::mpi::communicator* communicator, int source, boost::mpi::request* returnedRequest) = 0;
+	virtual boost::mpi::request ireceive(boost::mpi::communicator* communicator, int source) = 0;
 
 	virtual void send(boost::mpi::communicator* communicator) = 0;
 };
