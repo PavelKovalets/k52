@@ -8,7 +8,7 @@
 #ifndef WORKERPOOLFACTORY_H_
 #define WORKERPOOLFACTORY_H_
 
-#include <include/IWorkerPool.h>
+#include <parallel/IWorkerPool.h>
 
 namespace k52
 {

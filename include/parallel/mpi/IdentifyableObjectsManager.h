@@ -8,8 +8,8 @@
 #ifndef IDENTIFYABLEOBJECTSMANAGER_H_
 #define IDENTIFYABLEOBJECTSMANAGER_H_
 
-#include <include/ITask.h>
-#include <include/ICloneable.h>
+#include <parallel/ITask.h>
+#include <common/ICloneable.h>
 #include <map>
 #include <string>
 

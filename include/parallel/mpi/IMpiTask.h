@@ -8,9 +8,9 @@
 #ifndef IMPITASK_H_
 #define IMPITASK_H_
 
-#include <include/ITask.h>
-#include <include/mpi/ITransferable.h>
-#include <include/mpi/IMpiTaskResult.h>
+#include <parallel/ITask.h>
+#include <parallel/mpi/ITransferable.h>
+#include <parallel/mpi/IMpiTaskResult.h>
 
 namespace k52
 {

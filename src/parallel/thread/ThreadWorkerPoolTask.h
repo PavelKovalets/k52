@@ -8,7 +8,7 @@
 #ifndef THREADWORKERPOOLTASK_H_
 #define THREADWORKERPOOLTASK_H_
 
-#include <include/IWorkerPool.h>
+#include <parallel/IWorkerPool.h>
 
 namespace k52
 {

@@ -5,7 +5,7 @@
  *      Author: pavel
  */
 
-#include <include/mpi/IdentifyableObjectsManager.h>
+#include <parallel/mpi/IdentifyableObjectsManager.h>
 #include <stdexcept>
 #include <string>
 #include <sstream>

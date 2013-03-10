@@ -10,11 +10,11 @@
 
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include <include/mpi/WorkerStatistics.h>
-#include <include/mpi/IMpiTask.h>
-#include <include/mpi/IMpiTask.h>
-#include <include/mpi/BoostDeclaration.h>
-#include <include/IWorkerPool.h>
+#include <parallel/mpi/WorkerStatistics.h>
+#include <parallel/mpi/IMpiTask.h>
+#include <parallel/mpi/IMpiTask.h>
+#include <parallel/mpi/BoostDeclaration.h>
+#include <parallel/IWorkerPool.h>
 
 namespace k52
 {

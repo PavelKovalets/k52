@@ -5,7 +5,7 @@
  *      Author: feanor
  */
 
-#include <include/WorkerPoolFactory.h>
+#include <parallel/WorkerPoolFactory.h>
 #include "thread/ThreadWorkerPool.h"
 #include "mpi/MpiWorkerPool.h"
 

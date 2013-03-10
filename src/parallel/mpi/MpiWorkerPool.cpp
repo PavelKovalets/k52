@@ -10,8 +10,8 @@
 #include <boost/serialization/vector.hpp>
 #include <list>
 #include "MpiWorkerPool.h"
-#include "../../include/mpi/Constants.h"
-#include "../../include/mpi/IdentifyableObjectsManager.h"
+#include <parallel/mpi/Constants.h>
+#include <parallel/mpi/IdentifyableObjectsManager.h>
 
 namespace k52
 {

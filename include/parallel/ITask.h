@@ -8,8 +8,8 @@
 #ifndef ITASK_H_
 #define ITASK_H_
 
-#include <include/ICloneable.h>
-#include <include/ITaskResult.h>
+#include <common/ICloneable.h>
+#include <parallel/ITaskResult.h>
 #include <boost/shared_ptr.hpp>
 
 namespace k52

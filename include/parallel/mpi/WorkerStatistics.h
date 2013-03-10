@@ -8,7 +8,7 @@
 #ifndef WORKERSTATISTICS_H_
 #define WORKERSTATISTICS_H_
 
-#include <include/mpi/BoostDeclaration.h>
+#include <parallel/mpi/BoostDeclaration.h>
 
 namespace k52
 {

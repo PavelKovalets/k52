@@ -8,7 +8,7 @@
 #ifndef IMPITASKRESULT_H_
 #define IMPITASKRESULT_H_
 
-#include <include/ITaskResult.h>
+#include <parallel/ITaskResult.h>
 
 namespace k52
 {

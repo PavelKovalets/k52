@@ -8,8 +8,8 @@
 #ifndef IWORKERPOOL_H_
 #define IWORKERPOOL_H_
 
-#include <include/ITask.h>
-#include <include/ITaskResult.h>
+#include <parallel/ITask.h>
+#include <parallel/ITaskResult.h>
 #include <vector>
 
 //TODO implement template?

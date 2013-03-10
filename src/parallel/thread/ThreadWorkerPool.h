@@ -8,7 +8,7 @@
 #ifndef THREADWORKERPOOL_H_
 #define THREADWORKERPOOL_H_
 
-#include <include/IWorkerPool.h>
+#include <parallel/IWorkerPool.h>
 #include "ThreadWorkerPoolTask.h"
 #include "ThreadWorkerPoolTemplated.h"
 
