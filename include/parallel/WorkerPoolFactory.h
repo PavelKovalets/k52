@@ -17,8 +17,9 @@ namespace parallel
 
 enum WorkerPoolType
 {
-	kThreadWorkerPool,
-	kMpiWorkerPool
+	kThreadWorkerPool = 0,
+	kMpiWorkerPool,
+	kSequentialWorkerPool
 };
 
 class WorkerPoolFactory

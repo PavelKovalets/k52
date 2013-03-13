@@ -34,6 +34,10 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(int nuberOfWorkers, bool useV
 		{
 			_fitnessWorkerPool = WorkerPoolFactory::createWorkerPool(k52::parallel::kThreadWorkerPool);
 		}
+		else if(WorkerPoolFactory::canCreateWorkerPool(k52::parallel::kSequentialWorkerPool))
+		{
+			_fitnessWorkerPool = WorkerPoolFactory::createWorkerPool(k52::parallel::kSequentialWorkerPool);
+		}
 		else
 		{
 			throw std::runtime_error("Can not create _fitnessWorkerPool.");

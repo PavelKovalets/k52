@@ -6,6 +6,8 @@
  */
 
 #include <parallel/WorkerPoolFactory.h>
+#include "SequentialWorkerPool.h"
+using ::k52::parallel::SequentialWorkerPool;
 
 #ifdef BUILD_WITH_BOOST_THREAD
 #include "thread/ThreadWorkerPool.h"
@@ -30,7 +32,7 @@ IWorkerPool::shared_ptr WorkerPoolFactory::createWorkerPool(WorkerPoolType worke
 	{
 	case kThreadWorkerPool:
 #ifdef BUILD_WITH_BOOST_THREAD
-		return ThreadWorkerPool::shared_ptr (new ThreadWorkerPool());		
+		return ThreadWorkerPool::shared_ptr (new ThreadWorkerPool());
 #else
 		throw std::runtime_error("k52::parallel was build with boost::thread support. Try define BUILD_WITH_BOOST_THREAD.");
 #endif
@@ -52,6 +54,9 @@ IWorkerPool::shared_ptr WorkerPoolFactory::createWorkerPool(WorkerPoolType worke
 		throw std::runtime_error("k52::parallel was not build with MPI support. Try define BUILD_WITH_MPI.");
 #endif
 
+	case kSequentialWorkerPool:
+		return SequentialWorkerPool::shared_ptr (new SequentialWorkerPool());
+
 	default:
 		throw std::runtime_error("WorkerPoolType not supported.");
 	}
@@ -62,7 +67,11 @@ bool WorkerPoolFactory::canCreateWorkerPool(WorkerPoolType workerPoolType)
 	switch (workerPoolType)
 	{
 	case kThreadWorkerPool:
+#ifdef BUILD_WITH_BOOST_THREAD
 		return true;
+#else
+		return false;
+#endif
 
 	case kMpiWorkerPool:
 #ifdef BUILD_WITH_MPI
@@ -70,6 +79,9 @@ bool WorkerPoolFactory::canCreateWorkerPool(WorkerPoolType workerPoolType)
 #else
 		return false;
 #endif
+
+	case kSequentialWorkerPool:
+		return true;
 
 	default:
 		return false;
