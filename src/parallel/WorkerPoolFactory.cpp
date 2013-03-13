@@ -6,6 +6,7 @@
  */
 
 #include <parallel/WorkerPoolFactory.h>
+#include <stdexcept>
 #include "SequentialWorkerPool.h"
 using ::k52::parallel::SequentialWorkerPool;
 
