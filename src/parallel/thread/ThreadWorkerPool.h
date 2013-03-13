@@ -8,6 +8,8 @@
 #ifndef THREADWORKERPOOL_H_
 #define THREADWORKERPOOL_H_
 
+#ifdef BUILD_WITH_BOOST_THREAD
+
 #include <parallel/IWorkerPool.h>
 #include "ThreadWorkerPoolTask.h"
 #include "ThreadWorkerPoolTemplated.h"
@@ -37,8 +39,12 @@ private:
 	ThreadWorkerPool& operator = (const ThreadWorkerPool& a);
 };
 
+
+
 } /* namespace thread */
 } /* namespace parallel */
 } /* namespace k52 */
+
+#endif
 
 #endif /* THREADWORKERPOOL_H_ */

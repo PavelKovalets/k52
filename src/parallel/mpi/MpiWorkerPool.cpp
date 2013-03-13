@@ -4,6 +4,7 @@
  *  Created on: Sep 30, 2012
  *      Author: pavel
  */
+#ifdef BUILD_WITH_MPI
 
 #include <boost/mpi.hpp>
 #include <boost/mpi/request.hpp>
@@ -264,4 +265,4 @@ void MpiWorkerPool::checkIfServer()
 } /* namespace parallel */
 } /* namespace k52 */
 
-
+#endif

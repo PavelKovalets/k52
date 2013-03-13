@@ -6,12 +6,10 @@
  */
 
 #include "CountObjectiveFunctionTask.h"
-#include <boost/thread.hpp>
-#include <boost/date_time.hpp>
+#include "ObjectiveFunctionTaskResult.h"
 
 #ifdef BUILD_WITH_MPI
 
-#include "ObjectiveFunctionTaskResult.h"
 #include <boost/mpi.hpp>
 #include <parallel/mpi/Constants.h>
 #include <parallel/mpi/IdentifyableObjectsManager.h>
@@ -60,6 +58,16 @@ void CountObjectiveFunctionTask::receive(boost::mpi::communicator* communicator)
 	IParameters* parameters = dynamic_cast<IParameters*>( templateParameters->clone() );
 	parameters->receive(communicator);
 	_parameters = parameters;
+}
+#else
+
+//TODO use polymorphysm
+k52::parallel::ITaskResult::shared_ptr CountObjectiveFunctionTask::perform() const
+{
+	double value = _functionToOptimize->operator ()(_parameters);
+	ObjectiveFunctionTaskResult::shared_ptr result ( new ObjectiveFunctionTaskResult() );
+	result->setObjectiveFunctionValue(value);
+	return result;
 }
 
 #endif

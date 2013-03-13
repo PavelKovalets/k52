@@ -12,6 +12,7 @@
 #include <boost/shared_ptr.hpp>
 #include <optimize/ParametersLocalStorage.h>
 #include <optimize/IObjectiveFunction.h>
+#include <parallel/ITask.h>
 
 #ifdef BUILD_WITH_MPI
 #include <parallel/mpi/IMpiTask.h>
@@ -21,6 +22,8 @@
 class CountObjectiveFunctionTask
 #ifdef BUILD_WITH_MPI
 	: public k52::parallel::mpi::IMpiTask
+#else
+	: public k52::parallel::ITask
 #endif
 {
 public:
@@ -31,7 +34,7 @@ public:
 	CountObjectiveFunctionTask(const IParameters* parameters,
 			const IObjectiveFunction* functionToOptimize);
 
-	#ifdef BUILD_WITH_MPI
+#ifdef BUILD_WITH_MPI
 
 	virtual k52::parallel::mpi::IMpiTaskResult::shared_ptr performMpi() const;
 
@@ -43,7 +46,11 @@ public:
 
 	virtual void receive(boost::mpi::communicator* communicator);
 
-	#endif
+#else
+
+	k52::parallel::ITaskResult::shared_ptr CountObjectiveFunctionTask::perform() const;
+
+#endif
 
 private:
 

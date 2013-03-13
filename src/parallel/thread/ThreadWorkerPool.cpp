@@ -7,6 +7,8 @@
 
 #include "ThreadWorkerPool.h"
 
+#ifdef BUILD_WITH_BOOST_THREAD
+
 namespace k52
 {
 namespace parallel
@@ -37,3 +39,5 @@ std::vector< ITaskResult::shared_ptr > ThreadWorkerPool::doTasks (
 } /* namespace thread */
 } /* namespace parallel */
 } /* namespace k52 */
+
+#endif

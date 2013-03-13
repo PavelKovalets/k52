@@ -8,6 +8,8 @@
 #ifndef WORKER_H_
 #define WORKER_H_
 
+#ifdef BUILD_WITH_BOOST_THREAD
+
 #include "ThreadSafeQueue.h"
 #include <iostream>
 
@@ -101,5 +103,7 @@ void Worker<Task>::processTasksQueue(ThreadSafeQueue<Task>* tasksToDo, ThreadSaf
 } /* namespace thread */
 } /* namespace parallel */
 } /* namespace k52 */
+
+#endif
 
 #endif /* WORKER_H_ */

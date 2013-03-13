@@ -12,6 +12,8 @@
 #ifndef THREADSAFEQUEUE_H_
 #define THREADSAFEQUEUE_H_
 
+#ifdef BUILD_WITH_BOOST_THREAD
+
 #include <queue>
 #include <boost/thread.hpp>
 
@@ -104,5 +106,7 @@ bool ThreadSafeQueue<Element>::isEmpty() const
 } /* namespace thread */
 } /* namespace parallel */
 } /* namespace k52 */
+
+#endif
 
 #endif /* THREADSAFEQUEUE_H_ */

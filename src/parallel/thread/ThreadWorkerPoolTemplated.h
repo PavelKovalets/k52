@@ -8,6 +8,8 @@
 #ifndef THREADWORKERPOOLTEMPLATED_H_
 #define THREADWORKERPOOLTEMPLATED_H_
 
+#ifdef BUILD_WITH_BOOST_THREAD
+
 #include "Worker.h"
 
 namespace k52
@@ -111,5 +113,7 @@ void ThreadWorkerPoolTemplated<Task>::doTasks(std::queue<Task> tasks)
 } /* namespace thread */
 } /* namespace parallel */
 } /* namespace k52 */
+
+#endif
 
 #endif /* THREADWORKERPOOLTEMPLATED_H_ */

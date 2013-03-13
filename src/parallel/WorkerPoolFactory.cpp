@@ -6,11 +6,16 @@
  */
 
 #include <parallel/WorkerPoolFactory.h>
-#include "thread/ThreadWorkerPool.h"
-#include "mpi/MpiWorkerPool.h"
 
+#ifdef BUILD_WITH_BOOST_THREAD
+#include "thread/ThreadWorkerPool.h"
 using ::k52::parallel::thread::ThreadWorkerPool;
+#endif
+
+#ifdef BUILD_WITH_MPI
+#include "mpi/MpiWorkerPool.h"
 using ::k52::parallel::mpi::MpiWorkerPool;
+#endif
 
 namespace k52
 {
@@ -24,10 +29,10 @@ IWorkerPool::shared_ptr WorkerPoolFactory::createWorkerPool(WorkerPoolType worke
 	switch (workerPoolType)
 	{
 	case kThreadWorkerPool:
-#ifdef BUILD_WITH_MPI
-		throw std::runtime_error("k52::parallel was build with MPI support. Consider using MpiWorkerPool or not define BUILD_WITH_MPI.");
+#ifdef BUILD_WITH_BOOST_THREAD
+		return ThreadWorkerPool::shared_ptr (new ThreadWorkerPool());		
 #else
-		return ThreadWorkerPool::shared_ptr (new ThreadWorkerPool());
+		throw std::runtime_error("k52::parallel was build with boost::thread support. Try define BUILD_WITH_BOOST_THREAD.");
 #endif
 
 
