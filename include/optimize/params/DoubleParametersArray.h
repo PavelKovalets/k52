@@ -17,6 +17,8 @@
 class DoubleParametersArray : public DiscreteParameters
 {
 public:
+	typedef boost::shared_ptr<DoubleParametersArray> shared_ptr;
+
 	DoubleParametersArray(double minValue, double maxValue, double desiredPrecision, size_t numberOfParameters);
 
 	DoubleParametersArray* clone() const;
@@ -36,7 +38,7 @@ public:
     vector<double> getValues() const;
 
 protected:
-    const DoubleParameter* getDoubleParameter(size_t index) const;
+    const DoubleParameter::shared_ptr getDoubleParameter(size_t index) const;
 
 private:
 	double _minValue;

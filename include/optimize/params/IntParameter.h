@@ -17,6 +17,8 @@ Represents simple integer parameter with upper and lower bound.
 class IntParameter: public ConstChromosomeSizeParemeters
 {
 public:
+	typedef boost::shared_ptr<IntParameter> shared_ptr;
+
 	///Creates an instance of IntParameter
 	///@param value - value of IntParameter to be set initially
 	///@param minValue - minimum allowed value of IntParameter, it's lower bound constraint

@@ -19,19 +19,14 @@ DoubleParametersArray::DoubleParametersArray(double minValue, double maxValue, d
 		throw std::logic_error("numberOfParameters<=0!");
 	}
 
-	vector<const IDiscreteParameters*> doubleParameters(numberOfParameters);
+	vector<IDiscreteParameters::shared_ptr> doubleParameters(numberOfParameters);
 
 	for(size_t i=0; i<numberOfParameters; i++)
 	{
-		doubleParameters[i] = new DoubleParameter(0, _minValue, _maxValue, _desiredPrecision);
+		doubleParameters[i] = IDiscreteParameters::shared_ptr (new DoubleParameter(0, _minValue, _maxValue, _desiredPrecision));
 	}
 
 	_doubleParameters.initialize(doubleParameters);
-
-	for(size_t i=0; i<numberOfParameters; i++)
-	{
-		delete doubleParameters[i];
-	}
 }
 
 double DoubleParametersArray::getMaxValue() const
@@ -53,6 +48,7 @@ DoubleParametersArray *DoubleParametersArray::clone() const
 {
 	DoubleParametersArray* clone = new DoubleParametersArray(_minValue, _maxValue, _desiredPrecision, _doubleParameters.getNumberOfParameters());
 
+	//TODO FIX - _doubleParameters should be also cloned
 	clone->_doubleParameters = _doubleParameters;
 
 	return clone;
@@ -74,9 +70,9 @@ vector<double> DoubleParametersArray::getValues() const
 	return values;
 }
 
-const DoubleParameter* DoubleParametersArray::getDoubleParameter(size_t index) const
+const DoubleParameter::shared_ptr DoubleParametersArray::getDoubleParameter(size_t index) const
 {
-	return dynamic_cast<const DoubleParameter*>(_doubleParameters.getParameter(index));
+	return boost::dynamic_pointer_cast<DoubleParameter>(_doubleParameters.getParameter(index));
 }
 
 

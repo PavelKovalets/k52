@@ -5,17 +5,16 @@
  *      Author: feanor
  */
 
-#include <optimize/DiscreteParametersLocalStorage.h>
 #include <optimize/params/CompositeDiscreteParameters.h>
 #include <stdexcept>
 
-void CompositeDiscreteParameters::initialize(vector<const IDiscreteParameters*> parameters)
+void CompositeDiscreteParameters::initialize(vector<IDiscreteParameters::shared_ptr> parameters)
 {
-	_parametersSet = vector<DiscreteParametersLocalStorage>(parameters.size());
+	_parametersSet = vector<IDiscreteParameters::shared_ptr>(parameters.size());
 
 	for(size_t i=0; i<_parametersSet.size(); i++)
 	{
-		_parametersSet[i] = DiscreteParametersLocalStorage(parameters[i]);
+		_parametersSet[i] = IDiscreteParameters::shared_ptr(parameters[i]->clone());
 	}
 
 	this->setConstChromosomeSize( countTotalChromosomeSize() );
@@ -30,29 +29,22 @@ size_t CompositeDiscreteParameters::getNumberOfParameters() const
     return _parametersSet.size();
 }
 
-const IDiscreteParameters* CompositeDiscreteParameters::getParameter(size_t index) const
+const IDiscreteParameters::shared_ptr CompositeDiscreteParameters::getParameter(size_t index) const
 {
 	if(index+1 > _parametersSet.size())
 	{
 		throw std::out_of_range("index in getParameter method is out of range");
 	}
 
-	return _parametersSet[index].getLocalParameters();
+	return _parametersSet[index];
 }
 
 CompositeDiscreteParameters *CompositeDiscreteParameters::clone() const
 {
 	_initializationChecker.initializationCheck();
 
-	vector<const IDiscreteParameters*> parameters (_parametersSet.size());
-
-	for(size_t i=0; i<_parametersSet.size(); i++)
-	{
-		parameters[i] = _parametersSet[i].getLocalParameters();
-	}
-
 	CompositeDiscreteParameters* clone = new CompositeDiscreteParameters();
-	clone->initialize(parameters);
+	clone->initialize(_parametersSet);
 	return clone;
 }
 
@@ -62,7 +54,7 @@ bool CompositeDiscreteParameters::checkConstraints() const
 
 	for(size_t i=0; i<_parametersSet.size(); i++)
 	{
-		if(!_parametersSet[i].getLocalParameters()->checkConstraints())
+		if(!_parametersSet[i]->checkConstraints())
 		{
 			return false;
 		}
@@ -82,11 +74,11 @@ void CompositeDiscreteParameters::setChromosome(vector<bool>::iterator from, vec
 
 	for(size_t i = 0; i < _parametersSet.size(); i++)
 	{
-		size_t parameterChromosomeSize = _parametersSet[i].getChromosomeSize();
+		size_t parameterChromosomeSize = _parametersSet[i]->getChromosomeSize();
 
 		vector<bool>::iterator currentTo = currentFrom + parameterChromosomeSize;
 
-		_parametersSet[i].setChromosome(currentFrom, currentTo);
+		_parametersSet[i]->setChromosome(currentFrom, currentTo);
 
 		currentFrom = currentTo;
 	}
@@ -104,11 +96,11 @@ void CompositeDiscreteParameters::setFromChromosome(vector<bool>::const_iterator
 
 	for(size_t i = 0; i < _parametersSet.size(); i++)
 	{
-		size_t parameterChromosomeSize = _parametersSet[i].getChromosomeSize();
+		size_t parameterChromosomeSize = _parametersSet[i]->getChromosomeSize();
 
 		vector<bool>::const_iterator currentTo = currentFrom + parameterChromosomeSize;
 
-		_parametersSet[i].setFromChromosome(currentFrom, currentTo);
+		_parametersSet[i]->setFromChromosome(currentFrom, currentTo);
 
 		currentFrom = currentTo;
 	}
@@ -119,7 +111,7 @@ size_t CompositeDiscreteParameters::countTotalChromosomeSize() const
 	size_t totalChromosomeSize = 0;
 	for(size_t i=0; i<_parametersSet.size(); i++)
 	{
-		totalChromosomeSize += _parametersSet[i].getChromosomeSize();
+		totalChromosomeSize += _parametersSet[i]->getChromosomeSize();
 	}
 	return totalChromosomeSize;
 }

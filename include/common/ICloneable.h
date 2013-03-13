@@ -8,6 +8,8 @@
 #ifndef ICLONEABLE_H_
 #define ICLONEABLE_H_
 
+#include <boost/shared_ptr.hpp>
+
 namespace k52
 {
 namespace common
@@ -20,6 +22,8 @@ It's implementation allows deep cloning with resources allocation
 class ICloneable
 {
 public:
+	typedef boost::shared_ptr<ICloneable> shared_ptr;
+
 	///Virtual destructor for correct deallocation of resources in derived classes
 	virtual ~ICloneable() {}
 

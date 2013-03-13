@@ -13,6 +13,8 @@
 class ContinuousParametersArray: public IContinuousParameters
 {
 public:
+	typedef boost::shared_ptr<ContinuousParametersArray> shared_ptr;
+
 	ContinuousParametersArray(size_t numberOfParameters);
 
 	virtual void setValues(const std::vector<double>& values);

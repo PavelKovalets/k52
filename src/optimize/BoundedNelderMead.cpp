@@ -8,7 +8,6 @@
 #include "Random.h"
 #include "BoundedNelderMead.h"
 #include <optimize/params/IContinuousParameters.h>
-#include <optimize/ContinuousParametersLocalStorage.h>
 
 #include <math.h>
 #include <stdexcept>
@@ -244,13 +243,15 @@ vector<double> BoundedNelderMead::countObjectiveFunctionValues(const vector< vec
 {
 	size_t N = parametersValues.size();
 	vector<double> objectiveFunctionValues(N);
-	vector<ContinuousParametersLocalStorage> storages(N);
+	vector<IContinuousParameters::shared_ptr> storages(N);
 	vector<const IParameters*> parameters(N);
-	for(int i = 0; i < N; i++)
+	for(size_t i = 0; i < N; i++)
 	{
 		baseParameters->setValues(parametersValues[i]);
-		storages[i] = ContinuousParametersLocalStorage(baseParameters);
-		parameters[i] = storages[i].getLocalParameters();
+		storages[i] = IContinuousParameters::shared_ptr(baseParameters->clone());
+
+		//TODO fix - do not use inner ptr
+		parameters[i] = storages[i].get();
 	}
 	_fitnessCounter.countObjectiveFunctionValues(&objectiveFunctionValues, parameters, functionToOptimize);
 	return objectiveFunctionValues;

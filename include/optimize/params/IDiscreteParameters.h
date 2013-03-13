@@ -13,6 +13,8 @@
 class IDiscreteParameters: public IParameters, IConvertableToChromosome
 {
 public:
+	typedef boost::shared_ptr<IDiscreteParameters> shared_ptr;
+
 	virtual ~IDiscreteParameters() {}
 
 	virtual void setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const = 0;

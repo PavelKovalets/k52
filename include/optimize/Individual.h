@@ -10,7 +10,7 @@
 
 #include <optimize/params/IParameters.h>
 #include <optimize/InitializationChecker.h>
-#include <optimize/DiscreteParametersLocalStorage.h>
+#include <optimize/params/DiscreteParameters.h>
 #include <ostream>
 //TODO make private
 
@@ -114,7 +114,7 @@ public:
 
 private:
     InitializationChecker  _initializationChecker;
-	DiscreteParametersLocalStorage _parametersStorage;
+	IDiscreteParameters::shared_ptr _parametersStorage;
 	vector<bool> _chromosome;
 
 	bool _hasFitness;

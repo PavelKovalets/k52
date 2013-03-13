@@ -52,7 +52,7 @@ int Individual::setRandomChromosome()
 
 		this->setParametersAccordingToChromosome();
 
-		success = this->_parametersStorage.getLocalParameters()->checkConstraints();
+		success = this->_parametersStorage->checkConstraints();
 
 		if(!success)
 		{
@@ -81,7 +81,7 @@ int Individual::mutate(double genMutationProbability)
 
 		this->setParametersAccordingToChromosome();
 
-		success = this->_parametersStorage.getLocalParameters()->checkConstraints();
+		success = this->_parametersStorage->checkConstraints();
 
 		if(!success)
 		{
@@ -104,7 +104,7 @@ bool Individual::crossover(Individual* another)
 	this->setParametersAccordingToChromosome();
 	another->setParametersAccordingToChromosome();
 
-	if( ( !this->_parametersStorage.getLocalParameters()->checkConstraints() ) || ( !another->_parametersStorage.getLocalParameters()->checkConstraints() ) )
+	if( ( !this->_parametersStorage->checkConstraints() ) || ( !another->_parametersStorage->checkConstraints() ) )
 	{
 		return false;
 	}
@@ -118,7 +118,8 @@ const IDiscreteParameters* const Individual::getParametersAccordingToChromosome(
 {
 	_initializationChecker.initializationCheck();
 
-	return _parametersStorage.getLocalParameters();
+	//TODO FIX do not return ptr from shared_ptr - maybe change return type to shared_ptr
+	return _parametersStorage.get();
 }
 
 const vector<bool>& Individual:: getChromosome() const
@@ -131,15 +132,15 @@ void Individual::setParametersAccordingToChromosome()
 {
 	_initializationChecker.initializationCheck();
 
-	_parametersStorage.setFromChromosome(_chromosome.begin(), _chromosome.end());
+	_parametersStorage->setFromChromosome(_chromosome.begin(), _chromosome.end());
 }
 
 void Individual::initialize(const IDiscreteParameters* const parameters)
 {
 	_initializationChecker.setInitialized();
 
-	_parametersStorage = DiscreteParametersLocalStorage(parameters);
-	_chromosome = vector<bool> ( _parametersStorage.getLocalParameters()->getChromosomeSize() );
+	_parametersStorage = IDiscreteParameters::shared_ptr(parameters->clone());
+	_chromosome = vector<bool> ( _parametersStorage->getChromosomeSize() );
 
 	_hasFitness = false;
 	_timesChosenForCrossover = 0;
@@ -167,7 +168,11 @@ Individual& Individual::operator=(const Individual & a)
 {
 	if (this != &a) // protect against invalid self-assignment
 	{
-		_parametersStorage = a._parametersStorage;
+		if(a._parametersStorage != NULL)
+		{
+			_parametersStorage = IDiscreteParameters::shared_ptr( a._parametersStorage->clone() );
+		}
+
 		_chromosome = a._chromosome;
 		_initializationChecker = a._initializationChecker;
 		_fitness = a._fitness;

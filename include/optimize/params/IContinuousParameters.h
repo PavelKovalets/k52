@@ -13,6 +13,8 @@
 class IContinuousParameters: public IParameters
 {
 public:
+	typedef boost::shared_ptr<IContinuousParameters> shared_ptr;
+
 	virtual ~IContinuousParameters() {}
 
 	virtual void setValues(const std::vector<double>& values) = 0;

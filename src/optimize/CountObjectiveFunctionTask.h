@@ -10,7 +10,6 @@
 
 #include <string>
 #include <boost/shared_ptr.hpp>
-#include <optimize/ParametersLocalStorage.h>
 #include <optimize/IObjectiveFunction.h>
 #include <parallel/ITask.h>
 
@@ -48,7 +47,7 @@ public:
 
 #else
 
-	k52::parallel::ITaskResult::shared_ptr CountObjectiveFunctionTask::perform() const;
+	k52::parallel::ITaskResult::shared_ptr perform() const;
 
 #endif
 

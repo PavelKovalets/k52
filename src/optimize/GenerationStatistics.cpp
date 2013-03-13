@@ -16,8 +16,9 @@ GenerationStatistics::GenerationStatistics(double averageFithess,
 		int cacheHits,
 		int invalidChromosomes,
 		list<std::string>* filesToSave,
-		list<IndividualStatistics> allIndividualsStatistics) : _bestParametersStorage(bestParameters)
+		list<IndividualStatistics> allIndividualsStatistics)
 {
+	_bestParametersStorage = IParameters::shared_ptr( bestParameters->clone() );
 	_invalidChromosomes = invalidChromosomes;
 	_cacheHits = cacheHits;
 	_numberOfGeneration = numberOfGeneration;
@@ -41,7 +42,7 @@ GenerationStatistics& GenerationStatistics::operator=(const GenerationStatistics
 {
 	if (this != &a) // protect against invalid self-assignment
 	{
-		_bestParametersStorage = a._bestParametersStorage;
+		_bestParametersStorage = IParameters::shared_ptr( a._bestParametersStorage->clone() );
 		_averageFithess = a._averageFithess;
 		_numberOfGeneration = a._numberOfGeneration;
 		_cacheHits = a._cacheHits;
@@ -66,7 +67,8 @@ size_t GenerationStatistics::getNumberOfGeneration() const
 
 const IParameters* const GenerationStatistics::getBestParameters() const
 {
-	return _bestParametersStorage.getLocalParameters();
+	//TODO FIX do not return inner ptr
+	return _bestParametersStorage.get();
 }
 
 int GenerationStatistics::getCacheHits() const

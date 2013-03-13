@@ -7,7 +7,6 @@
 
 #include "GridSearch.h"
 #include <optimize/params/IContinuousParameters.h>
-#include <optimize/ContinuousParametersLocalStorage.h>
 #include <math.h>
 #include <stdexcept>
 #include <algorithm>
@@ -48,7 +47,7 @@ void GridSearch::optimize(IParameters *parametrsToOptimize, const IObjectiveFunc
 	size_t numberOfParameters = initialParameters.size();
 	size_t totalSize = integerPow(sizePerParameter, numberOfParameters);
 
-	vector<ContinuousParametersLocalStorage> parametersStorages(totalSize);
+	vector<IContinuousParameters::shared_ptr> parametersStorages(totalSize);
 	vector<const IParameters*> parameters(totalSize);
 	//Fill all parameters
 	for(size_t i = 0; i < totalSize; i++)
@@ -62,18 +61,17 @@ void GridSearch::optimize(IParameters *parametrsToOptimize, const IObjectiveFunc
 		}
 
 		continuousParameters->setValues(values);
+		parametersStorages[i] = IContinuousParameters::shared_ptr(continuousParameters->clone());
 
-		ContinuousParametersLocalStorage storage(continuousParameters);
-
-		parametersStorages[i] = storage;
-		parameters[i] = parametersStorages[i].getLocalParameters();
+		//TODO FIX do not return local ptr
+		parameters[i] = parametersStorages[i].get();
 	}
 
 	vector<double> countedValues(totalSize);
 	_fitnessCounter.countObjectiveFunctionValues(&countedValues, parameters, functionToOptimize);
 	size_t bestIndex = distance(countedValues.begin(), max_element(countedValues.begin(), countedValues.end()));
 
-	continuousParameters->setValues( parametersStorages[bestIndex].getLocalParameters()->getValues() );
+	continuousParameters->setValues( parametersStorages[bestIndex]->getValues() );
 
 }
 

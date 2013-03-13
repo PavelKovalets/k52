@@ -10,7 +10,6 @@
 
 #include "ConstChromosomeSizeParemeters.h"
 #include <optimize/InitializationChecker.h>
-#include <optimize/DiscreteParametersLocalStorage.h>
 #include <vector>
 
 class DiscreteParametersLocalStorage;
@@ -18,11 +17,13 @@ class DiscreteParametersLocalStorage;
 class CompositeDiscreteParameters: public ConstChromosomeSizeParemeters
 {
 public:
-	void initialize(vector<const IDiscreteParameters*> parameters);
+	typedef boost::shared_ptr<CompositeDiscreteParameters> shared_ptr;
+
+	void initialize(vector<IDiscreteParameters::shared_ptr> parameters);
 
 	size_t getNumberOfParameters() const;
 
-	const IDiscreteParameters* getParameter(size_t index) const;
+	const IDiscreteParameters::shared_ptr getParameter(size_t index) const;
 
 	CompositeDiscreteParameters* clone() const;
 
@@ -35,7 +36,7 @@ public:
 private:
 	size_t countTotalChromosomeSize() const;
 
-	vector<DiscreteParametersLocalStorage> _parametersSet;
+	vector<IDiscreteParameters::shared_ptr> _parametersSet;
 
 	InitializationChecker _initializationChecker;
 };

@@ -30,6 +30,8 @@ class IParameters
 #endif
 {
 public:
+	typedef boost::shared_ptr<IParameters> shared_ptr;
+
 	///Virtual destructor for correct deallocation of resources in derived classes
 	virtual ~IParameters() {}
 

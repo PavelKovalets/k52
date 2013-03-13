@@ -14,6 +14,8 @@
 class DoubleParameter : public ConstChromosomeSizeParemeters
 {
 public:
+	typedef boost::shared_ptr<DoubleParameter> shared_ptr;
+
 	DoubleParameter(double value, double minValue, double maxValue, double desiredPrecision);
 
 	DoubleParameter(const DoubleParameter& a);

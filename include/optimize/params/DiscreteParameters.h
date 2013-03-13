@@ -13,6 +13,8 @@
 class DiscreteParameters : public IDiscreteParameters
 {
 public:
+	typedef boost::shared_ptr<DiscreteParameters> shared_ptr;
+
 	virtual ~DiscreteParameters() {}
 
 	virtual void setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const = 0;

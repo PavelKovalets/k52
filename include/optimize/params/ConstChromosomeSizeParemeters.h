@@ -19,6 +19,8 @@ Adds method to perform check for this condition.
 class ConstChromosomeSizeParemeters: public DiscreteParameters
 {
 public:
+	typedef boost::shared_ptr<ConstChromosomeSizeParemeters> shared_ptr;
+
 	ConstChromosomeSizeParemeters();
 
 	size_t getChromosomeSize() const;

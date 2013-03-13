@@ -8,7 +8,6 @@
 #ifndef GENERATIONSTATISTICS_H_
 #define GENERATIONSTATISTICS_H_
 
-#include "ParametersLocalStorage.h"
 #include <list>
 #include <string>
 #include <optimize/Individual.h>
@@ -80,7 +79,7 @@ private:
 	size_t _numberOfGeneration;
 	double _averageFithess;
 	double _bestFitness;
-	ParametersLocalStorage _bestParametersStorage;
+	IParameters::shared_ptr _bestParametersStorage;
 	list<IndividualStatistics> _allIndividualsStatistics;
 	list<std::string>* _filesToSave;
 };
