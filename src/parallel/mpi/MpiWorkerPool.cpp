@@ -9,7 +9,6 @@
 #include <boost/mpi.hpp>
 #include <boost/mpi/request.hpp>
 #include <boost/serialization/vector.hpp>
-#include <list>
 #include "MpiWorkerPool.h"
 #include <parallel/mpi/Constants.h>
 #include <parallel/mpi/IdentifyableObjectsManager.h>
@@ -27,7 +26,7 @@ struct ResultExpectation
 	boost::mpi::request request;
 };
 
-ResultExpectation waitAndPopNextExpectation(std::list<ResultExpectation>& resultExpectations)
+ResultExpectation MpiWorkerPool::waitAndPopNextExpectation(std::list<ResultExpectation>& resultExpectations)
 {
 	while(true)
 	{
@@ -41,6 +40,9 @@ ResultExpectation waitAndPopNextExpectation(std::list<ResultExpectation>& result
 			{
 				ResultExpectation receivedExpectation = *it;
 				resultExpectations.erase(it);
+
+				_statisticsAggregator.registerCount(receivedExpectation.workerRank);
+
 				return receivedExpectation;
 			}
 		}
@@ -63,26 +65,6 @@ void MpiWorkerPool::finalizeWorkers()
 	}
 
 	_wasFinalized = true;
-}
-
-std::vector< WorkerStatistics > MpiWorkerPool::getStatistics()
-{
-	if(_wasFinalized)
-	{
-		throw std::logic_error("Statistics cannot be acquired after workers finalization.");
-	}
-
-	checkIfServer();
-
-	std::vector< WorkerStatistics > statistics( _communicator->size() - 1 );
-
-	for(int i=1; i<_communicator->size(); i++)
-	{
-		_communicator->send(i, Constants::CommonTag, Constants::GetStatisticsTaskId);
-		_communicator->recv(i, Constants::CommonTag, statistics[i - 1]);
-	}
-
-	return statistics;
 }
 
 MpiWorkerPool::MpiWorkerPool()
@@ -111,13 +93,6 @@ void MpiWorkerPool::runWorkerLoop()
 
 		_communicator->recv(Constants::ServerRank, Constants::CommonTag, taskId);
 
-		if(taskId == Constants::GetStatisticsTaskId)
-		{
-			WorkerStatistics statistics(counted, errors, _communicator->rank());
-			_communicator->send(Constants::ServerRank, Constants::CommonTag, statistics);
-			continue;
-		}
-
 		if(taskId == Constants::EndOfWorkTaskId)
 		{
 			clean();
@@ -136,6 +111,10 @@ void MpiWorkerPool::runWorkerLoop()
 	}
 }
 
+std::vector< WorkerStatistics > MpiWorkerPool::getStatistics()
+{
+	return _statisticsAggregator.getStatistics();
+}
 
 IMpiTask::shared_ptr MpiWorkerPool::createTask(std::string taskId)
 {

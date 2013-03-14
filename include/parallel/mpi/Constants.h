@@ -27,8 +27,6 @@ namespace Constants
 	//TODO do not use class constants
 	static const std::string EndOfWorkTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
 
-	static const std::string GetStatisticsTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldSendItsStatistics";
-
 } /* Constants */
 } /* mpi */
 } /* parallel */

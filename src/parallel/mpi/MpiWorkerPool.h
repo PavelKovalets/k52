@@ -9,12 +9,14 @@
 #define MPIWORKERPOOL_H_
 
 #include <vector>
+#include <list>
 #include <boost/shared_ptr.hpp>
-#include <parallel/mpi/WorkerStatistics.h>
 #include <parallel/mpi/IMpiTask.h>
 #include <parallel/mpi/IMpiTask.h>
-#include <parallel/mpi/BoostDeclaration.h>
+#include <parallel/mpi/boost_mpi_declaration.h>
 #include <parallel/IWorkerPool.h>
+
+#include "../StatisticsAggregator.h"
 
 namespace k52
 {
@@ -34,12 +36,13 @@ public:
 	~MpiWorkerPool();
 
 	virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks);
-	std::vector< WorkerStatistics > getStatistics();
+	virtual std::vector< WorkerStatistics > getStatistics();
 
 private:
 	boost::mpi::environment* _env;
 	boost::mpi::communicator* _communicator;
 	bool _wasFinalized;
+	StatisticsAggregator _statisticsAggregator;
 
 	void finalizeWorkers();
 	void clean();
@@ -48,6 +51,7 @@ private:
 	void runWorkerLoop();
 	const IMpiTask* getMpiTask(const ITask* task);
 	ResultExpectation sendTask(const IMpiTask* task, int currentWorkerRank, ITaskResult::shared_ptr* resultToSet);
+	ResultExpectation waitAndPopNextExpectation(std::list<ResultExpectation>& resultExpectations);
 	IMpiTask::shared_ptr createTask(std::string taskId);
 
 	MpiWorkerPool(const MpiWorkerPool&);

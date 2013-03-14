@@ -8,7 +8,7 @@
 #ifndef ITRANSFERABLE_H_
 #define ITRANSFERABLE_H_
 
-#include <parallel/mpi/BoostDeclaration.h>
+#include <parallel/mpi/boost_mpi_declaration.h>
 
 namespace k52
 {

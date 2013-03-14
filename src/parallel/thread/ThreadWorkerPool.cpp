@@ -36,6 +36,11 @@ std::vector< ITaskResult::shared_ptr > ThreadWorkerPool::doTasks (
 	return results;
 }
 
+virtual std::vector< WorkerStatistics > getStatistics()
+{
+	throw std::logic_error("getStatistics for ThreadWorkerPool is not yet implemented");
+}
+
 } /* namespace thread */
 } /* namespace parallel */
 } /* namespace k52 */

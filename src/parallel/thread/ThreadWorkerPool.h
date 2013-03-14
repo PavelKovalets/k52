@@ -32,6 +32,8 @@ public:
 			const std::vector<const ITask*>& tasks
 			);
 
+	virtual std::vector< WorkerStatistics > getStatistics();
+
 private:
 	ThreadWorkerPoolTemplated<ThreadWorkerPoolTask> _workerPool;
 

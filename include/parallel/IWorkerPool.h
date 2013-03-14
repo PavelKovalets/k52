@@ -10,17 +10,14 @@
 
 #include <parallel/ITask.h>
 #include <parallel/ITaskResult.h>
+#include <parallel/WorkerStatistics.h>
 #include <vector>
 
-//TODO implement template?
-//#include <boost/static_assert.hpp>
-//#include <boost/type_traits/is_base_of.hpp>
 namespace k52
 {
 namespace parallel
 {
 
-//template<class TTask>
 class IWorkerPool
 {
 public:
@@ -28,10 +25,9 @@ public:
 
 	virtual ~IWorkerPool(){}
 
-	virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks) = 0;
+	virtual std::vector< WorkerStatistics > getStatistics() = 0;
 
-	//If you see an error here that means your TTask does not implement ITask
-	//BOOST_STATIC_ASSERT((boost::is_base_of<ITask, TTask>::value));
+	virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks) = 0;
 };
 
 } /* parallel */

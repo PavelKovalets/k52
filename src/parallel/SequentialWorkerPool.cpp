@@ -12,9 +12,17 @@ std::vector< ITaskResult::shared_ptr > SequentialWorkerPool::doTasks (const std:
 	for(int i = 0; i < tasks.size(); i++)
 	{
 		results[i] = tasks[i]->perform();
+		_statistics.increaseCounted();
 	}
 
 	return results;
+}
+
+std::vector< WorkerStatistics > SequentialWorkerPool::getStatistics()
+{
+	std::vector< WorkerStatistics > statistics(1);
+	statistics[0] = _statistics;
+	return statistics;
 }
 
 } /* parallel */

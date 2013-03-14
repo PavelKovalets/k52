@@ -14,6 +14,11 @@ public:
 	typedef boost::shared_ptr<SequentialWorkerPool> shared_ptr;
 
 	virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks);
+
+	virtual std::vector< WorkerStatistics > getStatistics();
+
+private:
+	WorkerStatistics _statistics;
 };
 
 } /* parallel */

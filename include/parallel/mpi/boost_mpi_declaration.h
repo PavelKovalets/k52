@@ -1,5 +1,5 @@
-#ifndef BOOSTDECLARATION_H_
-#define BOOSTDECLARATION_H_
+#ifndef BOOSTMPIDECLARATION_H_
+#define BOOSTMPIDECLARATION_H_
 
 namespace boost
 {
@@ -16,4 +16,4 @@ namespace boost
 	}
 }
 
-#endif /* BOOSTDECLARATION_H_ */
+#endif /* BOOSTMPIDECLARATION_H_ */

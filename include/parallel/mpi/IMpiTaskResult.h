@@ -9,7 +9,7 @@
 #define IMPITASKRESULT_H_
 
 #include <parallel/ITaskResult.h>
-#include <parallel/mpi/BoostDeclaration.h>
+#include <parallel/mpi/boost_mpi_declaration.h>
 
 namespace k52
 {
