@@ -12,6 +12,14 @@
 #include <optimize/InitializationChecker.h>
 #include <optimize/params/DiscreteParameters.h>
 #include <ostream>
+
+using ::k52::optimize::params::IDiscreteParameters;
+
+namespace k52
+{
+namespace optimize
+{
+
 //TODO make private
 
 /**
@@ -133,6 +141,7 @@ private:
 	friend std::istream& operator>> (std::istream& in, Individual& individual);
 };
 
-
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* INDIVIDUAL_H_ */

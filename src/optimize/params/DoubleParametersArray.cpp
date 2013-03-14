@@ -8,6 +8,13 @@
 #include <optimize/params/DoubleParametersArray.h>
 #include <stdexcept>
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 DoubleParametersArray::DoubleParametersArray(double minValue, double maxValue, double desiredPrecision, size_t numberOfParameters)
 {
 	_minValue = minValue;
@@ -48,10 +55,7 @@ size_t DoubleParametersArray::getNumberOfParameters() const
 DoubleParametersArray *DoubleParametersArray::clone() const
 {
 	DoubleParametersArray* clone = new DoubleParametersArray(_minValue, _maxValue, _desiredPrecision, _doubleParameters->getNumberOfParameters());
-
-	//TODO FIX - _doubleParameters should be also cloned
 	clone->_doubleParameters = CompositeDiscreteParameters::shared_ptr(_doubleParameters->clone());
-
 	return clone;
 }
 
@@ -96,3 +100,7 @@ double DoubleParametersArray::getActualPrecision() const
 {
 	return getDoubleParameter(0)->getActualPrecision();
 }
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */

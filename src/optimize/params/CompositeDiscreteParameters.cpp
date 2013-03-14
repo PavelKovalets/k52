@@ -8,6 +8,13 @@
 #include <optimize/params/CompositeDiscreteParameters.h>
 #include <stdexcept>
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 void CompositeDiscreteParameters::initialize(vector<IDiscreteParameters::shared_ptr> parameters)
 {
 	_parametersSet = vector<IDiscreteParameters::shared_ptr>(parameters.size());
@@ -115,4 +122,8 @@ size_t CompositeDiscreteParameters::countTotalChromosomeSize() const
 	}
 	return totalChromosomeSize;
 }
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 

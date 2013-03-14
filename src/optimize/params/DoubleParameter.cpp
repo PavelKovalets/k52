@@ -10,6 +10,13 @@
 #include <math.h>
 #include <stdexcept>
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 double DoubleParameter::getValue() const
 {
     return _value;
@@ -156,3 +163,7 @@ int DoubleParameter::getMaxInt( double minValue, double maxValue, double precisi
 	}
 	return maxInt;
 }
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */

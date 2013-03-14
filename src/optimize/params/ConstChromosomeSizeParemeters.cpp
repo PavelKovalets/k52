@@ -8,6 +8,13 @@
 #include <optimize/params/ConstChromosomeSizeParemeters.h>
 #include <stdexcept>
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 ConstChromosomeSizeParemeters::ConstChromosomeSizeParemeters()
 {
 	_wasChromosomeSizeSet = false;
@@ -52,3 +59,6 @@ void ConstChromosomeSizeParemeters::checkIfChromosomeWasSet() const
 	}
 }
 
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */

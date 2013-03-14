@@ -10,6 +10,11 @@
 
 #include <optimize/IOptimizer.h>
 
+namespace k52
+{
+namespace optimize
+{
+
 /**
 @class BruteForceSearch
 Performs optimization via brute force search.
@@ -34,4 +39,7 @@ private:
 			double *bestFitness);
 };
 */
+
+}/* namespace optimize */
+}/* namespace k52 */
 #endif /* BRUTEFORCESEARCH_H_ */

@@ -12,6 +12,12 @@
 #include <math.h>
 #include <stdexcept>
 #include <algorithm>
+#include <fstream>
+
+namespace k52
+{
+namespace optimize
+{
 
 BoundedNelderMead::BoundedNelderMead(double l, double precision, double lowerBound, double upperBound, int numberOfThreads)
 	: _fitnessCounter(numberOfThreads, false)
@@ -364,8 +370,6 @@ void BoundedNelderMead::correctByProjectingToBounds(vector<double>* point)
 	}
 }
 
-#include <fstream>
-
 void BoundedNelderMead::outputPolygon(const vector< vector<double> >& polygon)
 {
 	std::ofstream polygonOutput("polygon.plot", std::ofstream::app);
@@ -381,3 +385,5 @@ void BoundedNelderMead::outputPolygon(const vector< vector<double> >& polygon)
 	}
 }
 
+}/* namespace optimize */
+}/* namespace k52 */

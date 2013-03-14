@@ -6,6 +6,12 @@
  */
 
 #include "BruteForceSearch.h"
+
+namespace k52
+{
+namespace optimize
+{
+
 /*
 void BruteForceSearch::optimize(IParameters* parametrsToOptimize, const IObjectiveFunction &functionToOptimize)
 {
@@ -82,3 +88,5 @@ vector<bool> BruteForceSearch::runThroughAllBits(
 }
 */
 
+}/* namespace optimize */
+}/* namespace k52 */

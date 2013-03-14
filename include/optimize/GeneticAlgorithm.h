@@ -14,6 +14,11 @@
 #include "GenerationStatistics.h"
 #include <boost/shared_ptr.hpp>
 
+namespace k52
+{
+namespace optimize
+{
+
 class ObjectiveFunctionCounter;
 
 typedef void (*NextGenerationReadyCallback)(GenerationStatistics);
@@ -84,5 +89,8 @@ private:
 	NextGenerationReadyCallback _callbackFunction;
 	boost::shared_ptr<ObjectiveFunctionCounter> _fitnessCounter;
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* GENETICALGORITHM_H_ */

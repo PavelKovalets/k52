@@ -10,6 +10,13 @@
 
 #include "IParameters.h"
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 class IDiscreteParameters: public IParameters, IConvertableToChromosome
 {
 public:
@@ -31,5 +38,9 @@ public:
 	virtual void receive(boost::mpi::communicator* communicator) = 0;
 #endif
 };
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* IDISCRETEPARAMETERS_H_ */

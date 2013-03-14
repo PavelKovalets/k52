@@ -10,6 +10,13 @@
 
 #include <optimize/params/IDiscreteParameters.h>
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 class DiscreteParameters : public IDiscreteParameters
 {
 public:
@@ -31,5 +38,9 @@ public:
 	virtual void receive(boost::mpi::communicator* communicator);
 #endif
 };
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* DISCRETEPARAMETERS_H_ */

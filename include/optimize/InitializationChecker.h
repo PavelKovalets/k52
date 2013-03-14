@@ -8,6 +8,11 @@
 #ifndef INITIALIZATIONCHECKER_H_
 #define INITIALIZATIONCHECKER_H_
 
+namespace k52
+{
+namespace optimize
+{
+
 //TODO make private or common
 
 /**
@@ -33,5 +38,8 @@ private:
 
 	bool _wasInitialized;
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* INITIALIZATIONCHECKER_H_ */

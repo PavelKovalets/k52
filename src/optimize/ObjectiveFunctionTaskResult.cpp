@@ -7,6 +7,18 @@
 
 #include "ObjectiveFunctionTaskResult.h"
 
+#ifdef BUILD_WITH_MPI
+
+#include <boost/mpi.hpp>
+#include <parallel/mpi/Constants.h>
+
+#endif
+
+namespace k52
+{
+namespace optimize
+{
+
 void ObjectiveFunctionTaskResult::setObjectiveFunctionValue(double objectiveFunctionValue)
 {
 	_objectiveFunctionValue = objectiveFunctionValue;
@@ -19,9 +31,6 @@ double ObjectiveFunctionTaskResult::getObjectiveFunctionValue() const
 
 #ifdef BUILD_WITH_MPI
 
-#include <boost/mpi.hpp>
-#include <parallel/mpi/Constants.h>
-
 boost::mpi::request ObjectiveFunctionTaskResult::ireceive(boost::mpi::communicator* communicator, int source)
 {
 	return communicator->irecv(source, k52::parallel::mpi::Constants::CommonTag, _objectiveFunctionValue);
@@ -33,3 +42,6 @@ void ObjectiveFunctionTaskResult::send(boost::mpi::communicator* communicator)
 }
 
 #endif
+
+}/* namespace optimize */
+}/* namespace k52 */

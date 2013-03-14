@@ -15,6 +15,13 @@
 #include <parallel/mpi/ITransferable.h>
 #endif
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 /**
 @class IParameters
 Encapsulates optimization parameters and constraints logic.
@@ -49,5 +56,9 @@ public:
 	virtual void receive(boost::mpi::communicator* communicator) = 0;
 #endif
 };
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* IPARAMETERS_H_ */

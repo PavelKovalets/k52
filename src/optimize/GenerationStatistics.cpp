@@ -9,6 +9,11 @@
 #include <optimize/GenerationStatistics.h>
 #include <cstddef>
 
+namespace k52
+{
+namespace optimize
+{
+
 GenerationStatistics::GenerationStatistics(double averageFithess,
 		const IParameters* const bestParameters,
 		double bestFitness,
@@ -91,12 +96,5 @@ list<IndividualStatistics> GenerationStatistics::getAllIndividualsStatistics() c
 	return _allIndividualsStatistics;
 }
 
-
-
-
-
-
-
-
-
-
+}/* namespace optimize */
+}/* namespace k52 */

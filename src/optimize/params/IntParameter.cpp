@@ -8,6 +8,13 @@
 #include <optimize/params/IntParameter.h>
 #include "../Random.h"
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 IntParameter* IntParameter::clone() const
 {
 	IntParameter* clone = new IntParameter(_value, _minValue, _maxValue);
@@ -128,3 +135,6 @@ int IntParameter::getMinValue() const
 	return _minValue;
 }
 
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */

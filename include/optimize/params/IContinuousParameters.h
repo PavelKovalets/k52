@@ -10,6 +10,13 @@
 
 #include "IParameters.h"
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 class IContinuousParameters: public IParameters
 {
 public:
@@ -25,5 +32,9 @@ public:
 
 	virtual IContinuousParameters* clone() const = 0;
 };
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* ICONTINUOUSPARAMETERS_H_ */

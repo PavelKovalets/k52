@@ -12,6 +12,14 @@
 #include <optimize/params/IContinuousParameters.h>
 #include "ObjectiveFunctionCounter.h"
 
+using ::k52::optimize::params::IParameters;
+using ::k52::optimize::params::IContinuousParameters;
+
+namespace k52
+{
+namespace optimize
+{
+
 class BoundedNelderMead: public IOptimizer
 {
 public:
@@ -58,5 +66,8 @@ private:
 	ObjectiveFunctionCounter _fitnessCounter;
 
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* BOUNDEDNELDERMEAD_H_ */

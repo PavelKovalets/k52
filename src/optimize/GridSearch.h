@@ -11,6 +11,13 @@
 #include <optimize/IOptimizer.h>
 #include "ObjectiveFunctionCounter.h"
 
+using ::k52::optimize::params::IParameters;
+
+namespace k52
+{
+namespace optimize
+{
+
 class GridSearch: public IOptimizer
 {
 public:
@@ -28,5 +35,8 @@ private:
 
 	ObjectiveFunctionCounter _fitnessCounter;
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* GRIDSEARCH_H_ */

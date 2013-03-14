@@ -10,6 +10,11 @@
 
 #include <vector>
 
+namespace k52
+{
+namespace optimize
+{
+
 class Mutator
 {
 public:
@@ -31,5 +36,8 @@ private:
 
 	Mutator();
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* MUTATOR_H_ */

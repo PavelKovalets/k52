@@ -12,6 +12,11 @@
 
 using ::k52::parallel::WorkerPoolFactory;
 
+namespace k52
+{
+namespace optimize
+{
+
 ObjectiveFunctionCounter::ObjectiveFunctionCounter(int nuberOfWorkers, bool useValueCaching)
 {
 	_cacheHits = 0;
@@ -220,3 +225,5 @@ void ObjectiveFunctionCounter::resetCacheHits()
 	_cacheHits = 0;
 }
 
+}/* namespace optimize */
+}/* namespace k52 */

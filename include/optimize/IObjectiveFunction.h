@@ -13,6 +13,13 @@
 #include <common/ICloneable.h>
 #endif
 
+using ::k52::optimize::params::IParameters;
+
+namespace k52
+{
+namespace optimize
+{
+
 /**
 @class IObjectiveFunction
 Functor that counts objective function value
@@ -30,5 +37,8 @@ public:
 	///@param parameters - parameters to count objective function value for
 	virtual double operator () (const IParameters* const parameters) const = 0;
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* IOBJECTIVEFUNCTION_H_ */

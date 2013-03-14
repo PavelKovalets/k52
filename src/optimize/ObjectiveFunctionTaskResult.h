@@ -14,6 +14,11 @@
 #include <parallel/mpi/IMpiTaskResult.h>
 #endif
 
+namespace k52
+{
+namespace optimize
+{
+
 class ObjectiveFunctionTaskResult: 
 
 #ifdef BUILD_WITH_MPI
@@ -43,6 +48,7 @@ private:
 	double _objectiveFunctionValue;
 };
 
-
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* OBJECTIVEFUNCTIONTASKRESULT_H_ */

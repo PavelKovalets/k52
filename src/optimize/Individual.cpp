@@ -15,6 +15,11 @@
 #include <ostream>
 #include <istream>
 
+namespace k52
+{
+namespace optimize
+{
+
 void Individual::boolCrossover(vector<bool> *first, vector<bool> *second)
 {
 	if(first->size() != second->size())
@@ -286,4 +291,5 @@ std::istream& operator>> (std::istream& in, Individual& individual)
 	return in;
 }
 
-
+}/* namespace optimize */
+}/* namespace k52 */

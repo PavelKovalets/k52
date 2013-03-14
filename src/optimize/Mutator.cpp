@@ -10,6 +10,11 @@
 #include <math.h>
 #include <stdexcept>
 
+namespace k52
+{
+namespace optimize
+{
+
 Mutator& Mutator::Instance()
 {
 	static Mutator self;
@@ -73,3 +78,6 @@ void Mutator::setGensToSkipNow()
 	_gensToSkipNow = Random::Instance().getUniformlyDistributedDiscreteRandomQuantity(0,_maxNumberOfSkippedGens);
 	_currentlySkippedGens = 0;
 }
+
+}/* namespace optimize */
+}/* namespace k52 */

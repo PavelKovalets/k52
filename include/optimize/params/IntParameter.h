@@ -10,6 +10,13 @@
 
 #include "ConstChromosomeSizeParemeters.h"
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 /**
 @class IntParameter
 Represents simple integer parameter with upper and lower bound.
@@ -52,5 +59,9 @@ private:
 	static void setBoolVectorFromInt(vector<bool>::iterator from, vector<bool>::iterator to, int value);
 
 };
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* INTPARAMETER_H_ */

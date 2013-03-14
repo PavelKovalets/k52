@@ -20,6 +20,11 @@
 
 using ::std::vector;
 
+namespace k52
+{
+namespace optimize
+{
+
 GeneticAlgorithm::GeneticAlgorithm(
 		int populationSize,
 		int elitismPairs,
@@ -326,3 +331,5 @@ void GeneticAlgorithm::gatherAllIndividualsStatistics()
 	}
 }
 
+}/* namespace optimize */
+}/* namespace k52 */

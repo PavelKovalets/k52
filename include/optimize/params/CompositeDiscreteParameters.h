@@ -12,6 +12,13 @@
 #include <optimize/InitializationChecker.h>
 #include <vector>
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 class DiscreteParametersLocalStorage;
 
 class CompositeDiscreteParameters: public ConstChromosomeSizeParemeters
@@ -40,5 +47,9 @@ private:
 
 	InitializationChecker _initializationChecker;
 };
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* COMPOSITEDISCRETEPARAMETERS_H_ */

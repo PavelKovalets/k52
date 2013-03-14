@@ -10,6 +10,13 @@
 
 #include <optimize/IObjectiveFunction.h>
 
+using ::k52::optimize::params::IParameters;
+
+namespace k52
+{
+namespace optimize
+{
+
 /**
 @class IOptimizer
 Provides optimization of certain objective function
@@ -27,5 +34,9 @@ public:
 	///@param functionToOptimize - the target function to be optimized for maximum
 	virtual void optimize(IParameters* parametrsToOptimize, const IObjectiveFunction &functionToOptimize) = 0;
 };
+
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* IOPTIMIZER_H_ */

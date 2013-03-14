@@ -12,6 +12,13 @@
 #include <string>
 #include <optimize/Individual.h>
 
+using ::k52::optimize::params::IParameters;
+
+namespace k52
+{
+namespace optimize
+{
+
 class IndividualStatistics;
 /**
 @class GenerationStatistics
@@ -83,5 +90,8 @@ private:
 	list<IndividualStatistics> _allIndividualsStatistics;
 	list<std::string>* _filesToSave;
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* GENERATIONSTATISTICS_H_ */

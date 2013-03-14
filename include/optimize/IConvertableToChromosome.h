@@ -9,8 +9,14 @@
 #define ICONVERTABLETOCHROMOSOME_H_
 
 #include <vector>
+
 using ::std::vector;
 using ::std::size_t;
+
+namespace k52
+{
+namespace optimize
+{
 
 /**
 @class IConvertableToChromosome
@@ -39,5 +45,8 @@ public:
 	///ATTENTION! Value returned by this function must be constant during execution.
 	virtual size_t getChromosomeSize() const = 0;
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* ICONVERTABLETOCHROMOSOME_H_ */

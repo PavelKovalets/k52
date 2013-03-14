@@ -13,6 +13,12 @@
 #include "CompositeDiscreteParameters.h"
 #include "ConstChromosomeSizeParemeters.h"
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
 
 class DoubleParametersArray : public DiscreteParameters
 {
@@ -47,5 +53,9 @@ private:
 
 	CompositeDiscreteParameters::shared_ptr _doubleParameters;
 };
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* DOUBLEPARAMETERSARRAY_H_ */

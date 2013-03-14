@@ -14,6 +14,15 @@
 #include <parallel/mpi/Constants.h>
 #include <parallel/mpi/IdentifyableObjectsManager.h>
 
+#endif
+
+namespace k52
+{
+namespace optimize
+{
+
+#ifdef BUILD_WITH_MPI
+
 k52::parallel::mpi::IMpiTaskResult::shared_ptr CountObjectiveFunctionTask::createEmptyResult() const
 {
 	return ObjectiveFunctionTaskResult::shared_ptr ( new ObjectiveFunctionTaskResult() );
@@ -78,3 +87,6 @@ CountObjectiveFunctionTask::CountObjectiveFunctionTask(
 		const IParameters*  parameters,
 		const IObjectiveFunction* functionToOptimize)
 			: _parameters(parameters), _functionToOptimize(functionToOptimize) {}
+
+}/* namespace optimize */
+}/* namespace k52 */

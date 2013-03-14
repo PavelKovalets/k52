@@ -10,6 +10,13 @@
 
 #include "DiscreteParameters.h"
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 /**
 @class ConstChromosomeSizeParemeters
 Represents paremeters, witch total chromosome size
@@ -52,5 +59,9 @@ private:
 	bool _wasChromosomeSizeSet;
 	size_t _chromosomeSize;
 };
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* CONSTCHROMOSOMESIZEPAREMETERS_H_ */

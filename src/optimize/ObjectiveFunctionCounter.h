@@ -17,6 +17,11 @@
 #include <vector>
 #include <queue>
 
+namespace k52
+{
+namespace optimize
+{
+
 class StoredValue
 {
 public:
@@ -82,5 +87,8 @@ private:
 	int _cacheHits;
 	int _objectiveFunctionCounts;
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* OBJECTIVEFUNCTIONCOUNTER_H_ */

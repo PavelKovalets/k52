@@ -18,6 +18,11 @@
 #include <parallel/mpi/IMpiTaskResult.h>
 #endif
 
+namespace k52
+{
+namespace optimize
+{
+
 class CountObjectiveFunctionTask
 #ifdef BUILD_WITH_MPI
 	: public k52::parallel::mpi::IMpiTask
@@ -57,5 +62,8 @@ private:
 	const IObjectiveFunction* _functionToOptimize;
 	const IParameters*  _parameters;
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* COUNTOBJECTIVEFUNCTIONTASK_H_ */

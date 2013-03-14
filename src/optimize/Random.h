@@ -10,6 +10,11 @@
 
 #include <vector>
 
+namespace k52
+{
+namespace optimize
+{
+
 /**
 @class Random
 Provides methods to generate random quantities
@@ -53,5 +58,8 @@ private:
 	int _nextBitInBoolBase;
 	int _maxBitInBoolBase;
 };
+
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* RANDOM_H_ */

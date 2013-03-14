@@ -11,6 +11,13 @@
 #include <stdexcept>
 #include <algorithm>
 
+using ::k52::optimize::params::IContinuousParameters;
+
+namespace k52
+{
+namespace optimize
+{
+
 GridSearch::GridSearch(double precision, double lowerBound, double upperBound, int numberOfThreads)
 	: _fitnessCounter(numberOfThreads, false)
 {
@@ -75,3 +82,5 @@ void GridSearch::optimize(IParameters *parametrsToOptimize, const IObjectiveFunc
 
 }
 
+}/* namespace optimize */
+}/* namespace k52 */

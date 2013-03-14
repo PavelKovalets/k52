@@ -11,6 +11,13 @@
 #include "IntParameter.h"
 #include "ConstChromosomeSizeParemeters.h"
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 class DoubleParameter : public ConstChromosomeSizeParemeters
 {
 public:
@@ -53,5 +60,9 @@ private:
 
 	IntParameter* _baseIntParameter;
 };
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* DOUBLEPARAMETER_H_ */

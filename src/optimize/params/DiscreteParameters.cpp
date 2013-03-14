@@ -12,6 +12,13 @@
 #include <boost/mpi.hpp>
 #include <boost/serialization/vector.hpp>
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 void DiscreteParameters::send(boost::mpi::communicator* communicator, int target) const
 {
 	//Discrete parameters are considered to be completely represented by theirs chromosome
@@ -28,5 +35,9 @@ void DiscreteParameters::receive(boost::mpi::communicator* communicator)
 	communicator->recv(k52::parallel::mpi::Constants::ServerRank, k52::parallel::mpi::Constants::CommonTag, intermediateChromosome);
 	this->setFromChromosome(intermediateChromosome.begin(), intermediateChromosome.end());
 }
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif

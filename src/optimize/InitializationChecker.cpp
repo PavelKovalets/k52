@@ -8,6 +8,11 @@
 #include <optimize/InitializationChecker.h>
 #include <stdexcept>
 
+namespace k52
+{
+namespace optimize
+{
+
 InitializationChecker::InitializationChecker()
 {
 	_wasInitialized = false;
@@ -32,3 +37,6 @@ void InitializationChecker::setInitialized()
 		throw std::logic_error("Another initialization happened");
 	}
 }
+
+}/* namespace optimize */
+}/* namespace k52 */

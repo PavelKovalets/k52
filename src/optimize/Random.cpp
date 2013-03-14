@@ -11,6 +11,11 @@
 #include <time.h>
 #include <cmath>
 
+namespace k52
+{
+namespace optimize
+{
+
 Random& Random::Instance()
 {
 	static Random self;
@@ -83,4 +88,7 @@ int Random::getUniformlyDistributedDiscreteRandomQuantity(int minValue, int maxV
 {
 	return rand() % (maxValue-minValue+1) + minValue;
 }
+
+}/* namespace optimize */
+}/* namespace k52 */
 

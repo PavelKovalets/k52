@@ -10,6 +10,13 @@
 
 #include <optimize/params/IContinuousParameters.h>
 
+namespace k52
+{
+namespace optimize
+{
+namespace params
+{
+
 class ContinuousParametersArray: public IContinuousParameters
 {
 public:
@@ -36,5 +43,9 @@ public:
 private:
 	std::vector<double> _values;
 };
+
+}/* namespace params */
+}/* namespace optimize */
+}/* namespace k52 */
 
 #endif /* CONTINUOUSPARAMETERSARRAY_H_ */
