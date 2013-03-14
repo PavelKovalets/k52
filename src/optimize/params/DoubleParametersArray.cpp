@@ -26,7 +26,8 @@ DoubleParametersArray::DoubleParametersArray(double minValue, double maxValue, d
 		doubleParameters[i] = IDiscreteParameters::shared_ptr (new DoubleParameter(0, _minValue, _maxValue, _desiredPrecision));
 	}
 
-	_doubleParameters.initialize(doubleParameters);
+	_doubleParameters = CompositeDiscreteParameters::shared_ptr(new CompositeDiscreteParameters());
+	_doubleParameters->initialize(doubleParameters);
 }
 
 double DoubleParametersArray::getMaxValue() const
@@ -41,29 +42,29 @@ double DoubleParametersArray::getMinValue() const
 
 size_t DoubleParametersArray::getNumberOfParameters() const
 {
-    return _doubleParameters.getNumberOfParameters();
+    return _doubleParameters->getNumberOfParameters();
 }
 
 DoubleParametersArray *DoubleParametersArray::clone() const
 {
-	DoubleParametersArray* clone = new DoubleParametersArray(_minValue, _maxValue, _desiredPrecision, _doubleParameters.getNumberOfParameters());
+	DoubleParametersArray* clone = new DoubleParametersArray(_minValue, _maxValue, _desiredPrecision, _doubleParameters->getNumberOfParameters());
 
 	//TODO FIX - _doubleParameters should be also cloned
-	clone->_doubleParameters = _doubleParameters;
+	clone->_doubleParameters = CompositeDiscreteParameters::shared_ptr(_doubleParameters->clone());
 
 	return clone;
 }
 
 size_t DoubleParametersArray::getChromosomeSize() const
 {
-	return _doubleParameters.getChromosomeSize();
+	return _doubleParameters->getChromosomeSize();
 }
 
 vector<double> DoubleParametersArray::getValues() const
 {
-	vector<double> values(_doubleParameters.getNumberOfParameters());
+	vector<double> values(_doubleParameters->getNumberOfParameters());
 
-	for(size_t i=0; i<_doubleParameters.getNumberOfParameters(); i++)
+	for(size_t i=0; i<_doubleParameters->getNumberOfParameters(); i++)
 	{
 		values[i] = getDoubleParameter(i)->getValue();
 	}
@@ -72,23 +73,23 @@ vector<double> DoubleParametersArray::getValues() const
 
 const DoubleParameter::shared_ptr DoubleParametersArray::getDoubleParameter(size_t index) const
 {
-	return boost::dynamic_pointer_cast<DoubleParameter>(_doubleParameters.getParameter(index));
+	return boost::dynamic_pointer_cast<DoubleParameter>(_doubleParameters->getParameter(index));
 }
 
 
 bool DoubleParametersArray::checkConstraints() const
 {
-	return _doubleParameters.checkConstraints();
+	return _doubleParameters->checkConstraints();
 }
 
 void DoubleParametersArray::setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to)
 {
-	_doubleParameters.setFromChromosome(from, to);
+	_doubleParameters->setFromChromosome(from, to);
 }
 
 void DoubleParametersArray::setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const
 {
-	_doubleParameters.setChromosome(from, to);
+	_doubleParameters->setChromosome(from, to);
 }
 
 double DoubleParametersArray::getActualPrecision() const

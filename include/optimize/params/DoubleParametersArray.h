@@ -45,7 +45,7 @@ private:
 	double _maxValue;
 	double _desiredPrecision;
 
-	CompositeDiscreteParameters _doubleParameters;
+	CompositeDiscreteParameters::shared_ptr _doubleParameters;
 };
 
 #endif /* DOUBLEPARAMETERSARRAY_H_ */
