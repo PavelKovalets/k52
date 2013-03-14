@@ -1,11 +1,19 @@
 # Folders #
 ###########
 Debug/
+build/
+lib/
+bin/
 
 # Eclipse files #
 ###########
 .cproject
 .project
+
+# Qt creator, user specific files #
+###################################
+*.*~
+*.user
 
 # Compiled source #
 ###################
