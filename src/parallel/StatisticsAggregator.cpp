@@ -12,6 +12,8 @@ namespace k52
 namespace parallel
 {
 
+StatisticsAggregator::StatisticsAggregator(){}
+
 void StatisticsAggregator::registerCount(const int& workerId)
 {
 	WorkerStatistics statistics = getAppropriateStatistics(workerId);

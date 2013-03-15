@@ -13,6 +13,8 @@
 #include "ThreadSafeQueue.h"
 #include <iostream>
 
+#include <common/disallow_copy_and_assign.h>
+
 namespace k52
 {
 namespace parallel
@@ -33,12 +35,12 @@ public:
 	void join();
 
 protected:
-
 	void processTasksQueue(ThreadSafeQueue<Task>* tasksToDo, ThreadSafeQueue<Task>* doneTasks);
 
 private:
-
 	boost::thread _thread;
+
+	DISALLOW_COPY_AND_ASSIGN(Worker);
 };
 
 

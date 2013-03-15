@@ -18,6 +18,8 @@
 
 #include "../StatisticsAggregator.h"
 
+#include <common/disallow_copy_and_assign.h>
+
 namespace k52
 {
 namespace parallel
@@ -54,8 +56,7 @@ private:
 	ResultExpectation waitAndPopNextExpectation(std::list<ResultExpectation>& resultExpectations);
 	IMpiTask::shared_ptr createTask(std::string taskId);
 
-	MpiWorkerPool(const MpiWorkerPool&);
-	MpiWorkerPool& operator = (const MpiWorkerPool&);
+	DISALLOW_COPY_AND_ASSIGN(MpiWorkerPool);
 };
 
 } /* namespace mpi */

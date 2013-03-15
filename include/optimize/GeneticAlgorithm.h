@@ -13,6 +13,7 @@
 #include "Individual.h"
 #include "GenerationStatistics.h"
 #include <boost/shared_ptr.hpp>
+#include <common/disallow_copy_and_assign.h>
 
 namespace k52
 {
@@ -88,6 +89,8 @@ private:
 
 	NextGenerationReadyCallback _callbackFunction;
 	boost::shared_ptr<ObjectiveFunctionCounter> _fitnessCounter;
+
+	DISALLOW_COPY_AND_ASSIGN(GeneticAlgorithm);
 };
 
 }/* namespace optimize */

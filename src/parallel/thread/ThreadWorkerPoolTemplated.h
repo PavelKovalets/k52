@@ -12,6 +12,8 @@
 
 #include "Worker.h"
 
+#include <common/disallow_copy_and_assign.h>
+
 namespace k52
 {
 namespace parallel
@@ -32,16 +34,14 @@ public:
 	void doTasks(std::queue<Task> tasks);
 
 private:
-
-	ThreadWorkerPoolTemplated(const ThreadWorkerPoolTemplated& a);
-	ThreadWorkerPoolTemplated& operator = (const ThreadWorkerPoolTemplated& a);
-
 	void initialize();
 
 	int _numberOfWorkers;
 	Worker<Task>* _workers;
 	ThreadSafeQueue<Task> _tasksToDo;
 	ThreadSafeQueue<Task> _doneTasks;
+
+	DISALLOW_COPY_AND_ASSIGN(ThreadWorkerPoolTemplated);
 };
 
 template <class Task>

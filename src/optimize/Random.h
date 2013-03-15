@@ -9,6 +9,7 @@
 #define RANDOM_H_
 
 #include <vector>
+#include <common/disallow_copy_and_assign.h>
 
 namespace k52
 {
@@ -57,6 +58,8 @@ private:
 	int _boolBase;
 	int _nextBitInBoolBase;
 	int _maxBitInBoolBase;
+
+	DISALLOW_COPY_AND_ASSIGN(Random);
 };
 
 }/* namespace optimize */

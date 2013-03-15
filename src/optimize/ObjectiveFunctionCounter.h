@@ -16,6 +16,7 @@
 #include <map>
 #include <vector>
 #include <queue>
+#include <common/disallow_copy_and_assign.h>
 
 namespace k52
 {
@@ -86,6 +87,8 @@ private:
 	std::map<vector<bool>, StoredValue> _cache;
 	int _cacheHits;
 	int _objectiveFunctionCounts;
+
+	DISALLOW_COPY_AND_ASSIGN(ObjectiveFunctionCounter);
 };
 
 }/* namespace optimize */

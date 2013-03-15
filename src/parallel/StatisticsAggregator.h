@@ -21,6 +21,7 @@ namespace parallel
 class StatisticsAggregator
 {
 public:
+	StatisticsAggregator();
 	void registerCount(const int& workerId);
 	void registerError(const int& workerId);
 	std::vector<WorkerStatistics> getStatistics();

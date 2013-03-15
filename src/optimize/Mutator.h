@@ -9,6 +9,7 @@
 #define MUTATOR_H_
 
 #include <vector>
+#include <common/disallow_copy_and_assign.h>
 
 namespace k52
 {
@@ -35,6 +36,7 @@ private:
 	void setGensToSkipNow();
 
 	Mutator();
+	DISALLOW_COPY_AND_ASSIGN(Mutator);
 };
 
 }/* namespace optimize */

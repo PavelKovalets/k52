@@ -12,6 +12,8 @@
 #include <optimize/params/IContinuousParameters.h>
 #include "ObjectiveFunctionCounter.h"
 
+#include <common/disallow_copy_and_assign.h>
+
 using ::k52::optimize::params::IParameters;
 using ::k52::optimize::params::IContinuousParameters;
 
@@ -65,6 +67,7 @@ private:
 
 	ObjectiveFunctionCounter _fitnessCounter;
 
+	DISALLOW_COPY_AND_ASSIGN(BoundedNelderMead);
 };
 
 }/* namespace optimize */

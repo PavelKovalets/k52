@@ -14,6 +14,8 @@
 #include "ThreadWorkerPoolTask.h"
 #include "ThreadWorkerPoolTemplated.h"
 
+#include <common/disallow_copy_and_assign.h>
+
 namespace k52
 {
 namespace parallel
@@ -37,8 +39,7 @@ public:
 private:
 	ThreadWorkerPoolTemplated<ThreadWorkerPoolTask> _workerPool;
 
-	ThreadWorkerPool(const ThreadWorkerPool& a);
-	ThreadWorkerPool& operator = (const ThreadWorkerPool& a);
+	DISALLOW_COPY_AND_ASSIGN(ThreadWorkerPool);
 };
 
 

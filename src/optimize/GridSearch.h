@@ -11,6 +11,8 @@
 #include <optimize/IOptimizer.h>
 #include "ObjectiveFunctionCounter.h"
 
+#include <common/disallow_copy_and_assign.h>
+
 using ::k52::optimize::params::IParameters;
 
 namespace k52
@@ -34,6 +36,7 @@ private:
 	double _upperBound;
 
 	ObjectiveFunctionCounter _fitnessCounter;
+	DISALLOW_COPY_AND_ASSIGN(GridSearch);
 };
 
 }/* namespace optimize */

@@ -17,6 +17,8 @@
 #include <queue>
 #include <boost/thread.hpp>
 
+#include <common/disallow_copy_and_assign.h>
+
 namespace k52
 {
 namespace parallel
@@ -37,6 +39,8 @@ private:
 	std::queue<Element> _queue;
 	boost::mutex _mutex;
 	boost::condition_variable _conditionVariable;
+
+	DISALLOW_COPY_AND_ASSIGN(ThreadSafeQueue);
 };
 
 

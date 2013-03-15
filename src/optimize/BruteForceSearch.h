@@ -9,6 +9,7 @@
 #define BRUTEFORCESEARCH_H_
 
 #include <optimize/IOptimizer.h>
+#include <common/disallow_copy_and_assign.h>
 
 namespace k52
 {
@@ -37,6 +38,8 @@ private:
 			IParameters* parametrsToOptimize,
 			const IObjectiveFunction &functionToOptimize,
 			double *bestFitness);
+
+	DISALLOW_COPY_AND_ASSIGN(BruteForceSearch);
 };
 */
 
