@@ -78,8 +78,6 @@ protected:
 
 private:
 	ObjectiveFunctionCounter();
-	ObjectiveFunctionCounter(const ObjectiveFunctionCounter&);
-	ObjectiveFunctionCounter& operator=(const ObjectiveFunctionCounter&);
 
 	bool _useValueCaching;
 	int _nuberOfWorkers;
