@@ -11,6 +11,7 @@
 #include <parallel/WorkerStatistics.h>
 #include <vector>
 #include <map>
+#include <common/disallow_copy_and_assign.h>
 
 namespace k52
 {
@@ -30,6 +31,8 @@ protected:
 private:
 	typedef std::map<int,WorkerStatistics> StatisticsContainer;
 	StatisticsContainer _statistics;
+
+	DISALLOW_COPY_AND_ASSIGN(StatisticsAggregator);
 };
 
 } /* namespace parallel */

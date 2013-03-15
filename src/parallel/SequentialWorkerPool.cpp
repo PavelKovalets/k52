@@ -5,6 +5,8 @@ namespace k52
 namespace parallel
 {
 
+SequentialWorkerPool::SequentialWorkerPool(){}
+
 std::vector< ITaskResult::shared_ptr > SequentialWorkerPool::doTasks (const std::vector<const ITask*>& tasks)
 {
 	std::vector< ITaskResult::shared_ptr > results(tasks.size());

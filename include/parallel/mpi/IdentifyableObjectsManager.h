@@ -8,6 +8,7 @@
 #ifndef IDENTIFYABLEOBJECTSMANAGER_H_
 #define IDENTIFYABLEOBJECTSMANAGER_H_
 
+#include <common/disallow_copy_and_assign.h>
 #include <parallel/ITask.h>
 #include <common/ICloneable.h>
 #include <map>
@@ -41,6 +42,8 @@ private:
 	~IdentifyableObjectsManager();
 
 	IdentifyableObjectsContainer _registeredObjects;
+
+	DISALLOW_COPY_AND_ASSIGN(IdentifyableObjectsManager);
 };
 
 } /* namespace mpi */

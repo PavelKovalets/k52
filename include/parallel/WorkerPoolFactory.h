@@ -8,6 +8,7 @@
 #ifndef WORKERPOOLFACTORY_H_
 #define WORKERPOOLFACTORY_H_
 
+#include <common/disallow_copy_and_assign.h>
 #include <parallel/IWorkerPool.h>
 
 namespace k52
@@ -31,6 +32,8 @@ public:
 
 private:
 	static bool _wasMpiWorkerPoolCreated;
+
+	DISALLOW_COPY_AND_ASSIGN(WorkerPoolFactory);
 };
 
 } /* namespace parallel */
