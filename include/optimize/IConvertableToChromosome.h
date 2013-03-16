@@ -10,9 +10,6 @@
 
 #include <vector>
 
-using ::std::vector;
-using ::std::size_t;
-
 namespace k52
 {
 namespace optimize
@@ -33,17 +30,17 @@ public:
 	///@param from - iterator, pointing to the first element of chromosome to be set
 	///@param to - iterator, pointing to the element next to last that must be set
 	///@param chromosomeSize - size of chromosome reprosented by from and to iterators
-	virtual void setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const = 0;
+	virtual void setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const = 0;
 
 	///Sets current object according to it's representation from external Chromosome
 	///@param from - iterator, pointing to the first element of chromosome
 	///@param to - iterator, pointing to the element next to last that must be used
 	///@param chromosomeSize - size of chromosome reprosented by from and to iterators
-	virtual void setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to) = 0;
+	virtual void setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to) = 0;
 
 	///@return reuqired size of chromosome.
 	///ATTENTION! Value returned by this function must be constant during execution.
-	virtual size_t getChromosomeSize() const = 0;
+	virtual std::size_t getChromosomeSize() const = 0;
 };
 
 }/* namespace optimize */

@@ -16,8 +16,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 void DiscreteParameters::send(boost::mpi::communicator* communicator, int target) const
 {
@@ -36,7 +34,6 @@ void DiscreteParameters::receive(boost::mpi::communicator* communicator)
 	this->setFromChromosome(intermediateChromosome.begin(), intermediateChromosome.end());
 }
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */
 

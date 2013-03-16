@@ -14,8 +14,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 class IContinuousParameters: public IParameters
 {
@@ -33,7 +31,6 @@ public:
 	virtual IContinuousParameters* clone() const = 0;
 };
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */
 

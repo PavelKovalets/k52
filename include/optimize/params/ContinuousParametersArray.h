@@ -14,8 +14,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 class ContinuousParametersArray: public IContinuousParameters
 {
@@ -44,7 +42,6 @@ private:
 	std::vector<double> _values;
 };
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */
 

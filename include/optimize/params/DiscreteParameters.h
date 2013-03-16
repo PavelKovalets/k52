@@ -14,8 +14,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 class DiscreteParameters : public IDiscreteParameters
 {
@@ -24,9 +22,9 @@ public:
 
 	virtual ~DiscreteParameters() {}
 
-	virtual void setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const = 0;
+	virtual void setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const = 0;
 
-	virtual void setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to) = 0;
+	virtual void setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to) = 0;
 
 	virtual size_t getChromosomeSize() const = 0;
 
@@ -39,7 +37,6 @@ public:
 #endif
 };
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */
 

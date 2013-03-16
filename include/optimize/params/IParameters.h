@@ -19,8 +19,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 /**
 @class IParameters
@@ -57,7 +55,6 @@ public:
 #endif
 };
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */
 

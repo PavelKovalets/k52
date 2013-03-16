@@ -45,10 +45,10 @@ class ObjectiveFunctionCounter
 public:
 	ObjectiveFunctionCounter(int nuberOfWorkers, bool useValueCaching);
 
-	void obtainFitness(vector<Individual>* population, const IObjectiveFunction& objectiveFunction);
+	void obtainFitness(std::vector<Individual>* population, const IObjectiveFunction& objectiveFunction);
 
-	void countObjectiveFunctionValues(vector<double>* valuesToSave,
-			const vector<const IParameters*>& parametersToCount,
+	void countObjectiveFunctionValues(std::vector<double>* valuesToSave,
+			const std::vector<const IParameters*>& parametersToCount,
 			const IObjectiveFunction& objectiveFunction);
 
     int getObjectiveFunctionCounts() const;
@@ -59,22 +59,22 @@ public:
 
 protected:
 
-    vector< ObjectiveFunctionTaskResult::shared_ptr > countParallel(const vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks);
+    std::vector< ObjectiveFunctionTaskResult::shared_ptr > countParallel(const std::vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks);
 
-	vector< ObjectiveFunctionTaskResult::shared_ptr > countSecuentially(const vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks);
+    std::vector< ObjectiveFunctionTaskResult::shared_ptr > countSecuentially(const std::vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks);
 
-	vector< std::pair<int, CountObjectiveFunctionTask> > getRawTasks(vector<Individual>* population,
+    std::vector< std::pair<int, CountObjectiveFunctionTask> > getRawTasks(std::vector<Individual>* population,
 		const IObjectiveFunction& objectiveFunction);
 
-	vector< const k52::parallel::ITask* > createRawTaskPointersVector(const vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks );
+    std::vector< const k52::parallel::ITask* > createRawTaskPointersVector(const std::vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks );
 
-	void fillRawTasks(const vector<const IParameters*>& parametersToCount,
+	void fillRawTasks(const std::vector<const IParameters*>& parametersToCount,
 			const IObjectiveFunction& objectiveFunction,
-			vector<CountObjectiveFunctionTask>* rawTasks);
+			std::vector<CountObjectiveFunctionTask>* rawTasks);
 
-	void setCountedValues(vector<Individual>* population, const vector<double>& populationFitness);
+	void setCountedValues(std::vector<Individual>* population, const std::vector<double>& populationFitness);
 
-	void addNewCacheValues(vector<Individual>* population, const vector< std::pair<int, CountObjectiveFunctionTask> >& newCacheIndexes);
+	void addNewCacheValues(std::vector<Individual>* population, const std::vector< std::pair<int, CountObjectiveFunctionTask> >& newCacheIndexes);
 
 private:
 	ObjectiveFunctionCounter();
@@ -82,7 +82,7 @@ private:
 	bool _useValueCaching;
 	int _nuberOfWorkers;
 	k52::parallel::IWorkerPool::shared_ptr _fitnessWorkerPool;
-	std::map<vector<bool>, StoredValue> _cache;
+	std::map<std::vector<bool>, StoredValue> _cache;
 	int _cacheHits;
 	int _objectiveFunctionCounts;
 

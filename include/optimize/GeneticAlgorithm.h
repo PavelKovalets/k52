@@ -81,8 +81,8 @@ private:
 	int _maxNumberOfGenerations;
 	int _populationSize;
 	int _invalidChromosomes;
-	vector<Individual> _population;
-	vector<IndividualStatistics> _populationStatistics;
+	std::vector<Individual> _population;
+	std::vector<IndividualStatistics> _populationStatistics;
 	std::string _populationFileName;
 
 	Individual _bestIndivid;

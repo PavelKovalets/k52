@@ -10,8 +10,6 @@
 
 #include <optimize/IObjectiveFunction.h>
 
-using ::k52::optimize::params::IParameters;
-
 namespace k52
 {
 namespace optimize

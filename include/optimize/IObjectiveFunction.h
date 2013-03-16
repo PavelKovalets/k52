@@ -13,8 +13,6 @@
 #include <common/ICloneable.h>
 #endif
 
-using ::k52::optimize::params::IParameters;
-
 namespace k52
 {
 namespace optimize

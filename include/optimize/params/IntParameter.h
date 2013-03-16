@@ -14,8 +14,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 /**
 @class IntParameter
@@ -45,9 +43,9 @@ public:
 
 	bool checkConstraints() const;
 
-	void setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const;
+	void setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const;
 
-	void setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to);
+	void setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
 private:
 
 	int _value;
@@ -55,12 +53,11 @@ private:
 	int _minValue;
 
 	static size_t countVectorSize(int minValue, int maxValue);
-	static int getIntFromBoolVector(vector<bool>::const_iterator from, vector<bool>::const_iterator to);
-	static void setBoolVectorFromInt(vector<bool>::iterator from, vector<bool>::iterator to, int value);
+	static int getIntFromBoolVector(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
+	static void setBoolVectorFromInt(std::vector<bool>::iterator from, std::vector<bool>::iterator to, int value);
 
 };
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */
 

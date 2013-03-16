@@ -15,6 +15,8 @@
 #include <ostream>
 #include <istream>
 
+using ::std::vector;
+
 namespace k52
 {
 namespace optimize

@@ -13,8 +13,6 @@
 
 #include <common/disallow_copy_and_assign.h>
 
-using ::k52::optimize::params::IParameters;
-
 namespace k52
 {
 namespace optimize

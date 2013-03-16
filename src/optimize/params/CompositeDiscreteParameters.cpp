@@ -12,12 +12,10 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
-void CompositeDiscreteParameters::initialize(vector<IDiscreteParameters::shared_ptr> parameters)
+void CompositeDiscreteParameters::initialize(std::vector<IDiscreteParameters::shared_ptr> parameters)
 {
-	_parametersSet = vector<IDiscreteParameters::shared_ptr>(parameters.size());
+	_parametersSet = std::vector<IDiscreteParameters::shared_ptr>(parameters.size());
 
 	for(size_t i=0; i<_parametersSet.size(); i++)
 	{
@@ -69,7 +67,7 @@ bool CompositeDiscreteParameters::checkConstraints() const
 	return true;
 }
 
-void CompositeDiscreteParameters::setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const
+void CompositeDiscreteParameters::setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
 {
 	_initializationChecker.initializationCheck();
 
@@ -77,13 +75,13 @@ void CompositeDiscreteParameters::setChromosome(vector<bool>::iterator from, vec
 
 	this->checkForConstChromosomeSize(chromosomeSize);
 
-	vector<bool>::iterator currentFrom = from;
+	std::vector<bool>::iterator currentFrom = from;
 
 	for(size_t i = 0; i < _parametersSet.size(); i++)
 	{
 		size_t parameterChromosomeSize = _parametersSet[i]->getChromosomeSize();
 
-		vector<bool>::iterator currentTo = currentFrom + parameterChromosomeSize;
+		std::vector<bool>::iterator currentTo = currentFrom + parameterChromosomeSize;
 
 		_parametersSet[i]->setChromosome(currentFrom, currentTo);
 
@@ -91,7 +89,7 @@ void CompositeDiscreteParameters::setChromosome(vector<bool>::iterator from, vec
 	}
 }
 
-void CompositeDiscreteParameters::setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to)
+void CompositeDiscreteParameters::setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
 {
 	_initializationChecker.initializationCheck();
 
@@ -99,13 +97,13 @@ void CompositeDiscreteParameters::setFromChromosome(vector<bool>::const_iterator
 
 	this->checkForConstChromosomeSize(chromosomeSize);
 
-	vector<bool>::const_iterator currentFrom = from;
+	std::vector<bool>::const_iterator currentFrom = from;
 
 	for(size_t i = 0; i < _parametersSet.size(); i++)
 	{
 		size_t parameterChromosomeSize = _parametersSet[i]->getChromosomeSize();
 
-		vector<bool>::const_iterator currentTo = currentFrom + parameterChromosomeSize;
+		std::vector<bool>::const_iterator currentTo = currentFrom + parameterChromosomeSize;
 
 		_parametersSet[i]->setFromChromosome(currentFrom, currentTo);
 
@@ -123,7 +121,6 @@ size_t CompositeDiscreteParameters::countTotalChromosomeSize() const
 	return totalChromosomeSize;
 }
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */
 

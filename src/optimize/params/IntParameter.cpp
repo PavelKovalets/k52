@@ -8,11 +8,11 @@
 #include <optimize/params/IntParameter.h>
 #include "../Random.h"
 
+using ::std::vector;
+
 namespace k52
 {
 namespace optimize
-{
-namespace params
 {
 
 IntParameter* IntParameter::clone() const
@@ -135,6 +135,5 @@ int IntParameter::getMinValue() const
 	return _minValue;
 }
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */

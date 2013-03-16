@@ -12,8 +12,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 DoubleParametersArray::DoubleParametersArray(double minValue, double maxValue, double desiredPrecision, size_t numberOfParameters)
 {
@@ -26,7 +24,7 @@ DoubleParametersArray::DoubleParametersArray(double minValue, double maxValue, d
 		throw std::logic_error("numberOfParameters<=0!");
 	}
 
-	vector<IDiscreteParameters::shared_ptr> doubleParameters(numberOfParameters);
+	std::vector<IDiscreteParameters::shared_ptr> doubleParameters(numberOfParameters);
 
 	for(size_t i=0; i<numberOfParameters; i++)
 	{
@@ -64,9 +62,9 @@ size_t DoubleParametersArray::getChromosomeSize() const
 	return _doubleParameters->getChromosomeSize();
 }
 
-vector<double> DoubleParametersArray::getValues() const
+std::vector<double> DoubleParametersArray::getValues() const
 {
-	vector<double> values(_doubleParameters->getNumberOfParameters());
+	std::vector<double> values(_doubleParameters->getNumberOfParameters());
 
 	for(size_t i=0; i<_doubleParameters->getNumberOfParameters(); i++)
 	{
@@ -86,12 +84,12 @@ bool DoubleParametersArray::checkConstraints() const
 	return _doubleParameters->checkConstraints();
 }
 
-void DoubleParametersArray::setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to)
+void DoubleParametersArray::setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
 {
 	_doubleParameters->setFromChromosome(from, to);
 }
 
-void DoubleParametersArray::setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const
+void DoubleParametersArray::setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
 {
 	_doubleParameters->setChromosome(from, to);
 }
@@ -101,6 +99,5 @@ double DoubleParametersArray::getActualPrecision() const
 	return getDoubleParameter(0)->getActualPrecision();
 }
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */

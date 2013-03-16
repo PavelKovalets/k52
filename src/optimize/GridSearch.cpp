@@ -11,7 +11,7 @@
 #include <stdexcept>
 #include <algorithm>
 
-using ::k52::optimize::params::IContinuousParameters;
+using ::std::vector;
 
 namespace k52
 {

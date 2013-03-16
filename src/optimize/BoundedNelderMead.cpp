@@ -14,6 +14,8 @@
 #include <algorithm>
 #include <fstream>
 
+using ::std::vector;
+
 namespace k52
 {
 namespace optimize

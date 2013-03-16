@@ -14,8 +14,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 double DoubleParameter::getValue() const
 {
@@ -141,12 +139,12 @@ bool DoubleParameter::checkConstraints() const
 	return _value>=_minValue && _value<=_maxValue;
 }
 
-void DoubleParameter::setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const
+void DoubleParameter::setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
 {
 	_baseIntParameter->setChromosome(from, to);
 }
 
-void DoubleParameter::setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to)
+void DoubleParameter::setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
 {
 	_baseIntParameter->setFromChromosome(from, to);
 
@@ -164,6 +162,5 @@ int DoubleParameter::getMaxInt( double minValue, double maxValue, double precisi
 	return maxInt;
 }
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */

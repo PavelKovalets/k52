@@ -14,9 +14,6 @@
 
 #include <common/disallow_copy_and_assign.h>
 
-using ::k52::optimize::params::IParameters;
-using ::k52::optimize::params::IContinuousParameters;
-
 namespace k52
 {
 namespace optimize
@@ -31,33 +28,33 @@ public:
 
 protected:
 
-	static void getIndexes(const vector<double>& values, int* firstMaxIndex, int* secoundMaxIndex, int* minIndex);
+	static void getIndexes(const std::vector<double>& values, int* firstMaxIndex, int* secoundMaxIndex, int* minIndex);
 	
-	static vector< vector<double> > getRegularSimplex(const vector<double>& basePoint, double l);
+	static std::vector< std::vector<double> > getRegularSimplex(const std::vector<double>& basePoint, double l);
 
-	vector<double> countObjectiveFunctionValues(const vector< vector<double> >& parametersValues,
+	std::vector<double> countObjectiveFunctionValues(const std::vector< std::vector<double> >& parametersValues,
 		IContinuousParameters* baseParameters,
 		const IObjectiveFunction & functionToOptimize);
 
-	double countObjectiveFunctionValue(const vector<double>& parameters,
+	double countObjectiveFunctionValue(const std::vector<double>& parameters,
 		IContinuousParameters* baseParameters,
 		const IObjectiveFunction & functionToOptimize);
 
-	static vector<double> reflexion(const vector<double>& centerOfMass, const vector<double>& targetPoint);
+	static std::vector<double> reflexion(const std::vector<double>& centerOfMass, const std::vector<double>& targetPoint);
 
-	static vector<double> expansion(const vector<double>& centerOfMass, const vector<double>& targetPoint);
+	static std::vector<double> expansion(const std::vector<double>& centerOfMass, const std::vector<double>& targetPoint);
 
-	static vector<double> contraction(const vector<double>& centerOfMass, const vector<double>& targetPoint);
+	static std::vector<double> contraction(const std::vector<double>& centerOfMass, const std::vector<double>& targetPoint);
 
-	static void reduction(vector< vector<double> >* polygon, int pointIndex);
+	static void reduction(std::vector< std::vector<double> >* polygon, int pointIndex);
 
-	static double countDifferance(const vector<double>& values);
+	static double countDifferance(const std::vector<double>& values);
 
-	void correctByProjectingToBounds(vector<double>* point);
+	void correctByProjectingToBounds(std::vector<double>* point);
 
-	static vector<double> getCenterOfMass(const vector< vector<double> >& polygon, int pointIndex);
+	static std::vector<double> getCenterOfMass(const std::vector< std::vector<double> >& polygon, int pointIndex);
 
-	static void outputPolygon(const vector< vector<double> >& polygon);
+	static void outputPolygon(const std::vector< std::vector<double> >& polygon);
 
 private:
 	double _precision;

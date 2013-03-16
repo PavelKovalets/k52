@@ -16,8 +16,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 class DiscreteParametersLocalStorage;
 
@@ -26,7 +24,7 @@ class CompositeDiscreteParameters: public ConstChromosomeSizeParemeters
 public:
 	typedef boost::shared_ptr<CompositeDiscreteParameters> shared_ptr;
 
-	void initialize(vector<IDiscreteParameters::shared_ptr> parameters);
+	void initialize(std::vector<IDiscreteParameters::shared_ptr> parameters);
 
 	size_t getNumberOfParameters() const;
 
@@ -36,19 +34,18 @@ public:
 
 	bool checkConstraints() const;
 
-	void setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const;
+	void setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const;
 
-	void setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to);
+	void setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
 
 private:
 	size_t countTotalChromosomeSize() const;
 
-	vector<IDiscreteParameters::shared_ptr> _parametersSet;
+	std::vector<IDiscreteParameters::shared_ptr> _parametersSet;
 
 	InitializationChecker _initializationChecker;
 };
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */
 

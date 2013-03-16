@@ -13,8 +13,6 @@
 #include <optimize/params/DiscreteParameters.h>
 #include <ostream>
 
-using ::k52::optimize::params::IDiscreteParameters;
-
 namespace k52
 {
 namespace optimize
@@ -81,7 +79,7 @@ public:
 	///ATTENTION! Returned value refferes to the inner variable of this
 	///individual and no longer valid and MUST NOT be used
 	///when this individual's destructor is called
-	const vector<bool>& getChromosome() const;
+	const std::vector<bool>& getChromosome() const;
 
 	///Set random chromosome for current Individual and synchronizes it with local parameters
 	///@return number of invalid chromosomes, generated during setting random chromosome
@@ -123,7 +121,7 @@ public:
 private:
     InitializationChecker  _initializationChecker;
 	IDiscreteParameters::shared_ptr _parametersStorage;
-	vector<bool> _chromosome;
+	std::vector<bool> _chromosome;
 
 	bool _hasFitness;
 	double _fitness;
@@ -134,7 +132,7 @@ private:
 	///Throws exception if Individual does not still have counted fitness
 	void checkForHavingFitness() const;
 
-	static void boolCrossover(vector<bool> *first, vector<bool> *second);
+	static void boolCrossover(std::vector<bool> *first, std::vector<bool> *second);
 
 	friend std::ostream& operator<< (std::ostream& out, const Individual& individual);
 	

@@ -12,8 +12,6 @@
 #include <string>
 #include <optimize/Individual.h>
 
-using ::k52::optimize::params::IParameters;
-
 namespace k52
 {
 namespace optimize

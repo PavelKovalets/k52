@@ -17,8 +17,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 class DoubleParametersArray : public DiscreteParameters
 {
@@ -33,15 +31,15 @@ public:
 
 	size_t getChromosomeSize() const;
 
-	void setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const;
+	void setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const;
 
-	void setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to);
+	void setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
 
     double getMaxValue() const;
     double getMinValue() const;
     size_t getNumberOfParameters() const;
     double getActualPrecision() const;
-    vector<double> getValues() const;
+    std::vector<double> getValues() const;
 
 protected:
     const DoubleParameter::shared_ptr getDoubleParameter(size_t index) const;
@@ -54,7 +52,6 @@ private:
 	CompositeDiscreteParameters::shared_ptr _doubleParameters;
 };
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */
 

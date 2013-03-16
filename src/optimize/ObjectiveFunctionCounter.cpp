@@ -10,6 +10,7 @@
 #include <parallel/mpi/IdentifyableObjectsManager.h>
 #include <stdexcept>
 
+using ::std::vector;
 using ::k52::parallel::WorkerPoolFactory;
 
 namespace k52

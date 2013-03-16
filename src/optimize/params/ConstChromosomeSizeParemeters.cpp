@@ -12,8 +12,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 ConstChromosomeSizeParemeters::ConstChromosomeSizeParemeters()
 {
@@ -59,6 +57,5 @@ void ConstChromosomeSizeParemeters::checkIfChromosomeWasSet() const
 	}
 }
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */

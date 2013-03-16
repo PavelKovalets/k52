@@ -14,8 +14,6 @@ namespace k52
 {
 namespace optimize
 {
-namespace params
-{
 
 /**
 @class ConstChromosomeSizeParemeters
@@ -32,9 +30,9 @@ public:
 
 	size_t getChromosomeSize() const;
 
-	void setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const = 0;
+	void setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const = 0;
 
-	void setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to) = 0;
+	void setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to) = 0;
 
 	virtual bool checkConstraints() const = 0;
 
@@ -60,7 +58,6 @@ private:
 	size_t _chromosomeSize;
 };
 
-}/* namespace params */
 }/* namespace optimize */
 }/* namespace k52 */
 
