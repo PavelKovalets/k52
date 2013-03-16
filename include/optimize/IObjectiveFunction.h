@@ -28,12 +28,18 @@ class IObjectiveFunction
 #endif
 {
 public:
+	typedef boost::shared_ptr<IObjectiveFunction> shared_ptr;
+
 	///Virtual destructor for correct deallocation of resources in derived classes
 	virtual ~IObjectiveFunction() {}
 
 	///Operator that implements counting of objective function value
 	///@param parameters - parameters to count objective function value for
 	virtual double operator () (const IParameters* const parameters) const = 0;
+
+#ifdef BUILD_WITH_MPI
+	virtual IObjectiveFunction* clone() const = 0;
+#endif
 };
 
 }/* namespace optimize */

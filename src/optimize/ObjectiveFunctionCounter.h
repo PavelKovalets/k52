@@ -59,14 +59,14 @@ public:
 
 protected:
 
-    std::vector< ObjectiveFunctionTaskResult::shared_ptr > countParallel(const std::vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks);
+    std::vector< ObjectiveFunctionTaskResult::shared_ptr > countParallel(const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks);
 
-    std::vector< ObjectiveFunctionTaskResult::shared_ptr > countSecuentially(const std::vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks);
+    std::vector< ObjectiveFunctionTaskResult::shared_ptr > countSecuentially(const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks);
 
-    std::vector< std::pair<int, CountObjectiveFunctionTask> > getRawTasks(std::vector<Individual>* population,
+    std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> > getRawTasks(std::vector<Individual>* population,
 		const IObjectiveFunction& objectiveFunction);
 
-    std::vector< const k52::parallel::ITask* > createRawTaskPointersVector(const std::vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks );
+    std::vector< const k52::parallel::ITask* > createRawTaskPointersVector(const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks );
 
 	void fillRawTasks(const std::vector<const IParameters*>& parametersToCount,
 			const IObjectiveFunction& objectiveFunction,
@@ -74,7 +74,7 @@ protected:
 
 	void setCountedValues(std::vector<Individual>* population, const std::vector<double>& populationFitness);
 
-	void addNewCacheValues(std::vector<Individual>* population, const std::vector< std::pair<int, CountObjectiveFunctionTask> >& newCacheIndexes);
+	void addNewCacheValues(std::vector<Individual>* population, const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& newCacheIndexes);
 
 private:
 	ObjectiveFunctionCounter();

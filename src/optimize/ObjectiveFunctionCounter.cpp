@@ -55,7 +55,7 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(int nuberOfWorkers, bool useV
 void ObjectiveFunctionCounter::obtainFitness(vector<Individual>* population,
 		const IObjectiveFunction& objectiveFunction)
 {
-	vector< std::pair<int, CountObjectiveFunctionTask> > rawTasks = getRawTasks(population, objectiveFunction);
+	vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> > rawTasks = getRawTasks(population, objectiveFunction);
 	vector< ObjectiveFunctionTaskResult::shared_ptr > results;
 
 	if(_fitnessWorkerPool == NULL)
@@ -113,23 +113,23 @@ void ObjectiveFunctionCounter::fillRawTasks(
 }
 
 vector< const k52::parallel::ITask* > ObjectiveFunctionCounter::createRawTaskPointersVector(
-		const vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks )
+		const vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks )
 {
 	vector<const k52::parallel::ITask*> rawTasksPtrs(rawTasks.size());
 
 	for(size_t i=0; i<rawTasks.size(); i++)
 	{
-		rawTasksPtrs[i] = &(rawTasks[i].second);
+		rawTasksPtrs[i] = rawTasks[i].second.get();
 	}
 
 	return rawTasksPtrs;
 }
 
-vector< std::pair<int, CountObjectiveFunctionTask> > ObjectiveFunctionCounter::getRawTasks(
+vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> > ObjectiveFunctionCounter::getRawTasks(
 		vector<Individual>* population,
 		const IObjectiveFunction& objectiveFunction)
 {
-	vector< std::pair<int, CountObjectiveFunctionTask> > rawTasks;
+	vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> > rawTasks;
 	rawTasks.reserve(population->size());
 
 	//This function MUST be used only if caching is enabled
@@ -146,14 +146,14 @@ vector< std::pair<int, CountObjectiveFunctionTask> > ObjectiveFunctionCounter::g
 		{
 			//These items should be evaluated further as they are not cached
 			const IParameters* parameters = (*population)[i].getParametersAccordingToChromosome();
-			CountObjectiveFunctionTask task(parameters, &objectiveFunction);
-			rawTasks.push_back(std::pair<int, CountObjectiveFunctionTask>(i, task));
+			CountObjectiveFunctionTask::shared_ptr task(new CountObjectiveFunctionTask(parameters, &objectiveFunction));
+			rawTasks.push_back(std::pair<int, CountObjectiveFunctionTask::shared_ptr>(i, task));
 		}
 	}
 	return rawTasks;
 }
 
-void ObjectiveFunctionCounter::addNewCacheValues(vector<Individual>* population, const vector< std::pair<int, CountObjectiveFunctionTask> >&  newCacheIndexes)
+void ObjectiveFunctionCounter::addNewCacheValues(vector<Individual>* population, const vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >&  newCacheIndexes)
 {
 	for(size_t i=0; i<newCacheIndexes.size(); i++)
 	{
@@ -181,7 +181,7 @@ void ObjectiveFunctionCounter::setCountedValues(vector<Individual>* population, 
 
 
 vector< ObjectiveFunctionTaskResult::shared_ptr > ObjectiveFunctionCounter::countParallel(
-		const vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks)
+		const vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks)
 {
 	_objectiveFunctionCounts += rawTasks.size();
 	vector< ObjectiveFunctionTaskResult::shared_ptr > results (rawTasks.size());
@@ -198,14 +198,14 @@ vector< ObjectiveFunctionTaskResult::shared_ptr > ObjectiveFunctionCounter::coun
 }
 
 vector< ObjectiveFunctionTaskResult::shared_ptr > ObjectiveFunctionCounter::countSecuentially(
-		const vector< std::pair<int, CountObjectiveFunctionTask> >& rawTasks)
+		const vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks)
 {
 	_objectiveFunctionCounts += rawTasks.size();
 	vector< ObjectiveFunctionTaskResult::shared_ptr > results (rawTasks.size());
 
 	for(size_t i=0; i<rawTasks.size(); i++)
 	{
-		results[i] = boost::dynamic_pointer_cast<ObjectiveFunctionTaskResult>( rawTasks[i].second.perform() );
+		results[i] = boost::dynamic_pointer_cast<ObjectiveFunctionTaskResult>( rawTasks[i].second->perform() );
 	}
 
 	return results;

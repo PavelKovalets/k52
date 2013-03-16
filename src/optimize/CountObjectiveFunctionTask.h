@@ -13,6 +13,8 @@
 #include <optimize/IObjectiveFunction.h>
 #include <parallel/ITask.h>
 
+#include <common/disallow_copy_and_assign.h>
+
 #ifdef BUILD_WITH_MPI
 #include <parallel/mpi/IMpiTask.h>
 #include <parallel/mpi/IMpiTaskResult.h>
@@ -56,11 +58,23 @@ public:
 
 #endif
 
-private:
+protected:
+	const IObjectiveFunction* getFunction() const;
+	const IParameters* getParameters() const;
 
+private:
 	//TODO are functors thread-safe not to copy locally them?
-	const IObjectiveFunction* _functionToOptimize;
-	const IParameters*  _parameters;
+	const IObjectiveFunction* const _functionToOptimize;
+	const IParameters* const  _parameters;
+
+	//Indicates if task was created at once - so const pointers to be used
+	//Otherwise it is received - so shared_ptr's should be used
+	bool _wasCreated;
+
+	IParameters::shared_ptr _receivedParameters;
+	IObjectiveFunction::shared_ptr _receivedFunction;
+
+	DISALLOW_COPY_AND_ASSIGN(CountObjectiveFunctionTask);
 };
 
 }/* namespace optimize */
