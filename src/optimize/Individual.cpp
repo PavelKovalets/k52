@@ -205,6 +205,11 @@ bool Individual::hasFitness() const
 
 void Individual::setFitness(double fitness)
 {
+	if(fitness < 0)
+	{
+		throw std::logic_error("Currently fitness must be >= 0!");
+	}
+
     _fitness = fitness;
     _hasFitness = true;
 }

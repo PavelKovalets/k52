@@ -49,7 +49,7 @@ public:
 
 	void obtainFitness(std::vector<Individual>* population, const IObjectiveFunction& objectiveFunction);
 
-	void countObjectiveFunctionValues(std::vector<double>* valuesToSave,
+	std::vector<double> countObjectiveFunctionValues(
 			const std::vector<const IParameters*>& parametersToCount,
 			const IObjectiveFunction& objectiveFunction);
 
@@ -71,8 +71,6 @@ protected:
 	void fillRawTasks(const std::vector<const IParameters*>& parametersToCount,
 			const IObjectiveFunction& objectiveFunction,
 			std::vector<CountObjectiveFunctionTask>* rawTasks);
-
-	void setCountedValues(std::vector<Individual>* population, const std::vector<double>& populationFitness);
 
 	void addNewCacheValues(std::vector<Individual>* population, const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& newCacheIndexes);
 

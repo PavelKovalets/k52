@@ -64,24 +64,16 @@ void ObjectiveFunctionCounter::obtainFitness(vector<Individual>* population,
 	}
 }
 
-void ObjectiveFunctionCounter::countObjectiveFunctionValues(vector<double>* valuesToSave,
+vector<double> ObjectiveFunctionCounter::countObjectiveFunctionValues(
 			const vector<const IParameters*>& parametersToCount,
 			const IObjectiveFunction& objectiveFunction)
 {
+	vector<double> countedValues(parametersToCount.size());
+
 	//TODO unite with ObtainFitness
-	throw std::logic_error("Not implemented yet.");
-//	queue<CountObjectiveFunctionTask> rawTasksQueue;
-//
-//	fillTasksQueue(valuesToSave, parametersToCount, objectiveFunction, &rawTasksQueue);
-//
-//	if(_fitnessWorkerPool == NULL)
-//	{
-//		this->countSecuentially(&rawTasksQueue);
-//	}
-//	else
-//	{
-//		this->countParallel(&rawTasksQueue);
-//	}
+		throw std::logic_error("Not implemented yet.");
+
+	return countedValues;
 }
 
 void ObjectiveFunctionCounter::fillRawTasks(
@@ -149,20 +141,6 @@ void ObjectiveFunctionCounter::addNewCacheValues(vector<Individual>* population,
 
 		//TODO use hash instead of whole vector?
 		_cache[currentIndivid->getChromosome()] = storedFitness;
-	}
-}
-
-//TODO use this for setting fitness
-void ObjectiveFunctionCounter::setCountedValues(vector<Individual>* population, const vector<double>& populationFitness)
-{
-	for(size_t i=0; i<population->size(); i++)
-	{
-		if(populationFitness[i] < 0)
-		{
-			throw std::logic_error("Fitness counted by TargetFunction must be >= 0!");
-		}
-
-		(*population)[i].setFitness( populationFitness[i] );
 	}
 }
 

@@ -250,7 +250,6 @@ vector<double> BoundedNelderMead::countObjectiveFunctionValues(const vector< vec
 	const IObjectiveFunction & functionToOptimize)
 {
 	size_t N = parametersValues.size();
-	vector<double> objectiveFunctionValues(N);
 	vector<IContinuousParameters::shared_ptr> storages(N);
 	vector<const IParameters*> parameters(N);
 	for(size_t i = 0; i < N; i++)
@@ -261,8 +260,8 @@ vector<double> BoundedNelderMead::countObjectiveFunctionValues(const vector< vec
 		//TODO fix - do not use inner ptr
 		parameters[i] = storages[i].get();
 	}
-	_fitnessCounter.countObjectiveFunctionValues(&objectiveFunctionValues, parameters, functionToOptimize);
-	return objectiveFunctionValues;
+
+	return _fitnessCounter.countObjectiveFunctionValues(parameters, functionToOptimize);
 }
 
 vector<double> BoundedNelderMead::reflexion(const vector<double>& centerOfMass, const vector<double>& targetPoint)

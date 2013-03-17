@@ -74,8 +74,7 @@ void GridSearch::optimize(IParameters *parametrsToOptimize, const IObjectiveFunc
 		parameters[i] = parametersStorages[i].get();
 	}
 
-	vector<double> countedValues(totalSize);
-	_fitnessCounter.countObjectiveFunctionValues(&countedValues, parameters, functionToOptimize);
+	vector<double> countedValues = _fitnessCounter.countObjectiveFunctionValues(parameters, functionToOptimize);
 	size_t bestIndex = distance(countedValues.begin(), max_element(countedValues.begin(), countedValues.end()));
 
 	continuousParameters->setValues( parametersStorages[bestIndex]->getValues() );
