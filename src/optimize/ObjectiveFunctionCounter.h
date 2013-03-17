@@ -60,19 +60,21 @@ public:
     void resetCacheHits();
 
 protected:
+    void processPopulation(
+    		std::vector<Individual>* population,
+    		std::vector<const IParameters*>* parametersToCount,
+    		std::vector<int>* indexesToCount);
 
-    std::vector< ObjectiveFunctionTaskResult::shared_ptr > count(const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks);
+    std::vector< ObjectiveFunctionTaskResult::shared_ptr > count(const std::vector<CountObjectiveFunctionTask::shared_ptr>& rawTasks);
 
-    std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> > getRawTasks(std::vector<Individual>* population,
-		const IObjectiveFunction& objectiveFunction);
+    std::vector< CountObjectiveFunctionTask::shared_ptr > createRawTasks(
+    		const std::vector<const IParameters*>& parametersToCount,
+    		const IObjectiveFunction& objectiveFunction);
 
-    std::vector< const k52::parallel::ITask* > createRawTaskPointersVector(const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks );
+    std::vector< const k52::parallel::ITask* > createRawTaskPointersVector(
+    		const std::vector<CountObjectiveFunctionTask::shared_ptr>& rawTasks );
 
-	void fillRawTasks(const std::vector<const IParameters*>& parametersToCount,
-			const IObjectiveFunction& objectiveFunction,
-			std::vector<CountObjectiveFunctionTask>* rawTasks);
-
-	void addNewCacheValues(std::vector<Individual>* population, const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& newCacheIndexes);
+	void addNewCacheValues(std::vector<Individual>* population, const std::vector<int>& newCacheIndexes);
 
 private:
 	ObjectiveFunctionCounter();

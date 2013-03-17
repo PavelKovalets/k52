@@ -46,21 +46,52 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool useValueCaching)
 	}
 }
 
-//TODO unite with countObjectiveFunctionValues
+void ObjectiveFunctionCounter::processPopulation(
+		vector<Individual>* population,
+		vector<const IParameters*>* parametersToCount,
+		vector<int>* indexesToCount)
+{
+	parametersToCount->reserve(population->size());
+	indexesToCount->reserve(population->size());
+
+	for(size_t i=0; i<population->size(); i++)
+	{
+		if(_useValueCaching)
+		{
+			StoredValue storedFitness = _cache[(*population)[i].getChromosome()];
+			if(storedFitness.hasValue())
+			{
+				(*population)[i].setFitness( storedFitness.getValue() );
+				_cacheHits ++;
+				continue;
+			}
+		}
+
+		//These items should be evaluated further as they are not cached
+		const IParameters* parameters = (*population)[i].getParametersAccordingToChromosome();
+		parametersToCount->push_back(parameters);
+		indexesToCount->push_back(i);
+	}
+}
+
 void ObjectiveFunctionCounter::obtainFitness(vector<Individual>* population,
 		const IObjectiveFunction& objectiveFunction)
 {
-	vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> > rawTasks = getRawTasks(population, objectiveFunction);
-	vector< ObjectiveFunctionTaskResult::shared_ptr > results = count(rawTasks);
+	vector<const IParameters*> parametersToCount;
+	vector<int> indexesToCount;
+
+	processPopulation(population, &parametersToCount, &indexesToCount);
+
+	vector<double> countedValues = countObjectiveFunctionValues(parametersToCount, objectiveFunction);
 	
-	for(size_t i=0; i<results.size(); i++)
+	for(size_t i=0; i<countedValues.size(); i++)
 	{
-		(*population)[ rawTasks[i].first ] . setFitness( results[i]->getObjectiveFunctionValue() );
+		(*population)[ indexesToCount[i] ] . setFitness( countedValues[i] );
 	}
 
 	if(_useValueCaching)
 	{
-		addNewCacheValues(population, rawTasks);
+		addNewCacheValues(population, indexesToCount);
 	}
 }
 
@@ -68,84 +99,21 @@ vector<double> ObjectiveFunctionCounter::countObjectiveFunctionValues(
 			const vector<const IParameters*>& parametersToCount,
 			const IObjectiveFunction& objectiveFunction)
 {
+	vector< CountObjectiveFunctionTask::shared_ptr > rawTasks = createRawTasks(parametersToCount, objectiveFunction);
+	vector< ObjectiveFunctionTaskResult::shared_ptr > results = count(rawTasks);
+
 	vector<double> countedValues(parametersToCount.size());
 
-	//TODO unite with ObtainFitness
-		throw std::logic_error("Not implemented yet.");
+	for(size_t i=0; i<rawTasks.size(); i++)
+	{
+		countedValues[i] = boost::dynamic_pointer_cast<ObjectiveFunctionTaskResult>( results[i] )->getObjectiveFunctionValue();
+	}
 
 	return countedValues;
 }
 
-void ObjectiveFunctionCounter::fillRawTasks(
-			const vector<const IParameters*>& parametersToCount,
-			const IObjectiveFunction& objectiveFunction,
-			vector<CountObjectiveFunctionTask>* rawTasks)
-{
-	//TODO unite with fillRawTasks#2
-	throw std::logic_error("Not implemented yet.");
-//	for(size_t i=0; i<parametersToCount.size(); i++)
-//	{
-//		CountObjectiveFunctionTask t(parametersToCount[i], &objectiveFunction);
-//		(*rawTasks)[i] = t;
-//	}
-}
-
-vector< const k52::parallel::ITask* > ObjectiveFunctionCounter::createRawTaskPointersVector(
-		const vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks )
-{
-	vector<const k52::parallel::ITask*> rawTasksPtrs(rawTasks.size());
-
-	for(size_t i=0; i<rawTasks.size(); i++)
-	{
-		rawTasksPtrs[i] = rawTasks[i].second.get();
-	}
-
-	return rawTasksPtrs;
-}
-
-vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> > ObjectiveFunctionCounter::getRawTasks(
-		vector<Individual>* population,
-		const IObjectiveFunction& objectiveFunction)
-{
-	vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> > rawTasks;
-	rawTasks.reserve(population->size());
-
-	//This function MUST be used only if caching is enabled
-	for(size_t i=0; i<population->size(); i++)
-	{
-		StoredValue storedFitness = _cache[(*population)[i].getChromosome()];
-		if(storedFitness.hasValue())
-		{
-			//TODO single place for setting fitness?
-			(*population)[i].setFitness( storedFitness.getValue() );
-			_cacheHits ++;
-			continue;
-		}
-		else
-		{
-			//These items should be evaluated further as they are not cached
-			const IParameters* parameters = (*population)[i].getParametersAccordingToChromosome();
-			CountObjectiveFunctionTask::shared_ptr task(new CountObjectiveFunctionTask(parameters, &objectiveFunction));
-			rawTasks.push_back(std::pair<int, CountObjectiveFunctionTask::shared_ptr>(i, task));
-		}
-	}
-	return rawTasks;
-}
-
-void ObjectiveFunctionCounter::addNewCacheValues(vector<Individual>* population, const vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >&  newCacheIndexes)
-{
-	for(size_t i=0; i<newCacheIndexes.size(); i++)
-	{
-		Individual* currentIndivid = &(*population)[ newCacheIndexes[i].first ];
-		StoredValue storedFitness( currentIndivid->getFitness() );
-
-		//TODO use hash instead of whole vector?
-		_cache[currentIndivid->getChromosome()] = storedFitness;
-	}
-}
-
 vector< ObjectiveFunctionTaskResult::shared_ptr > ObjectiveFunctionCounter::count(
-		const vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks)
+		const vector<CountObjectiveFunctionTask::shared_ptr>& rawTasks)
 {
 	_objectiveFunctionCounts += rawTasks.size();
 	vector< ObjectiveFunctionTaskResult::shared_ptr > results (rawTasks.size());
@@ -153,13 +121,49 @@ vector< ObjectiveFunctionTaskResult::shared_ptr > ObjectiveFunctionCounter::coun
 
 	std::vector< k52::parallel::ITaskResult::shared_ptr > rawResults = _fitnessWorkerPool->doTasks(rawTasksPtrs);
 
-	for(size_t i=0; i<rawTasks.size(); i++)
-	{
-		results[i] = boost::dynamic_pointer_cast<ObjectiveFunctionTaskResult>( rawResults[i] );
-	}
-
 	return results;
 }
+
+vector< const k52::parallel::ITask* > ObjectiveFunctionCounter::createRawTaskPointersVector(
+		const vector<CountObjectiveFunctionTask::shared_ptr>& rawTasks )
+{
+	vector<const k52::parallel::ITask*> rawTasksPtrs(rawTasks.size());
+
+	for(size_t i=0; i<rawTasks.size(); i++)
+	{
+		rawTasksPtrs[i] = rawTasks[i].get();
+	}
+
+	return rawTasksPtrs;
+}
+
+std::vector< CountObjectiveFunctionTask::shared_ptr > ObjectiveFunctionCounter::createRawTasks(
+		const vector<const IParameters*>& parametersToCount,
+		const IObjectiveFunction& objectiveFunction)
+{
+	vector< CountObjectiveFunctionTask::shared_ptr > rawTasks(parametersToCount.size());
+
+	for(size_t i=0; i<parametersToCount.size(); i++)
+	{
+		rawTasks[i] = CountObjectiveFunctionTask::shared_ptr( new CountObjectiveFunctionTask(parametersToCount[i], &objectiveFunction) );
+	}
+
+	return rawTasks;
+}
+
+void ObjectiveFunctionCounter::addNewCacheValues(vector<Individual>* population, const vector<int>&  newCacheIndexes)
+{
+	for(size_t i=0; i<newCacheIndexes.size(); i++)
+	{
+		Individual* currentIndivid = &(*population)[ newCacheIndexes[i] ];
+		StoredValue storedFitness( currentIndivid->getFitness() );
+
+		//TODO use hash instead of whole vector?
+		_cache[currentIndivid->getChromosome()] = storedFitness;
+	}
+}
+
+
 
 int ObjectiveFunctionCounter::getObjectiveFunctionCounts() const
 {
