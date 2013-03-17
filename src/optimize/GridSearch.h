@@ -21,7 +21,7 @@ namespace optimize
 class GridSearch: public IOptimizer
 {
 public:
-	GridSearch(double precision, double lowerBound, double upperBound, int numberOfThreads);
+	GridSearch(double precision, double lowerBound, double upperBound);
 
 	virtual void optimize(IParameters* parametrsToOptimize, const IObjectiveFunction &functionToOptimize);
 

@@ -9,8 +9,8 @@
 #define GENETICALGORITHM_H_
 
 #include <optimize/IOptimizer.h>
+#include <optimize/Individual.h>
 #include <optimize/params/IDiscreteParameters.h>
-#include "Individual.h"
 #include "GenerationStatistics.h"
 #include <boost/shared_ptr.hpp>
 #include <common/disallow_copy_and_assign.h>
@@ -37,14 +37,12 @@ public:
 	///@param elitismPairs - number of best pairs in population to be copied to the next population every time 
 	///(for example if elitismPairs=1, 2 best individs will be transfered to the next population)
 	///@param maxNumberOfGenerations - maximum number of generations for population. One of the stop criteria.
-	///@param numberOfThreads - to use for fitness count (if <= 0 - fitness will be counted sequentially).
 	///@param fitnessStopCriteria - the value of objective function witch consider to be optimal and further optimization has no need. One of the stop criteria.
 	///@param mutationProbability - mutation probability per one boolean gen in chromosome
 	///@param populationFileName - file to load population from(if no load is needed - pass empty string or ignore)
 	GeneticAlgorithm(int populationSize,
 			int elitismPairs,
 			int maxNumberOfGenerations,
-			int numberOfThreads = -1,
 			bool useFitnessValueCaching = false,
 			double fitnessStopCriteria = 10000000,
 			double mutationProbability = 0.005,

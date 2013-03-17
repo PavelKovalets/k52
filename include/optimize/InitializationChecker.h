@@ -13,8 +13,6 @@ namespace k52
 namespace optimize
 {
 
-//TODO make private or common
-
 /**
  @class Individual
 Manages initialization checking process.

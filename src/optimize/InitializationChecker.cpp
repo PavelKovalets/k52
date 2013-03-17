@@ -22,7 +22,7 @@ void InitializationChecker::initializationCheck() const
 {
 	if(!_wasInitialized)
 	{
-		throw std::logic_error("Individual was used without being initialized");
+		throw std::logic_error("Object was used without being initialized");
 	}
 }
 

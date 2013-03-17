@@ -21,8 +21,8 @@ namespace k52
 namespace optimize
 {
 
-BoundedNelderMead::BoundedNelderMead(double l, double precision, double lowerBound, double upperBound, int numberOfThreads)
-	: _fitnessCounter(numberOfThreads, false)
+BoundedNelderMead::BoundedNelderMead(double l, double precision, double lowerBound, double upperBound)
+	: _fitnessCounter(false)
 {
 	_lowerBound = lowerBound;
 	_upperBound = upperBound;

@@ -8,8 +8,8 @@
 #ifndef OBJECTIVEFUNCTIONCOUNTER_H_
 #define OBJECTIVEFUNCTIONCOUNTER_H_
 
-#include <optimize/Individual.h>
 #include <optimize/IObjectiveFunction.h>
+#include <optimize/Individual.h>
 #include "CountObjectiveFunctionTask.h"
 #include "ObjectiveFunctionTaskResult.h"
 #include <parallel/IWorkerPool.h>
@@ -43,7 +43,9 @@ private:
 class ObjectiveFunctionCounter
 {
 public:
-	ObjectiveFunctionCounter(int nuberOfWorkers, bool useValueCaching);
+	typedef boost::shared_ptr<ObjectiveFunctionCounter> shared_ptr;
+
+	ObjectiveFunctionCounter(bool useValueCaching);
 
 	void obtainFitness(std::vector<Individual>* population, const IObjectiveFunction& objectiveFunction);
 
@@ -59,9 +61,7 @@ public:
 
 protected:
 
-    std::vector< ObjectiveFunctionTaskResult::shared_ptr > countParallel(const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks);
-
-    std::vector< ObjectiveFunctionTaskResult::shared_ptr > countSecuentially(const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks);
+    std::vector< ObjectiveFunctionTaskResult::shared_ptr > count(const std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> >& rawTasks);
 
     std::vector< std::pair<int, CountObjectiveFunctionTask::shared_ptr> > getRawTasks(std::vector<Individual>* population,
 		const IObjectiveFunction& objectiveFunction);
@@ -80,7 +80,6 @@ private:
 	ObjectiveFunctionCounter();
 
 	bool _useValueCaching;
-	int _nuberOfWorkers;
 	k52::parallel::IWorkerPool::shared_ptr _fitnessWorkerPool;
 	std::map<std::vector<bool>, StoredValue> _cache;
 	int _cacheHits;

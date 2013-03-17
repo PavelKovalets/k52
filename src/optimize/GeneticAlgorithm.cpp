@@ -29,12 +29,11 @@ GeneticAlgorithm::GeneticAlgorithm(
 		int populationSize,
 		int elitismPairs,
 		int maxNumberOfGenerations,
-		int numberOfThreads,
 		bool useFitnessValueCaching,
 		double fitnessStopCriteria,
 		double mutationProbability,
 		std::string populationFileName)
-		: _population(0), _populationStatistics(0), _fitnessCounter(new ObjectiveFunctionCounter(numberOfThreads, useFitnessValueCaching))
+		: _population(0), _populationStatistics(0), _fitnessCounter(new ObjectiveFunctionCounter(useFitnessValueCaching))
 {
 	if(populationSize%2!=0)
 	{
@@ -277,8 +276,8 @@ void GeneticAlgorithm::optimize(IParameters* parametrsToOptimize, const IObjecti
 			_bestIndivid = bestCurrentIndivid;
 		}
 
-		list<std::string> filesToSave;
-		list<IndividualStatistics> allStatistics;
+		std::list<std::string> filesToSave;
+		std::list<IndividualStatistics> allStatistics;
 
 		std::copy (_populationStatistics.begin (), _populationStatistics.end (), std::back_inserter (allStatistics));
 		allStatistics.sort(IndividualStatistics::greater);
@@ -294,7 +293,7 @@ void GeneticAlgorithm::optimize(IParameters* parametrsToOptimize, const IObjecti
 
 		fireNextGenerationReady(currentPopulationStatistics);
 
-		for(list<std::string>::iterator it = filesToSave.begin(); it != filesToSave.end(); it++)
+		for(std::list<std::string>::iterator it = filesToSave.begin(); it != filesToSave.end(); it++)
 		{
 			savePopulationToFile(*it);
 		}

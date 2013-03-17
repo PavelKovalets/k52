@@ -14,6 +14,8 @@
 #include <string>
 #include <ostream>
 #include <istream>
+//TODO for in>>fitness; --???
+#include <iostream>
 
 using ::std::vector;
 
@@ -251,9 +253,6 @@ std::ostream& operator<< (std::ostream& out, const Individual& individual)
 	out<<"\tFitness:\t"<<individual.getFitness()<<std::endl;
 	return out;
 }
-
-//TODO for in>>fitness; --???
-#include <iostream>
 
 std::istream& operator>> (std::istream& in, Individual& individual)
 {

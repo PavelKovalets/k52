@@ -5,9 +5,10 @@
  *      Author: feanor
  */
 
-#include <optimize/Individual.h>
 #include <optimize/GenerationStatistics.h>
 #include <cstddef>
+
+using ::std::list;
 
 namespace k52
 {

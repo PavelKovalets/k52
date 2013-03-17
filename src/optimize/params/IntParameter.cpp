@@ -71,8 +71,6 @@ void IntParameter::setBoolVectorFromInt(vector<bool>::iterator from, vector<bool
 		{
 			(*it) = true;
 		}
-		//TODO
-		//assume false is set by default?
 		else
 		{
 			(*it) = false;

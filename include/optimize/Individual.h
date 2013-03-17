@@ -10,6 +10,7 @@
 
 #include <optimize/params/IParameters.h>
 #include <optimize/InitializationChecker.h>
+#include <optimize/IndividualStatistics.h>
 #include <optimize/params/DiscreteParameters.h>
 #include <ostream>
 
@@ -18,27 +19,7 @@ namespace k52
 namespace optimize
 {
 
-//TODO make private
-
-/**
-@class IndividualStatistics
-Represents statistics about sungle individual
- */
-struct IndividualStatistics
-{
-	double Fitness;
-	int TimesChosenForCrossover;	
-
-	static bool less (IndividualStatistics const& leftArg, IndividualStatistics const& rightArg)
-	{
-		return leftArg.TimesChosenForCrossover < rightArg.TimesChosenForCrossover;
-	}
-
-	static bool greater (IndividualStatistics const& leftArg, IndividualStatistics const& rightArg)
-	{
-		return leftArg.TimesChosenForCrossover > rightArg.TimesChosenForCrossover;
-	}
-};
+//TODO make private - see field in GA class
 
 /**
  @class Individual

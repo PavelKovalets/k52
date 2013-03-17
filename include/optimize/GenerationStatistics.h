@@ -10,21 +10,18 @@
 
 #include <list>
 #include <string>
-#include <optimize/Individual.h>
+#include <optimize/IndividualStatistics.h>
+#include <optimize/params/IParameters.h>
 
 namespace k52
 {
 namespace optimize
 {
 
-class IndividualStatistics;
 /**
 @class GenerationStatistics
 Represents statistics about Genetic Algorithm population
  */
-
-using ::std::list;
-
 class GenerationStatistics
 {
 public:
@@ -35,8 +32,8 @@ public:
 			size_t numberOfGeneration,
 			int cacheHits,
 			int invalidChromosomes,
-			list<std::string>* filesToSave,
-			list<IndividualStatistics> allIndividualsStatistics);
+			std::list<std::string>* filesToSave,
+			std::list<IndividualStatistics> allIndividualsStatistics);
 
 	///Creates a copy of a GenerationStatistics
 	///@param a - GenerationStatistics to copy
@@ -76,7 +73,7 @@ public:
 	void saveCurrentPopulationToFile(std::string fileName);
 
 	///@return statistics for all individuals in current population
-	list<IndividualStatistics> getAllIndividualsStatistics() const;
+	std::list<IndividualStatistics> getAllIndividualsStatistics() const;
 
 private:
 	int _cacheHits;
@@ -85,8 +82,8 @@ private:
 	double _averageFithess;
 	double _bestFitness;
 	IParameters::shared_ptr _bestParametersStorage;
-	list<IndividualStatistics> _allIndividualsStatistics;
-	list<std::string>* _filesToSave;
+	std::list<IndividualStatistics> _allIndividualsStatistics;
+	std::list<std::string>* _filesToSave;
 };
 
 }/* namespace optimize */

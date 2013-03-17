@@ -18,8 +18,8 @@ namespace k52
 namespace optimize
 {
 
-GridSearch::GridSearch(double precision, double lowerBound, double upperBound, int numberOfThreads)
-	: _fitnessCounter(numberOfThreads, false)
+GridSearch::GridSearch(double precision, double lowerBound, double upperBound)
+	: _fitnessCounter(false)
 {
 	_lowerBound = lowerBound;
 	_upperBound = upperBound;

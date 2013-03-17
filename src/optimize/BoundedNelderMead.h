@@ -22,7 +22,7 @@ namespace optimize
 class BoundedNelderMead: public IOptimizer
 {
 public:
-	BoundedNelderMead(double l, double precision, double lowerBound, double upperBound, int numberOfThreads);
+	BoundedNelderMead(double l, double precision, double lowerBound, double upperBound);
 
 	virtual void optimize(IParameters* parametrsToOptimize, const IObjectiveFunction &functionToOptimize);
 
