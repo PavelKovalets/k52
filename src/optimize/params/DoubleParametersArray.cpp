@@ -28,7 +28,7 @@ DoubleParametersArray::DoubleParametersArray(double minValue, double maxValue, d
 
 	for(size_t i=0; i<numberOfParameters; i++)
 	{
-		doubleParameters[i] = IDiscreteParameters::shared_ptr (new DoubleParameter(0, _minValue, _maxValue, _desiredPrecision));
+		doubleParameters[i] = IDiscreteParameters::shared_ptr (new DoubleParameter(_minValue, _minValue, _maxValue, _desiredPrecision));
 	}
 
 	_doubleParameters = CompositeDiscreteParameters::shared_ptr(new CompositeDiscreteParameters());

@@ -58,14 +58,14 @@ DoubleParameter::DoubleParameter(double desiredValue, double minValue, double ma
 	{
 		throw std::invalid_argument("maxValue <= minValue");
 	}
+	
+	_maxValue = maxValue;
+	_minValue = minValue;
 
 	if(!checkBounds(desiredValue))
 	{
 		throw std::invalid_argument("desiredValue does not lie whithin [minValue;maxValue] interval.");
 	}
-
-	_maxValue = maxValue;
-	_minValue = minValue;
 
 	int bestMaxInt = CountBestMaxInt( getMaxInt(minValue, maxValue, desiredPrecision) );
 	int minInt = 0;
