@@ -17,12 +17,7 @@ namespace optimize
 
 double DoubleParameter::getValue() const
 {
-    return _value;
-}
-
-void DoubleParameter::setValue(double value)
-{
-	_value = value;
+    return  _baseIntParameter->getValue() * _precision + _minValue;
 }
 
 double DoubleParameter::getMaxValue() const
@@ -54,10 +49,10 @@ int DoubleParameter::CountBestMaxInt(int initialMaxInt)
 
 DoubleParameter::DoubleParameter()
 {
-	_baseIntParameter = 0;
+	_baseIntParameter = NULL;
 }
 
-DoubleParameter::DoubleParameter(double value, double minValue, double maxValue, double desiredPrecision)
+DoubleParameter::DoubleParameter(double desiredValue, double minValue, double maxValue, double desiredPrecision)
 {
 	if(maxValue <= minValue)
 	{
@@ -66,24 +61,22 @@ DoubleParameter::DoubleParameter(double value, double minValue, double maxValue,
 
 	_maxValue = maxValue;
 	_minValue = minValue;
-	_value = value;
 
 	int bestMaxInt = CountBestMaxInt( getMaxInt(minValue, maxValue, desiredPrecision) );
 	int minInt = 0;
 
 	_precision = (maxValue - minValue) / bestMaxInt;
 	//TODO check for smts like CEIL - int rounding may provide bugs
-	int intValue = /*ceil*/((value - minValue)/_precision);
+	int intValue = /*ceil*/((desiredValue - minValue)/_precision);
 
-	
-	_baseIntParameter = new IntParameter(intValue, minInt, bestMaxInt);
+	_baseIntParameter = IntParameter::shared_ptr(new IntParameter(intValue, minInt, bestMaxInt));
 
 	this->setConstChromosomeSize(_baseIntParameter->getChromosomeSize());
 }
 
 DoubleParameter::DoubleParameter(const DoubleParameter& a)
 {
-	_baseIntParameter = 0;
+	_baseIntParameter = NULL;
 	*this = a;
 }
 
@@ -95,48 +88,29 @@ DoubleParameter& DoubleParameter::operator=(const DoubleParameter & a)
 		_maxValue = a._maxValue;
 		_minValue = a._minValue;
 		_precision = a._precision;
-		_value = a._value;
 
-		if(a._baseIntParameter == 0)
+		if(a._baseIntParameter != NULL)
 		{
-			_baseIntParameter = 0;
-			return *this;
+			_baseIntParameter = IntParameter::shared_ptr(a._baseIntParameter->clone());
 		}
-
-		// 1: allocate new memory and copy the elements
-		IntParameter* newBaseParameter = a._baseIntParameter->clone();
-
-		// 2: deallocate old memory
-		if(_baseIntParameter != 0)
+		else
 		{
-			delete _baseIntParameter;
+			_baseIntParameter = NULL;
 		}
-
-		// 3: assign the new memory to the object
-		_baseIntParameter = newBaseParameter;
 	}
 	// by convention, always return *this
 	return *this;
 }
 
-DoubleParameter::~DoubleParameter()
-{
-	if(_baseIntParameter != 0)
-	{
-		delete _baseIntParameter;
-		_baseIntParameter = 0;
-	}
-}
-
 DoubleParameter *DoubleParameter::clone() const
 {
-	DoubleParameter* clone = new DoubleParameter(_value, _minValue, _maxValue, _precision);
+	DoubleParameter* clone = new DoubleParameter(*this);
 	return clone;
 }
 
 bool DoubleParameter::checkConstraints() const
 {
-	return _value>=_minValue && _value<=_maxValue;
+	return getValue()>=_minValue && getValue()<=_maxValue;
 }
 
 void DoubleParameter::setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
@@ -147,12 +121,9 @@ void DoubleParameter::setChromosome(std::vector<bool>::iterator from, std::vecto
 void DoubleParameter::setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
 {
 	_baseIntParameter->setFromChromosome(from, to);
-
-	int baseInt = _baseIntParameter->getValue();
-	_value = baseInt * _precision + _minValue;
 }
 
-int DoubleParameter::getMaxInt( double minValue, double maxValue, double precision)
+int DoubleParameter::getMaxInt(double minValue, double maxValue, double precision)
 {
 	int maxInt = ceil((maxValue - minValue)/precision);
 	if(maxInt < 1)

@@ -21,13 +21,11 @@ class DoubleParameter : public ConstChromosomeSizeParemeters
 public:
 	typedef boost::shared_ptr<DoubleParameter> shared_ptr;
 
-	DoubleParameter(double value, double minValue, double maxValue, double desiredPrecision);
+	DoubleParameter(double desiredValue, double minValue, double maxValue, double desiredPrecision);
 
 	DoubleParameter(const DoubleParameter& a);
 
 	DoubleParameter();
-
-	~DoubleParameter();
 
 	DoubleParameter& operator=(const DoubleParameter & a);
 
@@ -40,23 +38,20 @@ public:
 	void setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
 
     double getValue() const;
-    void setValue(double value);
     double getMaxValue() const;
     double getMinValue() const;
 	double getActualPrecision() const;
 
-//    void printBinaryValue();
 protected:
     static int getMaxInt( double minValue, double maxValue, double precision);
 	static int CountBestMaxInt(int initialMaxInt);
 
 private:
-	double _value;
 	double _minValue;
 	double _maxValue;
 	double _precision;
 
-	IntParameter* _baseIntParameter;
+	IntParameter::shared_ptr _baseIntParameter;
 };
 
 }/* namespace optimize */

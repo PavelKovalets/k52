@@ -36,6 +36,8 @@ size_t CompositeDiscreteParameters::getNumberOfParameters() const
 
 const IDiscreteParameters::shared_ptr CompositeDiscreteParameters::getParameter(size_t index) const
 {
+	_initializationChecker.initializationCheck();
+
 	if(index+1 > _parametersSet.size())
 	{
 		throw std::out_of_range("index in getParameter method is out of range");
