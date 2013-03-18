@@ -9,7 +9,7 @@
 #define IDENTIFYABLEOBJECTSMANAGER_H_
 
 #include <common/disallow_copy_and_assign.h>
-#include <parallel/ITask.h>
+#include <parallel/i_task.h>
 #include <common/i_cloneable.h>
 #include <map>
 #include <string>

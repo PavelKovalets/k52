@@ -13,7 +13,7 @@ std::vector< ITaskResult::shared_ptr > SequentialWorkerPool::doTasks (const std:
 
 	for(size_t i = 0; i < tasks.size(); i++)
 	{
-		results[i] = tasks[i]->perform();
+		results[i] = tasks[i]->Perform();
 		_statistics.increaseCounted();
 	}
 

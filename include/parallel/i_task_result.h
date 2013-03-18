@@ -1,10 +1,3 @@
-/*
- * TaskResult.h
- *
- *  Created on: Oct 14, 2012
- *      Author: pavel
- */
-
 #ifndef TASKRESULT_H_
 #define TASKRESULT_H_
 
@@ -18,9 +11,9 @@ namespace parallel
 class ITaskResult
 {
 public:
-	typedef boost::shared_ptr<ITaskResult> shared_ptr;
+    typedef boost::shared_ptr<ITaskResult> shared_ptr;
 
-	virtual ~ITaskResult() {}
+    virtual ~ITaskResult() {}
 };
 
 } /* namespace parallel */

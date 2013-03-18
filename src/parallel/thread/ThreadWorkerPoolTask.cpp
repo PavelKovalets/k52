@@ -24,7 +24,7 @@ ThreadWorkerPoolTask::ThreadWorkerPoolTask(
 
 void ThreadWorkerPoolTask::doTask()
 {
-	(*_resultToBeWritten) = _taskToDo->perform();
+	(*_resultToBeWritten) = _taskToDo->Perform();
 }
 
 } /* namespace thread */

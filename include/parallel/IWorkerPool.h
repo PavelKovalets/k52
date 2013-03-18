@@ -8,8 +8,8 @@
 #ifndef IWORKERPOOL_H_
 #define IWORKERPOOL_H_
 
-#include <parallel/ITask.h>
-#include <parallel/ITaskResult.h>
+#include <parallel/i_task.h>
+#include <parallel/i_task_result.h>
 #include <parallel/WorkerStatistics.h>
 #include <vector>
 
