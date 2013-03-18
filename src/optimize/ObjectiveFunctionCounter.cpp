@@ -106,7 +106,7 @@ vector<double> ObjectiveFunctionCounter::countObjectiveFunctionValues(
 
 	for(size_t i=0; i<rawTasks.size(); i++)
 	{
-		countedValues[i] = boost::dynamic_pointer_cast<ObjectiveFunctionTaskResult>( results[i] )->getObjectiveFunctionValue();
+		countedValues[i] =  results[i]->getObjectiveFunctionValue();
 	}
 
 	return countedValues;
@@ -116,11 +116,15 @@ vector< ObjectiveFunctionTaskResult::shared_ptr > ObjectiveFunctionCounter::coun
 		const vector<CountObjectiveFunctionTask::shared_ptr>& rawTasks)
 {
 	_objectiveFunctionCounts += rawTasks.size();
-	vector< ObjectiveFunctionTaskResult::shared_ptr > results (rawTasks.size());
 	vector< const k52::parallel::ITask* > rawTasksPtrs = createRawTaskPointersVector(rawTasks);
 
-	std::vector< k52::parallel::ITaskResult::shared_ptr > rawResults = _fitnessWorkerPool->doTasks(rawTasksPtrs);
+	vector< k52::parallel::ITaskResult::shared_ptr > rawResults = _fitnessWorkerPool->doTasks(rawTasksPtrs);
 
+	vector< ObjectiveFunctionTaskResult::shared_ptr > results(rawResults.size());
+	for(size_t i = 0; i<rawResults.size(); i++)
+	{
+		results[i] = boost::dynamic_pointer_cast<ObjectiveFunctionTaskResult>(rawResults[i]);
+	}
 	return results;
 }
 
