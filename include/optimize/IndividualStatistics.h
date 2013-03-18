@@ -19,6 +19,7 @@ Represents statistics about sungle individual
  */
 class IndividualStatistics
 {
+public:
 	double Fitness;
 	int TimesChosenForCrossover;
 
