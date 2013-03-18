@@ -17,7 +17,7 @@ namespace optimize
 @class IndividualStatistics
 Represents statistics about sungle individual
  */
-struct IndividualStatistics
+class IndividualStatistics
 {
 	double Fitness;
 	int TimesChosenForCrossover;
