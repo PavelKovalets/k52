@@ -7,7 +7,7 @@ namespace parallel
 
 SequentialWorkerPool::SequentialWorkerPool(){}
 
-std::vector< ITaskResult::shared_ptr > SequentialWorkerPool::doTasks (const std::vector<const ITask*>& tasks)
+std::vector< ITaskResult::shared_ptr > SequentialWorkerPool::DoTasks (const std::vector<const ITask*>& tasks)
 {
 	std::vector< ITaskResult::shared_ptr > results(tasks.size());
 
@@ -20,7 +20,7 @@ std::vector< ITaskResult::shared_ptr > SequentialWorkerPool::doTasks (const std:
 	return results;
 }
 
-std::vector< WorkerStatistics > SequentialWorkerPool::getStatistics()
+std::vector< WorkerStatistics > SequentialWorkerPool::GetStatistics()
 {
 	std::vector< WorkerStatistics > statistics(1);
 	statistics[0] = _statistics;

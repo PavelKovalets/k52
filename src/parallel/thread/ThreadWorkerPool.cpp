@@ -19,7 +19,7 @@ namespace thread
 ThreadWorkerPool::ThreadWorkerPool():
 		_workerPool() {}
 
-std::vector< ITaskResult::shared_ptr > ThreadWorkerPool::doTasks (
+std::vector< ITaskResult::shared_ptr > ThreadWorkerPool::DoTasks (
 		const std::vector<const ITask*>& tasks
 		)
 {
@@ -36,7 +36,7 @@ std::vector< ITaskResult::shared_ptr > ThreadWorkerPool::doTasks (
 	return results;
 }
 
-virtual std::vector< WorkerStatistics > getStatistics()
+virtual std::vector< WorkerStatistics > GetStatistics()
 {
 	throw std::logic_error("getStatistics for ThreadWorkerPool is not yet implemented");
 }

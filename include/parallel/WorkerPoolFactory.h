@@ -9,7 +9,7 @@
 #define WORKERPOOLFACTORY_H_
 
 #include <common/disallow_copy_and_assign.h>
-#include <parallel/IWorkerPool.h>
+#include <parallel/i_worker_pool.h>
 
 namespace k52
 {

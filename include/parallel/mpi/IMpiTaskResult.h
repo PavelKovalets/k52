@@ -8,7 +8,7 @@
 #ifndef IMPITASKRESULT_H_
 #define IMPITASKRESULT_H_
 
-#include <parallel/ITaskResult.h>
+#include <parallel/i_task_result.h>
 #include <parallel/mpi/boost_mpi_declaration.h>
 
 namespace k52

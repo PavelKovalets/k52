@@ -1,7 +1,7 @@
 #ifndef SEQUENTIALWORKERPOOL_H_
 #define SEQUENTIALWORKERPOOL_H_
 
-#include <parallel/IWorkerPool.h>
+#include <parallel/i_worker_pool.h>
 #include <common/disallow_copy_and_assign.h>
 
 namespace k52
@@ -16,9 +16,9 @@ public:
 
 	SequentialWorkerPool();
 
-	virtual std::vector< ITaskResult::shared_ptr > doTasks (const std::vector<const ITask*>& tasks);
+	virtual std::vector< ITaskResult::shared_ptr > DoTasks (const std::vector<const ITask*>& tasks);
 
-	virtual std::vector< WorkerStatistics > getStatistics();
+	virtual std::vector< WorkerStatistics > GetStatistics();
 
 private:
 	WorkerStatistics _statistics;

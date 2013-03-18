@@ -8,7 +8,7 @@
 #ifndef IMPITASK_H_
 #define IMPITASK_H_
 
-#include <parallel/ITask.h>
+#include <parallel/i_task.h>
 #include <parallel/mpi/ITransferable.h>
 #include <parallel/mpi/IMpiTaskResult.h>
 

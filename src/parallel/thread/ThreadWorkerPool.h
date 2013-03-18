@@ -10,7 +10,7 @@
 
 #ifdef BUILD_WITH_BOOST_THREAD
 
-#include <parallel/IWorkerPool.h>
+#include <parallel/i_worker_pool.h>
 #include "ThreadWorkerPoolTask.h"
 #include "ThreadWorkerPoolTemplated.h"
 
@@ -30,11 +30,11 @@ public:
 
 	ThreadWorkerPool();
 
-	virtual std::vector< ITaskResult::shared_ptr > doTasks (
+	virtual std::vector< ITaskResult::shared_ptr > DoTasks (
 			const std::vector<const ITask*>& tasks
 			);
 
-	virtual std::vector< WorkerStatistics > getStatistics();
+	virtual std::vector< WorkerStatistics > GetStatistics();
 
 private:
 	ThreadWorkerPoolTemplated<ThreadWorkerPoolTask> _workerPool;
