@@ -81,7 +81,7 @@ void CountObjectiveFunctionTask::receive(boost::mpi::communicator* communicator)
 #else
 
 //TODO use polymorphysm and fix conflict with base class
-k52::parallel::ITaskResult::shared_ptr CountObjectiveFunctionTask::perform() const
+k52::parallel::ITaskResult::shared_ptr CountObjectiveFunctionTask::Perform() const
 {
 	double value = _functionToOptimize->operator ()(_parameters);
 	ObjectiveFunctionTaskResult::shared_ptr result ( new ObjectiveFunctionTaskResult() );

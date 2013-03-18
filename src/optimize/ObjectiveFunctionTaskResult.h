@@ -8,7 +8,7 @@
 #ifndef OBJECTIVEFUNCTIONTASKRESULT_H_
 #define OBJECTIVEFUNCTIONTASKRESULT_H_
 
-#include <parallel/ITaskResult.h>
+#include <parallel/i_task_result.h>
 
 #ifdef BUILD_WITH_MPI
 #include <parallel/mpi/IMpiTaskResult.h>

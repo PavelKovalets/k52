@@ -6,7 +6,7 @@
  */
 
 #include "ObjectiveFunctionCounter.h"
-#include <parallel/WorkerPoolFactory.h>
+#include <parallel/worker_pool_factory.h>
 #include <parallel/mpi/IdentifyableObjectsManager.h>
 #include <stdexcept>
 
@@ -28,17 +28,17 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool useValueCaching)
 	CountObjectiveFunctionTask task;
 	k52::parallel::mpi::IdentifyableObjectsManager::Instance().registerObject(&task);
 #endif
-	if(WorkerPoolFactory::canCreateWorkerPool(k52::parallel::kMpiWorkerPool))
+	if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kMpiWorkerPool))
 	{
-		_fitnessWorkerPool = WorkerPoolFactory::createWorkerPool(k52::parallel::kMpiWorkerPool);
+		_fitnessWorkerPool = WorkerPoolFactory::CreateWorkerPool(WorkerPoolFactory::kMpiWorkerPool);
 	}
-	else if(WorkerPoolFactory::canCreateWorkerPool(k52::parallel::kThreadWorkerPool))
+	else if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kThreadWorkerPool))
 	{
-		_fitnessWorkerPool = WorkerPoolFactory::createWorkerPool(k52::parallel::kThreadWorkerPool);
+		_fitnessWorkerPool = WorkerPoolFactory::CreateWorkerPool(WorkerPoolFactory::kThreadWorkerPool);
 	}
-	else if(WorkerPoolFactory::canCreateWorkerPool(k52::parallel::kSequentialWorkerPool))
+	else if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kSequentialWorkerPool))
 	{
-		_fitnessWorkerPool = WorkerPoolFactory::createWorkerPool(k52::parallel::kSequentialWorkerPool);
+		_fitnessWorkerPool = WorkerPoolFactory::CreateWorkerPool(WorkerPoolFactory::kSequentialWorkerPool);
 	}
 	else
 	{
@@ -118,7 +118,7 @@ vector< ObjectiveFunctionTaskResult::shared_ptr > ObjectiveFunctionCounter::coun
 	_objectiveFunctionCounts += rawTasks.size();
 	vector< const k52::parallel::ITask* > rawTasksPtrs = createRawTaskPointersVector(rawTasks);
 
-	vector< k52::parallel::ITaskResult::shared_ptr > rawResults = _fitnessWorkerPool->doTasks(rawTasksPtrs);
+	vector< k52::parallel::ITaskResult::shared_ptr > rawResults = _fitnessWorkerPool->DoTasks(rawTasksPtrs);
 
 	vector< ObjectiveFunctionTaskResult::shared_ptr > results(rawResults.size());
 	for(size_t i = 0; i<rawResults.size(); i++)

@@ -11,7 +11,7 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 #include <optimize/IObjectiveFunction.h>
-#include <parallel/ITask.h>
+#include <parallel/i_task.h>
 
 #include <common/disallow_copy_and_assign.h>
 
@@ -54,7 +54,7 @@ public:
 
 #else
 
-	k52::parallel::ITaskResult::shared_ptr perform() const;
+	k52::parallel::ITaskResult::shared_ptr Perform() const;
 
 #endif
 

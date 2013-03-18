@@ -12,7 +12,7 @@
 #include <optimize/Individual.h>
 #include "CountObjectiveFunctionTask.h"
 #include "ObjectiveFunctionTaskResult.h"
-#include <parallel/IWorkerPool.h>
+#include <parallel/i_worker_pool.h>
 #include <map>
 #include <vector>
 #include <queue>
