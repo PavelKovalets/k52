@@ -25,7 +25,7 @@ public:
 
 	DoubleParametersArray(double minValue, double maxValue, double desiredPrecision, size_t numberOfParameters);
 
-	DoubleParametersArray* clone() const;
+	DoubleParametersArray* Clone() const;
 
 	bool checkConstraints() const;
 

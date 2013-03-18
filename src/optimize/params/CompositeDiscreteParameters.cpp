@@ -19,7 +19,7 @@ void CompositeDiscreteParameters::initialize(std::vector<IDiscreteParameters::sh
 
 	for(size_t i=0; i<_parametersSet.size(); i++)
 	{
-		_parametersSet[i] = IDiscreteParameters::shared_ptr(parameters[i]->clone());
+		_parametersSet[i] = IDiscreteParameters::shared_ptr(parameters[i]->Clone());
 	}
 
 	this->setConstChromosomeSize( countTotalChromosomeSize() );
@@ -46,7 +46,7 @@ const IDiscreteParameters::shared_ptr CompositeDiscreteParameters::getParameter(
 	return _parametersSet[index];
 }
 
-CompositeDiscreteParameters *CompositeDiscreteParameters::clone() const
+CompositeDiscreteParameters *CompositeDiscreteParameters::Clone() const
 {
 	_initializationChecker.initializationCheck();
 

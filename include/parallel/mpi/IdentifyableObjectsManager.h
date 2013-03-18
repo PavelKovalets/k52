@@ -10,7 +10,7 @@
 
 #include <common/disallow_copy_and_assign.h>
 #include <parallel/ITask.h>
-#include <common/ICloneable.h>
+#include <common/i_cloneable.h>
 #include <map>
 #include <string>
 

@@ -29,7 +29,7 @@ public:
 
 	DoubleParameter& operator=(const DoubleParameter & a);
 
-	DoubleParameter* clone() const;
+	DoubleParameter* Clone() const;
 
 	bool checkConstraints() const;
 

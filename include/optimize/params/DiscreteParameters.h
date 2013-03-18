@@ -28,7 +28,7 @@ public:
 
 	virtual size_t getChromosomeSize() const = 0;
 
-	virtual IDiscreteParameters* clone() const = 0;
+	virtual IDiscreteParameters* Clone() const = 0;
 
 #ifdef BUILD_WITH_MPI
 	virtual void send(boost::mpi::communicator* communicator, int target) const;

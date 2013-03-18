@@ -50,10 +50,10 @@ size_t DoubleParametersArray::getNumberOfParameters() const
     return _doubleParameters->getNumberOfParameters();
 }
 
-DoubleParametersArray *DoubleParametersArray::clone() const
+DoubleParametersArray *DoubleParametersArray::Clone() const
 {
 	DoubleParametersArray* clone = new DoubleParametersArray(_minValue, _maxValue, _desiredPrecision, _doubleParameters->getNumberOfParameters());
-	clone->_doubleParameters = CompositeDiscreteParameters::shared_ptr(_doubleParameters->clone());
+	clone->_doubleParameters = CompositeDiscreteParameters::shared_ptr(_doubleParameters->Clone());
 	return clone;
 }
 

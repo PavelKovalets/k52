@@ -28,7 +28,7 @@ public:
 
 	virtual bool checkConstraints() const = 0;
 
-	virtual IContinuousParameters* clone() const = 0;
+	virtual IContinuousParameters* Clone() const = 0;
 };
 
 }/* namespace optimize */

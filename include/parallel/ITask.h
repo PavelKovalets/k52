@@ -8,7 +8,7 @@
 #ifndef ITASK_H_
 #define ITASK_H_
 
-#include <common/ICloneable.h>
+#include <common/i_cloneable.h>
 #include <parallel/ITaskResult.h>
 #include <boost/shared_ptr.hpp>
 

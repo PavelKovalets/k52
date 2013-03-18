@@ -96,7 +96,7 @@ DoubleParameter& DoubleParameter::operator=(const DoubleParameter & a)
 
 		if(a._baseIntParameter != NULL)
 		{
-			_baseIntParameter = IntParameter::shared_ptr(a._baseIntParameter->clone());
+			_baseIntParameter = IntParameter::shared_ptr(a._baseIntParameter->Clone());
 		}
 		else
 		{
@@ -107,7 +107,7 @@ DoubleParameter& DoubleParameter::operator=(const DoubleParameter & a)
 	return *this;
 }
 
-DoubleParameter *DoubleParameter::clone() const
+DoubleParameter *DoubleParameter::Clone() const
 {
 	DoubleParameter* clone = new DoubleParameter(*this);
 	return clone;

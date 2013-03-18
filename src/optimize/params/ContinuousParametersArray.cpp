@@ -36,7 +36,7 @@ std::vector<double> ContinuousParametersArray::getValues() const
 	return _values;
 }
 
-ContinuousParametersArray *ContinuousParametersArray::clone() const
+ContinuousParametersArray *ContinuousParametersArray::Clone() const
 {
 	ContinuousParametersArray* clone = new ContinuousParametersArray(_values.size());
 	clone->_values = _values;

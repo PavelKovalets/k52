@@ -68,7 +68,7 @@ void GridSearch::optimize(IParameters *parametrsToOptimize, const IObjectiveFunc
 		}
 
 		continuousParameters->setValues(values);
-		parametersStorages[i] = IContinuousParameters::shared_ptr(continuousParameters->clone());
+		parametersStorages[i] = IContinuousParameters::shared_ptr(continuousParameters->Clone());
 
 		//TODO FIX do not return local ptr
 		parameters[i] = parametersStorages[i].get();

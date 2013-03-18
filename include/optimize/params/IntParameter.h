@@ -39,7 +39,7 @@ public:
 	///@return minimum allowed value of IntParameter
 	int getMinValue() const;
 
-	IntParameter* clone() const;
+	IntParameter* Clone() const;
 
 	bool checkConstraints() const;
 

@@ -15,7 +15,7 @@ namespace k52
 namespace optimize
 {
 
-IntParameter* IntParameter::clone() const
+IntParameter* IntParameter::Clone() const
 {
 	IntParameter* clone = new IntParameter(_value, _minValue, _maxValue);
 	return clone;

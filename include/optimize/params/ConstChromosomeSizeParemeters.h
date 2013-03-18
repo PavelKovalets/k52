@@ -36,7 +36,7 @@ public:
 
 	virtual bool checkConstraints() const = 0;
 
-	virtual ConstChromosomeSizeParemeters* clone() const = 0;
+	virtual ConstChromosomeSizeParemeters* Clone() const = 0;
 
 protected:
 

@@ -148,7 +148,7 @@ void Individual::initialize(const IDiscreteParameters* const parameters)
 {
 	_initializationChecker.setInitialized();
 
-	_parametersStorage = IDiscreteParameters::shared_ptr(parameters->clone());
+	_parametersStorage = IDiscreteParameters::shared_ptr(parameters->Clone());
 	_chromosome = vector<bool> ( _parametersStorage->getChromosomeSize() );
 
 	_hasFitness = false;
@@ -179,7 +179,7 @@ Individual& Individual::operator=(const Individual & a)
 	{
 		if(a._parametersStorage != NULL)
 		{
-			_parametersStorage = IDiscreteParameters::shared_ptr( a._parametersStorage->clone() );
+			_parametersStorage = IDiscreteParameters::shared_ptr( a._parametersStorage->Clone() );
 		}
 
 		_chromosome = a._chromosome;

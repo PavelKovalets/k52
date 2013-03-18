@@ -48,7 +48,7 @@ const k52::common::ICloneable* IdentifyableObjectsManager::getObject(std::string
 
 void IdentifyableObjectsManager::registerObject(k52::common::ICloneable* object)
 {
-	_registeredObjects[IdentifyableObjectsManager::getId(object)] = object->clone();
+	_registeredObjects[IdentifyableObjectsManager::getId(object)] = object->Clone();
 }
 
 std::string IdentifyableObjectsManager::getId(const k52::common::ICloneable* object)

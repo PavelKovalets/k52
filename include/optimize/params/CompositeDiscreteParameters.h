@@ -30,7 +30,7 @@ public:
 
 	const IDiscreteParameters::shared_ptr getParameter(size_t index) const;
 
-	CompositeDiscreteParameters* clone() const;
+	CompositeDiscreteParameters* Clone() const;
 
 	bool checkConstraints() const;
 

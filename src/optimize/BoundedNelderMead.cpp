@@ -255,7 +255,7 @@ vector<double> BoundedNelderMead::countObjectiveFunctionValues(const vector< vec
 	for(size_t i = 0; i < N; i++)
 	{
 		baseParameters->setValues(parametersValues[i]);
-		storages[i] = IContinuousParameters::shared_ptr(baseParameters->clone());
+		storages[i] = IContinuousParameters::shared_ptr(baseParameters->Clone());
 
 		//TODO fix - do not use inner ptr
 		parameters[i] = storages[i].get();

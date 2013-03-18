@@ -26,7 +26,7 @@ public:
 
 	virtual std::vector<double> getValues() const;
 
-	virtual ContinuousParametersArray* clone() const;
+	virtual ContinuousParametersArray* Clone() const;
 
 	virtual bool checkConstraints() const;
 

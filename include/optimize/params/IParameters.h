@@ -8,7 +8,7 @@
 #ifndef IPARAMETERS_H_
 #define IPARAMETERS_H_
 
-#include <common/ICloneable.h>
+#include <common/i_cloneable.h>
 #include <optimize/IConvertableToChromosome.h>
 
 #ifdef BUILD_WITH_MPI
@@ -46,7 +46,7 @@ public:
 
 	///Creates deep clone of an object with resource allocation. See ICloneable
 	///@return deep clone of an object
-	virtual IParameters* clone() const = 0;
+	virtual IParameters* Clone() const = 0;
 
 #ifdef BUILD_WITH_MPI
 	virtual void send(boost::mpi::communicator* communicator, int target) const = 0;
