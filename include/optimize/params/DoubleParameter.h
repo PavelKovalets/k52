@@ -45,6 +45,7 @@ public:
 protected:
     static int getMaxInt( double minValue, double maxValue, double precision);
 	static int CountBestMaxInt(int initialMaxInt);
+	bool checkBounds(double value) const;
 
 private:
 	double _minValue;

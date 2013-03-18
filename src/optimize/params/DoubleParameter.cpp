@@ -59,6 +59,11 @@ DoubleParameter::DoubleParameter(double desiredValue, double minValue, double ma
 		throw std::invalid_argument("maxValue <= minValue");
 	}
 
+	if(!checkBounds(desiredValue))
+	{
+		throw std::invalid_argument("desiredValue does not lie whithin [minValue;maxValue] interval.");
+	}
+
 	_maxValue = maxValue;
 	_minValue = minValue;
 
@@ -110,7 +115,7 @@ DoubleParameter *DoubleParameter::clone() const
 
 bool DoubleParameter::checkConstraints() const
 {
-	return getValue()>=_minValue && getValue()<=_maxValue;
+	return checkBounds(getValue());
 }
 
 void DoubleParameter::setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
@@ -121,6 +126,11 @@ void DoubleParameter::setChromosome(std::vector<bool>::iterator from, std::vecto
 void DoubleParameter::setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
 {
 	_baseIntParameter->setFromChromosome(from, to);
+}
+
+bool DoubleParameter::checkBounds(double value) const
+{
+	return value >= _minValue && value <= _maxValue;
 }
 
 int DoubleParameter::getMaxInt(double minValue, double maxValue, double precision)
