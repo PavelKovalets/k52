@@ -8,7 +8,8 @@
 #ifndef IDISCRETEPARAMETERS_H_
 #define IDISCRETEPARAMETERS_H_
 
-#include "IParameters.h"
+#include <optimize/i_convertable_to_chromosome.h>
+#include <optimize/params/IParameters.h>
 
 namespace k52
 {
@@ -22,11 +23,11 @@ public:
 
 	virtual ~IDiscreteParameters() {}
 
-	virtual void setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const = 0;
+	virtual void SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const = 0;
 
-	virtual void setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to) = 0;
+	virtual void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to) = 0;
 
-	virtual size_t getChromosomeSize() const = 0;
+	virtual size_t GetChromosomeSize() const = 0;
 
 	virtual IDiscreteParameters* Clone() const = 0;
 

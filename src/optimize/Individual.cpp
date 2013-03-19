@@ -8,6 +8,8 @@
 #include <optimize/Individual.h>
 #include "Random.h"
 #include "Mutator.h"
+
+#include <vector>
 #include <stdexcept>
 #include <iostream>
 #include <fstream>
@@ -141,7 +143,7 @@ void Individual::setParametersAccordingToChromosome()
 {
 	_initializationChecker.initializationCheck();
 
-	_parametersStorage->setFromChromosome(_chromosome.begin(), _chromosome.end());
+	_parametersStorage->SetFromChromosome(_chromosome.begin(), _chromosome.end());
 }
 
 void Individual::initialize(const IDiscreteParameters* const parameters)
@@ -149,7 +151,7 @@ void Individual::initialize(const IDiscreteParameters* const parameters)
 	_initializationChecker.setInitialized();
 
 	_parametersStorage = IDiscreteParameters::shared_ptr(parameters->Clone());
-	_chromosome = vector<bool> ( _parametersStorage->getChromosomeSize() );
+	_chromosome = vector<bool> ( _parametersStorage->GetChromosomeSize() );
 
 	_hasFitness = false;
 	_timesChosenForCrossover = 0;

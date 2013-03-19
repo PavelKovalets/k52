@@ -76,7 +76,7 @@ DoubleParameter::DoubleParameter(double desiredValue, double minValue, double ma
 
 	_baseIntParameter = IntParameter::shared_ptr(new IntParameter(intValue, minInt, bestMaxInt));
 
-	this->setConstChromosomeSize(_baseIntParameter->getChromosomeSize());
+	this->setConstChromosomeSize(_baseIntParameter->GetChromosomeSize());
 }
 
 DoubleParameter::DoubleParameter(const DoubleParameter& a)
@@ -118,14 +118,14 @@ bool DoubleParameter::checkConstraints() const
 	return checkBounds(getValue());
 }
 
-void DoubleParameter::setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
+void DoubleParameter::SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
 {
-	_baseIntParameter->setChromosome(from, to);
+	_baseIntParameter->SetChromosome(from, to);
 }
 
-void DoubleParameter::setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
+void DoubleParameter::SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
 {
-	_baseIntParameter->setFromChromosome(from, to);
+	_baseIntParameter->SetFromChromosome(from, to);
 }
 
 bool DoubleParameter::checkBounds(double value) const

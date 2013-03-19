@@ -29,11 +29,11 @@ public:
 
 	bool checkConstraints() const;
 
-	size_t getChromosomeSize() const;
+	size_t GetChromosomeSize() const;
 
-	void setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const;
+	void SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const;
 
-	void setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
+	void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
 
     double getMaxValue() const;
     double getMinValue() const;

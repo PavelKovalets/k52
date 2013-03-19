@@ -57,9 +57,9 @@ DoubleParametersArray *DoubleParametersArray::Clone() const
 	return clone;
 }
 
-size_t DoubleParametersArray::getChromosomeSize() const
+size_t DoubleParametersArray::GetChromosomeSize() const
 {
-	return _doubleParameters->getChromosomeSize();
+	return _doubleParameters->GetChromosomeSize();
 }
 
 std::vector<double> DoubleParametersArray::getValues() const
@@ -84,14 +84,14 @@ bool DoubleParametersArray::checkConstraints() const
 	return _doubleParameters->checkConstraints();
 }
 
-void DoubleParametersArray::setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
+void DoubleParametersArray::SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
 {
-	_doubleParameters->setFromChromosome(from, to);
+	_doubleParameters->SetFromChromosome(from, to);
 }
 
-void DoubleParametersArray::setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
+void DoubleParametersArray::SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
 {
-	_doubleParameters->setChromosome(from, to);
+	_doubleParameters->SetChromosome(from, to);
 }
 
 double DoubleParametersArray::getActualPrecision() const

@@ -69,7 +69,7 @@ bool CompositeDiscreteParameters::checkConstraints() const
 	return true;
 }
 
-void CompositeDiscreteParameters::setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
+void CompositeDiscreteParameters::SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
 {
 	_initializationChecker.initializationCheck();
 
@@ -81,17 +81,17 @@ void CompositeDiscreteParameters::setChromosome(std::vector<bool>::iterator from
 
 	for(size_t i = 0; i < _parametersSet.size(); i++)
 	{
-		size_t parameterChromosomeSize = _parametersSet[i]->getChromosomeSize();
+		size_t parameterChromosomeSize = _parametersSet[i]->GetChromosomeSize();
 
 		std::vector<bool>::iterator currentTo = currentFrom + parameterChromosomeSize;
 
-		_parametersSet[i]->setChromosome(currentFrom, currentTo);
+		_parametersSet[i]->SetChromosome(currentFrom, currentTo);
 
 		currentFrom = currentTo;
 	}
 }
 
-void CompositeDiscreteParameters::setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
+void CompositeDiscreteParameters::SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
 {
 	_initializationChecker.initializationCheck();
 
@@ -103,11 +103,11 @@ void CompositeDiscreteParameters::setFromChromosome(std::vector<bool>::const_ite
 
 	for(size_t i = 0; i < _parametersSet.size(); i++)
 	{
-		size_t parameterChromosomeSize = _parametersSet[i]->getChromosomeSize();
+		size_t parameterChromosomeSize = _parametersSet[i]->GetChromosomeSize();
 
 		std::vector<bool>::const_iterator currentTo = currentFrom + parameterChromosomeSize;
 
-		_parametersSet[i]->setFromChromosome(currentFrom, currentTo);
+		_parametersSet[i]->SetFromChromosome(currentFrom, currentTo);
 
 		currentFrom = currentTo;
 	}
@@ -118,7 +118,7 @@ size_t CompositeDiscreteParameters::countTotalChromosomeSize() const
 	size_t totalChromosomeSize = 0;
 	for(size_t i=0; i<_parametersSet.size(); i++)
 	{
-		totalChromosomeSize += _parametersSet[i]->getChromosomeSize();
+		totalChromosomeSize += _parametersSet[i]->GetChromosomeSize();
 	}
 	return totalChromosomeSize;
 }

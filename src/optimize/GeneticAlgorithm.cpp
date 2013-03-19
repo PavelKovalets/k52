@@ -305,7 +305,7 @@ void GeneticAlgorithm::optimize(IParameters* parametrsToOptimize, const IObjecti
 
 		if(_bestIndivid.getFitness() >= _fitnessStopCriteria)
 		{
-			discreteParameters->setFromChromosome(
+			discreteParameters->SetFromChromosome(
 					_bestIndivid.getChromosome().begin(),
 					_bestIndivid.getChromosome().end() );
 			return;
@@ -315,7 +315,7 @@ void GeneticAlgorithm::optimize(IParameters* parametrsToOptimize, const IObjecti
 		mutate();
 	}
 
-	discreteParameters->setFromChromosome(
+	discreteParameters->SetFromChromosome(
 						_bestIndivid.getChromosome().begin(),
 						_bestIndivid.getChromosome().end() );
 

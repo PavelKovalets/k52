@@ -9,7 +9,6 @@
 #define IPARAMETERS_H_
 
 #include <common/i_cloneable.h>
-#include <optimize/IConvertableToChromosome.h>
 
 #ifdef BUILD_WITH_MPI
 #include <parallel/mpi/ITransferable.h>

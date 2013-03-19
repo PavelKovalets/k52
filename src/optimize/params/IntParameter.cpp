@@ -30,7 +30,7 @@ IntParameter::IntParameter(int value, int minValue, int maxValue)
 	_maxValue = maxValue;
 }
 
-void IntParameter::setChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const
+void IntParameter::SetChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const
 {
 	size_t chromosomeSize = to - from;
 	this->checkForConstChromosomeSize(chromosomeSize);
@@ -38,7 +38,7 @@ void IntParameter::setChromosome(vector<bool>::iterator from, vector<bool>::iter
 	IntParameter::setBoolVectorFromInt(from, to, _value - _minValue);
 }
 
-void IntParameter::setFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to)
+void IntParameter::SetFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to)
 {
 	size_t chromosomeSize = to - from;
 	this->checkForConstChromosomeSize(chromosomeSize);

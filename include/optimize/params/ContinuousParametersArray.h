@@ -8,6 +8,7 @@
 #ifndef CONTINUOUSPARAMETERSARRAY_H_
 #define CONTINUOUSPARAMETERSARRAY_H_
 
+
 #include <optimize/params/IContinuousParameters.h>
 
 namespace k52

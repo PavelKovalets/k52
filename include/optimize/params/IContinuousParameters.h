@@ -8,6 +8,8 @@
 #ifndef ICONTINUOUSPARAMETERS_H_
 #define ICONTINUOUSPARAMETERS_H_
 
+#include <vector>
+
 #include "IParameters.h"
 
 namespace k52

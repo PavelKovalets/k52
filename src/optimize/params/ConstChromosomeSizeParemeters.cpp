@@ -19,7 +19,7 @@ ConstChromosomeSizeParemeters::ConstChromosomeSizeParemeters()
 	_chromosomeSize = 0;
 }
 
-size_t ConstChromosomeSizeParemeters::getChromosomeSize() const
+size_t ConstChromosomeSizeParemeters::GetChromosomeSize() const
 {
 	checkIfChromosomeWasSet();
 	return _chromosomeSize;

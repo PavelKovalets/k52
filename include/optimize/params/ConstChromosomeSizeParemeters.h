@@ -28,11 +28,11 @@ public:
 
 	ConstChromosomeSizeParemeters();
 
-	size_t getChromosomeSize() const;
+	size_t GetChromosomeSize() const;
 
-	void setChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const = 0;
+	void SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const = 0;
 
-	void setFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to) = 0;
+	void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to) = 0;
 
 	virtual bool checkConstraints() const = 0;
 
