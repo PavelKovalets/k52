@@ -11,7 +11,7 @@
 #include <optimize/params/i_parameters.h>
 #include <optimize/InitializationChecker.h>
 #include <optimize/IndividualStatistics.h>
-#include <optimize/params/DiscreteParameters.h>
+#include <optimize/params/discrete_parameters.h>
 #include <ostream>
 
 namespace k52

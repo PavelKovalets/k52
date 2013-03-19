@@ -8,7 +8,7 @@
 #ifndef DOUBLEPARAMETERSARRAY_H_
 #define DOUBLEPARAMETERSARRAY_H_
 
-#include "DiscreteParameters.h"
+#include <optimize/params/discrete_parameters.h>
 #include "DoubleParameter.h"
 #include "CompositeDiscreteParameters.h"
 #include "ConstChromosomeSizeParemeters.h"

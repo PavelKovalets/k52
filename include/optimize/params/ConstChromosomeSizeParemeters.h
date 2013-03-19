@@ -8,7 +8,7 @@
 #ifndef CONSTCHROMOSOMESIZEPAREMETERS_H_
 #define CONSTCHROMOSOMESIZEPAREMETERS_H_
 
-#include "DiscreteParameters.h"
+#include <optimize/params/discrete_parameters.h>
 
 namespace k52
 {
