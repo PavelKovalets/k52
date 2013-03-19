@@ -41,7 +41,7 @@ public:
 
 	IntParameter* Clone() const;
 
-	bool checkConstraints() const;
+	bool CheckConstraints() const;
 
 	void SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const;
 

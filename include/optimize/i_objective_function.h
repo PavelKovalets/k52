@@ -4,7 +4,8 @@
 #ifdef BUILD_WITH_MPI
 #include <common/ICloneable.h>
 #endif
-#include <optimize/params/IParameters.h>
+
+#include <optimize/params/i_parameters.h>
 
 namespace k52
 {

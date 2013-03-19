@@ -79,9 +79,9 @@ const DoubleParameter::shared_ptr DoubleParametersArray::getDoubleParameter(size
 }
 
 
-bool DoubleParametersArray::checkConstraints() const
+bool DoubleParametersArray::CheckConstraints() const
 {
-	return _doubleParameters->checkConstraints();
+	return _doubleParameters->CheckConstraints();
 }
 
 void DoubleParametersArray::SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)

@@ -113,7 +113,7 @@ DoubleParameter *DoubleParameter::Clone() const
 	return clone;
 }
 
-bool DoubleParameter::checkConstraints() const
+bool DoubleParameter::CheckConstraints() const
 {
 	return checkBounds(getValue());
 }

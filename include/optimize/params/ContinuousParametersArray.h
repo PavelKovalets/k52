@@ -29,7 +29,7 @@ public:
 
 	virtual ContinuousParametersArray* Clone() const;
 
-	virtual bool checkConstraints() const;
+	virtual bool CheckConstraints() const;
 
 #ifdef BUILD_WITH_MPI
 	//TODO implementation needed!!!

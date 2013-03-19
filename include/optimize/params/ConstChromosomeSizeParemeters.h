@@ -34,7 +34,7 @@ public:
 
 	void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to) = 0;
 
-	virtual bool checkConstraints() const = 0;
+	virtual bool CheckConstraints() const = 0;
 
 	virtual ConstChromosomeSizeParemeters* Clone() const = 0;
 

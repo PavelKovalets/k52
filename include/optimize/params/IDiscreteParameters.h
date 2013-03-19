@@ -9,7 +9,7 @@
 #define IDISCRETEPARAMETERS_H_
 
 #include <optimize/i_convertable_to_chromosome.h>
-#include <optimize/params/IParameters.h>
+#include <optimize/params/i_parameters.h>
 
 namespace k52
 {

@@ -43,7 +43,7 @@ ContinuousParametersArray *ContinuousParametersArray::Clone() const
 	return clone;
 }
 
-bool ContinuousParametersArray::checkConstraints() const
+bool ContinuousParametersArray::CheckConstraints() const
 {
 	return true;
 }

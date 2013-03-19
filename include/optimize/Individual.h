@@ -8,7 +8,7 @@
 #ifndef INDIVIDUAL_H_
 #define INDIVIDUAL_H_
 
-#include <optimize/params/IParameters.h>
+#include <optimize/params/i_parameters.h>
 #include <optimize/InitializationChecker.h>
 #include <optimize/IndividualStatistics.h>
 #include <optimize/params/DiscreteParameters.h>

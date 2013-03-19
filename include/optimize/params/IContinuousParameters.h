@@ -10,7 +10,7 @@
 
 #include <vector>
 
-#include "IParameters.h"
+#include <optimize/params/i_parameters.h>
 
 namespace k52
 {
@@ -28,7 +28,7 @@ public:
 
 	virtual std::vector<double> getValues() const = 0;
 
-	virtual bool checkConstraints() const = 0;
+	virtual bool CheckConstraints() const = 0;
 
 	virtual IContinuousParameters* Clone() const = 0;
 };

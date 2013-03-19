@@ -63,7 +63,7 @@ int Individual::setRandomChromosome()
 
 		this->setParametersAccordingToChromosome();
 
-		success = this->_parametersStorage->checkConstraints();
+		success = this->_parametersStorage->CheckConstraints();
 
 		if(!success)
 		{
@@ -92,7 +92,7 @@ int Individual::mutate(double genMutationProbability)
 
 		this->setParametersAccordingToChromosome();
 
-		success = this->_parametersStorage->checkConstraints();
+		success = this->_parametersStorage->CheckConstraints();
 
 		if(!success)
 		{
@@ -115,7 +115,7 @@ bool Individual::crossover(Individual* another)
 	this->setParametersAccordingToChromosome();
 	another->setParametersAccordingToChromosome();
 
-	if( ( !this->_parametersStorage->checkConstraints() ) || ( !another->_parametersStorage->checkConstraints() ) )
+	if( ( !this->_parametersStorage->CheckConstraints() ) || ( !another->_parametersStorage->CheckConstraints() ) )
 	{
 		return false;
 	}

@@ -27,7 +27,7 @@ public:
 
 	DoubleParametersArray* Clone() const;
 
-	bool checkConstraints() const;
+	bool CheckConstraints() const;
 
 	size_t GetChromosomeSize() const;
 

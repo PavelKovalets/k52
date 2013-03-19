@@ -101,7 +101,7 @@ int IntParameter::getIntFromBoolVector(vector<bool>::const_iterator from, vector
 	return ((int)result);
 }
 
-bool IntParameter::checkConstraints() const
+bool IntParameter::CheckConstraints() const
 {
 	if(_value > (_maxValue))
 	{

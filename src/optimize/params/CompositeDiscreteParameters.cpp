@@ -55,13 +55,13 @@ CompositeDiscreteParameters *CompositeDiscreteParameters::Clone() const
 	return clone;
 }
 
-bool CompositeDiscreteParameters::checkConstraints() const
+bool CompositeDiscreteParameters::CheckConstraints() const
 {
 	_initializationChecker.initializationCheck();
 
 	for(size_t i=0; i<_parametersSet.size(); i++)
 	{
-		if(!_parametersSet[i]->checkConstraints())
+		if(!_parametersSet[i]->CheckConstraints())
 		{
 			return false;
 		}
