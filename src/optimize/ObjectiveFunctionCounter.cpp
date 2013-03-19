@@ -7,7 +7,7 @@
 
 #include "ObjectiveFunctionCounter.h"
 #include <parallel/worker_pool_factory.h>
-#include <parallel/mpi/IdentifyableObjectsManager.h>
+#include <parallel/mpi/identifyable_objects_manager.h>
 #include <stdexcept>
 
 using ::std::vector;
