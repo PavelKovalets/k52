@@ -9,7 +9,7 @@
 #define BOUNDEDNELDERMEAD_H_
 
 #include <optimize/i_optimizer.h>
-#include <optimize/params/IContinuousParameters.h>
+#include <optimize/params/i_continuous_parameters.h>
 #include "ObjectiveFunctionCounter.h"
 
 #include <common/disallow_copy_and_assign.h>

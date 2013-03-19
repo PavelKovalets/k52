@@ -6,7 +6,7 @@
  */
 
 #include "GridSearch.h"
-#include <optimize/params/IContinuousParameters.h>
+#include <optimize/params/i_continuous_parameters.h>
 #include <math.h>
 #include <stdexcept>
 #include <algorithm>
@@ -42,7 +42,7 @@ void GridSearch::Optimize(const IObjectiveFunction &function_to_optimize, IParam
 {
 	IContinuousParameters* continuousParameters = dynamic_cast<IContinuousParameters*> (parametrs_to_optimize);
 
-	vector<double> initialParameters = continuousParameters->getValues();
+	vector<double> initialParameters = continuousParameters->GetValues();
 
 	int sizePerParameter = floor((_upperBound - _lowerBound)/_precision) + 1;
 
@@ -67,7 +67,7 @@ void GridSearch::Optimize(const IObjectiveFunction &function_to_optimize, IParam
 			values[j] = (index % sizePerParameter) * _precision + _lowerBound;
 		}
 
-		continuousParameters->setValues(values);
+		continuousParameters->SetValues(values);
 		parametersStorages[i] = IContinuousParameters::shared_ptr(continuousParameters->Clone());
 
 		//TODO FIX do not return local ptr
@@ -77,7 +77,7 @@ void GridSearch::Optimize(const IObjectiveFunction &function_to_optimize, IParam
 	vector<double> countedValues = _fitnessCounter.countObjectiveFunctionValues(parameters, function_to_optimize);
 	size_t bestIndex = distance(countedValues.begin(), max_element(countedValues.begin(), countedValues.end()));
 
-	continuousParameters->setValues( parametersStorages[bestIndex]->getValues() );
+	continuousParameters->SetValues( parametersStorages[bestIndex]->GetValues() );
 
 }
 

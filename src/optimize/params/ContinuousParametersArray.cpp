@@ -18,7 +18,7 @@ ContinuousParametersArray::ContinuousParametersArray(size_t numberOfParameters)
 {
 }
 
-void ContinuousParametersArray::setValues(const std::vector<double> & values)
+void ContinuousParametersArray::SetValues(const std::vector<double> & values)
 {
 	if(values.size() != _values.size())
 	{
@@ -31,7 +31,7 @@ void ContinuousParametersArray::setValues(const std::vector<double> & values)
 	}
 }
 
-std::vector<double> ContinuousParametersArray::getValues() const
+std::vector<double> ContinuousParametersArray::GetValues() const
 {
 	return _values;
 }

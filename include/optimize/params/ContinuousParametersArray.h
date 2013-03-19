@@ -9,7 +9,7 @@
 #define CONTINUOUSPARAMETERSARRAY_H_
 
 
-#include <optimize/params/IContinuousParameters.h>
+#include <optimize/params/i_continuous_parameters.h>
 
 namespace k52
 {
@@ -23,9 +23,9 @@ public:
 
 	ContinuousParametersArray(size_t numberOfParameters);
 
-	virtual void setValues(const std::vector<double>& values);
+	virtual void SetValues(const std::vector<double>& values);
 
-	virtual std::vector<double> getValues() const;
+	virtual std::vector<double> GetValues() const;
 
 	virtual ContinuousParametersArray* Clone() const;
 

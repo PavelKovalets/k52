@@ -7,7 +7,7 @@
 
 #include "Random.h"
 #include "BoundedNelderMead.h"
-#include <optimize/params/IContinuousParameters.h>
+#include <optimize/params/i_continuous_parameters.h>
 
 #include <math.h>
 #include <stdexcept>
@@ -37,7 +37,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
 	{
 		throw std::invalid_argument("parametrsToOptimize must be of type IContinuousParameters for BoundedNelderMead");
 	}
-	vector<double> initialParameters = continuousParameters->getValues();
+	vector<double> initialParameters = continuousParameters->GetValues();
 
 	//Size of task
 	size_t n = initialParameters.size();
@@ -143,7 +143,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
 
 
 	size_t bestIndex = std::distance(functionValues.begin(), std::max_element(functionValues.begin(), functionValues.end()));
-	continuousParameters->setValues( polygon[bestIndex] );
+	continuousParameters->SetValues( polygon[bestIndex] );
 }
 
 double BoundedNelderMead::countDifferance(const vector<double>& values)
@@ -254,7 +254,7 @@ vector<double> BoundedNelderMead::countObjectiveFunctionValues(const vector< vec
 	vector<const IParameters*> parameters(N);
 	for(size_t i = 0; i < N; i++)
 	{
-		baseParameters->setValues(parametersValues[i]);
+		baseParameters->SetValues(parametersValues[i]);
 		storages[i] = IContinuousParameters::shared_ptr(baseParameters->Clone());
 
 		//TODO fix - do not use inner ptr
