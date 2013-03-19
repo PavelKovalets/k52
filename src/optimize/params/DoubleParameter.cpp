@@ -17,7 +17,7 @@ namespace optimize
 
 double DoubleParameter::getValue() const
 {
-    return  _baseIntParameter->getValue() * _precision + _minValue;
+    return  _baseIntParameter->get_value() * _precision + _minValue;
 }
 
 double DoubleParameter::getMaxValue() const

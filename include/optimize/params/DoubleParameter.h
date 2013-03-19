@@ -8,7 +8,7 @@
 #ifndef DOUBLEPARAMETER_H_
 #define DOUBLEPARAMETER_H_
 
-#include "IntParameter.h"
+#include "int_parameter.h"
 #include "const_chromosome_size_paremeters.h"
 
 namespace k52
