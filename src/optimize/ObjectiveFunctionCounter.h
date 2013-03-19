@@ -8,7 +8,7 @@
 #ifndef OBJECTIVEFUNCTIONCOUNTER_H_
 #define OBJECTIVEFUNCTIONCOUNTER_H_
 
-#include <optimize/IObjectiveFunction.h>
+#include <optimize/i_objective_function.h>
 #include <optimize/Individual.h>
 #include "CountObjectiveFunctionTask.h"
 #include "ObjectiveFunctionTaskResult.h"

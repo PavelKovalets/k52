@@ -10,7 +10,7 @@
 
 #include <string>
 #include <boost/shared_ptr.hpp>
-#include <optimize/IObjectiveFunction.h>
+#include <optimize/i_objective_function.h>
 #include <parallel/i_task.h>
 
 #include <common/disallow_copy_and_assign.h>

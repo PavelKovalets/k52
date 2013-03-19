@@ -8,7 +8,7 @@
 #ifndef IOPTIMIZER_H_
 #define IOPTIMIZER_H_
 
-#include <optimize/IObjectiveFunction.h>
+#include <optimize/i_objective_function.h>
 
 namespace k52
 {
