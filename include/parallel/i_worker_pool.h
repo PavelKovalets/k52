@@ -5,7 +5,7 @@
 
 #include <parallel/i_task.h>
 #include <parallel/i_task_result.h>
-#include <parallel/WorkerStatistics.h>
+#include <parallel/worker_statistics.h>
 
 namespace k52
 {

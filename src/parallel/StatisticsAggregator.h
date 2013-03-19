@@ -8,10 +8,10 @@
 #ifndef STATISTICSAGGREGATOR_H_
 #define STATISTICSAGGREGATOR_H_
 
-#include <parallel/WorkerStatistics.h>
 #include <vector>
 #include <map>
 #include <common/disallow_copy_and_assign.h>
+#include <parallel/worker_statistics.h>
 
 namespace k52
 {

@@ -17,14 +17,14 @@ StatisticsAggregator::StatisticsAggregator(){}
 void StatisticsAggregator::registerCount(const int& workerId)
 {
 	WorkerStatistics statistics = getAppropriateStatistics(workerId);
-	statistics.increaseCounted();
+	statistics.IncreaseCounted();
 	_statistics[workerId] = statistics;
 }
 
 void StatisticsAggregator::registerError(const int& workerId)
 {
 	WorkerStatistics statistics = getAppropriateStatistics(workerId);
-	statistics.increaseErrors();
+	statistics.IncreaseErrors();
 	_statistics[workerId] = statistics;
 }
 
