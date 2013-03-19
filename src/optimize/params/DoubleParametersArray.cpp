@@ -68,7 +68,7 @@ std::vector<double> DoubleParametersArray::getValues() const
 
 	for(size_t i=0; i<_doubleParameters->getNumberOfParameters(); i++)
 	{
-		values[i] = getDoubleParameter(i)->getValue();
+		values[i] = getDoubleParameter(i)->GetValue();
 	}
 	return values;
 }
@@ -96,7 +96,7 @@ void DoubleParametersArray::SetChromosome(std::vector<bool>::iterator from, std:
 
 double DoubleParametersArray::getActualPrecision() const
 {
-	return getDoubleParameter(0)->getActualPrecision();
+	return getDoubleParameter(0)->get_actual_precision();
 }
 
 }/* namespace optimize */
