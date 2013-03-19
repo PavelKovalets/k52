@@ -9,7 +9,7 @@
 #define DOUBLEPARAMETER_H_
 
 #include "IntParameter.h"
-#include "ConstChromosomeSizeParemeters.h"
+#include "const_chromosome_size_paremeters.h"
 
 namespace k52
 {

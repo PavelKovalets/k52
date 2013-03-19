@@ -8,7 +8,7 @@
 #ifndef COMPOSITEDISCRETEPARAMETERS_H_
 #define COMPOSITEDISCRETEPARAMETERS_H_
 
-#include "ConstChromosomeSizeParemeters.h"
+#include <optimize/params/const_chromosome_size_paremeters.h>
 #include <optimize/InitializationChecker.h>
 #include <vector>
 

@@ -8,7 +8,7 @@
 #ifndef INTPARAMETER_H_
 #define INTPARAMETER_H_
 
-#include "ConstChromosomeSizeParemeters.h"
+#include "const_chromosome_size_paremeters.h"
 
 namespace k52
 {

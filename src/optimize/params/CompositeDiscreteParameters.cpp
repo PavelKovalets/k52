@@ -22,7 +22,7 @@ void CompositeDiscreteParameters::initialize(std::vector<IDiscreteParameters::sh
 		_parametersSet[i] = IDiscreteParameters::shared_ptr(parameters[i]->Clone());
 	}
 
-	this->setConstChromosomeSize( countTotalChromosomeSize() );
+	this->SetConstChromosomeSize( countTotalChromosomeSize() );
 
 	_initializationChecker.setInitialized();
 }
@@ -75,7 +75,7 @@ void CompositeDiscreteParameters::SetChromosome(std::vector<bool>::iterator from
 
 	size_t chromosomeSize = to - from;
 
-	this->checkForConstChromosomeSize(chromosomeSize);
+	this->CheckForConstChromosomeSize(chromosomeSize);
 
 	std::vector<bool>::iterator currentFrom = from;
 
@@ -97,7 +97,7 @@ void CompositeDiscreteParameters::SetFromChromosome(std::vector<bool>::const_ite
 
 	size_t chromosomeSize = to - from;
 
-	this->checkForConstChromosomeSize(chromosomeSize);
+	this->CheckForConstChromosomeSize(chromosomeSize);
 
 	std::vector<bool>::const_iterator currentFrom = from;
 

@@ -11,7 +11,7 @@
 #include <optimize/params/discrete_parameters.h>
 #include "DoubleParameter.h"
 #include "CompositeDiscreteParameters.h"
-#include "ConstChromosomeSizeParemeters.h"
+#include <optimize/params/const_chromosome_size_paremeters.h>
 
 namespace k52
 {

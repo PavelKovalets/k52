@@ -76,7 +76,7 @@ DoubleParameter::DoubleParameter(double desiredValue, double minValue, double ma
 
 	_baseIntParameter = IntParameter::shared_ptr(new IntParameter(intValue, minInt, bestMaxInt));
 
-	this->setConstChromosomeSize(_baseIntParameter->GetChromosomeSize());
+	this->SetConstChromosomeSize(_baseIntParameter->GetChromosomeSize());
 }
 
 DoubleParameter::DoubleParameter(const DoubleParameter& a)
