@@ -248,9 +248,9 @@ void GeneticAlgorithm::readPopulationFromFile()
 	fin.close();
 }
 
-void GeneticAlgorithm::optimize(IParameters* parametrsToOptimize, const IObjectiveFunction &functionToOptimize)
+void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, IParameters* parametrs_to_optimize)
 {
-	IDiscreteParameters* discreteParameters = dynamic_cast<IDiscreteParameters*>(parametrsToOptimize);
+	IDiscreteParameters* discreteParameters = dynamic_cast<IDiscreteParameters*>(parametrs_to_optimize);
 
 	initialize(discreteParameters);
 	if(!_populationFileName.empty())
@@ -259,7 +259,7 @@ void GeneticAlgorithm::optimize(IParameters* parametrsToOptimize, const IObjecti
 	}
 	for (int n = 0; n < _maxNumberOfGenerations; n++)
 	{
-		_fitnessCounter->obtainFitness(&_population, functionToOptimize);
+		_fitnessCounter->obtainFitness(&_population, function_to_optimize);
 
 		Individual bestCurrentIndivid(_population[0]);
 

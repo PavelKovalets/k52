@@ -8,7 +8,7 @@
 #ifndef GRIDSEARCH_H_
 #define GRIDSEARCH_H_
 
-#include <optimize/IOptimizer.h>
+#include <optimize/i_optimizer.h>
 #include "ObjectiveFunctionCounter.h"
 
 #include <common/disallow_copy_and_assign.h>
@@ -23,7 +23,7 @@ class GridSearch: public IOptimizer
 public:
 	GridSearch(double precision, double lowerBound, double upperBound);
 
-	virtual void optimize(IParameters* parametrsToOptimize, const IObjectiveFunction &functionToOptimize);
+	virtual void Optimize(const IObjectiveFunction &function_to_optimize, IParameters* parametrs_to_optimize);
 
 protected:
 	static size_t integerPow(size_t value, size_t pow);

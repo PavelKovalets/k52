@@ -8,7 +8,7 @@
 #ifndef BOUNDEDNELDERMEAD_H_
 #define BOUNDEDNELDERMEAD_H_
 
-#include <optimize/IOptimizer.h>
+#include <optimize/i_optimizer.h>
 #include <optimize/params/IContinuousParameters.h>
 #include "ObjectiveFunctionCounter.h"
 
@@ -24,7 +24,7 @@ class BoundedNelderMead: public IOptimizer
 public:
 	BoundedNelderMead(double l, double precision, double lowerBound, double upperBound);
 
-	virtual void optimize(IParameters* parametrsToOptimize, const IObjectiveFunction &functionToOptimize);
+	virtual void Optimize(const IObjectiveFunction &function_to_optimize, IParameters* parametrs_to_optimize);
 
 protected:
 

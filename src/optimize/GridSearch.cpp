@@ -38,9 +38,9 @@ size_t GridSearch::integerPow(size_t value, size_t pow)
 	return result;
 }
 
-void GridSearch::optimize(IParameters *parametrsToOptimize, const IObjectiveFunction & functionToOptimize)
+void GridSearch::Optimize(const IObjectiveFunction &function_to_optimize, IParameters* parametrs_to_optimize)
 {
-	IContinuousParameters* continuousParameters = dynamic_cast<IContinuousParameters*> (parametrsToOptimize);
+	IContinuousParameters* continuousParameters = dynamic_cast<IContinuousParameters*> (parametrs_to_optimize);
 
 	vector<double> initialParameters = continuousParameters->getValues();
 
@@ -74,7 +74,7 @@ void GridSearch::optimize(IParameters *parametrsToOptimize, const IObjectiveFunc
 		parameters[i] = parametersStorages[i].get();
 	}
 
-	vector<double> countedValues = _fitnessCounter.countObjectiveFunctionValues(parameters, functionToOptimize);
+	vector<double> countedValues = _fitnessCounter.countObjectiveFunctionValues(parameters, function_to_optimize);
 	size_t bestIndex = distance(countedValues.begin(), max_element(countedValues.begin(), countedValues.end()));
 
 	continuousParameters->setValues( parametersStorages[bestIndex]->getValues() );

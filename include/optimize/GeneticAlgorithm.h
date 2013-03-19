@@ -8,7 +8,7 @@
 #ifndef GENETICALGORITHM_H_
 #define GENETICALGORITHM_H_
 
-#include <optimize/IOptimizer.h>
+#include <optimize/i_optimizer.h>
 #include <optimize/Individual.h>
 #include <optimize/params/IDiscreteParameters.h>
 #include "GenerationStatistics.h"
@@ -48,7 +48,7 @@ public:
 			double mutationProbability = 0.005,
 			std::string populationFileName = "");
 
-	void optimize(IParameters* parametrsToOptimize, const IObjectiveFunction &functionToOptimize);
+	void Optimize(const IObjectiveFunction &function_to_optimize, IParameters* parametrs_to_optimize);
 
 	void onNextGenerationReadyConnect(NextGenerationReadyCallback);
 

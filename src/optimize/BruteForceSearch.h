@@ -8,7 +8,7 @@
 #ifndef BRUTEFORCESEARCH_H_
 #define BRUTEFORCESEARCH_H_
 
-#include <optimize/IOptimizer.h>
+#include <optimize/i_optimizer.h>
 #include <common/disallow_copy_and_assign.h>
 
 namespace k52
