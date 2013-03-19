@@ -1,10 +1,3 @@
-/*
- * Constants.h
- *
- *  Created on: Oct 14, 2012
- *      Author: pavel
- */
-
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
@@ -16,18 +9,18 @@ namespace parallel
 {
 namespace mpi
 {
-//TODO incapsulate and hide from user - !!! to remove using namespace k52::parallel::mpi::Constants;
-namespace Constants
+//TODO incapsulate and hide from user - !!! to remove using namespace k52::parallel::mpi::constants;
+namespace constants
 {
 
-	static const int ServerRank = 0;
+    static const int kServerRank = 0;
 
-	static const int CommonTag = 0;
+    static const int kCommonTag = 0;
 
-	//TODO do not use class constants
-	static const std::string EndOfWorkTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
+    //TODO do not use class constants
+    static const std::string kEndOfWorkTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
 
-} /* Constants */
+} /* constants */
 } /* mpi */
 } /* parallel */
 } /* k52 */

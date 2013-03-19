@@ -8,7 +8,7 @@
 #ifdef BUILD_WITH_MPI
 
 #include <optimize/params/DiscreteParameters.h>
-#include <parallel/mpi/Constants.h>
+#include <parallel/mpi/constants.h>
 #include <boost/mpi.hpp>
 #include <boost/serialization/vector.hpp>
 

@@ -3,17 +3,17 @@
 
 namespace boost
 {
-	namespace mpi
-	{
-		class environment;
-		class communicator;
-		class request;
-	}
+    namespace mpi
+    {
+        class environment;
+        class communicator;
+        class request;
+    }
 
-	namespace serialization
-	{
-		class access;
-	}
+    namespace serialization
+    {
+        class access;
+    }
 }
 
 #endif /* BOOSTMPIDECLARATION_H_ */

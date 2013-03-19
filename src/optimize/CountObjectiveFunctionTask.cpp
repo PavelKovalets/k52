@@ -11,7 +11,7 @@
 #ifdef BUILD_WITH_MPI
 
 #include <boost/mpi.hpp>
-#include <parallel/mpi/Constants.h>
+#include <parallel/mpi/constants.h>
 #include <parallel/mpi/IdentifyableObjectsManager.h>
 
 #endif
