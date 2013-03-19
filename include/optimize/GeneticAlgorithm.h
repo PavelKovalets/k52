@@ -10,7 +10,7 @@
 
 #include <optimize/i_optimizer.h>
 #include <optimize/Individual.h>
-#include <optimize/params/IDiscreteParameters.h>
+#include <optimize/params/i_discrete_parameters.h>
 #include "GenerationStatistics.h"
 #include <boost/shared_ptr.hpp>
 #include <common/disallow_copy_and_assign.h>

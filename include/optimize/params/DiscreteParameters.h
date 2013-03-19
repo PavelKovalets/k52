@@ -8,7 +8,7 @@
 #ifndef DISCRETEPARAMETERS_H_
 #define DISCRETEPARAMETERS_H_
 
-#include <optimize/params/IDiscreteParameters.h>
+#include <optimize/params/i_discrete_parameters.h>
 
 namespace k52
 {
