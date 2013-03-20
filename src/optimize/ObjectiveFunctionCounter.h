@@ -9,7 +9,7 @@
 #define OBJECTIVEFUNCTIONCOUNTER_H_
 
 #include <optimize/i_objective_function.h>
-#include <optimize/Individual.h>
+#include <optimize/individual.h>
 #include "CountObjectiveFunctionTask.h"
 #include "ObjectiveFunctionTaskResult.h"
 #include <parallel/i_worker_pool.h>

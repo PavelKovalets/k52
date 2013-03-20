@@ -1,4 +1,4 @@
-#include <optimize/Individual.h>
+#include <optimize/individual.h>
 
 #include <vector>
 #include <iostream>

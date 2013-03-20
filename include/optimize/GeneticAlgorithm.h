@@ -9,7 +9,7 @@
 #define GENETICALGORITHM_H_
 
 #include <optimize/i_optimizer.h>
-#include <optimize/Individual.h>
+#include <optimize/individual.h>
 #include <optimize/params/i_discrete_parameters.h>
 #include "GenerationStatistics.h"
 #include <boost/shared_ptr.hpp>
