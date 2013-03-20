@@ -32,7 +32,7 @@ DoubleParametersArray::DoubleParametersArray(double minValue, double maxValue, d
 	}
 
 	_doubleParameters = CompositeDiscreteParameters::shared_ptr(new CompositeDiscreteParameters());
-	_doubleParameters->initialize(doubleParameters);
+	_doubleParameters->Initialize(doubleParameters);
 }
 
 double DoubleParametersArray::getMaxValue() const
@@ -47,12 +47,12 @@ double DoubleParametersArray::getMinValue() const
 
 size_t DoubleParametersArray::getNumberOfParameters() const
 {
-    return _doubleParameters->getNumberOfParameters();
+    return _doubleParameters->GetNumberOfParameters();
 }
 
 DoubleParametersArray *DoubleParametersArray::Clone() const
 {
-	DoubleParametersArray* clone = new DoubleParametersArray(_minValue, _maxValue, _desiredPrecision, _doubleParameters->getNumberOfParameters());
+	DoubleParametersArray* clone = new DoubleParametersArray(_minValue, _maxValue, _desiredPrecision, _doubleParameters->GetNumberOfParameters());
 	clone->_doubleParameters = CompositeDiscreteParameters::shared_ptr(_doubleParameters->Clone());
 	return clone;
 }
@@ -64,9 +64,9 @@ size_t DoubleParametersArray::GetChromosomeSize() const
 
 std::vector<double> DoubleParametersArray::getValues() const
 {
-	std::vector<double> values(_doubleParameters->getNumberOfParameters());
+	std::vector<double> values(_doubleParameters->GetNumberOfParameters());
 
-	for(size_t i=0; i<_doubleParameters->getNumberOfParameters(); i++)
+	for(size_t i=0; i<_doubleParameters->GetNumberOfParameters(); i++)
 	{
 		values[i] = getDoubleParameter(i)->GetValue();
 	}
@@ -75,7 +75,7 @@ std::vector<double> DoubleParametersArray::getValues() const
 
 const DoubleParameter::shared_ptr DoubleParametersArray::getDoubleParameter(size_t index) const
 {
-	return boost::dynamic_pointer_cast<DoubleParameter>(_doubleParameters->getParameter(index));
+	return boost::dynamic_pointer_cast<DoubleParameter>(_doubleParameters->GetParameter(index));
 }
 
 

@@ -3,7 +3,7 @@
 
 #include <optimize/params/discrete_parameters.h>
 #include <optimize/params/double_parameter.h>
-#include <optimize/params/CompositeDiscreteParameters.h>
+#include <optimize/params/composite_discrete_parameters.h>
 #include <optimize/params/const_chromosome_size_paremeters.h>
 
 namespace k52
