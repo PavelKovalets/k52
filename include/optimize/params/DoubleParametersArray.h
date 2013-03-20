@@ -1,10 +1,3 @@
-/*
- * DoubleParametersArray.h
- *
- *  Created on: Mar 25, 2012
- *      Author: feanor
- */
-
 #ifndef DOUBLEPARAMETERSARRAY_H_
 #define DOUBLEPARAMETERSARRAY_H_
 

@@ -1,15 +1,8 @@
-/*
- * CompositeDiscreteParameters.h
- *
- *  Created on: Apr 22, 2012
- *      Author: feanor
- */
-
 #ifndef COMPOSITEDISCRETEPARAMETERS_H_
 #define COMPOSITEDISCRETEPARAMETERS_H_
 
 #include <optimize/params/const_chromosome_size_paremeters.h>
-#include <optimize/InitializationChecker.h>
+#include <optimize/initialization_checker.h>
 #include <vector>
 
 namespace k52

@@ -48,7 +48,7 @@ void Individual::boolCrossover(vector<bool> *first, vector<bool> *second)
 
 int Individual::setRandomChromosome()
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
 	_hasFitness = false;
 
@@ -76,7 +76,7 @@ int Individual::setRandomChromosome()
 
 int Individual::mutate(double genMutationProbability)
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
 	//TODO check if Individual has changed
 	_hasFitness = false;
@@ -104,7 +104,7 @@ int Individual::mutate(double genMutationProbability)
 
 bool Individual::crossover(Individual* another)
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
 	//TODO check if Individual has changed
 	another->_hasFitness = false;
@@ -127,7 +127,7 @@ bool Individual::crossover(Individual* another)
 
 const IDiscreteParameters* const Individual::getParametersAccordingToChromosome() const
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
 	//TODO FIX do not return ptr from shared_ptr - maybe change return type to shared_ptr
 	return _parametersStorage.get();
@@ -135,20 +135,20 @@ const IDiscreteParameters* const Individual::getParametersAccordingToChromosome(
 
 const vector<bool>& Individual:: getChromosome() const
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 	return _chromosome;
 }
 
 void Individual::setParametersAccordingToChromosome()
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
 	_parametersStorage->SetFromChromosome(_chromosome.begin(), _chromosome.end());
 }
 
 void Individual::initialize(const IDiscreteParameters* const parameters)
 {
-	_initializationChecker.setInitialized();
+	_initializationChecker.SetInitialized();
 
 	_parametersStorage = IDiscreteParameters::shared_ptr(parameters->Clone());
 	_chromosome = vector<bool> ( _parametersStorage->GetChromosomeSize() );

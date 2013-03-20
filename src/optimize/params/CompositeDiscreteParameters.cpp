@@ -24,19 +24,19 @@ void CompositeDiscreteParameters::initialize(std::vector<IDiscreteParameters::sh
 
 	this->SetConstChromosomeSize( countTotalChromosomeSize() );
 
-	_initializationChecker.setInitialized();
+	_initializationChecker.SetInitialized();
 }
 
 size_t CompositeDiscreteParameters::getNumberOfParameters() const
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
     return _parametersSet.size();
 }
 
 const IDiscreteParameters::shared_ptr CompositeDiscreteParameters::getParameter(size_t index) const
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
 	if(index+1 > _parametersSet.size())
 	{
@@ -48,7 +48,7 @@ const IDiscreteParameters::shared_ptr CompositeDiscreteParameters::getParameter(
 
 CompositeDiscreteParameters *CompositeDiscreteParameters::Clone() const
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
 	CompositeDiscreteParameters* clone = new CompositeDiscreteParameters();
 	clone->initialize(_parametersSet);
@@ -57,7 +57,7 @@ CompositeDiscreteParameters *CompositeDiscreteParameters::Clone() const
 
 bool CompositeDiscreteParameters::CheckConstraints() const
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
 	for(size_t i=0; i<_parametersSet.size(); i++)
 	{
@@ -71,7 +71,7 @@ bool CompositeDiscreteParameters::CheckConstraints() const
 
 void CompositeDiscreteParameters::SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
 	size_t chromosomeSize = to - from;
 
@@ -93,7 +93,7 @@ void CompositeDiscreteParameters::SetChromosome(std::vector<bool>::iterator from
 
 void CompositeDiscreteParameters::SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
 {
-	_initializationChecker.initializationCheck();
+	_initializationChecker.InitializationCheck();
 
 	size_t chromosomeSize = to - from;
 
