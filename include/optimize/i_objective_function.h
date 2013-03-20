@@ -2,7 +2,7 @@
 #define IOBJECTIVEFUNCTION_H_
 
 #ifdef BUILD_WITH_MPI
-#include <common/ICloneable.h>
+#include <common/i_cloneable.h>
 #endif
 
 #include <optimize/params/i_parameters.h>

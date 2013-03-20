@@ -46,7 +46,7 @@ public:
 
 	virtual k52::parallel::mpi::IMpiTaskResult::shared_ptr createEmptyResult() const;
 
-	virtual CountObjectiveFunctionTask* clone() const;
+	virtual CountObjectiveFunctionTask* Clone() const;
 
 	virtual void send(boost::mpi::communicator* communicator, int target) const;
 

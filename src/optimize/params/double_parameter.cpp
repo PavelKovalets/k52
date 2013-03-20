@@ -12,7 +12,7 @@ namespace optimize
 
 DoubleParameter::DoubleParameter()
 {
-    base_int_parameter_ = NULL;
+    base_int_parameter_ = IntParameter::shared_ptr();
 }
 
 DoubleParameter::DoubleParameter(double desired_value, double min_value, double max_value, double desired_precision)
@@ -44,7 +44,7 @@ DoubleParameter::DoubleParameter(double desired_value, double min_value, double 
 
 DoubleParameter::DoubleParameter(const DoubleParameter& a)
 {
-    base_int_parameter_ = NULL;
+    base_int_parameter_ = IntParameter::shared_ptr();
     *this = a;
 }
 
@@ -63,7 +63,7 @@ DoubleParameter& DoubleParameter::operator=(const DoubleParameter & a)
         }
         else
         {
-            base_int_parameter_ = NULL;
+            base_int_parameter_ = IntParameter::shared_ptr();
         }
     }
     // by convention, always return *this

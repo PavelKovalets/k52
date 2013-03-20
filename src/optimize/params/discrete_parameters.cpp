@@ -4,7 +4,7 @@
 #include <boost/serialization/vector.hpp>
 
 #include <parallel/mpi/constants.h>
-#include <optimize/params/DiscreteParameters.h>
+#include <optimize/params/discrete_parameters.h>
 
 namespace k52
 {
@@ -15,17 +15,17 @@ void DiscreteParameters::send(boost::mpi::communicator* communicator, int target
 {
     //Discrete parameters are considered to be completely represented by theirs chromosome
     //TODO to optimize performance do not create intermediate chromosome
-    std::vector<bool> intermediate_chromosome = std::vector<bool>(this->getChromosomeSize());
-    this->setChromosome(intermediate_chromosome.begin(), intermediate_chromosome.end());
-    communicator->send(target, k52::parallel::mpi::Constants::CommonTag, intermediate_chromosome);
+    std::vector<bool> intermediate_chromosome = std::vector<bool>(this->GetChromosomeSize());
+    this->SetChromosome(intermediate_chromosome.begin(), intermediate_chromosome.end());
+    communicator->send(target, k52::parallel::mpi::constants::kCommonTag, intermediate_chromosome);
 }
 
 void DiscreteParameters::receive(boost::mpi::communicator* communicator)
 {
     //TODO to optimize performance do not create intermediate chromosome
     std::vector<bool> intermediate_chromosome;
-    communicator->recv(k52::parallel::mpi::Constants::ServerRank, k52::parallel::mpi::Constants::CommonTag, intermediate_chromosome);
-    this->setFromChromosome(intermediate_chromosome.begin(), intermediate_chromosome.end());
+    communicator->recv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, intermediate_chromosome);
+    this->SetFromChromosome(intermediate_chromosome.begin(), intermediate_chromosome.end());
 }
 
 }/* namespace optimize */

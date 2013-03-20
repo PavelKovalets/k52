@@ -33,12 +33,12 @@ double ObjectiveFunctionTaskResult::getObjectiveFunctionValue() const
 
 boost::mpi::request ObjectiveFunctionTaskResult::ireceive(boost::mpi::communicator* communicator, int source)
 {
-	return communicator->irecv(source, k52::parallel::mpi::Constants::CommonTag, _objectiveFunctionValue);
+	return communicator->irecv(source, k52::parallel::mpi::constants::kCommonTag, _objectiveFunctionValue);
 }
 
 void ObjectiveFunctionTaskResult::send(boost::mpi::communicator* communicator)
 {
-	communicator->send(k52::parallel::mpi::Constants::ServerRank, k52::parallel::mpi::Constants::CommonTag, _objectiveFunctionValue);
+	communicator->send(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, _objectiveFunctionValue);
 }
 
 #endif

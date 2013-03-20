@@ -26,7 +26,7 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool useValueCaching)
 
 #ifdef BUILD_WITH_MPI
 	CountObjectiveFunctionTask task;
-	k52::parallel::mpi::IdentifyableObjectsManager::Instance().registerObject(&task);
+	k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject(task);
 #endif
 	if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kMpiWorkerPool))
 	{
