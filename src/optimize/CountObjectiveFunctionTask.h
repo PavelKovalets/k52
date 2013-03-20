@@ -16,8 +16,8 @@
 #include <common/disallow_copy_and_assign.h>
 
 #ifdef BUILD_WITH_MPI
-#include <parallel/mpi/IMpiTask.h>
-#include <parallel/mpi/IMpiTaskResult.h>
+#include <parallel/mpi/i_mpi_task.h>
+#include <parallel/mpi/i_mpi_task_result.h>
 #endif
 
 namespace k52
@@ -42,15 +42,15 @@ public:
 
 #ifdef BUILD_WITH_MPI
 
-	virtual k52::parallel::mpi::IMpiTaskResult::shared_ptr performMpi() const;
+	virtual k52::parallel::mpi::IMpiTaskResult::shared_ptr PerformMpi() const;
 
-	virtual k52::parallel::mpi::IMpiTaskResult::shared_ptr createEmptyResult() const;
+	virtual k52::parallel::mpi::IMpiTaskResult::shared_ptr CreateEmptyResult() const;
 
 	virtual CountObjectiveFunctionTask* Clone() const;
 
-	virtual void send(boost::mpi::communicator* communicator, int target) const;
+	virtual void Send(boost::mpi::communicator* communicator, int target) const;
 
-	virtual void receive(boost::mpi::communicator* communicator);
+	virtual void Receive(boost::mpi::communicator* communicator);
 
 #else
 

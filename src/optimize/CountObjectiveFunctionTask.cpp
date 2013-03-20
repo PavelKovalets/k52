@@ -23,12 +23,12 @@ namespace optimize
 
 #ifdef BUILD_WITH_MPI
 
-k52::parallel::mpi::IMpiTaskResult::shared_ptr CountObjectiveFunctionTask::createEmptyResult() const
+k52::parallel::mpi::IMpiTaskResult::shared_ptr CountObjectiveFunctionTask::CreateEmptyResult() const
 {
 	return ObjectiveFunctionTaskResult::shared_ptr ( new ObjectiveFunctionTaskResult() );
 }
 
-k52::parallel::mpi::IMpiTaskResult::shared_ptr CountObjectiveFunctionTask::performMpi() const
+k52::parallel::mpi::IMpiTaskResult::shared_ptr CountObjectiveFunctionTask::PerformMpi() const
 {
 	double value = getFunction()->operator ()( getParameters() );
 	ObjectiveFunctionTaskResult::shared_ptr result ( new ObjectiveFunctionTaskResult() );
@@ -58,14 +58,14 @@ CountObjectiveFunctionTask* CountObjectiveFunctionTask::Clone() const
 	return clone;
 }
 
-void CountObjectiveFunctionTask::send(boost::mpi::communicator* communicator, int target) const
+void CountObjectiveFunctionTask::Send(boost::mpi::communicator* communicator, int target) const
 {
 	communicator->send(target, k52::parallel::mpi::constants::kCommonTag, k52::parallel::mpi::IdentifyableObjectsManager::GetId(*getFunction()));
 	communicator->send(target, k52::parallel::mpi::constants::kCommonTag, k52::parallel::mpi::IdentifyableObjectsManager::GetId(*getParameters()));
-	getParameters()->send(communicator, target);
+	getParameters()->Send(communicator, target);
 }
 
-void CountObjectiveFunctionTask::receive(boost::mpi::communicator* communicator)
+void CountObjectiveFunctionTask::Receive(boost::mpi::communicator* communicator)
 {
 	std::string objectiveFunctionId;
 	communicator->recv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, objectiveFunctionId);
@@ -76,7 +76,7 @@ void CountObjectiveFunctionTask::receive(boost::mpi::communicator* communicator)
 	communicator->recv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, parametersId);
 	const IParameters* parameters = dynamic_cast<const IParameters*>( k52::parallel::mpi::IdentifyableObjectsManager::Instance().GetObject(parametersId) );
 	_receivedParameters = IParameters::shared_ptr( parameters->Clone() );
-	_receivedParameters->receive(communicator);
+	_receivedParameters->Receive(communicator);
 }
 #else
 

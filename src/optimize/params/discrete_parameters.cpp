@@ -11,7 +11,7 @@ namespace k52
 namespace optimize
 {
 
-void DiscreteParameters::send(boost::mpi::communicator* communicator, int target) const
+void DiscreteParameters::Send(boost::mpi::communicator* communicator, int target) const
 {
     //Discrete parameters are considered to be completely represented by theirs chromosome
     //TODO to optimize performance do not create intermediate chromosome
@@ -20,7 +20,7 @@ void DiscreteParameters::send(boost::mpi::communicator* communicator, int target
     communicator->send(target, k52::parallel::mpi::constants::kCommonTag, intermediate_chromosome);
 }
 
-void DiscreteParameters::receive(boost::mpi::communicator* communicator)
+void DiscreteParameters::Receive(boost::mpi::communicator* communicator)
 {
     //TODO to optimize performance do not create intermediate chromosome
     std::vector<bool> intermediate_chromosome;

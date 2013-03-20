@@ -11,7 +11,7 @@
 #include <parallel/i_task_result.h>
 
 #ifdef BUILD_WITH_MPI
-#include <parallel/mpi/IMpiTaskResult.h>
+#include <parallel/mpi/i_mpi_task_result.h>
 #endif
 
 namespace k52
@@ -34,9 +34,9 @@ public:
 
 #ifdef BUILD_WITH_MPI
 
-	virtual boost::mpi::request ireceive(boost::mpi::communicator* communicator, int source);
+	virtual boost::mpi::request ReceiveAsync(boost::mpi::communicator* communicator, int source);
 
-	virtual void send(boost::mpi::communicator* communicator);
+	virtual void Send(boost::mpi::communicator* communicator);
 
 #endif
 

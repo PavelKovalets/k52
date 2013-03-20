@@ -103,11 +103,11 @@ void MpiWorkerPool::runWorkerLoop()
 
 		IMpiTask::shared_ptr nextTask = createTask(taskId);
 
-		nextTask->receive(_communicator);
+		nextTask->Receive(_communicator);
 
-		IMpiTaskResult::shared_ptr result = nextTask->performMpi();
+		IMpiTaskResult::shared_ptr result = nextTask->PerformMpi();
 
-		result->send(_communicator);
+		result->Send(_communicator);
 	}
 }
 
@@ -135,13 +135,13 @@ IMpiTask::shared_ptr MpiWorkerPool::createTask(std::string taskId)
 ResultExpectation MpiWorkerPool::sendTask(const IMpiTask* task, int currentWorkerRank, ITaskResult::shared_ptr* resultToSet)
 {
 	_communicator->send(currentWorkerRank, constants::kCommonTag, IdentifyableObjectsManager::GetId(*task));
-	task->send(_communicator, currentWorkerRank);
+	task->Send(_communicator, currentWorkerRank);
 
-	IMpiTaskResult::shared_ptr mpiTaskResult = task->createEmptyResult();
+	IMpiTaskResult::shared_ptr mpiTaskResult = task->CreateEmptyResult();
 	(*resultToSet) = mpiTaskResult;
 
 	ResultExpectation expectaton;
-	expectaton.request = mpiTaskResult->ireceive(_communicator, currentWorkerRank);
+	expectaton.request = mpiTaskResult->ReceiveAsync(_communicator, currentWorkerRank);
 	expectaton.workerRank = currentWorkerRank;
 
 	return expectaton;

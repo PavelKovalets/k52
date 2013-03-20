@@ -11,8 +11,7 @@
 #include <vector>
 #include <list>
 #include <boost/shared_ptr.hpp>
-#include <parallel/mpi/IMpiTask.h>
-#include <parallel/mpi/IMpiTask.h>
+#include <parallel/mpi/i_mpi_task.h>
 #include <parallel/mpi/boost_mpi_declaration.h>
 #include <parallel/i_worker_pool.h>
 
