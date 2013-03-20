@@ -11,7 +11,7 @@
 #include <boost/serialization/vector.hpp>
 #include "MpiWorkerPool.h"
 #include <parallel/mpi/constants.h>
-#include <parallel/mpi/IdentifyableObjectsManager.h>
+#include <parallel/mpi/identifyable_objects_manager.h>
 
 namespace k52
 {
@@ -61,7 +61,7 @@ void MpiWorkerPool::finalizeWorkers()
 
 	for(int i=1; i<_communicator->size(); i++)
 	{
-		_communicator->send(i, Constants::CommonTag, Constants::EndOfWorkTaskId);
+		_communicator->send(i, constants::kCommonTag, constants::kEndOfWorkTaskId);
 	}
 
 	_wasFinalized = true;
@@ -75,7 +75,7 @@ MpiWorkerPool::MpiWorkerPool()
 
 	std::cerr<<"Rank "<<_communicator->rank()<<" of "<<_communicator->size()<<" starded."<<std::endl;
 
-	if(_communicator->rank() != Constants::ServerRank)
+	if(_communicator->rank() != constants::kServerRank)
 		//Worker Logic
 	{
 		runWorkerLoop();
@@ -89,11 +89,11 @@ void MpiWorkerPool::runWorkerLoop()
 
 	while(true)
 	{
-		std::string taskId = Constants::EndOfWorkTaskId;
+		std::string taskId = constants::kEndOfWorkTaskId;
 
-		_communicator->recv(Constants::ServerRank, Constants::CommonTag, taskId);
+		_communicator->recv(constants::kServerRank, constants::kCommonTag, taskId);
 
-		if(taskId == Constants::EndOfWorkTaskId)
+		if(taskId == constants::kEndOfWorkTaskId)
 		{
 			clean();
 			exit(0);
@@ -111,14 +111,14 @@ void MpiWorkerPool::runWorkerLoop()
 	}
 }
 
-std::vector< WorkerStatistics > MpiWorkerPool::getStatistics()
+std::vector< WorkerStatistics > MpiWorkerPool::GetStatistics()
 {
 	return _statisticsAggregator.getStatistics();
 }
 
 IMpiTask::shared_ptr MpiWorkerPool::createTask(std::string taskId)
 {
-	const IMpiTask* task = dynamic_cast<const IMpiTask*>(IdentifyableObjectsManager::Instance().getObject(taskId));
+	const IMpiTask* task = dynamic_cast<const IMpiTask*>(IdentifyableObjectsManager::Instance().GetObject(taskId));
 
 	if(task == NULL)
 	{
@@ -129,12 +129,12 @@ IMpiTask::shared_ptr MpiWorkerPool::createTask(std::string taskId)
 		throw std::invalid_argument(message.str());
 	}
 
-	return IMpiTask::shared_ptr( task->clone() );
+	return IMpiTask::shared_ptr( task->Clone() );
 }
 
 ResultExpectation MpiWorkerPool::sendTask(const IMpiTask* task, int currentWorkerRank, ITaskResult::shared_ptr* resultToSet)
 {
-	_communicator->send(currentWorkerRank, Constants::CommonTag, IdentifyableObjectsManager::getId(task));
+	_communicator->send(currentWorkerRank, constants::kCommonTag, IdentifyableObjectsManager::GetId(*task));
 	task->send(_communicator, currentWorkerRank);
 
 	IMpiTaskResult::shared_ptr mpiTaskResult = task->createEmptyResult();
@@ -159,7 +159,7 @@ const IMpiTask* MpiWorkerPool::getMpiTask(const ITask* task)
 	return mpiTask;
 }
 
-std::vector< ITaskResult::shared_ptr > MpiWorkerPool::doTasks (const std::vector<const ITask*>& tasks)
+std::vector< ITaskResult::shared_ptr > MpiWorkerPool::DoTasks (const std::vector<const ITask*>& tasks)
 {
 	checkIfServer();
 	checkAwailableWorkers();
@@ -230,7 +230,7 @@ void MpiWorkerPool::checkAwailableWorkers()
 
 void MpiWorkerPool::checkIfServer()
 {
-	if(_communicator->rank() != Constants::ServerRank)
+	if(_communicator->rank() != constants::kServerRank)
 	{
 		std::stringstream message;
 		message << "Critical error on " << _communicator->rank() << " node. "

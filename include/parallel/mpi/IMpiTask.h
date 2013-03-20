@@ -25,7 +25,7 @@ public:
 	typedef boost::shared_ptr<IMpiTask> shared_ptr;
 
 	//TODO is it correct solving of contrvariant return problem
-	virtual ITaskResult::shared_ptr perform() const
+	virtual ITaskResult::shared_ptr Perform() const
 	{
 		return performMpi();
 	}
@@ -34,7 +34,7 @@ public:
 
 	virtual IMpiTaskResult::shared_ptr createEmptyResult() const = 0;
 
-	virtual IMpiTask* clone() const = 0;
+	virtual IMpiTask* Clone() const = 0;
 
 	virtual void send(boost::mpi::communicator* communicator, int target) const = 0;
 
