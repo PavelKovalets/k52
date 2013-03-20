@@ -58,17 +58,17 @@ void ObjectiveFunctionCounter::processPopulation(
 	{
 		if(_useValueCaching)
 		{
-			StoredValue storedFitness = _cache[(*population)[i].getChromosome()];
+			StoredValue storedFitness = _cache[(*population)[i].GetChromosome()];
 			if(storedFitness.hasValue())
 			{
-				(*population)[i].setFitness( storedFitness.getValue() );
+				(*population)[i].set_fitness( storedFitness.getValue() );
 				_cacheHits ++;
 				continue;
 			}
 		}
 
 		//These items should be evaluated further as they are not cached
-		const IParameters* parameters = (*population)[i].getParametersAccordingToChromosome();
+		const IParameters* parameters = (*population)[i].GetParametersAccordingToChromosome();
 		parametersToCount->push_back(parameters);
 		indexesToCount->push_back(i);
 	}
@@ -86,7 +86,7 @@ void ObjectiveFunctionCounter::obtainFitness(vector<Individual>* population,
 	
 	for(size_t i=0; i<countedValues.size(); i++)
 	{
-		(*population)[ indexesToCount[i] ] . setFitness( countedValues[i] );
+		(*population)[ indexesToCount[i] ] . set_fitness( countedValues[i] );
 	}
 
 	if(_useValueCaching)
@@ -160,10 +160,10 @@ void ObjectiveFunctionCounter::addNewCacheValues(vector<Individual>* population,
 	for(size_t i=0; i<newCacheIndexes.size(); i++)
 	{
 		Individual* currentIndivid = &(*population)[ newCacheIndexes[i] ];
-		StoredValue storedFitness( currentIndivid->getFitness() );
+		StoredValue storedFitness( currentIndivid->get_fitness() );
 
 		//TODO use hash instead of whole vector?
-		_cache[currentIndivid->getChromosome()] = storedFitness;
+		_cache[currentIndivid->GetChromosome()] = storedFitness;
 	}
 }
 

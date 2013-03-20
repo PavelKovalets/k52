@@ -1,16 +1,6 @@
-/*
- * Individual.cpp
- *
- *  Created on: Jan 30, 2012
- *      Author: feanor
- */
-
 #include <optimize/Individual.h>
-#include "Random.h"
-#include "Mutator.h"
 
 #include <vector>
-#include <stdexcept>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -18,6 +8,10 @@
 #include <istream>
 //TODO for in>>fitness; --???
 #include <iostream>
+#include <stdexcept>
+
+#include "Random.h"
+#include "Mutator.h"
 
 using ::std::vector;
 
@@ -26,277 +20,270 @@ namespace k52
 namespace optimize
 {
 
-void Individual::boolCrossover(vector<bool> *first, vector<bool> *second)
-{
-	if(first->size() != second->size())
-	{
-		throw std::invalid_argument("For crossover chromosomes must have same size");
-	}
-
-	int crossoverPoint = Random::Instance().getUniformlyDistributedDiscreteRandomQuantity(0, first->size()-1);
-
-	for(size_t i = crossoverPoint; i < first->size(); i++)
-	{
-		bool firstI = (*first)[i];
-		if(firstI != (*second)[i])
-		{
-			(*first)[i] = !firstI;
-			(*second)[i] = firstI;
-		}
-	}
-}
-
-int Individual::setRandomChromosome()
-{
-	_initializationChecker.InitializationCheck();
-
-	_hasFitness = false;
-
-	int invalidChromosomes = 0;
-
-	bool success = true;
-	do
-	{
-		success = true;
-
-		Random::Instance().setRandomBoolVector(&_chromosome);
-
-		this->setParametersAccordingToChromosome();
-
-		success = this->_parametersStorage->CheckConstraints();
-
-		if(!success)
-		{
-			invalidChromosomes++;
-		}
-		
-	}while(!success);
-	return invalidChromosomes;
-}
-
-int Individual::mutate(double genMutationProbability)
-{
-	_initializationChecker.InitializationCheck();
-
-	//TODO check if Individual has changed
-	_hasFitness = false;
-
-	int invalidChromosomes = 0;
-
-	bool success = true;
-	do
-	{
-		success = true;
-
-		Mutator::Instance().mutateBoolArray(genMutationProbability, &_chromosome);
-
-		this->setParametersAccordingToChromosome();
-
-		success = this->_parametersStorage->CheckConstraints();
-
-		if(!success)
-		{
-			invalidChromosomes++;
-		}
-	}while(!success);
-	return invalidChromosomes;
-}
-
-bool Individual::crossover(Individual* another)
-{
-	_initializationChecker.InitializationCheck();
-
-	//TODO check if Individual has changed
-	another->_hasFitness = false;
-	this->_hasFitness = false;
-
-	boolCrossover(&(this->_chromosome), &(another->_chromosome));
-
-	this->setParametersAccordingToChromosome();
-	another->setParametersAccordingToChromosome();
-
-	if( ( !this->_parametersStorage->CheckConstraints() ) || ( !another->_parametersStorage->CheckConstraints() ) )
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
-}
-
-const IDiscreteParameters* const Individual::getParametersAccordingToChromosome() const
-{
-	_initializationChecker.InitializationCheck();
-
-	//TODO FIX do not return ptr from shared_ptr - maybe change return type to shared_ptr
-	return _parametersStorage.get();
-}
-
-const vector<bool>& Individual:: getChromosome() const
-{
-	_initializationChecker.InitializationCheck();
-	return _chromosome;
-}
-
-void Individual::setParametersAccordingToChromosome()
-{
-	_initializationChecker.InitializationCheck();
-
-	_parametersStorage->SetFromChromosome(_chromosome.begin(), _chromosome.end());
-}
-
-void Individual::initialize(const IDiscreteParameters* const parameters)
-{
-	_initializationChecker.SetInitialized();
-
-	_parametersStorage = IDiscreteParameters::shared_ptr(parameters->Clone());
-	_chromosome = vector<bool> ( _parametersStorage->GetChromosomeSize() );
-
-	_hasFitness = false;
-	_timesChosenForCrossover = 0;
-}
-
 Individual::Individual()
-	: _parametersStorage(), _initializationChecker()
-{
-}
-
+    : parameters_(), initialization_checker_() {}
 
 Individual::Individual(const IDiscreteParameters* const parameters)
-	: _parametersStorage(), _initializationChecker()
+    : parameters_(), initialization_checker_()
 {
-	initialize(parameters);
+    Initialize(parameters);
 }
 
 Individual::Individual(const Individual& a)
-	: _parametersStorage()
+    : parameters_()
 {
-	*this = a;
+    *this = a;
 }
 
 Individual& Individual::operator=(const Individual & a)
 {
-	if (this != &a) // protect against invalid self-assignment
-	{
-		if(a._parametersStorage != NULL)
-		{
-			_parametersStorage = IDiscreteParameters::shared_ptr( a._parametersStorage->Clone() );
-		}
+    if (this != &a) // protect against invalid self-assignment
+    {
+        if(a.parameters_ != NULL)
+        {
+            parameters_ = IDiscreteParameters::shared_ptr( a.parameters_->Clone() );
+        }
 
-		_chromosome = a._chromosome;
-		_initializationChecker = a._initializationChecker;
-		_fitness = a._fitness;
-		_hasFitness = a._hasFitness;
-		_timesChosenForCrossover = a._timesChosenForCrossover;
-	}
-	// by convention, always return *this
-	return *this;
+        chromosome_ = a.chromosome_;
+        initialization_checker_ = a.initialization_checker_;
+        fitness_ = a.fitness_;
+        has_fitness_ = a.has_fitness_;
+        times_chosen_for_crossover_ = a.times_chosen_for_crossover_;
+    }
+    // by convention, always return *this
+    return *this;
 }
 
-double Individual::getFitness() const
+void Individual::Initialize(const IDiscreteParameters* const parameters)
 {
-	checkForHavingFitness();
-    return _fitness;
+    parameters_ = IDiscreteParameters::shared_ptr(parameters->Clone());
+    chromosome_ = vector<bool> ( parameters_->GetChromosomeSize() );
+    parameters->SetChromosome(chromosome_.begin(), chromosome_.end());
+
+    has_fitness_ = false;
+    times_chosen_for_crossover_ = 0;
+
+    initialization_checker_.SetInitialized();
 }
 
-bool Individual::hasFitness() const
+const IDiscreteParameters* const Individual::GetParametersAccordingToChromosome() const
 {
-    return _hasFitness;
+    initialization_checker_.InitializationCheck();
+
+    //TODO FIX do not return ptr from shared_ptr - maybe change return type to shared_ptr
+    return parameters_.get();
 }
 
-void Individual::setFitness(double fitness)
+const vector<bool>& Individual:: GetChromosome() const
 {
-	if(fitness < 0)
-	{
-		throw std::logic_error("Currently fitness must be >= 0!");
-	}
-
-    _fitness = fitness;
-    _hasFitness = true;
+    initialization_checker_.InitializationCheck();
+    return chromosome_;
 }
 
-void Individual::checkForHavingFitness() const
+int Individual::SetRandomChromosome()
 {
-	if(!_hasFitness)
-	{
-		throw std::logic_error("Fitness must be counted before this operation");
-	}
+    initialization_checker_.InitializationCheck();
+
+    has_fitness_ = false;
+    int invalid_chromosomes = 0;
+
+    bool success = true;
+    do
+    {
+        success = true;
+
+        Random::Instance().setRandomBoolVector(&chromosome_);
+        this->SetParametersAccordingToChromosome();
+        success = this->parameters_->CheckConstraints();
+
+        if(!success)
+        {
+            invalid_chromosomes++;
+        }
+    }while(!success);
+
+    return invalid_chromosomes;
 }
 
-IndividualStatistics Individual::getIndividualStatistics() const
+bool Individual::Crossover(Individual* another)
 {
-	IndividualStatistics statistics;
+    initialization_checker_.InitializationCheck();
 
-	statistics.fitness = getFitness();
-	statistics.times_chosen_for_crossover = getTimesChosenForCrossover();
+    //TODO check if Individual has changed
+    another->has_fitness_ = false;
+    this->has_fitness_ = false;
 
-	return statistics;
+    BoolCrossover(&(this->chromosome_), &(another->chromosome_));
+
+    this->SetParametersAccordingToChromosome();
+    another->SetParametersAccordingToChromosome();
+
+    if( ( !this->parameters_->CheckConstraints() ) || ( !another->parameters_->CheckConstraints() ) )
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
-int Individual::getTimesChosenForCrossover() const
+int Individual::Mutate(double gen_mutation_probability)
 {
-	return _timesChosenForCrossover;
+    initialization_checker_.InitializationCheck();
+
+    //TODO check if Individual has changed
+    has_fitness_ = false;
+    int invalid_chromosomes = 0;
+
+    bool success = true;
+    do
+    {
+        success = true;
+
+        Mutator::Instance().mutateBoolArray(gen_mutation_probability, &chromosome_);
+        this->SetParametersAccordingToChromosome();
+        success = this->parameters_->CheckConstraints();
+
+        if(!success)
+        {
+            invalid_chromosomes++;
+        }
+    }while(!success);
+
+    return invalid_chromosomes;
 }
 
-void Individual::increaseTimesChosenForCrossover()
+bool Individual::HasFitness() const
 {
-	_timesChosenForCrossover++;
+    return has_fitness_;
 }
 
-void Individual::resetTimesChosenForCrossover()
+void Individual::IncreaseTimesChosenForCrossover()
 {
-	_timesChosenForCrossover = 0;
+    times_chosen_for_crossover_++;
+}
+
+void Individual::ResetTimesChosenForCrossover()
+{
+    times_chosen_for_crossover_ = 0;
+}
+
+int Individual::get_times_chosen_for_crossover() const
+{
+    return times_chosen_for_crossover_;
+}
+
+double Individual::get_fitness() const
+{
+    CheckForHavingFitness();
+    return fitness_;
+}
+
+void Individual::set_fitness(double fitness)
+{
+    if(fitness < 0)
+    {
+        throw std::logic_error("Currently fitness must be >= 0!");
+    }
+
+    fitness_ = fitness;
+    has_fitness_ = true;
+}
+
+IndividualStatistics Individual::get_individual_statistics() const
+{
+    IndividualStatistics statistics;
+
+    statistics.fitness = get_fitness();
+    statistics.times_chosen_for_crossover = get_times_chosen_for_crossover();
+
+    return statistics;
+}
+
+void Individual::CheckForHavingFitness() const
+{
+    if(!has_fitness_)
+    {
+        throw std::logic_error("Fitness must be counted before this operation");
+    }
+}
+
+void Individual::SetParametersAccordingToChromosome()
+{
+    initialization_checker_.InitializationCheck();
+
+    parameters_->SetFromChromosome(chromosome_.begin(), chromosome_.end());
+}
+
+void Individual::BoolCrossover(vector<bool> *first, vector<bool> *second)
+{
+    if(first->size() != second->size())
+    {
+        throw std::invalid_argument("For crossover chromosomes must have same size");
+    }
+
+    int crossover_point = Random::Instance().getUniformlyDistributedDiscreteRandomQuantity(0, first->size()-1);
+
+    for(size_t i = crossover_point; i < first->size(); i++)
+    {
+        bool firstI = (*first)[i];
+        if(firstI != (*second)[i])
+        {
+            (*first)[i] = !firstI;
+            (*second)[i] = firstI;
+        }
+    }
 }
 
 std::ostream& operator<< (std::ostream& out, const Individual& individual)
 {
-	out<<"Chromosome:\t";
-	const vector<bool>& chromosome = individual.getChromosome();
-	for(size_t i=0; i<chromosome.size(); i++)
-	{
-		out<< (chromosome[i] ? '1' : '0');
-	}
-	out<<"\tFitness:\t"<<individual.getFitness()<<std::endl;
-	return out;
+    out<<"Chromosome:\t";
+    const vector<bool>& chromosome = individual.GetChromosome();
+    for(size_t i=0; i<chromosome.size(); i++)
+    {
+        out<< (chromosome[i] ? '1' : '0');
+    }
+    out<<"\tFitness:\t"<<individual.get_fitness()<<std::endl;
+    return out;
 }
 
 std::istream& operator>> (std::istream& in, Individual& individual)
 {
-	std::string s, chromosome;
-	double fitness = 0;
-	in>>s;//"Chromosome:\t"
-	in>>chromosome;
-	in>>s;//"\tFitness:\t"
-	in>>fitness;
+    std::string s, chromosome;
+    double fitness = 0;
+    in>>s;//"Chromosome:\t"
+    in>>chromosome;
+    in>>s;//"\tFitness:\t"
+    in>>fitness;
 
-	if(chromosome.size() != individual.getChromosome().size())
-	{
-		throw std::logic_error("Attempt to read chromosome of inappropriate size");
-	}
+    if(chromosome.size() != individual.GetChromosome().size())
+    {
+        throw std::logic_error("Attempt to read chromosome of inappropriate size");
+    }
 
-	vector<bool> newChromosome(chromosome.size());
+    vector<bool> new_chromosome(chromosome.size());
 
-	for(size_t i=0; i < chromosome.size(); i++)
-	{
-		if(chromosome[i] == '1')
-		{
-			newChromosome[i] = true;
-		}
-		else if(chromosome[i] == '0')
-		{
-			newChromosome[i] = false;
-		}
-		else
-		{
-			throw std::logic_error("Attempt to read chromosome with invalid  format");
-		}
-	}
+    for(size_t i=0; i < chromosome.size(); i++)
+    {
+        if(chromosome[i] == '1')
+        {
+            new_chromosome[i] = true;
+        }
+        else if(chromosome[i] == '0')
+        {
+            new_chromosome[i] = false;
+        }
+        else
+        {
+            throw std::logic_error("Attempt to read chromosome with invalid  format");
+        }
+    }
 
-	individual._chromosome = newChromosome;
-	individual.setFitness(fitness);
+    individual.chromosome_ = new_chromosome;
+    individual.set_fitness(fitness);
 
-	return in;
+    return in;
 }
 
 }/* namespace optimize */
