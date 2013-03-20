@@ -11,7 +11,7 @@ using ::k52::parallel::thread::ThreadWorkerPool;
 #endif
 
 #ifdef BUILD_WITH_MPI
-#include "mpi/MpiWorkerPool.h"
+#include "mpi/mpi_worker_pool.h"
 using ::k52::parallel::mpi::MpiWorkerPool;
 #endif
 
