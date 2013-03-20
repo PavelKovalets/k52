@@ -74,13 +74,27 @@ void CompositeDiscreteParameters::SetFromChromosome(std::vector<bool>::const_ite
     }
 }
 
-void CompositeDiscreteParameters::Initialize(std::vector<IDiscreteParameters::shared_ptr> parameters)
+void CompositeDiscreteParameters::Initialize(const std::vector<IDiscreteParameters::shared_ptr>& parameters)
 {
     parameters_set_ = std::vector<IDiscreteParameters::shared_ptr>(parameters.size());
 
     for(size_t i=0; i<parameters_set_.size(); i++)
     {
         parameters_set_[i] = IDiscreteParameters::shared_ptr(parameters[i]->Clone());
+    }
+
+    this->SetConstChromosomeSize( CountTotalChromosomeSize() );
+
+    initialization_checker_.SetInitialized();
+}
+
+void CompositeDiscreteParameters::Initialize(const IDiscreteParameters::shared_ptr& sample_parameter, size_t number_of_parameters)
+{
+    parameters_set_ = std::vector<IDiscreteParameters::shared_ptr>(number_of_parameters);
+
+    for(size_t i=0; i<parameters_set_.size(); i++)
+    {
+        parameters_set_[i] = IDiscreteParameters::shared_ptr(sample_parameter->Clone());
     }
 
     this->SetConstChromosomeSize( CountTotalChromosomeSize() );

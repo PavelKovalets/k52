@@ -26,7 +26,9 @@ public:
 
     void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
 
-    void Initialize(std::vector<IDiscreteParameters::shared_ptr> parameters);
+    void Initialize(const std::vector<IDiscreteParameters::shared_ptr>& parameters);
+
+    void Initialize(const IDiscreteParameters::shared_ptr& sample_parameter, size_t number_of_parameters);
 
     size_t GetNumberOfParameters() const;
 
