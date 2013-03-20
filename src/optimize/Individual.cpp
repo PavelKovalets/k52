@@ -228,8 +228,8 @@ IndividualStatistics Individual::getIndividualStatistics() const
 {
 	IndividualStatistics statistics;
 
-	statistics.Fitness = getFitness();
-	statistics.TimesChosenForCrossover = getTimesChosenForCrossover();
+	statistics.fitness = getFitness();
+	statistics.times_chosen_for_crossover = getTimesChosenForCrossover();
 
 	return statistics;
 }

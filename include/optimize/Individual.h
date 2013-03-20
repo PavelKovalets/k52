@@ -10,7 +10,7 @@
 
 #include <optimize/params/i_parameters.h>
 #include <optimize/initialization_checker.h>
-#include <optimize/IndividualStatistics.h>
+#include <optimize/individual_statistics.h>
 #include <optimize/params/discrete_parameters.h>
 #include <ostream>
 

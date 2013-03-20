@@ -10,7 +10,7 @@
 
 #include <list>
 #include <string>
-#include <optimize/IndividualStatistics.h>
+#include <optimize/individual_statistics.h>
 #include <optimize/params/i_parameters.h>
 
 namespace k52
