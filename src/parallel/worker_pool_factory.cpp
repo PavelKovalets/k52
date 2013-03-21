@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-#include "SequentialWorkerPool.h"
+#include "sequential_worker_pool.h"
 using ::k52::parallel::SequentialWorkerPool;
 
 #ifdef BUILD_WITH_BOOST_THREAD
