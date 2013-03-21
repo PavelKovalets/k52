@@ -1,10 +1,3 @@
-/*
- * ThreadWorkerPoolTask.h
- *
- *  Created on: Mar 3, 2013
- *      Author: feanor
- */
-
 #ifndef THREADWORKERPOOLTASK_H_
 #define THREADWORKERPOOLTASK_H_
 
@@ -20,17 +13,17 @@ namespace thread
 class ThreadWorkerPoolTask
 {
 public:
-	ThreadWorkerPoolTask();
+    ThreadWorkerPoolTask();
 
-	ThreadWorkerPoolTask(
-			const ITask* taskToDo,
-			ITaskResult::shared_ptr* resultToBeWritten);
+    ThreadWorkerPoolTask(
+        const ITask* task_to_do,
+        ITaskResult::shared_ptr* result_to_be_written);
 
-	void doTask();
+    void DoTask();
 
 private:
-	const ITask* _taskToDo;
-	ITaskResult::shared_ptr* _resultToBeWritten;
+    const ITask* task_to_do_;
+    ITaskResult::shared_ptr* result_to_be_written_;
 };
 
 } /* namespace thread */
