@@ -54,7 +54,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
 	vector<double> basePoint(n);
 	for(int i = 0; i < n; i++)
 	{
-		basePoint[i] = Random::Instance().getContinuousRandomQuantity(_lowerBound, _upperBound);
+		basePoint[i] = Random::Instance().GetContinuousRandomQuantity(_lowerBound, _upperBound);
 	}
 	//Build simplex
 	vector< vector<double> > polygon = getRegularSimplex(basePoint, _l);

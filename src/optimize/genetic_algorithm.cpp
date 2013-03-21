@@ -231,7 +231,7 @@ void GeneticAlgorithm::GenerateNextPopulation()
 
 int GeneticAlgorithm::SelectRandomIndividualIndexForCrossover(double total_fitness)
 {
-    double roulette_result = Random::Instance().getBaseRandomQuantity() * total_fitness;
+    double roulette_result = Random::Instance().GetBaseRandomQuantity() * total_fitness;
 
     double current = 0;
 

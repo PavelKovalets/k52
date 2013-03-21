@@ -92,7 +92,7 @@ int Individual::SetRandomChromosome()
     {
         success = true;
 
-        Random::Instance().setRandomBoolVector(&chromosome_);
+        Random::Instance().SetRandomBoolVector(&chromosome_);
         this->SetParametersAccordingToChromosome();
         success = this->parameters_->CheckConstraints();
 
@@ -141,7 +141,7 @@ int Individual::Mutate(double gen_mutation_probability)
     {
         success = true;
 
-        Mutator::Instance().mutateBoolArray(gen_mutation_probability, &chromosome_);
+        Mutator::Instance().MutateBoolArray(gen_mutation_probability, &chromosome_);
         this->SetParametersAccordingToChromosome();
         success = this->parameters_->CheckConstraints();
 
@@ -223,7 +223,7 @@ void Individual::BoolCrossover(vector<bool> *first, vector<bool> *second)
         throw std::invalid_argument("For crossover chromosomes must have same size");
     }
 
-    int crossover_point = Random::Instance().getUniformlyDistributedDiscreteRandomQuantity(0, first->size()-1);
+    int crossover_point = Random::Instance().GetUniformlyDistributedDiscreteRandomQuantity(0, first->size()-1);
 
     for(size_t i = crossover_point; i < first->size(); i++)
     {
