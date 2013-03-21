@@ -7,7 +7,7 @@
 
 #include "ObjectiveFunctionCounter.h"
 #include "Random.h"
-#include <optimize/GeneticAlgorithm.h>
+#include <optimize/genetic_algorithm.h>
 #include <stdexcept>
 #include <stdlib.h>
 #include <iostream>
@@ -33,7 +33,7 @@ GeneticAlgorithm::GeneticAlgorithm(
 		double fitnessStopCriteria,
 		double mutationProbability,
 		std::string populationFileName)
-		: _population(0), _populationStatistics(0), _fitnessCounter(new ObjectiveFunctionCounter(useFitnessValueCaching))
+		: population_(0), population_statistics_(0), fitness_counter_(new ObjectiveFunctionCounter(useFitnessValueCaching))
 {
 	if(populationSize%2!=0)
 	{
@@ -53,50 +53,50 @@ GeneticAlgorithm::GeneticAlgorithm(
 		exit(-1);
 	}
 
-	_callbackFunction = NULL;
+	callback_function_ = NULL;
 
-	_elitismPairs = elitismPairs;
-	_fitnessStopCriteria = fitnessStopCriteria;
-	_mutationProbability = mutationProbability;
-	_maxNumberOfGenerations = maxNumberOfGenerations;
+	elitism_pairs_ = elitismPairs;
+	fitness_stop_criteria_ = fitnessStopCriteria;
+	mutation_probability_ = mutationProbability;
+	max_number_of_generations_ = maxNumberOfGenerations;
 
-	_populationSize = populationSize;
-	_invalidChromosomes = 0;
-	_populationFileName = populationFileName;
+	population_size_ = populationSize;
+	invalid_chromosomes_ = 0;
+	population_file_name_ = populationFileName;
 }
 
-void GeneticAlgorithm::fireNextGenerationReady(GenerationStatistics statistics)
+void GeneticAlgorithm::FireNextGenerationReady(GenerationStatistics statistics)
 {
-	if(_callbackFunction != NULL)
+	if(callback_function_ != NULL)
 	{
-		_callbackFunction(statistics);
+		callback_function_(statistics);
 	}
 }
 
-bool GeneticAlgorithm::greaterFitness(const Individual* first, const Individual* second)
+bool GeneticAlgorithm::GreaterFitness(const Individual* first, const Individual* second)
 {
 	return (first->get_fitness()) > (second->get_fitness());
 }
 
-void GeneticAlgorithm::generateNextPopulation()
+void GeneticAlgorithm::GenerateNextPopulation()
 {
 	double totalFitness = 0;
 
-	vector<Individual*> sortedPopulation(_populationSize);
+	vector<Individual*> sortedPopulation(population_size_);
 	
-	for(int i =0; i<_populationSize; i++)
+	for(int i =0; i<population_size_; i++)
 	{
-		totalFitness += _population[i].get_fitness();
-		_population[i].ResetTimesChosenForCrossover();
-		sortedPopulation[i] = &(_population[i]);
+		totalFitness += population_[i].get_fitness();
+		population_[i].ResetTimesChosenForCrossover();
+		sortedPopulation[i] = &(population_[i]);
 	}
-	sort(sortedPopulation.begin(), sortedPopulation.end(), greaterFitness);
-	vector<Individual> nextPopulation(_populationSize);
+	sort(sortedPopulation.begin(), sortedPopulation.end(), GreaterFitness);
+	vector<Individual> nextPopulation(population_size_);
 
 	int elitismReady = 0;
-	for(int i =0; i<_populationSize; i+=2)
+	for(int i =0; i<population_size_; i+=2)
 	{
-		if(elitismReady<_elitismPairs)
+		if(elitismReady<elitism_pairs_)
 		{
 			nextPopulation[i] = *(sortedPopulation[i]);
 			nextPopulation[i+1] = *(sortedPopulation[i+1]);
@@ -114,20 +114,20 @@ void GeneticAlgorithm::generateNextPopulation()
 			{
 				success = true;
 
-				int firstParentIndex = selectRandomIndividualIndexForCrossover(totalFitness);
-				int secondParentIndex  = selectRandomIndividualIndexForCrossover(totalFitness);
+				int firstParentIndex = SelectRandomIndividualIndexForCrossover(totalFitness);
+				int secondParentIndex  = SelectRandomIndividualIndexForCrossover(totalFitness);
 
-				firstParent = _population[firstParentIndex];
-				secondParent = _population[secondParentIndex];
+				firstParent = population_[firstParentIndex];
+				secondParent = population_[secondParentIndex];
 
-				_population[firstParentIndex].IncreaseTimesChosenForCrossover();
-				_population[secondParentIndex].IncreaseTimesChosenForCrossover();
+				population_[firstParentIndex].IncreaseTimesChosenForCrossover();
+				population_[secondParentIndex].IncreaseTimesChosenForCrossover();
 			
 				success = firstParent.Crossover(&secondParent);
 			
 				if(!success)
 				{
-					_invalidChromosomes ++;
+					invalid_chromosomes_ ++;
 				}
 
 			}while(!success);
@@ -137,20 +137,20 @@ void GeneticAlgorithm::generateNextPopulation()
 		}
 	}
 
-	gatherAllIndividualsStatistics();
+	GatherAllIndividualsStatistics();
 
-	_population = nextPopulation;
+	population_ = nextPopulation;
 }
 
-int GeneticAlgorithm::selectRandomIndividualIndexForCrossover(double totalFitness)
+int GeneticAlgorithm::SelectRandomIndividualIndexForCrossover(double totalFitness)
 {
 	double rouletteResult = Random::Instance().getBaseRandomQuantity() * totalFitness;
 
 	double current = 0;
 
-	for(int i =0; i<_populationSize; i++)
+	for(int i =0; i<population_size_; i++)
 	{
-		current += _population[i].get_fitness();
+		current += population_[i].get_fitness();
 		if(rouletteResult <= current)
 		{
 			return i;
@@ -161,65 +161,65 @@ int GeneticAlgorithm::selectRandomIndividualIndexForCrossover(double totalFitnes
 	throw std::logic_error("Something wrong with fitness calculation. Possible < 0");
 }
 
-void GeneticAlgorithm::mutate()
+void GeneticAlgorithm::Mutate()
 {
-	for(int i =0; i<_populationSize; i++)
+	for(int i =0; i<population_size_; i++)
 	{
-		_invalidChromosomes += _population[i].Mutate(_mutationProbability);
+		invalid_chromosomes_ += population_[i].Mutate(mutation_probability_);
 	}
 }
 
-void GeneticAlgorithm::initialize(IDiscreteParameters* parametrsToOptimize)
+void GeneticAlgorithm::Initialize(IDiscreteParameters* parametrsToOptimize)
 {
-	_population = vector<Individual>(_populationSize);
-	_populationStatistics = vector<IndividualStatistics>(_populationSize);
+	population_ = vector<Individual>(population_size_);
+	population_statistics_ = vector<IndividualStatistics>(population_size_);
 
-	for(int i =0; i<_populationSize; i++)
+	for(int i =0; i<population_size_; i++)
 	{
-		_population[i].Initialize(parametrsToOptimize);
-		_invalidChromosomes += _population[i].SetRandomChromosome();
+		population_[i].Initialize(parametrsToOptimize);
+		invalid_chromosomes_ += population_[i].SetRandomChromosome();
 	}
-	_bestIndivid = Individual(parametrsToOptimize);
+	best_individ_ = Individual(parametrsToOptimize);
 }
 
-double GeneticAlgorithm::getPopulationAveradgeFitness()
+double GeneticAlgorithm::GetPopulationAveradgeFitness()
 {
 	double averadge = 0;
-	for(int i =0; i<_populationSize; i++)
+	for(int i =0; i<population_size_; i++)
 	{
-		averadge += _population[i].get_fitness();
+		averadge += population_[i].get_fitness();
 	}
-	averadge = averadge / _populationSize;
+	averadge = averadge / population_size_;
 	return averadge;
 }
 
-void GeneticAlgorithm::onNextGenerationReadyConnect(NextGenerationReadyCallback callbackFunction)
+void GeneticAlgorithm::OnNextGenerationReadyConnect(NextGenerationReadyCallback callbackFunction)
 {
-	_callbackFunction = callbackFunction;
+	callback_function_ = callbackFunction;
 }
 
-void GeneticAlgorithm::outputPopulation(std::ostream & out)
+void GeneticAlgorithm::OutputPopulation(std::ostream & out)
 {
     out << "Population_size: " << std::endl;
-    out << _population.size() << std::endl;
+    out << population_.size() << std::endl;
     out << "Chromosome_size: " << std::endl;
-    out << _population[0].GetChromosome().size() << std::endl;
-    for(size_t i = 0;i < _population.size();i++){
-        out << _population[i];
+    out << population_[0].GetChromosome().size() << std::endl;
+    for(size_t i = 0;i < population_.size();i++){
+        out << population_[i];
     }
 }
 
-void GeneticAlgorithm::savePopulationToFile(std::string fileName)
+void GeneticAlgorithm::SavePopulationToFile(std::string fileName)
 {
 	std::ofstream fout(fileName.c_str());
 	if(fout)
 	{
-		outputPopulation(fout);
+		OutputPopulation(fout);
 	}
 	fout.close();
 }
 
-void GeneticAlgorithm::inputPopulation(std::ifstream & in)
+void GeneticAlgorithm::InputPopulation(std::ifstream & in)
 {
     std::string s;
     int populationSize = 0;
@@ -230,20 +230,20 @@ void GeneticAlgorithm::inputPopulation(std::ifstream & in)
     in >> s; //"Chromosome_size: "
     in >> chromosomeSize;
     std::cout << chromosomeSize << std::endl;
-    if(_populationSize != populationSize || chromosomeSize != _population[0].GetChromosome().size()){
+    if(population_size_ != populationSize || chromosomeSize != population_[0].GetChromosome().size()){
 		throw std::logic_error("Incorrect input file (maybe old settings - Population size, Chromosome size etc.)");
     }
     for(int i = 0;i < populationSize;i++){
-        in >> _population[i];
+        in >> population_[i];
     }
 }
 
-void GeneticAlgorithm::readPopulationFromFile()
+void GeneticAlgorithm::ReadPopulationFromFile()
 {
-	std::ifstream fin(_populationFileName.c_str());
+	std::ifstream fin(population_file_name_.c_str());
 	if(fin)
 	{
-		inputPopulation(fin);
+		InputPopulation(fin);
 	}
 	fin.close();
 }
@@ -252,81 +252,81 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, 
 {
 	IDiscreteParameters* discreteParameters = dynamic_cast<IDiscreteParameters*>(parametrs_to_optimize);
 
-	initialize(discreteParameters);
-	if(!_populationFileName.empty())
+	Initialize(discreteParameters);
+	if(!population_file_name_.empty())
 	{
-		readPopulationFromFile();
+		ReadPopulationFromFile();
 	}
-	for (int n = 0; n < _maxNumberOfGenerations; n++)
+	for (int n = 0; n < max_number_of_generations_; n++)
 	{
-		_fitnessCounter->obtainFitness(&_population, function_to_optimize);
+		fitness_counter_->obtainFitness(&population_, function_to_optimize);
 
-		Individual bestCurrentIndivid(_population[0]);
+		Individual bestCurrentIndivid(population_[0]);
 
-		for (int i = 1; i < _populationSize; i++)
+		for (int i = 1; i < population_size_; i++)
 		{
-			if (bestCurrentIndivid.get_fitness() < _population[i].get_fitness())
+			if (bestCurrentIndivid.get_fitness() < population_[i].get_fitness())
 			{
-				bestCurrentIndivid = _population[i];
+				bestCurrentIndivid = population_[i];
 			}
 		}
 
-		if( (!_bestIndivid.HasFitness()) ||  _bestIndivid.get_fitness() < bestCurrentIndivid.get_fitness())
+		if( (!best_individ_.HasFitness()) ||  best_individ_.get_fitness() < bestCurrentIndivid.get_fitness())
 		{
-			_bestIndivid = bestCurrentIndivid;
+			best_individ_ = bestCurrentIndivid;
 		}
 
 		std::list<std::string> filesToSave;
 		std::list<IndividualStatistics> allStatistics;
 
-		std::copy (_populationStatistics.begin (), _populationStatistics.end (), std::back_inserter (allStatistics));
+		std::copy (population_statistics_.begin (), population_statistics_.end (), std::back_inserter (allStatistics));
 		allStatistics.sort(IndividualStatistics::greater);
 
-		GenerationStatistics currentPopulationStatistics(getPopulationAveradgeFitness(),
-				_bestIndivid.GetParametersAccordingToChromosome(),
-				_bestIndivid.get_fitness(),
+		GenerationStatistics currentPopulationStatistics(GetPopulationAveradgeFitness(),
+				best_individ_.GetParametersAccordingToChromosome(),
+				best_individ_.get_fitness(),
 				n,
-				_fitnessCounter->getCacheHits(),
-				_invalidChromosomes,
+				fitness_counter_->getCacheHits(),
+				invalid_chromosomes_,
 				&filesToSave,
 				allStatistics);
 
-		fireNextGenerationReady(currentPopulationStatistics);
+		FireNextGenerationReady(currentPopulationStatistics);
 
 		for(std::list<std::string>::iterator it = filesToSave.begin(); it != filesToSave.end(); it++)
 		{
-			savePopulationToFile(*it);
+			SavePopulationToFile(*it);
 		}
 
 		filesToSave.clear();
 
-		_fitnessCounter->resetCacheHits();
-		_invalidChromosomes = 0;
+		fitness_counter_->resetCacheHits();
+		invalid_chromosomes_ = 0;
 
-		if(_bestIndivid.get_fitness() >= _fitnessStopCriteria)
+		if(best_individ_.get_fitness() >= fitness_stop_criteria_)
 		{
 			discreteParameters->SetFromChromosome(
-					_bestIndivid.GetChromosome().begin(),
-					_bestIndivid.GetChromosome().end() );
+					best_individ_.GetChromosome().begin(),
+					best_individ_.GetChromosome().end() );
 			return;
 		}
 
-		generateNextPopulation();
-		mutate();
+		GenerateNextPopulation();
+		Mutate();
 	}
 
 	discreteParameters->SetFromChromosome(
-						_bestIndivid.GetChromosome().begin(),
-						_bestIndivid.GetChromosome().end() );
+						best_individ_.GetChromosome().begin(),
+						best_individ_.GetChromosome().end() );
 
 	return;
 }
 
-void GeneticAlgorithm::gatherAllIndividualsStatistics()
+void GeneticAlgorithm::GatherAllIndividualsStatistics()
 {
-	for(int i = 0; i < _populationSize; i++)
+	for(int i = 0; i < population_size_; i++)
 	{
-		_populationStatistics[i] = _population[i].get_individual_statistics();
+		population_statistics_[i] = population_[i].get_individual_statistics();
 	}
 }
 
