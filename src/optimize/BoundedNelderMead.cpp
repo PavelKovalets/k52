@@ -261,7 +261,7 @@ vector<double> BoundedNelderMead::countObjectiveFunctionValues(const vector< vec
 		parameters[i] = storages[i].get();
 	}
 
-	return _fitnessCounter.countObjectiveFunctionValues(parameters, functionToOptimize);
+	return _fitnessCounter.CountObjectiveFunctionValues(parameters, functionToOptimize);
 }
 
 vector<double> BoundedNelderMead::reflexion(const vector<double>& centerOfMass, const vector<double>& targetPoint)

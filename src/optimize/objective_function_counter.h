@@ -1,91 +1,71 @@
-/*
- * ObjectiveFunctionCounter.h
- *
- *  Created on: Mar 18, 2012
- *      Author: feanor
- */
-
 #ifndef OBJECTIVEFUNCTIONCOUNTER_H_
 #define OBJECTIVEFUNCTIONCOUNTER_H_
 
-#include <optimize/i_objective_function.h>
-#include <optimize/individual.h>
-#include "count_objective_function_task.h"
-#include "objective_function_task_result.h"
-#include <parallel/i_worker_pool.h>
 #include <map>
 #include <vector>
 #include <queue>
+
 #include <common/disallow_copy_and_assign.h>
+#include <parallel/i_worker_pool.h>
+#include <optimize/i_objective_function.h>
+#include <optimize/individual.h>
+
+#include "stored_value.h"
+#include "count_objective_function_task.h"
+#include "objective_function_task_result.h"
 
 namespace k52
 {
 namespace optimize
 {
 
-class StoredValue
-{
-public:
-
-	StoredValue() : _hasValue(false) {}
-
-	StoredValue(double fitness) : _hasValue(true), _value(fitness) {}
-
-	bool hasValue()	{ return _hasValue; }
-
-	double getValue() { return _value; }
-
-private:
-	bool _hasValue;
-	double _value;
-};
-
 class ObjectiveFunctionCounter
 {
 public:
-	typedef boost::shared_ptr<ObjectiveFunctionCounter> shared_ptr;
+    typedef boost::shared_ptr<ObjectiveFunctionCounter> shared_ptr;
 
-	ObjectiveFunctionCounter(bool useValueCaching);
+    explicit ObjectiveFunctionCounter(bool use_value_caching);
 
-	void obtainFitness(std::vector<Individual>* population, const IObjectiveFunction& objectiveFunction);
+    void ObtainFitness(
+        const IObjectiveFunction& objective_function,
+        std::vector<Individual>* population);
 
-	std::vector<double> countObjectiveFunctionValues(
-			const std::vector<const IParameters*>& parametersToCount,
-			const IObjectiveFunction& objectiveFunction);
+    std::vector<double> CountObjectiveFunctionValues(
+        const std::vector<const IParameters*>& parameters_to_count,
+        const IObjectiveFunction& objective_function);
 
-    int getObjectiveFunctionCounts() const;
-
-	int getCacheHits() const;
-
-    void resetCacheHits();
+    void ResetCacheHits();
+    int get_cache_hits() const;
+    int get_objective_function_counts() const;
 
 protected:
-    void processPopulation(
-    		std::vector<Individual>* population,
-    		std::vector<const IParameters*>* parametersToCount,
-    		std::vector<int>* indexesToCount);
+    void ProcessPopulation(
+        std::vector<Individual>* population,
+        std::vector<const IParameters*>* parameters_to_count,
+        std::vector<int>* indexes_to_count);
 
-    std::vector< ObjectiveFunctionTaskResult::shared_ptr > count(const std::vector<CountObjectiveFunctionTask::shared_ptr>& rawTasks);
+    std::vector< ObjectiveFunctionTaskResult::shared_ptr > Count(
+        const std::vector<CountObjectiveFunctionTask::shared_ptr>& raw_tasks);
 
-    std::vector< CountObjectiveFunctionTask::shared_ptr > createRawTasks(
-    		const std::vector<const IParameters*>& parametersToCount,
-    		const IObjectiveFunction& objectiveFunction);
+    std::vector< CountObjectiveFunctionTask::shared_ptr > CreateRawTasks(
+        const std::vector<const IParameters*>& parameters_to_count,
+        const IObjectiveFunction& objective_function);
 
-    std::vector< const k52::parallel::ITask* > createRawTaskPointersVector(
-    		const std::vector<CountObjectiveFunctionTask::shared_ptr>& rawTasks );
+    std::vector< const k52::parallel::ITask* > CreateRawTaskPointersVector(
+        const std::vector<CountObjectiveFunctionTask::shared_ptr>& raw_tasks);
 
-	void addNewCacheValues(std::vector<Individual>* population, const std::vector<int>& newCacheIndexes);
+    void AddNewCacheValues(
+        std::vector<Individual>* population,
+        const std::vector<int>& new_cache_indexes);
 
 private:
-	ObjectiveFunctionCounter();
+    bool use_value_caching_;
+    k52::parallel::IWorkerPool::shared_ptr fitness_worker_pool_;
+    std::map<std::vector<bool>, StoredValue> cache_;
+    int objective_function_counts_;
+    int cache_hits_;
 
-	bool _useValueCaching;
-	k52::parallel::IWorkerPool::shared_ptr _fitnessWorkerPool;
-	std::map<std::vector<bool>, StoredValue> _cache;
-	int _cacheHits;
-	int _objectiveFunctionCounts;
-
-	DISALLOW_COPY_AND_ASSIGN(ObjectiveFunctionCounter);
+    DISALLOW_COPY_AND_ASSIGN(ObjectiveFunctionCounter);
 };
 
 }/* namespace optimize */

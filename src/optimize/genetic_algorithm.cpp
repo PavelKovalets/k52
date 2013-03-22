@@ -76,7 +76,7 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, 
 
     for (int n = 0; n < max_number_of_generations_; n++)
     {
-        fitness_counter_->obtainFitness(&population_, function_to_optimize);
+        fitness_counter_->ObtainFitness(function_to_optimize, &population_);
 
         Individual best_current_individ(population_[0]);
 
@@ -104,7 +104,7 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, 
             best_individ_.GetParametersAccordingToChromosome(),
             best_individ_.get_fitness(),
             n,
-            fitness_counter_->getCacheHits(),
+            fitness_counter_->get_cache_hits(),
             invalid_chromosomes_,
             &files_to_save,
             all_statistics);
@@ -118,7 +118,7 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, 
 
         files_to_save.clear();
 
-        fitness_counter_->resetCacheHits();
+        fitness_counter_->ResetCacheHits();
         invalid_chromosomes_ = 0;
 
         if(best_individ_.get_fitness() >= fitness_stop_criteria_)
