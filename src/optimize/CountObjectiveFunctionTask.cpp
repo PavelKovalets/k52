@@ -6,7 +6,7 @@
  */
 
 #include "CountObjectiveFunctionTask.h"
-#include "ObjectiveFunctionTaskResult.h"
+#include "objective_function_task_result.h"
 
 #ifdef BUILD_WITH_MPI
 
@@ -32,7 +32,7 @@ k52::parallel::mpi::IMpiTaskResult::shared_ptr CountObjectiveFunctionTask::Perfo
 {
 	double value = getFunction()->operator ()( getParameters() );
 	ObjectiveFunctionTaskResult::shared_ptr result ( new ObjectiveFunctionTaskResult() );
-	result->setObjectiveFunctionValue(value);
+	result->set_objective_function_value(value);
 	return result;
 }
 
@@ -85,7 +85,7 @@ k52::parallel::ITaskResult::shared_ptr CountObjectiveFunctionTask::Perform() con
 {
 	double value = _functionToOptimize->operator ()(_parameters);
 	ObjectiveFunctionTaskResult::shared_ptr result ( new ObjectiveFunctionTaskResult() );
-	result->setObjectiveFunctionValue(value);
+	result->set_objective_function_value(value);
 	return result;
 }
 

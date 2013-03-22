@@ -106,7 +106,7 @@ vector<double> ObjectiveFunctionCounter::countObjectiveFunctionValues(
 
 	for(size_t i=0; i<rawTasks.size(); i++)
 	{
-		countedValues[i] =  results[i]->getObjectiveFunctionValue();
+		countedValues[i] =  results[i]->get_objective_function_value();
 	}
 
 	return countedValues;

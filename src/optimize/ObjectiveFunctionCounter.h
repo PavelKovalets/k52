@@ -11,7 +11,7 @@
 #include <optimize/i_objective_function.h>
 #include <optimize/individual.h>
 #include "CountObjectiveFunctionTask.h"
-#include "ObjectiveFunctionTaskResult.h"
+#include "objective_function_task_result.h"
 #include <parallel/i_worker_pool.h>
 #include <map>
 #include <vector>
