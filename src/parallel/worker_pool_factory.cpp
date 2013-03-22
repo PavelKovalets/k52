@@ -6,7 +6,7 @@
 using ::k52::parallel::SequentialWorkerPool;
 
 #ifdef BUILD_WITH_BOOST_THREAD
-#include "thread/ThreadWorkerPool.h"
+#include "thread/thread_worker_pool.h"
 using ::k52::parallel::thread::ThreadWorkerPool;
 #endif
 
