@@ -1,9 +1,9 @@
-#include "Mutator.h"
+#include "mutator.h"
 
 #include <math.h>
 #include <stdexcept>
 
-#include "Random.h"
+#include "random.h"
 
 namespace k52
 {

@@ -10,8 +10,8 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "Random.h"
-#include "Mutator.h"
+#include "random.h"
+#include "mutator.h"
 
 using ::std::vector;
 

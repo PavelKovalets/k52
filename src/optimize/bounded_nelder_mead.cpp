@@ -7,7 +7,7 @@
 
 #include <optimize/params/i_continuous_parameters.h>
 
-#include "Random.h"
+#include "random.h"
 #include "objective_function_counter.h"
 
 using ::std::vector;

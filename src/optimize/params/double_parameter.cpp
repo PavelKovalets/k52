@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdexcept>
 
-#include "../Random.h"
+#include "../random.h"
 
 namespace k52
 {

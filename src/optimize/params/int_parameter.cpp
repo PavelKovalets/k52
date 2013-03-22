@@ -1,6 +1,6 @@
 #include <optimize/params/int_parameter.h>
 
-#include "../Random.h"
+#include "../random.h"
 
 using ::std::vector;
 

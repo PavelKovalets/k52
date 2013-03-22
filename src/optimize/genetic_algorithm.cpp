@@ -10,7 +10,7 @@
 #include <iterator>
 #include <algorithm>
 
-#include "Random.h"
+#include "random.h"
 #include "objective_function_counter.h"
 
 using ::std::vector;
