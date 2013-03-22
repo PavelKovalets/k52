@@ -31,7 +31,7 @@ std::vector< ITaskResult::shared_ptr > ThreadWorkerPool::DoTasks (
 		tasksQueue.push( ThreadWorkerPoolTask(tasks[i], &(results[i])) );
 	}
 
-	_workerPool.doTasks(tasksQueue);
+	_workerPool.DoTasks(tasksQueue);
 
 	return results;
 }

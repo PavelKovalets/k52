@@ -12,7 +12,7 @@
 
 #include <parallel/i_worker_pool.h>
 #include "thread_worker_pool_task.h"
-#include "ThreadWorkerPoolTemplated.h"
+#include "thread_worker_pool_templated.h"
 
 #include <common/disallow_copy_and_assign.h>
 

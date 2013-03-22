@@ -19,11 +19,8 @@ class Worker
 {
 public:
     Worker() {}
-
     void Start(ThreadSafeQueue<TTask>* tasks_to_do, ThreadSafeQueue<TTask>* done_tasks);
-
     void Stop();
-
     void Join();
 
 protected:
