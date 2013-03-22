@@ -10,7 +10,7 @@
 
 #ifdef BUILD_WITH_BOOST_THREAD
 
-#include "Worker.h"
+#include "worker.h"
 
 #include <common/disallow_copy_and_assign.h>
 
@@ -57,7 +57,7 @@ void ThreadWorkerPoolTemplated<Task>::initialize()
 	//TODO do not start immediatelly?
 	for(int i=0; i<_numberOfWorkers; i++)
 	{
-		_workers[i].start(&_tasksToDo, &_doneTasks);
+		_workers[i].Start(&_tasksToDo, &_doneTasks);
 	}
 }
 
@@ -80,13 +80,13 @@ ThreadWorkerPoolTemplated<Task>::~ThreadWorkerPoolTemplated()
 {
 	for(int i=0; i<_numberOfWorkers; i++)
 	{
-		_workers[i].stop();
+		_workers[i].Stop();
 	}
 
 	//Wait for correct finalization of all threads
 	for(int i=0; i<_numberOfWorkers; i++)
 	{
-		_workers[i].join();
+		_workers[i].Join();
 	}
 
 	delete [] _workers;
