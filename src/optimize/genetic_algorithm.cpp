@@ -11,7 +11,7 @@
 #include <algorithm>
 
 #include "Random.h"
-#include "ObjectiveFunctionCounter.h"
+#include "objective_function_counter.h"
 
 using ::std::vector;
 

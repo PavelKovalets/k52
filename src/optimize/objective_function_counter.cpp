@@ -5,7 +5,7 @@
  *      Author: feanor
  */
 
-#include "ObjectiveFunctionCounter.h"
+#include "objective_function_counter.h"
 #include <parallel/worker_pool_factory.h>
 #include <parallel/mpi/identifyable_objects_manager.h>
 #include <stdexcept>

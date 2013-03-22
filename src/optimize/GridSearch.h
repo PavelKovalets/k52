@@ -9,7 +9,7 @@
 #define GRIDSEARCH_H_
 
 #include <optimize/i_optimizer.h>
-#include "ObjectiveFunctionCounter.h"
+#include "objective_function_counter.h"
 
 #include <common/disallow_copy_and_assign.h>
 
