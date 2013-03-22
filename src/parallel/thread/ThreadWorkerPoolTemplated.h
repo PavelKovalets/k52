@@ -99,14 +99,14 @@ void ThreadWorkerPoolTemplated<Task>::doTasks(std::queue<Task> tasks)
 
 	while(!tasks.empty())
 	{
-		_tasksToDo.push(tasks.front());
+		_tasksToDo.Push(tasks.front());
 		tasks.pop();
 	}
 
 	for(int i=0; i<n; i++)
 	{
 		Task doneTask;
-		_doneTasks.waitAndPop(doneTask);
+		_doneTasks.WaitAndPop(doneTask);
 	}
 }
 

@@ -1,16 +1,9 @@
-/*
- * Worker.h
- *
- *  Created on: Mar 15, 2012
- *      Author: feanor
- */
-
 #ifndef WORKER_H_
 #define WORKER_H_
 
 #ifdef BUILD_WITH_BOOST_THREAD
 
-#include "ThreadSafeQueue.h"
+#include "thread_safe_queue.h"
 #include <iostream>
 
 #include <common/disallow_copy_and_assign.h>
@@ -22,20 +15,20 @@ namespace parallel
 namespace thread
 {
 
-template <class Task>
+template <class TTask>
 class Worker
 {
 public:
-	Worker();
+	Worker() {}
 
-	void start(ThreadSafeQueue<Task>* tasksToDo, ThreadSafeQueue<Task>* doneTasks);
+	void start(ThreadSafeQueue<TTask>* tasksToDo, ThreadSafeQueue<TTask>* doneTasks);
 
 	void stop();
 
 	void join();
 
 protected:
-	void processTasksQueue(ThreadSafeQueue<Task>* tasksToDo, ThreadSafeQueue<Task>* doneTasks);
+	void processTasksQueue(ThreadSafeQueue<TTask>* tasksToDo, ThreadSafeQueue<TTask>* doneTasks);
 
 private:
 	boost::thread _thread;
@@ -44,41 +37,36 @@ private:
 };
 
 
-template <class Task>
-Worker<Task>::Worker()
-{
-}
-
-template <class Task>
-void Worker<Task>::start(ThreadSafeQueue<Task>* tasksToDo, ThreadSafeQueue<Task>* doneTasks)
+template <class TTask>
+void Worker<TTask>::start(ThreadSafeQueue<TTask>* tasksToDo, ThreadSafeQueue<TTask>* doneTasks)
 {
 	_thread = boost::thread(&Worker::processTasksQueue, this, tasksToDo, doneTasks);
 }
 
-template <class Task>
-void Worker<Task>::stop()
+template <class TTask>
+void Worker<TTask>::stop()
 {
 	_thread.interrupt();
 }
 
-template <class Task>
-void Worker<Task>::join()
+template <class TTask>
+void Worker<TTask>::join()
 {
 	_thread.join();
 }
 
-template <class Task>
-void Worker<Task>::processTasksQueue(ThreadSafeQueue<Task>* tasksToDo, ThreadSafeQueue<Task>* doneTasks)
+template <class TTask>
+void Worker<TTask>::processTasksQueue(ThreadSafeQueue<TTask>* tasksToDo, ThreadSafeQueue<TTask>* doneTasks)
 {
 	while(true)
 	{
 		try
 		{
 			//boost::this_thread::disable_interruption di;
-			Task toDo;
-			tasksToDo->waitAndPop(toDo);
-			toDo.doTask();
-			doneTasks->push(toDo);
+		    TTask to_do;
+			tasksToDo->WaitAndPop(to_do);
+			to_do.DoTask();
+			doneTasks->Push(to_do);
 		}
 		catch(boost::thread_interrupted& ex)
 		{

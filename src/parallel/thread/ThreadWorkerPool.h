@@ -11,7 +11,7 @@
 #ifdef BUILD_WITH_BOOST_THREAD
 
 #include <parallel/i_worker_pool.h>
-#include "ThreadWorkerPoolTask.h"
+#include "thread_worker_pool_task.h"
 #include "ThreadWorkerPoolTemplated.h"
 
 #include <common/disallow_copy_and_assign.h>
