@@ -18,7 +18,7 @@ namespace mpi
 
 struct ResultExpectation
 {
-    int workerRank;
+    int worker_rank;
     boost::mpi::request request;
 };
 
@@ -72,7 +72,7 @@ std::vector< ITaskResult::shared_ptr > MpiWorkerPool::DoTasks (const std::vector
         if(was_first_part_sent)
         {
             ResultExpectation received_expectation = WaitAndPopNextExpectation(result_expectations);
-            current_worker_rank = received_expectation.workerRank;
+            current_worker_rank = received_expectation.worker_rank;
         }
     }
 
@@ -102,7 +102,7 @@ ResultExpectation MpiWorkerPool::SendTask(const IMpiTask* task,
 
     ResultExpectation expectaton;
     expectaton.request = mpi_task_result->ReceiveAsync(communicator_, current_worker_rank);
-    expectaton.workerRank = current_worker_rank;
+    expectaton.worker_rank = current_worker_rank;
 
     return expectaton;
 }
@@ -122,7 +122,7 @@ ResultExpectation MpiWorkerPool::WaitAndPopNextExpectation(std::list<ResultExpec
                 ResultExpectation received_expectation = *it;
                 result_expectations.erase(it);
 
-                statistics_aggregator_.RegisterCount(received_expectation.workerRank);
+                statistics_aggregator_.RegisterCount(received_expectation.worker_rank);
 
                 return received_expectation;
             }
