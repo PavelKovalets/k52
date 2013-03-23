@@ -4,6 +4,8 @@ project(k52)
 set(CMAKE_INSTALL_PREFIX ${k52_SOURCE_DIR})
 set(k52_LIB_DESTINATION /lib)
 
+set(AUTO_RESOLVE_PARALLEL_LIBS "ON")
+
 # parallel library
 add_subdirectory(src/parallel)
 
