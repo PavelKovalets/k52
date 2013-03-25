@@ -43,7 +43,7 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool use_value_caching)
 
 void ObjectiveFunctionCounter::ObtainFitness(
     const IObjectiveFunction& objective_function,
-    std::vector<Individual>* population)
+    std::vector<Individual::shared_ptr>* population)
 {
     vector<const IParameters*> parameters_to_count;
     vector<int> indexes_to_count;
@@ -54,7 +54,7 @@ void ObjectiveFunctionCounter::ObtainFitness(
 
     for(size_t i=0; i<counted_values.size(); i++)
     {
-        (*population)[ indexes_to_count[i] ] . set_fitness( counted_values[i] );
+        (*population)[ indexes_to_count[i] ] -> set_fitness( counted_values[i] );
     }
 
     if(use_value_caching_)
@@ -96,7 +96,7 @@ int ObjectiveFunctionCounter::get_objective_function_counts() const
 }
 
 void ObjectiveFunctionCounter::ProcessPopulation(
-    vector<Individual>* population,
+    vector<Individual::shared_ptr>* population,
     vector<const IParameters*>* parameters_to_count,
     vector<int>* indexes_to_count)
 {
@@ -107,17 +107,17 @@ void ObjectiveFunctionCounter::ProcessPopulation(
     {
         if(use_value_caching_)
         {
-            StoredValue stored_fitness = cache_[(*population)[i].GetChromosome()];
+            StoredValue stored_fitness = cache_[ ((*population)[i])->GetChromosome()];
             if(stored_fitness.has_value())
             {
-                (*population)[i].set_fitness( stored_fitness.get_value() );
+                ((*population)[i])->set_fitness( stored_fitness.get_value() );
                 cache_hits_ ++;
                 continue;
             }
         }
 
         //These items should be evaluated further as they are not cached
-        const IParameters* parameters = (*population)[i].GetParametersAccordingToChromosome();
+        const IParameters* parameters = ((*population)[i])->GetParametersAccordingToChromosome();
         parameters_to_count->push_back(parameters);
         indexes_to_count->push_back(i);
     }
@@ -167,12 +167,12 @@ vector< const k52::parallel::ITask* > ObjectiveFunctionCounter::CreateRawTaskPoi
 }
 
 void ObjectiveFunctionCounter::AddNewCacheValues(
-    vector<Individual>* population, 
+    vector<Individual::shared_ptr>* population, 
     const vector<int>&  new_cache_indexes)
 {
     for(size_t i=0; i<new_cache_indexes.size(); i++)
     {
-        Individual* current_individ = &(*population)[ new_cache_indexes[i] ];
+        Individual::shared_ptr current_individ = (*population)[ new_cache_indexes[i] ];
         StoredValue stored_fitness( current_individ->get_fitness() );
 
         //TODO use hash instead of whole vector?

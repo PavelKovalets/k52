@@ -30,7 +30,7 @@ public:
 
     void ObtainFitness(
         const IObjectiveFunction& objective_function,
-        std::vector<Individual>* population);
+        std::vector<Individual::shared_ptr>* population);
 
     std::vector<double> CountObjectiveFunctionValues(
         const std::vector<const IParameters*>& parameters_to_count,
@@ -42,7 +42,7 @@ public:
 
 protected:
     void ProcessPopulation(
-        std::vector<Individual>* population,
+        std::vector<Individual::shared_ptr>* population,
         std::vector<const IParameters*>* parameters_to_count,
         std::vector<int>* indexes_to_count);
 
@@ -57,7 +57,7 @@ protected:
         const std::vector<CountObjectiveFunctionTask::shared_ptr>& raw_tasks);
 
     void AddNewCacheValues(
-        std::vector<Individual>* population,
+        std::vector<Individual::shared_ptr>* population,
         const std::vector<int>& new_cache_indexes);
 
 private:

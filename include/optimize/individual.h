@@ -23,6 +23,8 @@ Local parameters and chromosome of an Individual are always synchronized
 class Individual
 {
 public:
+    typedef boost::shared_ptr<Individual> shared_ptr;
+
     ///Creates an Individual without initialization.
     ///For further usage initialize method of this Individual MUST be called.
     ///Otherwise exception will be thrown.

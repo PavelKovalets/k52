@@ -58,11 +58,11 @@ protected:
     void ReadPopulationFromFile();
     void OutputPopulation(std::ostream& out);
     void InputPopulation(std::ifstream& in);
-    static bool GreaterFitness(const Individual* first, const Individual* second);
+    static bool GreaterFitness(Individual::shared_ptr first, Individual::shared_ptr second);
 
 private:
-    Individual best_individ_;
-    std::vector<Individual> population_;
+    Individual::shared_ptr best_individ_;
+    std::vector<Individual::shared_ptr> population_;
     std::vector<IndividualStatistics> population_statistics_;
     boost::shared_ptr<ObjectiveFunctionCounter> fitness_counter_;
     NextGenerationReadyCallback callback_function_;

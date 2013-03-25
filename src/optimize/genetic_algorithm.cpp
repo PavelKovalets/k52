@@ -78,17 +78,17 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, 
     {
         fitness_counter_->ObtainFitness(function_to_optimize, &population_);
 
-        Individual best_current_individ(population_[0]);
+        Individual::shared_ptr best_current_individ = population_[0];
 
         for (int i = 1; i < population_size_; i++)
         {
-            if (best_current_individ.get_fitness() < population_[i].get_fitness())
+            if (best_current_individ->get_fitness() < population_[i]->get_fitness())
             {
                 best_current_individ = population_[i];
             }
         }
 
-        if( (!best_individ_.HasFitness()) ||  best_individ_.get_fitness() < best_current_individ.get_fitness())
+        if( (!best_individ_->HasFitness()) ||  best_individ_->get_fitness() < best_current_individ->get_fitness())
         {
             best_individ_ = best_current_individ;
         }
@@ -101,8 +101,8 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, 
 
         GenerationStatistics current_population_statistics(
             GetPopulationAveradgeFitness(),
-            best_individ_.GetParametersAccordingToChromosome(),
-            best_individ_.get_fitness(),
+            best_individ_->GetParametersAccordingToChromosome(),
+            best_individ_->get_fitness(),
             n,
             fitness_counter_->get_cache_hits(),
             invalid_chromosomes_,
@@ -121,11 +121,11 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, 
         fitness_counter_->ResetCacheHits();
         invalid_chromosomes_ = 0;
 
-        if(best_individ_.get_fitness() >= fitness_stop_criteria_)
+        if(best_individ_->get_fitness() >= fitness_stop_criteria_)
         {
             discrete_parameters->SetFromChromosome(
-                best_individ_.GetChromosome().begin(),
-                best_individ_.GetChromosome().end() );
+                best_individ_->GetChromosome().begin(),
+                best_individ_->GetChromosome().end() );
             return;
         }
 
@@ -134,8 +134,8 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, 
     }
 
     discrete_parameters->SetFromChromosome(
-        best_individ_.GetChromosome().begin(),
-        best_individ_.GetChromosome().end() );
+        best_individ_->GetChromosome().begin(),
+        best_individ_->GetChromosome().end() );
 
     return;
 }
@@ -147,22 +147,23 @@ void GeneticAlgorithm::OnNextGenerationReadyConnect(NextGenerationReadyCallback 
 
 void GeneticAlgorithm::Initialize(IDiscreteParameters* parametrs_to_optimize)
 {
-    population_ = vector<Individual>(population_size_);
+    population_ = vector<Individual::shared_ptr>(population_size_);
     population_statistics_ = vector<IndividualStatistics>(population_size_);
 
     for(int i =0; i<population_size_; i++)
     {
-        population_[i].Initialize(parametrs_to_optimize);
-        invalid_chromosomes_ += population_[i].SetRandomChromosome();
+        population_[i] = Individual::shared_ptr(new Individual());
+        population_[i]->Initialize(parametrs_to_optimize);
+        invalid_chromosomes_ += population_[i]->SetRandomChromosome();
     }
-    best_individ_ = Individual(parametrs_to_optimize);
+    best_individ_ = Individual::shared_ptr(new Individual(parametrs_to_optimize) );
 }
 
 void GeneticAlgorithm::Mutate()
 {
     for(int i =0; i<population_size_; i++)
     {
-        invalid_chromosomes_ += population_[i].Mutate(mutation_probability_);
+        invalid_chromosomes_ += population_[i]->Mutate(mutation_probability_);
     }
 }
 
@@ -170,31 +171,31 @@ void GeneticAlgorithm::GenerateNextPopulation()
 {
     double total_fitness = 0;
 
-    vector<Individual*> sorted_population(population_size_);
+    vector<Individual::shared_ptr> sorted_population(population_size_);
 
     for(int i =0; i<population_size_; i++)
     {
-        total_fitness += population_[i].get_fitness();
-        population_[i].ResetTimesChosenForCrossover();
-        sorted_population[i] = &(population_[i]);
+        total_fitness += population_[i]->get_fitness();
+        population_[i]->ResetTimesChosenForCrossover();
+        sorted_population[i] = population_[i];
     }
     sort(sorted_population.begin(), sorted_population.end(), GreaterFitness);
-    vector<Individual> next_population(population_size_);
+    vector<Individual::shared_ptr> next_population(population_size_);
 
     int elitism_ready = 0;
     for(int i =0; i<population_size_; i+=2)
     {
         if(elitism_ready<elitism_pairs_)
         {
-            next_population[i] = *(sorted_population[i]);
-            next_population[i+1] = *(sorted_population[i+1]);
+            next_population[i] = Individual::shared_ptr( new Individual( *(sorted_population[i]) ) );
+            next_population[i+1] = Individual::shared_ptr( new Individual( *(sorted_population[i+1]) ) );
             //elitism
             elitism_ready++;
         }
         else
         {
             //crossover
-            Individual first_parent, second_parent;
+            Individual::shared_ptr first_child, second_child;
 
             bool success = true;
             do
@@ -204,13 +205,13 @@ void GeneticAlgorithm::GenerateNextPopulation()
                 int first_parent_index = SelectRandomIndividualIndexForCrossover(total_fitness);
                 int second_parent_index  = SelectRandomIndividualIndexForCrossover(total_fitness);
 
-                first_parent = population_[first_parent_index];
-                second_parent = population_[second_parent_index];
+                first_child = Individual::shared_ptr( new Individual( *(population_[first_parent_index]) ) );
+                second_child = Individual::shared_ptr( new Individual( *(population_[second_parent_index]) ) );
 
-                population_[first_parent_index].IncreaseTimesChosenForCrossover();
-                population_[second_parent_index].IncreaseTimesChosenForCrossover();
+                population_[first_parent_index]->IncreaseTimesChosenForCrossover();
+                population_[second_parent_index]->IncreaseTimesChosenForCrossover();
 
-                success = first_parent.Crossover(&second_parent);
+                success = first_child->Crossover(second_child.get());
 
                 if(!success)
                 {
@@ -219,8 +220,8 @@ void GeneticAlgorithm::GenerateNextPopulation()
 
             }while(!success);
 
-            next_population[i] = first_parent; // first Child
-            next_population[i+1] = second_parent; // second Child
+            next_population[i] = first_child;
+            next_population[i+1] = second_child;
         }
     }
 
@@ -235,9 +236,10 @@ int GeneticAlgorithm::SelectRandomIndividualIndexForCrossover(double total_fitne
 
     double current = 0;
 
+    //TODO following is the most hottest code in GA now (~50% of CPU time) - improve?
     for(int i =0; i<population_size_; i++)
     {
-        current += population_[i].get_fitness();
+        current += population_[i]->get_fitness();
         if(roulette_result <= current)
         {
             return i;
@@ -253,7 +255,7 @@ double GeneticAlgorithm::GetPopulationAveradgeFitness()
     double averadge = 0;
     for(int i =0; i<population_size_; i++)
     {
-        averadge += population_[i].get_fitness();
+        averadge += population_[i]->get_fitness();
     }
     averadge = averadge / population_size_;
     return averadge;
@@ -263,7 +265,7 @@ void GeneticAlgorithm::GatherAllIndividualsStatistics()
 {
     for(int i = 0; i < population_size_; i++)
     {
-        population_statistics_[i] = population_[i].get_individual_statistics();
+        population_statistics_[i] = population_[i]->get_individual_statistics();
     }
 }
 
@@ -300,7 +302,7 @@ void GeneticAlgorithm::OutputPopulation(std::ostream& out)
     out << "Population_size: " << std::endl;
     out << population_.size() << std::endl;
     out << "Chromosome_size: " << std::endl;
-    out << population_[0].GetChromosome().size() << std::endl;
+    out << population_[0]->GetChromosome().size() << std::endl;
     for(size_t i = 0;i < population_.size();i++){
         out << population_[i];
     }
@@ -317,15 +319,15 @@ void GeneticAlgorithm::InputPopulation(std::ifstream & in)
     in >> s; //"Chromosome_size: "
     in >> chromosome_size;
     std::cout << chromosome_size << std::endl;
-    if(population_size_ != population_size || chromosome_size != population_[0].GetChromosome().size()){
+    if(population_size_ != population_size || chromosome_size != population_[0]->GetChromosome().size()){
         throw std::logic_error("Incorrect input file (maybe old settings - Population size, Chromosome size etc.)");
     }
     for(int i = 0;i < population_size;i++){
-        in >> population_[i];
+        in >> *(population_[i]);
     }
 }
 
-bool GeneticAlgorithm::GreaterFitness(const Individual* first, const Individual* second)
+bool GeneticAlgorithm::GreaterFitness(Individual::shared_ptr first, Individual::shared_ptr second)
 {
     return (first->get_fitness()) > (second->get_fitness());
 }
