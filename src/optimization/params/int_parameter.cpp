@@ -6,7 +6,7 @@ using ::std::vector;
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 IntParameter::IntParameter(int value, int min_value, int max_value)
@@ -115,5 +115,5 @@ void IntParameter::SetBoolVectorFromInt(vector<bool>::iterator from, vector<bool
     }
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

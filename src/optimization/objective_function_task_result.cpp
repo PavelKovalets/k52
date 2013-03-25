@@ -9,7 +9,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 double ObjectiveFunctionTaskResult::get_objective_function_value() const
@@ -36,5 +36,5 @@ void ObjectiveFunctionTaskResult::Send(boost::mpi::communicator* communicator)
 
 #endif
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

@@ -6,7 +6,7 @@ using ::std::list;
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 GenerationStatistics::GenerationStatistics(
@@ -92,5 +92,5 @@ list<IndividualStatistics> GenerationStatistics::get_all_individuals_statistics(
     return all_individuals_statistics_;
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

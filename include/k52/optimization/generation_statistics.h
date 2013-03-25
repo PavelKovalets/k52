@@ -9,7 +9,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 /**
@@ -81,7 +81,7 @@ private:
     std::list<std::string>* files_to_save_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* GENERATIONSTATISTICS_H_ */

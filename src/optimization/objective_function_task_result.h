@@ -9,7 +9,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class ObjectiveFunctionTaskResult: 
@@ -42,7 +42,7 @@ private:
     double objective_function_value_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* OBJECTIVEFUNCTIONTASKRESULT_H_ */

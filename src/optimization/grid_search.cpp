@@ -12,7 +12,7 @@ using ::std::vector;
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 GridSearch::GridSearch(double precision, double lower_bound, double upper_bound)
@@ -77,5 +77,5 @@ size_t GridSearch::IntegerPow(size_t value, size_t pow)
     return result;
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

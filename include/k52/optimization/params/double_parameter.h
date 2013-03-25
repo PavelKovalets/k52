@@ -6,7 +6,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class DoubleParameter : public ConstChromosomeSizeParemeters
@@ -48,7 +48,7 @@ private:
     double precision_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* DOUBLEPARAMETER_H_ */

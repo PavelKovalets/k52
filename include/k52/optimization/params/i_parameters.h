@@ -9,7 +9,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 /**
@@ -47,7 +47,7 @@ public:
 #endif
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* IPARAMETERS_H_ */

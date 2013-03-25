@@ -5,7 +5,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 /**
@@ -50,7 +50,7 @@ private:
     int max_value_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* INTPARAMETER_H_ */

@@ -4,7 +4,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 CompositeDiscreteParameters* CompositeDiscreteParameters::Clone() const
@@ -131,6 +131,6 @@ size_t CompositeDiscreteParameters::CountTotalChromosomeSize() const
     return total_chromosome_size;
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 

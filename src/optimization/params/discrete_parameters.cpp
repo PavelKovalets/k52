@@ -4,11 +4,11 @@
 #include <boost/serialization/vector.hpp>
 
 #include <parallel/mpi/constants.h>
-#include <optimize/params/discrete_parameters.h>
+#include <optimization/params/discrete_parameters.h>
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 void DiscreteParameters::Send(boost::mpi::communicator* communicator, int target) const
@@ -28,7 +28,7 @@ void DiscreteParameters::Receive(boost::mpi::communicator* communicator)
     this->SetFromChromosome(intermediate_chromosome.begin(), intermediate_chromosome.end());
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif

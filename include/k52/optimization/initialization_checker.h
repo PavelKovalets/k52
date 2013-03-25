@@ -3,7 +3,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 /**
@@ -29,7 +29,7 @@ private:
     bool was_initialized_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* INITIALIZATIONCHECKER_H_ */

@@ -3,7 +3,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 /**
@@ -27,7 +27,7 @@ public:
     int times_chosen_for_crossover;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* INDIVIDUALSTATISTICS_H_ */

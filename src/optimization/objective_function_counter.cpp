@@ -10,7 +10,7 @@ using ::k52::parallel::WorkerPoolFactory;
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool use_value_caching)
@@ -180,5 +180,5 @@ void ObjectiveFunctionCounter::AddNewCacheValues(
     }
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

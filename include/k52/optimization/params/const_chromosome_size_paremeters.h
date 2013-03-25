@@ -5,7 +5,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 /**
@@ -51,7 +51,7 @@ private:
     size_t chromosome_size_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* CONSTCHROMOSOMESIZEPAREMETERS_H_ */

@@ -7,7 +7,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 DoubleParameter::DoubleParameter()
@@ -138,5 +138,5 @@ bool DoubleParameter::CheckBounds(double value) const
     return value >= min_value_ && value <= max_value_;
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

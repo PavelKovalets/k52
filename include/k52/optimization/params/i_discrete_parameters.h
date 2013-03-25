@@ -6,7 +6,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class IDiscreteParameters: public IParameters, IConvertableToChromosome
@@ -31,7 +31,7 @@ public:
 #endif
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* IDISCRETEPARAMETERS_H_ */

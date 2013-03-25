@@ -17,7 +17,7 @@ using ::std::vector;
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 GeneticAlgorithm::GeneticAlgorithm(
@@ -342,5 +342,5 @@ bool GeneticAlgorithm::GreaterFitness(Individual::shared_ptr first, Individual::
     return (first->get_fitness()) > (second->get_fitness());
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

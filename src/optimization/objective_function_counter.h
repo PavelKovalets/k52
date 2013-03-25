@@ -18,7 +18,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class ObjectiveFunctionCounter
@@ -70,7 +70,7 @@ private:
     DISALLOW_COPY_AND_ASSIGN(ObjectiveFunctionCounter);
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* OBJECTIVEFUNCTIONCOUNTER_H_ */

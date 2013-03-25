@@ -10,7 +10,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 //TODO make private - see field in GA class
@@ -113,7 +113,7 @@ private:
     double fitness_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* INDIVIDUAL_H_ */

@@ -17,7 +17,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class CountObjectiveFunctionTask
@@ -75,7 +75,7 @@ private:
     DISALLOW_COPY_AND_ASSIGN(CountObjectiveFunctionTask);
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* COUNTOBJECTIVEFUNCTIONTASK_H_ */

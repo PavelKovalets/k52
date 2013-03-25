@@ -5,7 +5,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class ContinuousParametersArray: public IContinuousParameters
@@ -35,7 +35,7 @@ private:
     std::vector<double> values_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* CONTINUOUSPARAMETERSARRAY_H_ */

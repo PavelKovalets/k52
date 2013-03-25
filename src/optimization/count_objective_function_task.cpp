@@ -12,7 +12,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 CountObjectiveFunctionTask::CountObjectiveFunctionTask()
@@ -117,5 +117,5 @@ const IParameters* CountObjectiveFunctionTask::get_parameters() const
     }
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

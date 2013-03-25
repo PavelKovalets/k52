@@ -4,7 +4,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 InitializationChecker::InitializationChecker()
@@ -32,5 +32,5 @@ void InitializationChecker::SetInitialized()
     }
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

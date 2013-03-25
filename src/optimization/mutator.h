@@ -7,7 +7,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class Mutator
@@ -32,7 +32,7 @@ private:
     DISALLOW_COPY_AND_ASSIGN(Mutator);
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* MUTATOR_H_ */

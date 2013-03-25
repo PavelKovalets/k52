@@ -4,7 +4,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 DoubleParametersArray::DoubleParametersArray(double min_value, double max_value, double desired_precision, size_t number_of_parameters)
@@ -93,5 +93,5 @@ const DoubleParameter::shared_ptr DoubleParametersArray::GetDoubleParameter(size
 
 DoubleParametersArray::DoubleParametersArray() {}
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

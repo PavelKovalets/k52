@@ -17,7 +17,7 @@ using ::std::vector;
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 Individual::Individual()
@@ -286,5 +286,5 @@ std::istream& operator>> (std::istream& in, Individual& individual)
     return in;
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

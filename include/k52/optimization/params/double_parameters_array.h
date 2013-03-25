@@ -8,7 +8,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class DoubleParametersArray : public DiscreteParameters
@@ -46,7 +46,7 @@ private:
     double max_value_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* DOUBLEPARAMETERSARRAY_H_ */

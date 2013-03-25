@@ -14,7 +14,7 @@ using ::std::vector;
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 BoundedNelderMead::BoundedNelderMead(double l, double precision, double lower_bound, double upper_bound)
@@ -383,5 +383,5 @@ void BoundedNelderMead::OutputPolygon(const vector< vector<double> >& polygon)
     }
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

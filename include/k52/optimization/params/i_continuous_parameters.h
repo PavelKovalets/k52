@@ -7,7 +7,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class IContinuousParameters: public IParameters
@@ -26,7 +26,7 @@ public:
     virtual IContinuousParameters* Clone() const = 0;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* ICONTINUOUSPARAMETERS_H_ */

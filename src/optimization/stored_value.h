@@ -3,7 +3,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class StoredValue
@@ -22,7 +22,7 @@ private:
     double value_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* STOREDVALUE_H_ */

@@ -8,7 +8,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class DiscreteParametersLocalStorage;
@@ -41,7 +41,7 @@ private:
     InitializationChecker initialization_checker_;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* COMPOSITEDISCRETEPARAMETERS_H_ */

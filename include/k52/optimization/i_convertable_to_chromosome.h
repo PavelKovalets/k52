@@ -5,7 +5,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 /**
@@ -34,7 +34,7 @@ public:
     virtual std::size_t GetChromosomeSize() const = 0;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* ICONVERTABLETOCHROMOSOME_H_ */

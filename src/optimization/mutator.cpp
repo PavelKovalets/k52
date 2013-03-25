@@ -7,7 +7,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 Mutator& Mutator::Instance()
@@ -73,5 +73,5 @@ void Mutator::SetGensToSkipNow()
     currently_skipped_gens_ = 0;
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

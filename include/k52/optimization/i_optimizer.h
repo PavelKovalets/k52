@@ -5,7 +5,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 /**
@@ -26,7 +26,7 @@ public:
     virtual void Optimize(const IObjectiveFunction &function_to_optimize, IParameters* parametrs_to_optimize) = 0;
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* IOPTIMIZER_H_ */

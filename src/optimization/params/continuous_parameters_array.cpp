@@ -4,7 +4,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 ContinuousParametersArray::ContinuousParametersArray(size_t number_of_parameters)
@@ -42,5 +42,5 @@ bool ContinuousParametersArray::CheckConstraints() const
     return true;
 }
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */

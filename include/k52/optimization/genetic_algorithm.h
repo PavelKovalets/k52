@@ -11,7 +11,7 @@
 
 namespace k52
 {
-namespace optimize
+namespace optimization
 {
 
 class ObjectiveFunctionCounter;
@@ -78,7 +78,7 @@ private:
     DISALLOW_COPY_AND_ASSIGN(GeneticAlgorithm);
 };
 
-}/* namespace optimize */
+}/* namespace optimization */
 }/* namespace k52 */
 
 #endif /* GENETICALGORITHM_H_ */
