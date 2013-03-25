@@ -205,6 +205,7 @@ void GeneticAlgorithm::GenerateNextPopulation()
         }
     }
 
+    //TODO refactor - move all statistics logic to separate class
     GatherAllIndividualsStatistics();
 
     population_ = next_population;
@@ -278,7 +279,7 @@ void GeneticAlgorithm::GatherAllIndividualsStatistics()
     }
 }
 
-void GeneticAlgorithm::FireNextGenerationReady(GenerationStatistics statistics)
+void GeneticAlgorithm::FireNextGenerationReady(const GenerationStatistics& statistics)
 {
     if(callback_function_ != NULL)
     {

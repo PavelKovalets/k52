@@ -54,7 +54,7 @@ protected:
     void ProcessStatistics(int number_of_generation);
     double GetPopulationAveradgeFitness();
     void GatherAllIndividualsStatistics();
-    void FireNextGenerationReady(GenerationStatistics statistics);
+    void FireNextGenerationReady(const GenerationStatistics& statistics);
     void SavePopulationToFile(std::string population_file_name);
     void ReadPopulationFromFile();
     void OutputPopulation(std::ostream& out);
