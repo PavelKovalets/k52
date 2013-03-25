@@ -93,30 +93,10 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, 
             best_individ_ = best_current_individ;
         }
 
-        std::list<std::string> files_to_save;
-        std::list<IndividualStatistics> all_statistics;
-
-        std::copy (population_statistics_.begin (), population_statistics_.end (), std::back_inserter (all_statistics));
-        all_statistics.sort(IndividualStatistics::Greater);
-
-        GenerationStatistics current_population_statistics(
-            GetPopulationAveradgeFitness(),
-            best_individ_->GetParametersAccordingToChromosome(),
-            best_individ_->get_fitness(),
-            n,
-            fitness_counter_->get_cache_hits(),
-            invalid_chromosomes_,
-            &files_to_save,
-            all_statistics);
-
-        FireNextGenerationReady(current_population_statistics);
-
-        for(std::list<std::string>::iterator it = files_to_save.begin(); it != files_to_save.end(); it++)
+        if(callback_function_ != NULL)
         {
-            SavePopulationToFile(*it);
+            ProcessStatistics(n);
         }
-
-        files_to_save.clear();
 
         fitness_counter_->ResetCacheHits();
         invalid_chromosomes_ = 0;
@@ -248,6 +228,35 @@ int GeneticAlgorithm::SelectRandomIndividualIndexForCrossover(double total_fitne
 
     //This point should be unreachable
     throw std::logic_error("Something wrong with fitness calculation. Possible < 0");
+}
+
+void GeneticAlgorithm::ProcessStatistics(int number_of_generation)
+{
+    std::list<std::string> files_to_save;
+    std::list<IndividualStatistics> all_statistics;
+
+    std::copy (population_statistics_.begin (), population_statistics_.end (), std::back_inserter (all_statistics));
+    all_statistics.sort(IndividualStatistics::Greater);
+
+    GenerationStatistics current_population_statistics(
+        GetPopulationAveradgeFitness(),
+        best_individ_->GetParametersAccordingToChromosome(),
+        best_individ_->get_fitness(),
+        number_of_generation,
+        fitness_counter_->get_cache_hits(),
+        invalid_chromosomes_,
+        &files_to_save,
+        all_statistics);
+
+    FireNextGenerationReady(current_population_statistics);
+
+
+    for(std::list<std::string>::iterator it = files_to_save.begin(); it != files_to_save.end(); it++)
+    {
+        SavePopulationToFile(*it);
+    }
+
+    files_to_save.clear();
 }
 
 double GeneticAlgorithm::GetPopulationAveradgeFitness()

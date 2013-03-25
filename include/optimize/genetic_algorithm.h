@@ -51,6 +51,7 @@ protected:
     void Mutate();
     void GenerateNextPopulation();
     int SelectRandomIndividualIndexForCrossover(double total_fitness);
+    void ProcessStatistics(int number_of_generation);
     double GetPopulationAveradgeFitness();
     void GatherAllIndividualsStatistics();
     void FireNextGenerationReady(GenerationStatistics statistics);
