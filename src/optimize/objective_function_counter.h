@@ -5,6 +5,8 @@
 #include <vector>
 #include <queue>
 
+#include <boost/unordered_map.hpp>
+
 #include <common/disallow_copy_and_assign.h>
 #include <parallel/i_worker_pool.h>
 #include <optimize/i_objective_function.h>
@@ -61,7 +63,7 @@ protected:
 private:
     bool use_value_caching_;
     k52::parallel::IWorkerPool::shared_ptr fitness_worker_pool_;
-    std::map<std::vector<bool>, StoredValue> cache_;
+    boost::unordered_map<std::vector<bool>, StoredValue> cache_;
     int objective_function_counts_;
     int cache_hits_;
 
