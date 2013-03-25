@@ -6,7 +6,7 @@
 #include <vector>
 #include <interpolation.h>
 
-#include <processing/iwavelet_function.h>
+#include <k52/processing/iwavelet_function.h>
 
 /**
   SplineBased - реализация вейвлета, базовая функция которого описывается при помощи сплайна

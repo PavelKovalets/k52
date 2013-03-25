@@ -2,7 +2,7 @@
 #define HAAR_WAVELET_FUNCTION_HEADER
 
 #include <boost/shared_ptr.hpp>
-#include <processing/iwavelet_function.h>
+#include <k52/processing/iwavelet_function.h>
 
 namespace k52
 {

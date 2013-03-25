@@ -1,7 +1,7 @@
 #ifndef PSEUDO_WAVELET_FUNCTION_HEADER
 #define PSEUDO_WAVELET_FUNCTION_HEADER
 
-#include <processing/iwavelet_function.h>
+#include <k52/processing/iwavelet_function.h>
 
 namespace k52
 {

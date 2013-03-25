@@ -1,7 +1,7 @@
 #ifndef MHAT_WAVELET_FUNCTION_H
 #define MHAT_WAVELET_FUNCTION_H
 
-#include <processing/iwavelet_function.h>
+#include <k52/processing/iwavelet_function.h>
 
 /*
     The Mexican hat (MHAT) base function

@@ -1,7 +1,7 @@
 #ifndef CONTINIOUS_WAVELET_TRANSFORMATION_H
 #define CONTINIOUS_WAVELET_TRANSFORMATION_H
 
-#include <processing/wavelet.h>
+#include <k52/processing/wavelet.h>
 
 namespace k52
 {

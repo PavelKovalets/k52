@@ -5,10 +5,10 @@
 #include <list>
 #include <boost/shared_ptr.hpp>
 
-#include <common/disallow_copy_and_assign.h>
-#include <parallel/mpi/boost_mpi_declaration.h>
-#include <parallel/mpi/i_mpi_task.h>
-#include <parallel/i_worker_pool.h>
+#include <k52/common/disallow_copy_and_assign.h>
+#include <k52/parallel/mpi/boost_mpi_declaration.h>
+#include <k52/parallel/mpi/i_mpi_task.h>
+#include <k52/parallel/i_worker_pool.h>
 
 #include "../statistics_aggregator.h"
 

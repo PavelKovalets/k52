@@ -1,4 +1,4 @@
-#include <processing/bspline_wavelet_function.h>
+#include <k52/processing/bspline_wavelet_function.h>
 #include <math.h>
 
 namespace 

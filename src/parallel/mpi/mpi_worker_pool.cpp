@@ -6,8 +6,8 @@
 #include <boost/mpi/request.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include <parallel/mpi/constants.h>
-#include <parallel/mpi/identifyable_objects_manager.h>
+#include <k52/parallel/mpi/constants.h>
+#include <k52/parallel/mpi/identifyable_objects_manager.h>
 
 namespace k52
 {

@@ -4,7 +4,7 @@ project(k52-processing)
 set(ALGLIB_ROOT /projects/Projects_Kafedra/alglib)
 set(ALGLIB_INCLUDE ${ALGLIB_ROOT}/cpp/src)
 
-set(PROCESSING_COMMON_INCLUDE ${k52_SOURCE_DIR}/include/processing)
+set(PROCESSING_COMMON_INCLUDE ${k52_SOURCE_DIR}/include/k52/processing)
 
 # processing library
 set(PROCESSING_HEADERES

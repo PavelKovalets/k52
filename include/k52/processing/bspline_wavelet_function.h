@@ -1,7 +1,7 @@
 #ifndef BSPLINE_WAVELET_FUNCTION_H
 #define BSPLINE_WAVELET_FUNCTION_H
 
-#include <processing/iwavelet_function.h>
+#include <k52/processing/iwavelet_function.h>
 
 /*
     The BSpline base function

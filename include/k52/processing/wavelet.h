@@ -9,14 +9,14 @@
 #include <numeric>
 #include <vector>
 
-#include <common/disallow_copy_and_assign.h>
-#include <processing/iwavelet_function.h>
-#include <processing/bspline_wavelet_function.h>
-#include <processing/haar_wavelet_function.h>
-#include <processing/mhat_wavelet_function.h>
-#include <processing/morlet_wavelet_function.h>
-#include <processing/pseudo_wavelet_function.h>
-#include <processing/spline_based_wavelet_function.h>
+#include <k52/common/disallow_copy_and_assign.h>
+#include <k52/processing/iwavelet_function.h>
+#include <k52/processing/bspline_wavelet_function.h>
+#include <k52/processing/haar_wavelet_function.h>
+#include <k52/processing/mhat_wavelet_function.h>
+#include <k52/processing/morlet_wavelet_function.h>
+#include <k52/processing/pseudo_wavelet_function.h>
+#include <k52/processing/spline_based_wavelet_function.h>
 
 namespace k52
 {

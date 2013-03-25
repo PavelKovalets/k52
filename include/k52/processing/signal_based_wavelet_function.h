@@ -1,7 +1,7 @@
 #ifndef SIGNAL_BASED_HEADER
 #define SIGNAL_BASED_HEADER
 
-#include <processing/iwavelet_function.h>
+#include <k52/processing/iwavelet_function.h>
 
 /** Класс SignalBased представляет базовую вейвлет функцию, построенную из сэмплов
     некоторого опорного сигнала.

@@ -10,7 +10,7 @@ set(AUTO_RESOLVE_PARALLEL_LIBS "ON")
 add_subdirectory(src/parallel)
 
 # optimization algoritms library
-add_subdirectory(src/optimize)
+add_subdirectory(src/optimization)
 
 # sound signal processing library
 add_subdirectory(src/processing)

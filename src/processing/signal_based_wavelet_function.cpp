@@ -1,4 +1,4 @@
-#include <processing/signal_based_wavelet_function.h>
+#include <k52/processing/signal_based_wavelet_function.h>
 
 #ifdef DONT_TRY_TO_COMPILE_IT_PLEASE
 

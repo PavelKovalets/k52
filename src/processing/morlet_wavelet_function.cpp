@@ -1,4 +1,4 @@
-#include <processing/morlet_wavelet_function.h>
+#include <k52/processing/morlet_wavelet_function.h>
 #include <math.h>
 
 namespace k52

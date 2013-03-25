@@ -1,4 +1,4 @@
-#include <processing/mhat_wavelet_function.h>
+#include <k52/processing/mhat_wavelet_function.h>
 #include <math.h>
 
 namespace

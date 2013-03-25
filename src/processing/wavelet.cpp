@@ -1,4 +1,4 @@
-#include <processing/wavelet.h>
+#include <k52/processing/wavelet.h>
 
 #include <algorithm>
 #include <math.h>

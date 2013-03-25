@@ -1,9 +1,9 @@
 #ifndef IMPITASK_H_
 #define IMPITASK_H_
 
-#include <parallel/i_task.h>
-#include <parallel/mpi/i_transferable.h>
-#include <parallel/mpi/i_mpi_task_result.h>
+#include <k52/parallel/i_task.h>
+#include <k52/parallel/mpi/i_transferable.h>
+#include <k52/parallel/mpi/i_mpi_task_result.h>
 
 namespace k52
 {

@@ -1,4 +1,4 @@
-#include <processing/pseudo_wavelet_function.h>
+#include <k52/processing/pseudo_wavelet_function.h>
 #include <math.h>
 
 namespace 

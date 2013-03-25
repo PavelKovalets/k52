@@ -2,7 +2,7 @@
 #define VECTORBASED_H_INCLUDED
 
 #include <vector>
-#include <processing/wavelet_function.h>
+#include <k52/processing/wavelet_function.h>
 
 /**
   VectorBased - the wavelet that stores base function in std::vector
