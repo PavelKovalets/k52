@@ -1,4 +1,4 @@
-#include <parallel/mpi/identifyable_objects_manager.h>
+#include <k52/parallel/mpi/identifyable_objects_manager.h>
 
 #include <stdexcept>
 #include <string>

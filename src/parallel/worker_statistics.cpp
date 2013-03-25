@@ -1,4 +1,4 @@
-#include <parallel/worker_statistics.h>
+#include <k52/parallel/worker_statistics.h>
 
 namespace k52
 {

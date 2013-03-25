@@ -1,8 +1,8 @@
 #ifndef SEQUENTIALWORKERPOOL_H_
 #define SEQUENTIALWORKERPOOL_H_
 
-#include <common/disallow_copy_and_assign.h>
-#include <parallel/i_worker_pool.h>
+#include <k52/common/disallow_copy_and_assign.h>
+#include <k52/parallel/i_worker_pool.h>
 
 namespace k52
 {

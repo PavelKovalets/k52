@@ -4,8 +4,8 @@
 #include <vector>
 #include <map>
 
-#include <common/disallow_copy_and_assign.h>
-#include <parallel/worker_statistics.h>
+#include <k52/common/disallow_copy_and_assign.h>
+#include <k52/parallel/worker_statistics.h>
 
 namespace k52
 {
