@@ -3,8 +3,8 @@
 
 #ifdef BUILD_WITH_BOOST_THREAD
 
-#include <common/disallow_copy_and_assign.h>
-#include <parallel/i_worker_pool.h>
+#include <k52/common/disallow_copy_and_assign.h>
+#include <k52/parallel/i_worker_pool.h>
 
 #include "thread_worker_pool_task.h"
 #include "thread_worker_pool_templated.h"

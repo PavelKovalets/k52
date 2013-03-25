@@ -3,7 +3,7 @@
 
 #ifdef BUILD_WITH_BOOST_THREAD
 
-#include <common/disallow_copy_and_assign.h>
+#include <k52/common/disallow_copy_and_assign.h>
 #include "worker.h"
 
 namespace k52

@@ -4,7 +4,7 @@
 #ifdef BUILD_WITH_BOOST_THREAD
 
 #include <iostream>
-#include <common/disallow_copy_and_assign.h>
+#include <k52/common/disallow_copy_and_assign.h>
 #include "thread_safe_queue.h"
 
 namespace k52

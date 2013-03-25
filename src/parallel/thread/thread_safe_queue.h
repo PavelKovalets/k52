@@ -14,7 +14,7 @@
 #include <queue>
 #include <boost/thread.hpp>
 
-#include <common/disallow_copy_and_assign.h>
+#include <k52/common/disallow_copy_and_assign.h>
 
 namespace k52
 {
