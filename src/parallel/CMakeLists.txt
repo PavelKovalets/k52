@@ -34,6 +34,7 @@ endif(AUTO_RESOLVE_PARALLEL_LIBS)
 
 # parallel library
 set(PARALLEL_SOURCE
+    statistics_aggregator.cpp
     sequential_worker_pool.cpp
     worker_pool_factory.cpp
     worker_statistics.cpp
