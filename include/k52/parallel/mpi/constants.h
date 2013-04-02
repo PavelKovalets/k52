@@ -1,8 +1,6 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
-#include <string>
-
 namespace k52
 {
 namespace parallel
@@ -17,8 +15,7 @@ namespace constants
 
     static const int kCommonTag = 0;
 
-    //TODO do not use class constants
-    static const std::string kEndOfWorkTaskId = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
+    static const char kEndOfWorkTaskId[] = "TheIdOfTheTaskThatMeanThatWorkerShouldEndItsWork";
 
 } /* constants */
 } /* mpi */

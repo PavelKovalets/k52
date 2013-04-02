@@ -3,7 +3,7 @@
 #ifdef BUILD_WITH_MPI
 
 #include <boost/mpi.hpp>
-#include <parallel/mpi/constants.h>
+#include <k52/parallel/mpi/constants.h>
 
 #endif
 

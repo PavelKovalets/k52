@@ -3,8 +3,8 @@
 #ifdef BUILD_WITH_MPI
 
 #include <boost/mpi.hpp>
-#include <parallel/mpi/constants.h>
-#include <parallel/mpi/identifyable_objects_manager.h>
+#include <k52/parallel/mpi/constants.h>
+#include <k52/parallel/mpi/identifyable_objects_manager.h>
 
 #endif
 

@@ -28,7 +28,9 @@ MpiWorkerPool::MpiWorkerPool()
     environment_ = new boost::mpi::environment();
     communicator_ = new boost::mpi::communicator();
 
-    std::cout<<"Rank "<<communicator_->rank()<<" of "<<communicator_->size()<<" starded."<<std::endl;
+    std::cout<<"Rank "<<communicator_->rank()<<" of "<<
+             communicator_->size()<<" starded on "<<
+             environment_->processor_name()<<" processor."<<std::endl;
 
     if(communicator_->rank() != constants::kServerRank)
     {
@@ -165,7 +167,7 @@ void MpiWorkerPool::RunWorkerLoop()
 
     while(true)
     {
-        std::string task_id = constants::kEndOfWorkTaskId;
+        std::string task_id;
 
         communicator_->recv(constants::kServerRank, constants::kCommonTag, task_id);
 
@@ -200,7 +202,7 @@ void MpiWorkerPool::FinalizeWorkers()
 
     for(int i=1; i<communicator_->size(); i++)
     {
-        communicator_->send(i, constants::kCommonTag, constants::kEndOfWorkTaskId);
+        communicator_->send(i, constants::kCommonTag, std::string(constants::kEndOfWorkTaskId));
     }
 
     was_finalized_ = true;

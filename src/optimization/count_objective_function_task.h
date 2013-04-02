@@ -10,8 +10,8 @@
 
 #ifdef BUILD_WITH_MPI
 
-#include <parallel/mpi/i_mpi_task.h>
-#include <parallel/mpi/i_mpi_task_result.h>
+#include <k52/parallel/mpi/i_mpi_task.h>
+#include <k52/parallel/mpi/i_mpi_task_result.h>
 
 #endif
 

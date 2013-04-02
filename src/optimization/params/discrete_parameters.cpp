@@ -3,8 +3,8 @@
 #include <boost/mpi.hpp>
 #include <boost/serialization/vector.hpp>
 
-#include <parallel/mpi/constants.h>
-#include <optimization/params/discrete_parameters.h>
+#include <k52/parallel/mpi/constants.h>
+#include <k52/optimization/params/discrete_parameters.h>
 
 namespace k52
 {
