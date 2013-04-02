@@ -13,5 +13,5 @@ add_subdirectory(src/parallel)
 add_subdirectory(src/optimization)
 
 # sound signal processing library
-add_subdirectory(src/processing)
+#add_subdirectory(src/processing)
 
