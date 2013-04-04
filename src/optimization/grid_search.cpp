@@ -1,4 +1,4 @@
-#include "grid_search.h"
+#include <k52/optimization/grid_search.h>
 
 #include <math.h>
 #include <stdexcept>
