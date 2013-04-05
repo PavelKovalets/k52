@@ -1,5 +1,14 @@
 #include <k52/optimization/params/continuous_parameters_array.h>
 
+#ifdef BUILD_WITH_MPI
+
+#include <boost/mpi.hpp>
+#include <boost/serialization/vector.hpp>
+
+#include <k52/parallel/mpi/constants.h>
+
+#endif
+
 #include <stdexcept>
 
 namespace k52
@@ -41,6 +50,22 @@ bool ContinuousParametersArray::CheckConstraints() const
 {
     return true;
 }
+
+#ifdef BUILD_WITH_MPI
+
+void ContinuousParametersArray::Send(boost::mpi::communicator* communicator, int target) const
+{
+    communicator->send(target, k52::parallel::mpi::constants::kCommonTag, values_);
+}
+
+void ContinuousParametersArray::Receive(boost::mpi::communicator* communicator)
+{
+    std::vector<double> values;
+    communicator->recv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, values);
+    values_ = values;
+}
+
+#endif
 
 }/* namespace optimization */
 }/* namespace k52 */

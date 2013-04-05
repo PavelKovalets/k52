@@ -24,10 +24,8 @@ public:
     virtual bool CheckConstraints() const;
 
 #ifdef BUILD_WITH_MPI
-    //TODO implementation needed!!!
     virtual void Send(boost::mpi::communicator* communicator, int target) const;
 
-    //TODO implementation needed!!!
     virtual void Receive(boost::mpi::communicator* communicator);
 #endif
 
