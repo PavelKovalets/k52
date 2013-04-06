@@ -15,13 +15,13 @@ MhatWaveletFunction::MhatWaveletFunction() : k_(2./sqrt(3. * kDefaultSigma) * po
 {
 }
 
-double MhatWaveletFunction::real(double value, int index)
+double MhatWaveletFunction::real(double value, int)
 {
     double k = value / kDefaultSigma;
     return k_ * (1. - pow(k, 2.)) * exp(-0.5 * pow(k, 2.));
 }
 
-double MhatWaveletFunction::imag(double value, int index)
+double MhatWaveletFunction::imag(double value, int)
 {
     return 0;
 }

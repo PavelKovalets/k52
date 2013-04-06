@@ -7,12 +7,12 @@ namespace processing
 {
 
 /// Morlet implementation
-double MorletWaveletFunction::real(double x, int index)
+double MorletWaveletFunction::real(double x, int)
 {
     return (exp(-x * x/2.) * cos(5. * x));
 }
 
-double MorletWaveletFunction::imag(double x, int index)
+double MorletWaveletFunction::imag(double x, int)
 {
     return (exp(-x * x/2.) * sin(5. * x));
 }

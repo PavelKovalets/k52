@@ -129,7 +129,7 @@ SignalBased::SignalBased(string parameters) : m_length(4096)
     }
 }
 
-double SignalBased::real(double x, int index)
+double SignalBased::real(double x, int)
 {
   // from -4 to +4 is effective part of wavelete, all other shoud be zero
   double k = (double)m_real.size() / 8.;
@@ -144,7 +144,7 @@ double SignalBased::real(double x, int index)
   return 0;
 }
 
-double SignalBased::imag(double x, int index)
+double SignalBased::imag(double x, int)
 {
 // from -4 to +4 is effective part of wavelete, all other shoud be zero
   double k = (double)m_imaj.size() / 8.;

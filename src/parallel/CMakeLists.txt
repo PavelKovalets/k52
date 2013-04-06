@@ -61,3 +61,5 @@ if(Boost_THREAD_FOUND AND Boost_SYSTEM_FOUND)
   target_link_libraries(k52-parallel boost_thread boost_system)
 endif(Boost_THREAD_FOUND AND Boost_SYSTEM_FOUND)
 
+INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-parallel-static)
+INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-parallel)
