@@ -40,6 +40,7 @@ set(PARALLEL_SOURCE
     worker_statistics.cpp
     mpi/identifyable_objects_manager.cpp
     mpi/mpi_worker_pool.cpp
+    mpi/delay_supplier.cpp
     thread/thread_worker_pool.cpp
     thread/thread_worker_pool_task.cpp
     )

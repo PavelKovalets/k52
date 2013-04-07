@@ -8,6 +8,7 @@
 
 #include <k52/parallel/mpi/constants.h>
 #include <k52/parallel/mpi/identifyable_objects_manager.h>
+#include "delay_supplier.h"
 
 namespace k52
 {
@@ -111,8 +112,9 @@ ResultExpectation MpiWorkerPool::SendTask(const IMpiTask* task,
 
 ResultExpectation MpiWorkerPool::WaitAndPopNextExpectation(std::list<ResultExpectation>& result_expectations)
 {
+    DelaySupplier delay_supplier;
     while(true)
-    {
+    {        
         for(std::list<ResultExpectation>::iterator it = result_expectations.begin();
                         it!=result_expectations.end();
                         it++)
@@ -129,6 +131,8 @@ ResultExpectation MpiWorkerPool::WaitAndPopNextExpectation(std::list<ResultExpec
                 return received_expectation;
             }
         }
+        delay_supplier.SleepWithCurrentDelay();
+        delay_supplier.IncreaseDelay();
     }
 }
 
