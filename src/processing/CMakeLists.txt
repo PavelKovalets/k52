@@ -46,7 +46,7 @@ if(ALGLIB_FOUND)
   link_directories(${ALGLIB_LIB})
 endif(ALGLIB_FOUND)
 
-include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${ALGLIB_INCLUDE})
+include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${ALGLIB_INCLUDE} ${K52_BOOST_INCLUDE_DIRS})
 add_library(k52-processing-static STATIC ${PROCESSING_SOURCE} ${PROCESSING_HEADERS})
 add_library(k52-processing SHARED ${PROCESSING_SOURCE} ${PROCESSING_HEADERS})
 target_link_libraries(k52-processing ${PROCESSING_THIRD_PARTY_LIBS})
