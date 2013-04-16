@@ -313,26 +313,30 @@ void GeneticAlgorithm::OutputPopulation(std::ostream& out)
     out << population_.size() << std::endl;
     out << "Chromosome_size: " << std::endl;
     out << population_[0]->GetChromosome().size() << std::endl;
-    for(size_t i = 0;i < population_.size();i++){
-        out << population_[i];
+    for(size_t i = 0;i < population_.size();i++)
+    {
+        out << *population_[i];
     }
 }
 
 void GeneticAlgorithm::InputPopulation(std::ifstream & in)
 {
-    std::string s;
+    std::string info_string;
     int population_size = 0;
     size_t chromosome_size = 0;
-    in >> s; //"Population_size: "
+    in >> info_string; //"Population_size: "
     in >> population_size;
-    std::cout << population_size << std::endl;
-    in >> s; //"Chromosome_size: "
+    std::cout << info_string << population_size << std::endl;
+    in >> info_string; //"Chromosome_size: "
     in >> chromosome_size;
-    std::cout << chromosome_size << std::endl;
-    if(population_size_ != population_size || chromosome_size != population_[0]->GetChromosome().size()){
+    std::cout << info_string << chromosome_size << std::endl;
+    if(population_size_ != population_size || chromosome_size != population_[0]->GetChromosome().size())
+    {
         throw std::logic_error("Incorrect input file (maybe old settings - Population size, Chromosome size etc.)");
     }
-    for(int i = 0;i < population_size;i++){
+
+    for(int i = 0;i < population_size;i++)
+    {
         in >> *(population_[i]);
     }
 }
