@@ -23,9 +23,10 @@ set(OPTIMIZE_SOURCE
     params/int_parameter.cpp
     )
 
-include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${K52_BOOST_HEADER_DIRS})
+include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_BOOST_LIBRARY_DIRS})
-add_library (k52-optimization-static STATIC ${OPTIMIZE_SOURCE})
+
+add_library(k52-optimization-static STATIC ${OPTIMIZE_SOURCE})
 INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-optimization-static)
 
 add_library (k52-optimization SHARED ${OPTIMIZE_SOURCE})

@@ -41,6 +41,7 @@ endif(NOT Boost_THREAD_FOUND OR NOT Boost_SYSTEM_FOUND)
 
 if(Boost_THREAD_FOUND AND Boost_SYSTEM_FOUND)
   add_definitions(-DBUILD_WITH_BOOST_THREAD)
+  set(Boost_USE_STATIC_LIBS ON)
   set(K52_BOOST_LIBRARIES ${K52_BOOST_LIBRARIES} boost_thread boost_system)
 endif(Boost_THREAD_FOUND AND Boost_SYSTEM_FOUND)
 
