@@ -3,6 +3,9 @@ project(k52_optimization_test)
 
 # optimization algoritms tests executable
 set(OPTIMIZATION_TEST_SOURCE
+    test_objective_functions.h
+    test_function.h
+    test_function.cpp
     optimization_test.cpp
     )
 
