@@ -1,4 +1,4 @@
-#include "bounded_nelder_mead.h"
+#include <k52/optimization/bounded_nelder_mead.h>
 
 #include <math.h>
 #include <stdexcept>
@@ -19,7 +19,6 @@ namespace optimization
 
 BoundedNelderMead::BoundedNelderMead(double l, double precision, double lower_bound, double upper_bound)
 {
-    fitness_counter_ = ObjectiveFunctionCounter::shared_ptr(new ObjectiveFunctionCounter(false));
     lower_bound_ = lower_bound;
     upper_bound_ = upper_bound;
     precision_ = precision;
@@ -162,19 +161,17 @@ vector<double> BoundedNelderMead::CountObjectiveFunctionValues(
     IContinuousParameters* base_parameters,
     const IObjectiveFunction & function_to_optimize)
 {
-    size_t N = parameters_values.size();
-    vector<IContinuousParameters::shared_ptr> storages(N);
-    vector<const IParameters*> parameters(N);
+    size_t N = parameters_values.size();    
+    vector<double> counted_values(N);
+
     for(size_t i = 0; i < N; i++)
     {
         base_parameters->SetValues(parameters_values[i]);
-        storages[i] = IContinuousParameters::shared_ptr(base_parameters->Clone());
-
-        //TODO fix - do not use inner ptr
-        parameters[i] = storages[i].get();
+        IContinuousParameters::shared_ptr parameters_clone( base_parameters->Clone() );
+        counted_values[i] = function_to_optimize(parameters_clone.get());
     }
 
-    return fitness_counter_->CountObjectiveFunctionValues(parameters, function_to_optimize);
+    return counted_values;
 }
 
 double BoundedNelderMead::CountObjectiveFunctionValue(

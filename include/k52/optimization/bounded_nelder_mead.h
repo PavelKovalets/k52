@@ -45,7 +45,6 @@ protected:
     static void OutputPolygon(const std::vector< std::vector<double> >& polygon);
 
 private:
-    boost::shared_ptr<ObjectiveFunctionCounter> fitness_counter_;
     double precision_;
     double lower_bound_;
     double upper_bound_;
