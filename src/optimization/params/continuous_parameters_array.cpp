@@ -15,6 +15,12 @@ namespace k52
 namespace optimization
 {
 
+ContinuousParametersArray::ContinuousParametersArray(const std::vector<double>& values)
+    : values_(values.size())
+{
+    SetValues(values);
+}
+
 ContinuousParametersArray::ContinuousParametersArray(size_t number_of_parameters)
     : values_(number_of_parameters)
 {
