@@ -32,24 +32,12 @@ set(PROCESSING_SOURCE
     wavelet.cpp
     )
 
+include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${K52_ALGLIB_INCLUDE_DIRS} ${K52_BOOST_INCLUDE_DIRS})
+link_directories(${K52_ALGLIB_LIBRARY_DIRS})
 
-if(ALGLIB_ROOT)
-  set(ALGLIB_INCLUDE ${ALGLIB_ROOT}/cpp/src)
-  set(ALGLIB_LIB ${ALGLIB_ROOT}/lib)
-endif(ALGLIB_ROOT)
-
-find_library(ALGLIB_FOUND alglib ${ALGLIB_ROOT}/lib)
-if(ALGLIB_FOUND)
-  message("Found library [alglib]")
-  add_definitions(-DBUILD_WITH_ALGLIB)
-  set(PROCESSING_THIRD_PARTY_LIBS ${PROCESSING_THIRD_PARTY_LIBS} alglib)
-  link_directories(${ALGLIB_LIB})
-endif(ALGLIB_FOUND)
-
-include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${ALGLIB_INCLUDE})
 add_library(k52-processing-static STATIC ${PROCESSING_SOURCE} ${PROCESSING_HEADERS})
 add_library(k52-processing SHARED ${PROCESSING_SOURCE} ${PROCESSING_HEADERS})
-target_link_libraries(k52-processing ${PROCESSING_THIRD_PARTY_LIBS})
+target_link_libraries(k52-processing ${K52_ALGLIB_LIBRARIES})
 
 INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-processing-static)
 INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-processing)

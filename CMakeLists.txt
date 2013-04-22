@@ -1,19 +1,17 @@
 cmake_minimum_required(VERSION 2.6)
 project(k52)
 
+# It has to be defined before every step that requeries compiler invokation
 include(k52.config)
-if(BOOST_ROOT)
-  message("Using custom boost root path : ${BOOST_ROOT}")
-endif(BOOST_ROOT)
+include(configuration/alglib-config.cmake)
+include(configuration/boost-config.cmake)
+include(configuration/mpi-config.cmake)
 
 if(ALGLIB_ROOT)
-  message("Using custom alglib root path : ${ALGLIB_ROOT}")
 endif(ALGLIB_ROOT)
 
 set(CMAKE_INSTALL_PREFIX ${k52_SOURCE_DIR})
 set(k52_LIB_DESTINATION /lib)
-
-set(AUTO_RESOLVE_PARALLEL_LIBS "ON")
 
 # parallel library
 add_subdirectory(src/parallel)
