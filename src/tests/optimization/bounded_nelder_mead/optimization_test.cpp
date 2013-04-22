@@ -1,8 +1,7 @@
 #include <iostream>
 
 #include <k52/optimization/bounded_nelder_mead.h>
-
-#include "test_function.h"
+#include "../common/test_function.h"
 
 using namespace std;
 using namespace k52::optimization;
