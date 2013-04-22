@@ -30,5 +30,5 @@ add_library(k52-optimization-static STATIC ${OPTIMIZE_SOURCE})
 INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-optimization-static)
 
 add_library (k52-optimization SHARED ${OPTIMIZE_SOURCE})
-target_link_libraries(k52-optimization ${K52_BOOST_LIBRARIES})
+target_link_libraries(k52-optimization k52-parallel-static ${K52_BOOST_LIBRARIES})
 INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-optimization)
