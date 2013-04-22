@@ -22,4 +22,4 @@ add_subdirectory(src/processing)
 
 ## Test applications
 # optimization algorithms library tests
-add_subdirectory(src/optimization_test)
+add_subdirectory(src/tests)
