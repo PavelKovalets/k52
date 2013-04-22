@@ -18,6 +18,8 @@ public:
     void ResetDelay();
 
 private:
+    static void Sleep(int milliseconds);
+
     int initial_delay_;
     int maximum_delay_;
     int current_delay_;
