@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(k52)
 
+enable_testing()
 include(k52.config)
 include(configuration/alglib-config.cmake)
 include(configuration/boost-config.cmake)

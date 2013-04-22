@@ -17,3 +17,4 @@ link_directories(${K52_BOOST_LIBRARY_DIRS})
 add_executable(k52_optimization_test ${OPTIMIZATION_TEST_SOURCE})
 target_link_libraries(k52_optimization_test k52-optimization k52-parallel ${K52_BOOST_LIBRARIES})
 
+add_test("Optimization test" k52_optimization_test)
