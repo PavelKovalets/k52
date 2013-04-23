@@ -22,7 +22,7 @@ void Mutator::MutateBoolArray(double gen_mutation_probability, std::vector<bool>
     {
         if(mutation_probability_ != gen_mutation_probability)
         {
-            throw std::logic_error("GenMutationProbability must not be changed according to current implementation of Mutator");
+            throw std::logic_error("gen_mutation_probability must not be changed according to current implementation of Mutator");
         }
     }
     else
@@ -61,7 +61,7 @@ void Mutator::SetMutationProbability(double gen_mutation_probability)
 
     if(max_number_of_skipped_gens_ <= 0)
     {
-        throw std::invalid_argument("genMutationProbability was set incorrectly");
+        throw std::invalid_argument("gen_mutation_probability was set incorrectly");
     }
 
     SetGensToSkipNow();
