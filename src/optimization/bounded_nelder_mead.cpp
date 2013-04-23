@@ -30,7 +30,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
     IContinuousParameters* continuous_parameters = dynamic_cast<IContinuousParameters*> (parametrs_to_optimize);
     if(continuous_parameters == NULL)
     {
-        throw std::invalid_argument("parametrsToOptimize must be of type IContinuousParameters for BoundedNelderMead");
+        throw std::invalid_argument("parametrs_to_optimize must be of type IContinuousParameters for BoundedNelderMead");
     }
     vector<double> initial_parameters = continuous_parameters->GetValues();
 
@@ -47,7 +47,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
 
     //Random init
     vector<double> base_point(n);
-    for(int i = 0; i < n; i++)
+    for(size_t i = 0; i < n; i++)
     {
         base_point[i] = Random::Instance().GetContinuousRandomQuantity(lower_bound_, upper_bound_);
     }
@@ -61,13 +61,13 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
     {
         OutputPolygon(polygon);
         r++;
-        int first_max_index = 0, secondMaxIndex = 0, minIndex = 0;
+        size_t first_max_index = 0, second_max_index = 0, min_index = 0;
         //determine maximums and minimum
-        GetIndexes(function_values, &first_max_index, &secondMaxIndex, &minIndex);
+        GetIndexes(function_values, &first_max_index, &second_max_index, &min_index);
 
         double highest_value = function_values[first_max_index];
-        double second_highest_value = function_values[secondMaxIndex];
-        double lowest_value = function_values[minIndex];
+        double second_highest_value = function_values[second_max_index];
+        double lowest_value = function_values[min_index];
 
         //determine center of mass
         vector<double> center_of_mass = GetCenterOfMass(polygon, first_max_index); 
@@ -122,7 +122,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
 
                 if(contraction_point_value > highest_value)
                 {
-                    Reduction(&polygon, minIndex);
+                    Reduction(&polygon, min_index);
                     continue;
                 }
                 else
@@ -184,7 +184,7 @@ double BoundedNelderMead::CountObjectiveFunctionValue(
     return CountObjectiveFunctionValues(cover, base_parameters, function_to_optimize)[0];
 }
 
-void BoundedNelderMead::GetIndexes(const vector<double>& values, int* first_max_index, int* secound_max_index, int* min_index)
+void BoundedNelderMead::GetIndexes(const vector<double>& values, size_t* first_max_index, size_t* secound_max_index, size_t* min_index)
 {
     if(values.size() < 2)
     {
@@ -204,7 +204,7 @@ void BoundedNelderMead::GetIndexes(const vector<double>& values, int* first_max_
         *min_index = 0;
     }
 
-    for (int i = 2; i<values.size(); i++) 
+    for (size_t i = 2; i<values.size(); i++) 
     {
         if (values[i] > values[*first_max_index]) 
         {
@@ -236,11 +236,11 @@ vector< vector<double> > BoundedNelderMead::GetRegularSimplex(const vector<doubl
     vector< vector<double> > regular_simplex( n + 1 );
     regular_simplex[0] = base_point;
 
-    for(int i = 1; i < n + 1; i++)
+    for(size_t i = 1; i < n + 1; i++)
     {
         regular_simplex[i] = vector<double>(n);
 
-        for(int j = 0; j < n; j++)
+        for(size_t j = 0; j < n; j++)
         {
             if( j == i - 1 )
             {
@@ -261,7 +261,7 @@ vector<double> BoundedNelderMead::Reflexion(const vector<double>& center_of_mass
     vector<double> new_point (target_point.size());
 
     //Reflect
-    for(int i = 0; i < target_point.size(); i++)
+    for(size_t i = 0; i < target_point.size(); i++)
     {
         new_point[i] = center_of_mass[i] + reflection_coefficient * (center_of_mass[i] - target_point[i]);
     }
@@ -275,7 +275,7 @@ vector<double> BoundedNelderMead::Expansion(const vector<double>& center_of_mass
     vector<double> new_point (target_point.size());
 
     //Expand
-    for(int i = 0; i < target_point.size(); i++)
+    for(size_t i = 0; i < target_point.size(); i++)
     {
         new_point[i] = center_of_mass[i] + expansion_coefficient * (target_point[i] - center_of_mass[i]);
     }
@@ -289,7 +289,7 @@ vector<double> BoundedNelderMead::Contraction(const vector<double>& center_of_ma
     vector<double> new_point (target_point.size());
 
     //Contract
-    for(int i = 0; i < target_point.size(); i++)
+    for(size_t i = 0; i < target_point.size(); i++)
     {
         new_point[i] = center_of_mass[i] + contraction_coefficient * (target_point[i] - center_of_mass[i]);
     }
@@ -297,21 +297,21 @@ vector<double> BoundedNelderMead::Contraction(const vector<double>& center_of_ma
     return new_point;
 }
 
-void BoundedNelderMead::Reduction(vector< vector<double> >* polygon, int point_index)
+void BoundedNelderMead::Reduction(vector< vector<double> >* polygon, size_t point_index)
 {
     if(point_index<0 || point_index>= polygon->size())
     {
-        throw std::invalid_argument("Incorrect pointIndex");
+        throw std::invalid_argument("Incorrect point_index");
     }
 
     double reduction_coefficient = 0.5;
     size_t n = (*polygon)[0].size();
 
-    for(int i = 0; i < n +1; i++)
+    for(size_t i = 0; i < n +1; i++)
     {
         if( i != point_index )
         {
-            for(int j = 0; j < n; j++)
+            for(size_t j = 0; j < n; j++)
             {
                 (*polygon)[i][j] = (*polygon)[point_index][j] + reduction_coefficient * ( (*polygon)[i][j]  - (*polygon)[point_index][j] );
             }
@@ -337,7 +337,7 @@ double BoundedNelderMead::CountDifferance(const vector<double>& values)
     return sqrt( square_summ / values.size());
 }
 
-vector<double> BoundedNelderMead::GetCenterOfMass(const vector< vector<double> >& polygon, int point_index)
+vector<double> BoundedNelderMead::GetCenterOfMass(const vector< vector<double> >& polygon, size_t point_index)
 {
     if(point_index<0 || point_index>= polygon.size())
     {
@@ -347,11 +347,11 @@ vector<double> BoundedNelderMead::GetCenterOfMass(const vector< vector<double> >
     vector<double> center_of_mass(n);
 
     //TODO implement with valarray
-    for(int i = 0; i < n; i++)
+    for(size_t i = 0; i < n; i++)
     {
         center_of_mass[i] = 0;
 
-        for(int j = 0; j < n+1; j++)
+        for(size_t j = 0; j < n+1; j++)
         {
             if( j != point_index )
             {

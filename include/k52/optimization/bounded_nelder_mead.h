@@ -34,14 +34,14 @@ protected:
         IContinuousParameters* base_parameters,
         const IObjectiveFunction & function_to_optimize);
 
-    static void GetIndexes(const std::vector<double>& values, int* first_max_index, int* secound_max_index, int* min_index);
+    static void GetIndexes(const std::vector<double>& values, size_t* first_max_index, size_t* secound_max_index, size_t* min_index);
     static std::vector< std::vector<double> > GetRegularSimplex(const std::vector<double>& base_point, double l);
     static std::vector<double> Reflexion(const std::vector<double>& center_of_mass, const std::vector<double>& target_point);
     static std::vector<double> Expansion(const std::vector<double>& center_of_mass, const std::vector<double>& target_point);
     static std::vector<double> Contraction(const std::vector<double>& center_of_mass, const std::vector<double>& target_point);
-    static void Reduction(std::vector< std::vector<double> >* polygon, int point_index);
+    static void Reduction(std::vector< std::vector<double> >* polygon, size_t point_index);
     static double CountDifferance(const std::vector<double>& values);
-    static std::vector<double> GetCenterOfMass(const std::vector< std::vector<double> >& polygon, int point_index);
+    static std::vector<double> GetCenterOfMass(const std::vector< std::vector<double> >& polygon, size_t point_index);
     static void OutputPolygon(const std::vector< std::vector<double> >& polygon);
 
 private:

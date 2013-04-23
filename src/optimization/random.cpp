@@ -35,7 +35,7 @@ bool Random::GetRandomBool()
 
 void Random::SetRandomBoolVector(std::vector<bool>* array)
 {
-    for(int i = 0; i < array->size(); i++)
+    for(size_t i = 0; i < array->size(); i++)
     {
         (*array)[i] = GetRandomBool();
     }
