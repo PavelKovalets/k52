@@ -6,4 +6,4 @@ add_subdirectory(common)
 
 # Please add all optimization tests to this file
 add_subdirectory(bounded_nelder_mead)
-
+add_subdirectory(genetic_algorithm)

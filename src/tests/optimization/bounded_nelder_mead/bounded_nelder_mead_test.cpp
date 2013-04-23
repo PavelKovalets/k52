@@ -9,7 +9,6 @@ using namespace k52::optimization_tests;
 
 int main()
 {
-    cout<<"Hello from optimization tests"<<endl;
     double l = 10;
     double precision = 1e-9;
     double lower_bound = -10000;

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(k52_bounded_nelder_mead_test)
 
-# optimization algoritms tests executable
+# nelder mead tests executable
 set(K52_BOUNDED_NELDER_MEAD_TEST_SOURCE
     bounded_nelder_mead_test.cpp
     )
