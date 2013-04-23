@@ -25,5 +25,7 @@ add_library(k52-parallel-static STATIC ${PARALLEL_SOURCE})
 INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-parallel-static)
 
 add_library(k52-parallel SHARED ${PARALLEL_SOURCE})
-target_link_libraries(k52-parallel ${K52_BOOST_LIBRARIES})
+target_link_libraries(k52-parallel
+                      ${K52_BOOST_LIBRARIES}
+                      ${K52_MPI_LIBRARIES})
 INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-parallel)
