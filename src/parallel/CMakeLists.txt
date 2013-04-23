@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(k52-parallel)
+project(k52_parallel)
 
 # parallel library
 set(PARALLEL_SOURCE
@@ -14,18 +14,18 @@ set(PARALLEL_SOURCE
     thread/thread_worker_pool_task.cpp
     )
 
-include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
+include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_BOOST_LIBRARY_DIRS})
 
 message("k52 boost libraries : ${K52_BOOST_LIBRARIES}")
 message("k52 boost library dirs : ${K52_BOOST_LIBRARY_DIRS}")
 message("k52 boost include dirs : ${K52_BOOST_INCLUDE_DIRS}")
 
-add_library(k52-parallel-static STATIC ${PARALLEL_SOURCE})
-INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-parallel-static)
+add_library(k52_parallel_static STATIC ${PARALLEL_SOURCE})
+INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_parallel_static)
 
-add_library(k52-parallel SHARED ${PARALLEL_SOURCE})
-target_link_libraries(k52-parallel
+add_library(k52_parallel SHARED ${PARALLEL_SOURCE})
+target_link_libraries(k52_parallel
                       ${K52_BOOST_LIBRARIES}
                       ${K52_MPI_LIBRARIES})
-INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-parallel)
+INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_parallel)

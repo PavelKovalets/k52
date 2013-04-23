@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-project(k52-optimize)
+project(k52_optimize)
 
 # optimization algoritms library
 set(OPTIMIZE_SOURCE
@@ -23,15 +23,15 @@ set(OPTIMIZE_SOURCE
     params/int_parameter.cpp
     )
 
-include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
+include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_BOOST_LIBRARY_DIRS})
 
-add_library(k52-optimization-static STATIC ${OPTIMIZE_SOURCE})
-INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-optimization-static)
+add_library(k52_optimization_static STATIC ${OPTIMIZE_SOURCE})
+INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_optimization_static)
 
-add_library (k52-optimization SHARED ${OPTIMIZE_SOURCE})
-target_link_libraries(k52-optimization
-                      k52-parallel-static
+add_library (k52_optimization SHARED ${OPTIMIZE_SOURCE})
+target_link_libraries(k52_optimization
+                      k52_parallel_static
                       ${K52_BOOST_LIBRARIES}
                       ${K52_MPI_LIBRARIES})
-INSTALL_TARGETS(${k52_LIB_DESTINATION} k52-optimization)
+INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_optimization)
