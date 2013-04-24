@@ -35,13 +35,10 @@ public:
     size_t get_number_of_parameters() const;
     double get_actual_precision() const;
 
-protected:
-    const DoubleParameter::shared_ptr GetDoubleParameter(size_t index) const;
-
 private:
     DoubleParametersArray();
-
-    CompositeDiscreteParameters::shared_ptr double_parameters_;
+    DoubleParameter::shared_ptr sample_parameter_;
+    std::vector<double> values_;
     double min_value_;
     double max_value_;
 };

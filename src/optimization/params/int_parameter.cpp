@@ -23,6 +23,11 @@ int IntParameter::get_value() const
     return value_;
 }
 
+void IntParameter::set_value(int value)
+{
+    value_ = value;
+}
+
 int IntParameter::get_max_value() const
 {
     return max_value_;

@@ -25,6 +25,7 @@ public:
 
     ///@return current value of IntParameter
     int get_value() const;
+    void set_value(int value);
 
     ///@return maximum allowed value of IntParameter
     int get_max_value() const;

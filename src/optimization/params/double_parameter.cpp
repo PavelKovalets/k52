@@ -96,6 +96,13 @@ double DoubleParameter::GetValue() const
     return  base_int_parameter_->get_value() * precision_ + min_value_;
 }
 
+void DoubleParameter::SetValue(double value)
+{
+    //TODO fix cipypaste from above
+    int int_value = /*ceil*/((value - min_value_)/precision_);
+    base_int_parameter_->set_value(int_value);
+}
+
 double DoubleParameter::get_max_value() const
 {
     return max_value_;

@@ -31,6 +31,7 @@ public:
     void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
 
     double GetValue() const;
+    void SetValue(double value);
 
     double get_max_value() const;
     double get_min_value() const;
