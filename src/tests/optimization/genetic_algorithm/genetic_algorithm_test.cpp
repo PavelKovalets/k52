@@ -119,6 +119,7 @@ int main()
     catch (const std::exception& e)
     {
         cout<<e.what()<<endl;
+        return -1;
     }
 
     vector<double> values = parameters.GetValues();
