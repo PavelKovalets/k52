@@ -12,8 +12,10 @@ add_executable(k52_bounded_nelder_mead_test ${K52_BOUNDED_NELDER_MEAD_TEST_SOURC
 
 target_link_libraries(k52_bounded_nelder_mead_test 
                       k52_optimization_test_common 
-                      k52_optimization_static 
-                      k52_parallel_static 
-                      ${K52_BOOST_LIBRARIES})
+                      k52_optimization_static
+                      k52_parallel_static
+                      ${K52_MPI_LIBRARIES}
+                      ${K52_BOOST_LIBRARIES}
+                      )
 
 add_test(NAME "Nelder-Mead-method-test" COMMAND k52_bounded_nelder_mead_test)

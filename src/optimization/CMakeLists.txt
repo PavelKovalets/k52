@@ -32,6 +32,7 @@ INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_optimization_static)
 add_library (k52_optimization SHARED ${OPTIMIZE_SOURCE})
 target_link_libraries(k52_optimization
                       k52_parallel_static
+                      ${K52_MPI_LIBRARIES}
                       ${K52_BOOST_LIBRARIES}
-                      ${K52_MPI_LIBRARIES})
+                      )
 INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_optimization)
