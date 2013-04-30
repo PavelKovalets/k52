@@ -1,7 +1,32 @@
 cmake_minimum_required(VERSION 2.6)
 project(k52_parallel)
 
+set(PARALLEL_COMMON_INCLUDE ${k52_SOURCE_DIR}/include/k52/parallel)
+
 # parallel library
+set(PARALLEL_HEADERS
+    ${PARALLEL_COMMON_INCLUDE}/i_task_result.h
+    ${PARALLEL_COMMON_INCLUDE}/i_task.h
+    ${PARALLEL_COMMON_INCLUDE}/i_worker_pool.h
+    ${PARALLEL_COMMON_INCLUDE}/worker_pool_factory.h
+    ${PARALLEL_COMMON_INCLUDE}/worker_statistics.h
+    ${PARALLEL_COMMON_INCLUDE}/mpi/boost_mpi_declaration.h
+    ${PARALLEL_COMMON_INCLUDE}/mpi/constants.h
+    ${PARALLEL_COMMON_INCLUDE}/mpi/i_mpi_task_result.h
+    ${PARALLEL_COMMON_INCLUDE}/mpi/i_mpi_task.h
+    ${PARALLEL_COMMON_INCLUDE}/mpi/i_transferable.h
+    ${PARALLEL_COMMON_INCLUDE}/mpi/identifyable_objects_manager.h
+    statistics_aggregator.h
+    sequential_worker_pool.h
+    mpi/delay_supplier.h
+    mpi/mpi_worker_pool.h
+    thread/thread_safe_queue.h
+    thread/thread_worker_pool_task.h
+    thread/thread_worker_pool_templated.h
+    thread/thread_worker_pool.h
+    thread/worker.h
+    )
+
 set(PARALLEL_SOURCE
     statistics_aggregator.cpp
     sequential_worker_pool.cpp
@@ -21,10 +46,10 @@ message("k52 boost libraries : ${K52_BOOST_LIBRARIES}")
 message("k52 boost library dirs : ${K52_BOOST_LIBRARY_DIRS}")
 message("k52 boost include dirs : ${K52_BOOST_INCLUDE_DIRS}")
 
-add_library(k52_parallel_static STATIC ${PARALLEL_SOURCE})
+add_library(k52_parallel_static STATIC ${PARALLEL_SOURCE} ${PARALLEL_HEADERS})
 INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_parallel_static)
 
-add_library(k52_parallel SHARED ${PARALLEL_SOURCE})
+add_library(k52_parallel SHARED ${PARALLEL_SOURCE} ${PARALLEL_HEADERS})
 target_link_libraries(k52_parallel
                       ${K52_BOOST_LIBRARIES}
                       ${K52_MPI_LIBRARIES})

@@ -27,17 +27,16 @@ DoubleParameter::DoubleParameter(double desired_value, double min_value, double 
 
     if(!CheckBounds(desired_value))
     {
-        throw std::invalid_argument("desiredValue does not lie whithin [minValue;maxValue] interval.");
+        throw std::invalid_argument("desired_value does not lie whithin [min_value;max_value] interval.");
     }
 
     int best_max_int = CountBestMaxInt( GetMaxInt(min_value, max_value, desired_precision) );
     int min_int = 0;
 
     precision_ = (max_value - min_value) / best_max_int;
-    //TODO check for smts like CEIL - int rounding may provide bugs
-    int int_value = /*ceil*/((desired_value - min_value)/precision_);
+    base_int_parameter_ = IntParameter::shared_ptr(new IntParameter(min_int, best_max_int));
 
-    base_int_parameter_ = IntParameter::shared_ptr(new IntParameter(int_value, min_int, best_max_int));
+    SetValue(desired_value);
 
     this->SetConstChromosomeSize(base_int_parameter_->GetChromosomeSize());
 }
@@ -94,6 +93,12 @@ void DoubleParameter::SetFromChromosome(std::vector<bool>::const_iterator from, 
 double DoubleParameter::GetValue() const
 {
     return  base_int_parameter_->get_value() * precision_ + min_value_;
+}
+
+void DoubleParameter::SetValue(double value)
+{
+    int int_value = ((value - min_value_)/precision_);
+    base_int_parameter_->set_value(int_value);
 }
 
 double DoubleParameter::get_max_value() const
