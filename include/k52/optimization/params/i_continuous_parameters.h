@@ -21,8 +21,6 @@ public:
 
     virtual std::vector<double> GetValues() const = 0;
 
-    virtual bool CheckConstraints() const = 0;
-
     virtual IContinuousParameters* Clone() const = 0;
 };
 
