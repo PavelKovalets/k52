@@ -17,6 +17,11 @@ class IntParameter: public ConstChromosomeSizeParemeters
 public:
     typedef boost::shared_ptr<IntParameter> shared_ptr;
 
+    ///Creates an instance of IntParameter and assigns its value to min_value
+    ///@param min_value - minimum allowed value of IntParameter, it's lower bound constraint
+    ///@param max_value - maximum allowed value of IntParameter, it's upper bound constraint
+    IntParameter(int min_value, int max_value);
+
     ///Creates an instance of IntParameter
     ///@param value - value of IntParameter to be set initially
     ///@param min_value - minimum allowed value of IntParameter, it's lower bound constraint
@@ -40,6 +45,9 @@ public:
     void SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const;
 
     void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
+
+protected:
+    void Initialize(int value, int min_value, int max_value);
 
 private:
     static size_t CountVectorSize(int min_value, int max_value);

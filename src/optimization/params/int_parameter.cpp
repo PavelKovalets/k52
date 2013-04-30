@@ -9,13 +9,14 @@ namespace k52
 namespace optimization
 {
 
+IntParameter::IntParameter(int min_value, int max_value)
+{
+    Initialize(min_value, min_value, max_value);
+}
+
 IntParameter::IntParameter(int value, int min_value, int max_value)
 {
-    SetConstChromosomeSize( CountVectorSize(min_value, max_value) );
-
-    value_ = value;
-    min_value_ = min_value;
-    max_value_ = max_value;
+    Initialize(value, min_value, max_value);
 }
 
 int IntParameter::get_value() const
@@ -63,6 +64,15 @@ void IntParameter::SetFromChromosome(vector<bool>::const_iterator from, vector<b
     this->CheckForConstChromosomeSize(chromosome_size);
 
     value_ = IntParameter::GetIntFromBoolVector(from, to) + min_value_;
+}
+
+void IntParameter::Initialize(int value, int min_value, int max_value)
+{
+    SetConstChromosomeSize( CountVectorSize(min_value, max_value) );
+
+    value_ = value;
+    min_value_ = min_value;
+    max_value_ = max_value;
 }
 
 size_t IntParameter::CountVectorSize(int min_value, int max_value)
