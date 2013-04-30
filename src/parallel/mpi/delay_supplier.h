@@ -17,9 +17,9 @@ public:
     void IncreaseDelay();
     void ResetDelay();
 
-private:
     static void Sleep(int milliseconds);
 
+private:
     int initial_delay_;
     int maximum_delay_;
     int current_delay_;
