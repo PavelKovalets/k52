@@ -35,9 +35,8 @@ bool DoubleParametersArray::CheckConstraints() const
 {
     for(size_t i=0; i<values_.size(); i++)
     {
-        //TODO
-        //copypaste from DoubleParameter
-        if(values_[i] < get_min_value() || values_[i] > get_max_value())
+        sample_parameter_->SetValue(values_[i]);
+        if(!sample_parameter_->CheckConstraints())
         {
             return false;
         }
