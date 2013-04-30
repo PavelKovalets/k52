@@ -46,8 +46,6 @@ bool DoubleParametersArray::CheckConstraints() const
 
 void DoubleParametersArray::SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
 {
-    //TODO
-    //copypaste from CompositeDiscreteParameters
     size_t chromosome_size = to - from;
 
     this->CheckForConstChromosomeSize(chromosome_size);
@@ -60,7 +58,6 @@ void DoubleParametersArray::SetChromosome(std::vector<bool>::iterator from, std:
         std::vector<bool>::iterator current_to = current_from + parameter_chromosome_size;
 
         sample_parameter_->SetValue(values_[i]);
-
         sample_parameter_->SetChromosome(current_from, current_to);
 
         current_from = current_to;
@@ -69,8 +66,6 @@ void DoubleParametersArray::SetChromosome(std::vector<bool>::iterator from, std:
 
 void DoubleParametersArray::SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
 {
-    //TODO
-    //copypaste from CompositeDiscreteParameters
     size_t chromosome_size = to - from;
 
     this->CheckForConstChromosomeSize(chromosome_size);
@@ -83,7 +78,6 @@ void DoubleParametersArray::SetFromChromosome(std::vector<bool>::const_iterator 
         std::vector<bool>::const_iterator current_to = current_from + parameter_chromosome_size;
 
         sample_parameter_->SetFromChromosome(current_from, current_to);
-
         values_[i] = sample_parameter_->GetValue();
 
         current_from = current_to;
