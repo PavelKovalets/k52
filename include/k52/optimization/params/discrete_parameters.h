@@ -1,6 +1,7 @@
 #ifndef DISCRETEPARAMETERS_H_
 #define DISCRETEPARAMETERS_H_
 
+#include <k52/common/disallow_copy_and_assign.h>
 #include <k52/optimization/params/i_discrete_parameters.h>
 
 namespace k52
@@ -13,6 +14,9 @@ class DiscreteParameters : public IDiscreteParameters
 public:
     typedef boost::shared_ptr<DiscreteParameters> shared_ptr;
 
+    ///Default counstructor should be explicitelly defined if DISALLOW_COPY_AND_ASSIGN used
+    DiscreteParameters() {}
+
     virtual ~DiscreteParameters() {}
 
     virtual DiscreteParameters* Clone() const = 0;
@@ -22,6 +26,9 @@ public:
 
     virtual void Receive(boost::mpi::communicator* communicator);
 #endif
+
+private:
+    DISALLOW_COPY_AND_ASSIGN(DiscreteParameters);
 };
 
 }/* namespace optimization */

@@ -41,37 +41,24 @@ DoubleParameter::DoubleParameter(double desired_value, double min_value, double 
     this->SetConstChromosomeSize(base_int_parameter_->GetChromosomeSize());
 }
 
-DoubleParameter::DoubleParameter(const DoubleParameter& a)
+DoubleParameter* DoubleParameter::Clone() const
 {
-    base_int_parameter_ = IntParameter::shared_ptr();
-    *this = a;
-}
+    DoubleParameter* clone = new DoubleParameter();
 
-DoubleParameter& DoubleParameter::operator=(const DoubleParameter & a)
-{
-    if (this != &a) // protect against invalid self-assignment
+    clone->CopyState(this);
+    clone->max_value_ = this->max_value_;
+    clone->min_value_ = this->min_value_;
+    clone->precision_ = this->precision_;
+
+    if(this->base_int_parameter_ != NULL)
     {
-        this->ConstChromosomeSizeParemeters::operator =(a);
-        max_value_ = a.max_value_;
-        min_value_ = a.min_value_;
-        precision_ = a.precision_;
-
-        if(a.base_int_parameter_ != NULL)
-        {
-            base_int_parameter_ = IntParameter::shared_ptr(a.base_int_parameter_->Clone());
-        }
-        else
-        {
-            base_int_parameter_ = IntParameter::shared_ptr();
-        }
+        clone->base_int_parameter_ = IntParameter::shared_ptr(this->base_int_parameter_->Clone());
     }
-    // by convention, always return *this
-    return *this;
-}
+    else
+    {
+        clone->base_int_parameter_ = IntParameter::shared_ptr();
+    }
 
-DoubleParameter *DoubleParameter::Clone() const
-{
-    DoubleParameter* clone = new DoubleParameter(*this);
     return clone;
 }
 

@@ -42,6 +42,12 @@ void ConstChromosomeSizeParemeters::CheckForConstChromosomeSize(size_t chromosom
     }
 }
 
+void ConstChromosomeSizeParemeters::CopyState(const ConstChromosomeSizeParemeters* source)
+{
+    this->was_chromosome_size_set_ = source->was_chromosome_size_set_;
+    this->chromosome_size_ = source->chromosome_size_;
+}
+
 void ConstChromosomeSizeParemeters::CheckIfChromosomeWasSet() const
 {
     if(!was_chromosome_size_set_)

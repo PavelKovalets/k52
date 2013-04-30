@@ -1,6 +1,7 @@
 #ifndef CONSTCHROMOSOMESIZEPAREMETERS_H_
 #define CONSTCHROMOSOMESIZEPAREMETERS_H_
 
+#include <k52/common/disallow_copy_and_assign.h>
 #include <k52/optimization/params/discrete_parameters.h>
 
 namespace k52
@@ -44,11 +45,15 @@ protected:
     ///If chromosome_size was changed or was not set - throws an exception.
     void CheckForConstChromosomeSize(size_t chromosome_size) const;
 
+    void CopyState(const ConstChromosomeSizeParemeters* source);
+
 private:
     void CheckIfChromosomeWasSet() const;
 
     bool was_chromosome_size_set_;
     size_t chromosome_size_;
+
+    DISALLOW_COPY_AND_ASSIGN(ConstChromosomeSizeParemeters);
 };
 
 }/* namespace optimization */

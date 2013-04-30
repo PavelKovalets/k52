@@ -3,6 +3,8 @@
 
 #include <boost/shared_ptr.hpp>
 
+#include <k52/common/disallow_copy_and_assign.h>
+
 namespace k52
 {
 namespace common
@@ -16,6 +18,9 @@ class ICloneable
 {
 public:
     typedef boost::shared_ptr<ICloneable> shared_ptr;
+
+    ///Default counstructor should be explicitelly defined if DISALLOW_COPY_AND_ASSIGN used
+    ICloneable() {}
 
     ///Virtual destructor for correct deallocation of resources in derived classes
     virtual ~ICloneable() {}
@@ -32,6 +37,9 @@ public:
     ///@endcode
     ///@return deep clone of an object
     virtual ICloneable* Clone() const = 0;
+
+private:
+    DISALLOW_COPY_AND_ASSIGN(ICloneable);
 };
 
 };/* namespace common */

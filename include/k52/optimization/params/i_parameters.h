@@ -1,6 +1,7 @@
 #ifndef IPARAMETERS_H_
 #define IPARAMETERS_H_
 
+#include <k52/common/disallow_copy_and_assign.h>
 #include <k52/common/i_cloneable.h>
 
 #ifdef BUILD_WITH_MPI
@@ -29,6 +30,9 @@ class IParameters
 public:
     typedef boost::shared_ptr<IParameters> shared_ptr;
 
+    ///Default counstructor should be explicitelly defined if DISALLOW_COPY_AND_ASSIGN used
+    IParameters() {}
+
     ///Virtual destructor for correct deallocation of resources in derived classes
     virtual ~IParameters() {}
 
@@ -39,6 +43,9 @@ public:
     ///Creates deep clone of an object with resource allocation. See ICloneable
     ///@return deep clone of an object
     virtual IParameters* Clone() const = 0;
+
+private:
+    DISALLOW_COPY_AND_ASSIGN(IParameters);
 };
 
 }/* namespace optimization */

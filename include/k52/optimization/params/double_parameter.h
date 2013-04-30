@@ -1,6 +1,7 @@
 #ifndef DOUBLEPARAMETER_H_
 #define DOUBLEPARAMETER_H_
 
+#include <k52/common/disallow_copy_and_assign.h>
 #include <k52/optimization/params/const_chromosome_size_paremeters.h>
 #include <k52/optimization/params/int_parameter.h>
 
@@ -17,10 +18,6 @@ public:
     DoubleParameter();
 
     DoubleParameter(double desired_value, double min_value, double max_value, double desired_precision);
-
-    DoubleParameter(const DoubleParameter& a);
-
-    DoubleParameter& operator=(const DoubleParameter & a);
 
     DoubleParameter* Clone() const;
 
@@ -47,6 +44,8 @@ private:
     double min_value_;
     double max_value_;
     double precision_;
+
+    DISALLOW_COPY_AND_ASSIGN(DoubleParameter);
 };
 
 }/* namespace optimization */
