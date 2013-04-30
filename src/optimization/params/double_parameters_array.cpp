@@ -84,7 +84,7 @@ void DoubleParametersArray::SetFromChromosome(std::vector<bool>::const_iterator 
     }
 }
 
-std::vector<double> DoubleParametersArray::GetValues() const
+std::vector<double> DoubleParametersArray::get_values() const
 {
     return values_;
 }

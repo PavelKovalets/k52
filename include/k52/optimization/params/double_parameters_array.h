@@ -27,8 +27,7 @@ public:
 
     void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
 
-    std::vector<double> GetValues() const;
-
+    std::vector<double> get_values() const;
     double get_max_value() const;
     double get_min_value() const;
     size_t get_number_of_parameters() const;

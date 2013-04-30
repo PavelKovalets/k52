@@ -36,7 +36,7 @@ public:
         const DoubleParametersArray* const parametrs = dynamic_cast<const DoubleParametersArray* const>(iparameters);
 
         double summ = 0;
-        vector<double> values = parametrs->GetValues();
+        vector<double> values = parametrs->get_values();
         for(size_t i=0; i<values.size(); i++)
         {
             double value = values[i];
@@ -59,7 +59,7 @@ void printStatistics(k52::optimization::GenerationStatistics s)
     cout.precision(15);
     cout<<"Values: ";
 
-    vector<double> values = bestParameters->GetValues();
+    vector<double> values = bestParameters->get_values();
     for(size_t i=0; i<values.size(); i++)
     {
         cout << values[i] << " ";
@@ -122,7 +122,7 @@ int main()
         return -1;
     }
 
-    vector<double> values = parameters.GetValues();
+    vector<double> values = parameters.get_values();
 
     for(size_t i=0; i<values.size(); i++)
     {
