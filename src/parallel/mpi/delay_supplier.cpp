@@ -1,9 +1,10 @@
 #include "delay_supplier.h"
 
-#ifdef LINUX
+#include <boost/static_assert.hpp>
+
+#ifdef __unix__
 #include <unistd.h>
-#endif
-#ifdef WINDOWS
+#elif _WIN32
 #inlcude <windows.h>
 #endif
 
@@ -43,14 +44,15 @@ void DelaySupplier::ResetDelay()
 
 void DelaySupplier::Sleep(int milliseconds)
 {
-#ifdef LINUX
+#ifdef __unix__
     usleep(milliseconds * 1000);   // usleep takes sleep time in us
-#endif
-#ifdef WINDOWS
+#elif _WIN32
     Sleep(milliseconds);
+#else
+    BOOST_STATIC_ASSERT_MSG(false, "Current system is not supported in k52::parallel::mpi::DelaySupplier::Sleep");
 #endif
 }
 
 } /* namespace mpi */
-} /* parallel */
-} /* k52 */
+} /* namespace parallel */
+} /* namespace k52 */
