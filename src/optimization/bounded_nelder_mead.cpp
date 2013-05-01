@@ -7,9 +7,6 @@
 
 #include <k52/optimization/params/i_continuous_parameters.h>
 
-#include "random.h"
-#include "objective_function_counter.h"
-
 using ::std::vector;
 
 namespace k52
@@ -45,14 +42,8 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
     double r1 = l_ * ( sqrt((double)(n+1)) + n - 1 ) / ( n * square_root_from_2 );
     double r2 = l_ * ( sqrt((double)(n+1)) - 1 ) / ( n * square_root_from_2 );
 
-    //Random init
-    vector<double> base_point(n);
-    for(size_t i = 0; i < n; i++)
-    {
-        base_point[i] = Random::Instance().GetContinuousRandomQuantity(lower_bound_, upper_bound_);
-    }
-    //Build simplex
-    vector< vector<double> > polygon = GetRegularSimplex(base_point, l_);
+    //Build simplex based on initial_parameters
+    vector< vector<double> > polygon = GetRegularSimplex(initial_parameters, l_);
 
     //count values
     vector<double> function_values = CountObjectiveFunctionValues(polygon, continuous_parameters, function_to_optimize);	
