@@ -368,6 +368,7 @@ vector<double> BoundedNelderMead::GetCenterOfMass(const vector< vector<double> >
 void BoundedNelderMead::OutputPolygon(const vector< vector<double> >& polygon)
 {
     std::ofstream polygon_output("polygon.plot", std::ofstream::app);
+    polygon_output.precision(16);
     polygon_output<<std::endl;
 
     for(size_t i = 0; i < polygon.size(); i++)
