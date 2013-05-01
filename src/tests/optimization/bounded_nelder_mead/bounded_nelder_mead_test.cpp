@@ -10,7 +10,7 @@ using namespace k52::optimization_tests;
 int main()
 {
     double l = 10;
-    double precision = 1e-9;
+    double precision = 1e-30;
     double lower_bound = -10000;
     double upper_bound = 10000;
     k52::optimization::BoundedNelderMead bounded_nelder_mead(l, precision, lower_bound, upper_bound);
@@ -23,7 +23,7 @@ int main()
         TestFunction& current_test_function = *test_functions[i];
         double solution_value = current_test_function.get_objective_function()(current_test_function.get_solution());
         IParameters::shared_ptr parameters (current_test_function.get_start_point()->Clone());
-        optimizer->Optimize(current_test_function.get_objective_function(), parameters.get());
+        optimizer->Optimize(current_test_function.get_objective_function(), parameters.get(), current_test_function.maximize());
         cout<<"Solution value for "<<current_test_function.get_analitical_form()<<" is "<<solution_value<<endl;
         cout<<"Found with BoundedNelderMead "<<current_test_function.get_objective_function()(parameters.get())<<endl;
 

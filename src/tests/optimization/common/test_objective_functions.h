@@ -33,7 +33,7 @@ public:
             summ += 1/fabs(value*value - 2);
         }
 
-        return -summ;
+        return summ;
     }
 
     virtual IObjectiveFunction* Clone() const

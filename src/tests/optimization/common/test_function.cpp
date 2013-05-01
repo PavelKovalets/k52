@@ -36,12 +36,24 @@ std::string TestFunction::get_analitical_form() const
     return analitical_form_;
 }
 
-void TestFunction::Register(IObjectiveFunction::shared_ptr function,
-                     IContinuousParameters::shared_ptr solution,
-                     IContinuousParameters::shared_ptr start_point,
-                     std::string analitical_form)
+bool TestFunction::maximize() const
 {
-    TestFunction::shared_ptr test_function( new TestFunction(function, solution, start_point, analitical_form) );
+    return maximize_;
+}
+
+void TestFunction::Register(IObjectiveFunction::shared_ptr function,
+                            IContinuousParameters::shared_ptr solution,
+                            IContinuousParameters::shared_ptr start_point,
+                            std::string analitical_form,
+                            bool maximize)
+{
+    TestFunction::shared_ptr test_function(
+                new TestFunction(function,
+                                 solution,
+                                 start_point,
+                                 analitical_form,
+                                 maximize)
+                );
     test_functions_.push_back(test_function);
 }
 
@@ -57,11 +69,13 @@ std::vector<TestFunction::shared_ptr> TestFunction::get_test_functions()
 TestFunction::TestFunction(IObjectiveFunction::shared_ptr function,
                            IContinuousParameters::shared_ptr solution,
                            IContinuousParameters::shared_ptr start_point,
-                           std::string analitical_form):
+                           std::string analitical_form,
+                           bool maximize):
     function_(function),
     solution_(solution),
     start_point_(start_point),
-    analitical_form_(analitical_form)
+    analitical_form_(analitical_form),
+    maximize_(maximize)
 {
 }
 
@@ -79,7 +93,7 @@ void TestFunction::Initialize()
     square_start_point_values[1] = 7;
     IContinuousParameters::shared_ptr square_start_point( new ContinuousParametersArray(square_start_point_values));
 
-    Register(square_objective_function, square_solution, square_start_point, "square_root(x)");
+    Register(square_objective_function, square_solution, square_start_point, "square_root(x)", false);
 }
 
 }/* namespace optimization_tests */

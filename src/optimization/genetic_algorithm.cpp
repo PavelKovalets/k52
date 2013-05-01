@@ -60,8 +60,15 @@ GeneticAlgorithm::GeneticAlgorithm(
     invalid_chromosomes_ = 0;
 }
 
-void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize, IParameters* parametrs_to_optimize)
+void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize,
+                                IParameters* parametrs_to_optimize,
+                                bool maximize)
 {
+    if(!maximize)
+    {
+        throw std::invalid_argument("GeneticAlgorithm currently can only maximize function.");
+    }
+
     IDiscreteParameters* discrete_parameters = dynamic_cast<IDiscreteParameters*>(parametrs_to_optimize);
     if(discrete_parameters == NULL)
     {

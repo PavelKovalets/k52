@@ -23,23 +23,27 @@ public:
     const optimization::IContinuousParameters* get_solution() const;
     const optimization::IContinuousParameters* get_start_point() const;
     std::string get_analitical_form() const;
+    bool maximize() const;
 
     static void Register(optimization::IObjectiveFunction::shared_ptr function,
                          optimization::IContinuousParameters::shared_ptr solution,
                          optimization::IContinuousParameters::shared_ptr start_point,
-                         std::string analitical_form);
+                         std::string analitical_form,
+                         bool maximize);
     static std::vector<TestFunction::shared_ptr> get_test_functions();
 
 private:
     TestFunction(optimization::IObjectiveFunction::shared_ptr function,
                  optimization::IContinuousParameters::shared_ptr solution,
                  optimization::IContinuousParameters::shared_ptr start_point,
-                 std::string analitical_form);
+                 std::string analitical_form,
+                 bool maximize);
 
     optimization::IObjectiveFunction::shared_ptr function_;
     optimization::IContinuousParameters::shared_ptr solution_;
     optimization::IContinuousParameters::shared_ptr start_point_;
     std::string analitical_form_;
+    bool maximize_;
 
     static void Initialize();
 

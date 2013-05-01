@@ -23,7 +23,10 @@ public:
     ///Performs optimization of parametrsToOptimize according to functionToOptimize
     ///@param function_to_optimize - the target function to be optimized for maximum
     ///@param parametrs_to_optimize - this will be set to the optimal values after method's invocation
-    virtual void Optimize(const IObjectiveFunction &function_to_optimize, IParameters* parametrs_to_optimize) = 0;
+    ///@param maximize - if true function's maximum to be found, if false - minimum
+    virtual void Optimize(const IObjectiveFunction &function_to_optimize,
+                          IParameters* parametrs_to_optimize,
+                          bool maximize) = 0;
 };
 
 }/* namespace optimization */

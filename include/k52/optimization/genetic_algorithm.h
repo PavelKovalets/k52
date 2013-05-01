@@ -43,7 +43,9 @@ public:
         double mutation_probability = 0.005,
         std::string population_file_name = "");
 
-    void Optimize(const IObjectiveFunction &function_to_optimize, IParameters* parametrs_to_optimize);
+    void Optimize(const IObjectiveFunction &function_to_optimize,
+                  IParameters* parametrs_to_optimize,
+                  bool maximize);
     void OnNextGenerationReadyConnect(NextGenerationReadyCallback callback);
 
 protected:

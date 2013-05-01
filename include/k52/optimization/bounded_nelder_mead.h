@@ -18,9 +18,9 @@ class BoundedNelderMead: public IOptimizer
 {
 public:
     BoundedNelderMead(double l, double precision, double lower_bound, double upper_bound);
-    virtual void Optimize(
-        const IObjectiveFunction& function_to_optimize,
-        IParameters* parametrs_to_optimize);
+    virtual void Optimize(const IObjectiveFunction& function_to_optimize,
+                          IParameters* parametrs_to_optimize,
+                          bool maximize);
 
 protected:
     void CorrectByProjectingToBounds(std::vector<double>* point);
@@ -28,11 +28,13 @@ protected:
     std::vector<double> CountObjectiveFunctionValues(
         const std::vector< std::vector<double> >& parameters_values,
         IContinuousParameters* base_parameters,
-        const IObjectiveFunction & function_to_optimize);
+        const IObjectiveFunction & function_to_optimize,
+        bool maximize);
 
     double CountObjectiveFunctionValue(const std::vector<double>& parameters,
         IContinuousParameters* base_parameters,
-        const IObjectiveFunction & function_to_optimize);
+        const IObjectiveFunction & function_to_optimize,
+        bool maximize);
 
     static void GetIndexes(const std::vector<double>& values, size_t* first_max_index, size_t* secound_max_index, size_t* min_index);
     static std::vector< std::vector<double> > GetRegularSimplex(const std::vector<double>& base_point, double l);

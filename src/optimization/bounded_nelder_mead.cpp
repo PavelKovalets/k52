@@ -22,7 +22,9 @@ BoundedNelderMead::BoundedNelderMead(double l, double precision, double lower_bo
     l_ = l;
 }
 
-void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize, IParameters* parametrs_to_optimize)
+void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
+                                 IParameters* parametrs_to_optimize,
+                                 bool maximize)
 {
     IContinuousParameters* continuous_parameters = dynamic_cast<IContinuousParameters*> (parametrs_to_optimize);
     if(continuous_parameters == NULL)
@@ -46,7 +48,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
     vector< vector<double> > polygon = GetRegularSimplex(initial_parameters, l_);
 
     //count values
-    vector<double> function_values = CountObjectiveFunctionValues(polygon, continuous_parameters, function_to_optimize);	
+    vector<double> function_values = CountObjectiveFunctionValues(polygon, continuous_parameters, function_to_optimize, maximize);
 
     do
     {
@@ -66,13 +68,13 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
         //Reflect max point - we seek for minimum
         vector<double> reflected_point = Reflexion(center_of_mass, polygon[first_max_index]);
         CorrectByProjectingToBounds(&reflected_point);
-        double reflected_point_value = CountObjectiveFunctionValue(reflected_point, continuous_parameters, function_to_optimize);
+        double reflected_point_value = CountObjectiveFunctionValue(reflected_point, continuous_parameters, function_to_optimize, maximize);
 
         if(reflected_point_value < lowest_value)
         {
             vector<double> expanded_point = Expansion(center_of_mass, reflected_point);
             CorrectByProjectingToBounds(&expanded_point);
-            double expanded_point_value = CountObjectiveFunctionValue(expanded_point, continuous_parameters, function_to_optimize);
+            double expanded_point_value = CountObjectiveFunctionValue(expanded_point, continuous_parameters, function_to_optimize, maximize);
 
             if(expanded_point_value < reflected_point_value )
             {
@@ -109,7 +111,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
                 }
 
                 vector<double> contraction_point = Contraction(center_of_mass, polygon[first_max_index]);
-                double contraction_point_value = CountObjectiveFunctionValue(contraction_point, continuous_parameters, function_to_optimize);
+                double contraction_point_value = CountObjectiveFunctionValue(contraction_point, continuous_parameters, function_to_optimize, maximize);
 
                 if(contraction_point_value > highest_value)
                 {
@@ -150,7 +152,8 @@ void BoundedNelderMead::CorrectByProjectingToBounds(vector<double>* point)
 vector<double> BoundedNelderMead::CountObjectiveFunctionValues(
     const vector< vector<double> >& parameters_values,
     IContinuousParameters* base_parameters,
-    const IObjectiveFunction & function_to_optimize)
+    const IObjectiveFunction & function_to_optimize,
+    bool maximize)
 {
     size_t N = parameters_values.size();    
     vector<double> counted_values(N);
@@ -160,6 +163,12 @@ vector<double> BoundedNelderMead::CountObjectiveFunctionValues(
         base_parameters->SetValues(parameters_values[i]);
         IContinuousParameters::shared_ptr parameters_clone( base_parameters->Clone() );
         counted_values[i] = function_to_optimize(parameters_clone.get());
+
+        //As Nelder-Mead tends to minimize function we need to reverse it to find max
+        if(maximize)
+        {
+            counted_values[i] = -counted_values[i];
+        }
     }
 
     return counted_values;
@@ -168,11 +177,12 @@ vector<double> BoundedNelderMead::CountObjectiveFunctionValues(
 double BoundedNelderMead::CountObjectiveFunctionValue(
     const vector<double>& parameters,
     IContinuousParameters* base_parameters,
-    const IObjectiveFunction & function_to_optimize)
+    const IObjectiveFunction & function_to_optimize,
+    bool maximize)
 {
     vector< vector<double> > cover(1);
     cover[0] = parameters;
-    return CountObjectiveFunctionValues(cover, base_parameters, function_to_optimize)[0];
+    return CountObjectiveFunctionValues(cover, base_parameters, function_to_optimize, maximize)[0];
 }
 
 void BoundedNelderMead::GetIndexes(const vector<double>& values, size_t* first_max_index, size_t* secound_max_index, size_t* min_index)

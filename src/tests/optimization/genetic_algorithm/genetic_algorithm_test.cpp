@@ -114,7 +114,7 @@ int main()
     k52::optimization::IOptimizer* optimizer = &ga;
     try
     {
-        optimizer->Optimize(of, &parameters);
+        optimizer->Optimize(of, &parameters, true);
     }
     catch (const std::exception& e)
     {
