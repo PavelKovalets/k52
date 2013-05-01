@@ -190,7 +190,7 @@ void MpiWorkerPool::RunWorkerLoop()
 
         IMpiTask::shared_ptr next_task = CreateTask(task_id);
         next_task->Receive(communicator_);
-        IMpiTaskResult::shared_ptr result = next_task->PerformMpi();
+        IMpiTaskResult::shared_ptr result = IMpiTaskResult::shared_ptr( next_task->Perform() );
         result->Send(communicator_);
     }
 }

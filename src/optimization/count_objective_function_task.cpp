@@ -25,14 +25,6 @@ CountObjectiveFunctionTask::CountObjectiveFunctionTask(
 
 #ifdef BUILD_WITH_MPI
 
-k52::parallel::mpi::IMpiTaskResult::shared_ptr CountObjectiveFunctionTask::PerformMpi() const
-{
-    double value = get_objective_function()->operator ()( get_parameters() );
-    ObjectiveFunctionTaskResult::shared_ptr result ( new ObjectiveFunctionTaskResult() );
-    result->set_objective_function_value(value);
-    return result;
-}
-
 k52::parallel::mpi::IMpiTaskResult::shared_ptr CountObjectiveFunctionTask::CreateEmptyResult() const
 {
     return ObjectiveFunctionTaskResult::shared_ptr ( new ObjectiveFunctionTaskResult() );
@@ -80,18 +72,20 @@ void CountObjectiveFunctionTask::Receive(boost::mpi::communicator* communicator)
     received_parameters_ = IParameters::shared_ptr( parameters->Clone() );
     received_parameters_->Receive(communicator);
 }
+
+k52::parallel::mpi::IMpiTaskResult* CountObjectiveFunctionTask::Perform() const
+
 #else
 
-//TODO use polymorphysm and fix conflict with base class
-k52::parallel::ITaskResult::shared_ptr CountObjectiveFunctionTask::Perform() const
+k52::parallel::ITaskResult* CountObjectiveFunctionTask::Perform() const
+
+#endif
 {
-    double value = function_to_optimize_->operator ()(parameters_);
-    ObjectiveFunctionTaskResult::shared_ptr result ( new ObjectiveFunctionTaskResult() );
+    double value = get_objective_function()->operator ()( get_parameters() );
+    ObjectiveFunctionTaskResult* result = new ObjectiveFunctionTaskResult();
     result->set_objective_function_value(value);
     return result;
 }
-
-#endif
 
 const IObjectiveFunction* CountObjectiveFunctionTask::get_objective_function() const
 {

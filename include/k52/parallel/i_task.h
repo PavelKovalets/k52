@@ -17,7 +17,20 @@ public:
 
     virtual ~ITask() {}
 
-    virtual ITaskResult::shared_ptr Perform() const = 0;
+    ///Performs task and creates its result with resource allocation.
+    ///One calling this method MUST delete the result after usage or
+    ///the result could be wrapped into shared_ptr.
+    ///In derived classes returned type SHOULD be changed
+    ///to corresponding ITaskResult subclasse's type, for example
+    ///@code
+    ///class NewTaskClass : public ITask
+    ///{
+    ///public:
+    ///    virtual NewTaskResultClass* Perform() = 0;
+    ///};
+    ///@endcode
+    ///@return result of the performed task
+    virtual ITaskResult* Perform() const = 0;
 };
 
 } /* namespace parallel */

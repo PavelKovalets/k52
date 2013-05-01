@@ -40,8 +40,6 @@ public:
 
 #ifdef BUILD_WITH_MPI
 
-    virtual k52::parallel::mpi::IMpiTaskResult::shared_ptr PerformMpi() const;
-
     virtual k52::parallel::mpi::IMpiTaskResult::shared_ptr CreateEmptyResult() const;
 
     virtual CountObjectiveFunctionTask* Clone() const;
@@ -50,9 +48,11 @@ public:
 
     virtual void Receive(boost::mpi::communicator* communicator);
 
+    virtual k52::parallel::mpi::IMpiTaskResult* Perform() const;
+
 #else
 
-    k52::parallel::ITaskResult::shared_ptr Perform() const;
+    virtual k52::parallel::ITaskResult* Perform() const;
 
 #endif
 

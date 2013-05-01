@@ -17,13 +17,7 @@ class IMpiTask : public k52::parallel::ITask, public k52::common::ICloneable, pu
 public:
     typedef boost::shared_ptr<IMpiTask> shared_ptr;
 
-    //TODO is it correct solving of contrvariant return problem
-    virtual ITaskResult::shared_ptr Perform() const
-    {
-        return PerformMpi();
-    }
-
-    virtual IMpiTaskResult::shared_ptr PerformMpi() const = 0;
+    virtual IMpiTaskResult* Perform() const = 0;
 
     virtual IMpiTaskResult::shared_ptr CreateEmptyResult() const = 0;
 

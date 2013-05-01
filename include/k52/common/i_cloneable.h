@@ -26,7 +26,8 @@ public:
     virtual ~ICloneable() {}
 
     ///Creates deep clone of an object with resource allocation.
-    ///One calling this method MUST delete clone after usage
+    ///One calling this method MUST delete the clone after usage or
+    ///the clone could be wrapped into shared_ptr.
     ///In derived classes returned type SHOULD be changed to subclasse's type, for example
     ///@code
     ///class NewClonableClass : public ICloneable

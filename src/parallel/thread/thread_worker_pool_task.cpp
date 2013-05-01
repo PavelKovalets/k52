@@ -17,7 +17,7 @@ ThreadWorkerPoolTask::ThreadWorkerPoolTask(
 
 void ThreadWorkerPoolTask::DoTask()
 {
-    (*result_to_be_written_) = task_to_do_->Perform();
+    (*result_to_be_written_) = ITaskResult::shared_ptr ( task_to_do_->Perform() );
 }
 
 } /* namespace thread */
