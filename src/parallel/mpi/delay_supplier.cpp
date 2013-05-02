@@ -5,7 +5,7 @@
 #ifdef __unix__
 #include <unistd.h>
 #elif _WIN32
-#inlcude <windows.h>
+#include <windows.h>
 #endif
 
 namespace k52
