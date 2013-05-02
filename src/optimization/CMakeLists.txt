@@ -15,6 +15,7 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/individual_statistics.h
     ${OPTIMIZATION_COMMON_INCLUDE}/individual.h
     ${OPTIMIZATION_COMMON_INCLUDE}/initialization_checker.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/random_search.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/composite_discrete_parameters.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/const_chromosome_size_paremeters.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/continuous_parameters_array.h
@@ -26,10 +27,12 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/params/i_parameters.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/int_parameter.h
     count_objective_function_task.h
+    i_parameters_processor.h
     mutator.h
     objective_function_counter.h
     objective_function_task_result.h
     random.h
+    simple_parameters_processor.h
     stored_value.h
     )
 
@@ -44,7 +47,9 @@ set(OPTIMIZE_SOURCE
     mutator.cpp
     objective_function_counter.cpp
     objective_function_task_result.cpp
+    random_search.cpp
     random.cpp
+    simple_parameters_processor.cpp
     params/composite_discrete_parameters.cpp
     params/const_chromosome_size_paremeters.cpp
     params/continuous_parameters_array.cpp
