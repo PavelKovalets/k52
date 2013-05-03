@@ -28,7 +28,7 @@ public:
 
     MpiWorkerPool();
     ~MpiWorkerPool();
-
+    virtual bool IsValid();
     virtual std::vector< ITaskResult::shared_ptr > DoTasks (const std::vector<const ITask*>& tasks);
     virtual std::vector< WorkerStatistics > GetStatistics();
 
@@ -40,7 +40,8 @@ private:
     IMpiTask::shared_ptr CreateTask(std::string task_id);
     const IMpiTask* GetMpiTask(const ITask* task);
     void RunWorkerLoop();
-    void CheckAwailableWorkers();
+    bool AreAvailableWorkers() const;
+    void CheckAvailableWorkers() const;
     void FinalizeWorkers();
     void CheckIfServer();
     void Clean();

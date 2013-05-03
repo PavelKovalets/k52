@@ -46,10 +46,15 @@ MpiWorkerPool::~MpiWorkerPool()
     Clean();
 }
 
+bool MpiWorkerPool::IsValid()
+{
+    return AreAvailableWorkers();
+}
+
 std::vector< ITaskResult::shared_ptr > MpiWorkerPool::DoTasks (const std::vector<const ITask*>& tasks)
 {
     CheckIfServer();
-    CheckAwailableWorkers();
+    CheckAvailableWorkers();
 
     int current_worker_rank = 1;
     bool was_first_part_sent = false;
@@ -195,9 +200,14 @@ void MpiWorkerPool::RunWorkerLoop()
     }
 }
 
-void MpiWorkerPool::CheckAwailableWorkers()
+bool MpiWorkerPool::AreAvailableWorkers() const
 {
-    if(communicator_->size() < 2)
+    return communicator_->size() >= 2;
+}
+
+void MpiWorkerPool::CheckAvailableWorkers() const
+{
+    if(!AreAvailableWorkers())
     {
         throw std::runtime_error("No worker threads available. "
                         "Try to run program like following example: "

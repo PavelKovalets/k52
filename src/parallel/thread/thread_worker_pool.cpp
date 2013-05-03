@@ -9,9 +9,16 @@ namespace parallel
 namespace thread
 {
 
+bool ThreadWorkerPool::IsValid()
+{
+    return AreAvailableWorkers();
+}
+
 std::vector< ITaskResult::shared_ptr > ThreadWorkerPool::DoTasks (
     const std::vector<const ITask*>& tasks)
 {
+    CheckAvailableWorkers();
+
     std::vector< ITaskResult::shared_ptr > results(tasks.size());
     std::queue<ThreadWorkerPoolTask> tasks_queue;
 
@@ -27,6 +34,20 @@ std::vector< ITaskResult::shared_ptr > ThreadWorkerPool::DoTasks (
 std::vector< WorkerStatistics > ThreadWorkerPool::GetStatistics()
 {
     throw std::logic_error("getStatistics for ThreadWorkerPool is not yet implemented");
+}
+
+bool ThreadWorkerPool::AreAvailableWorkers() const
+{
+    return worker_pool_.get_number_of_workers() >= 2;
+}
+
+void ThreadWorkerPool::CheckAvailableWorkers() const
+{
+    if(!AreAvailableWorkers())
+    {
+        throw std::runtime_error("No worker threads available. "
+                        "There will be no performance gain using ThreadWorkerPool.");
+    }
 }
 
 } /* namespace thread */

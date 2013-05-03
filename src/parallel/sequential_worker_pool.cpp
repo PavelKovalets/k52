@@ -7,6 +7,11 @@ namespace parallel
 
 SequentialWorkerPool::SequentialWorkerPool(){}
 
+bool SequentialWorkerPool::IsValid()
+{
+    return true;
+}
+
 std::vector<ITaskResult::shared_ptr> SequentialWorkerPool::DoTasks (const std::vector<const ITask*>& tasks)
 {
     std::vector<ITaskResult::shared_ptr> results(tasks.size());

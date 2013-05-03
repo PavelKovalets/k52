@@ -19,6 +19,8 @@ public:
 
     virtual ~IWorkerPool(){}
 
+    virtual bool IsValid() = 0;
+
     virtual std::vector< WorkerStatistics > GetStatistics() = 0;
 
     virtual std::vector< ITaskResult::shared_ptr > DoTasks (const std::vector<const ITask*>& tasks) = 0;

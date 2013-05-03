@@ -26,18 +26,35 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool use_value_caching)
     if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kMpiWorkerPool))
     {
         fitness_worker_pool_ = WorkerPoolFactory::CreateWorkerPool(WorkerPoolFactory::kMpiWorkerPool);
+
+        if(fitness_worker_pool_->IsValid())
+        {
+            return;
+        }
     }
-    else if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kThreadWorkerPool))
+
+    if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kThreadWorkerPool))
     {
         fitness_worker_pool_ = WorkerPoolFactory::CreateWorkerPool(WorkerPoolFactory::kThreadWorkerPool);
+
+        if(fitness_worker_pool_->IsValid())
+        {
+            return;
+        }
     }
-    else if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kSequentialWorkerPool))
+
+    if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kSequentialWorkerPool))
     {
         fitness_worker_pool_ = WorkerPoolFactory::CreateWorkerPool(WorkerPoolFactory::kSequentialWorkerPool);
+
+        if(fitness_worker_pool_->IsValid())
+        {
+            return;
+        }
     }
     else
     {
-        throw std::runtime_error("Can not create fitness_worker_pool_.");
+        throw std::runtime_error("Can not create valid fitness_worker_pool_.");
     }
 }
 

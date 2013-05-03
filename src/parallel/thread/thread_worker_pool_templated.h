@@ -20,6 +20,7 @@ public:
     ThreadWorkerPoolTemplated();
     explicit ThreadWorkerPoolTemplated(int number_of_workers);
     ~ThreadWorkerPoolTemplated();
+    int get_number_of_workers() const;
     void DoTasks(std::queue<TTask> tasks);
 
 private:
@@ -62,6 +63,12 @@ ThreadWorkerPoolTemplated<TTask>::~ThreadWorkerPoolTemplated()
     }
 
     delete [] workers_;
+}
+
+template <class TTask>
+int ThreadWorkerPoolTemplated<TTask>::get_number_of_workers() const
+{
+    return number_of_workers_;
 }
 
 template <class TTask>

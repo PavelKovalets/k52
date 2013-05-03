@@ -23,10 +23,16 @@ public:
 
     ThreadWorkerPool() {}
 
+    virtual bool IsValid();
+
     virtual std::vector< ITaskResult::shared_ptr > DoTasks(
         const std::vector<const ITask*>& tasks);
 
     virtual std::vector< WorkerStatistics > GetStatistics();
+
+protected:
+    bool AreAvailableWorkers() const;
+    void CheckAvailableWorkers() const;
 
 private:
     ThreadWorkerPoolTemplated<ThreadWorkerPoolTask> worker_pool_;
