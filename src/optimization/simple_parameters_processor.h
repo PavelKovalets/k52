@@ -14,6 +14,8 @@ namespace optimization
 class SimpleParametersProcessor : public IParametersProcessor
 {
 public:
+    typedef boost::shared_ptr<SimpleParametersProcessor> shared_ptr;
+
     SimpleParametersProcessor();
 
     virtual IContinuousParameters::shared_ptr ProcessParameters(const IObjectiveFunction &function_to_optimize,
