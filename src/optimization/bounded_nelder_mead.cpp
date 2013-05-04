@@ -54,6 +54,14 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
     {
         OutputPolygon(polygon);
         r++;
+        //TODO fix terminating criteria
+        const int iterations_per_dimension = 1000;
+        if(r > iterations_per_dimension * initial_parameters.size())
+        {
+            std::cout<< "WARNING: Exiting BDNM by iterations"
+                        " criteria!"<<std::endl;
+            break;
+        }
         size_t first_max_index = 0, second_max_index = 0, min_index = 0;
         //determine maximums and minimum
         GetIndexes(function_values, &first_max_index, &second_max_index, &min_index);
