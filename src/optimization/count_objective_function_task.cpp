@@ -63,8 +63,8 @@ void CountObjectiveFunctionTask::Receive(boost::mpi::communicator* communicator)
 {
     std::string objective_function_id;
     communicator->recv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, objective_function_id);
-    const IObjectiveFunction* functionToOptimize = dynamic_cast<const IObjectiveFunction*>( k52::parallel::mpi::IdentifyableObjectsManager::Instance().GetObject(objective_function_id) );
-    received_function_ = IObjectiveFunction::shared_ptr( functionToOptimize->Clone() );
+    const IObjectiveFunction* function_to_optimize = dynamic_cast<const IObjectiveFunction*>( k52::parallel::mpi::IdentifyableObjectsManager::Instance().GetObject(objective_function_id) );
+    received_function_ = IObjectiveFunction::shared_ptr( function_to_optimize->Clone() );
 
     std::string parameters_id;
     communicator->recv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, parameters_id);
