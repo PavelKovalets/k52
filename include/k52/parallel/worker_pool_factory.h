@@ -19,6 +19,8 @@ public:
         kSequentialWorkerPool
     };
 
+    static IWorkerPool::shared_ptr CreateBestWorkerPool();
+
     static IWorkerPool::shared_ptr CreateWorkerPool(WorkerPoolType worker_pool_type);
 
     static bool CanCreateWorkerPool(WorkerPoolType worker_pool_type);
