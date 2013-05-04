@@ -65,7 +65,11 @@ IContinuousParameters::shared_ptr OptimizationParametersProcessor::ProcessParame
     }
 
     //TODO FIX
-    return boost::dynamic_pointer_cast<IContinuousParameters>(task_results[index]);
+    return boost::dynamic_pointer_cast<IContinuousParameters>(
+        boost::dynamic_pointer_cast<OptimizationTaskResult>(
+            task_results[index]
+        )->get_optimal_parameters()
+    );
 }
 
 }/* namespace optimization */
