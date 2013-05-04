@@ -23,39 +23,7 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool use_value_caching)
     CountObjectiveFunctionTask task;
     k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject(task);
 #endif
-    if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kMpiWorkerPool))
-    {
-        fitness_worker_pool_ = WorkerPoolFactory::CreateWorkerPool(WorkerPoolFactory::kMpiWorkerPool);
-
-        if(fitness_worker_pool_->IsValid())
-        {
-            return;
-        }
-    }
-
-    if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kThreadWorkerPool))
-    {
-        fitness_worker_pool_ = WorkerPoolFactory::CreateWorkerPool(WorkerPoolFactory::kThreadWorkerPool);
-
-        if(fitness_worker_pool_->IsValid())
-        {
-            return;
-        }
-    }
-
-    if(WorkerPoolFactory::CanCreateWorkerPool(WorkerPoolFactory::kSequentialWorkerPool))
-    {
-        fitness_worker_pool_ = WorkerPoolFactory::CreateWorkerPool(WorkerPoolFactory::kSequentialWorkerPool);
-
-        if(fitness_worker_pool_->IsValid())
-        {
-            return;
-        }
-    }
-    else
-    {
-        throw std::runtime_error("Can not create valid fitness_worker_pool_.");
-    }
+    fitness_worker_pool_ = WorkerPoolFactory::CreateBestWorkerPool();
 }
 
 void ObjectiveFunctionCounter::ObtainFitness(

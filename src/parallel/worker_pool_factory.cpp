@@ -20,6 +20,38 @@ namespace k52
 namespace parallel
 {
 
+IWorkerPool::shared_ptr WorkerPoolFactory::CreateBestWorkerPool()
+{
+    IWorkerPool::shared_ptr best_worker_pool;
+
+    WorkerPoolType worker_pool_type;
+    for(int i=0; i<3; i++)
+    {
+        switch (i)
+        {
+        case 0:
+            worker_pool_type = WorkerPoolFactory::kMpiWorkerPool;
+            break;
+        case 1:
+            worker_pool_type = WorkerPoolFactory::kThreadWorkerPool;
+            break;
+        case 2:
+            worker_pool_type = WorkerPoolFactory::kSequentialWorkerPool;
+            break;
+        default:
+            throw std::runtime_error("Bug in WorkerPoolFactory::CreateBestWorkerPool");
+        }
+
+        best_worker_pool = WorkerPoolFactory::CreateWorkerPool(worker_pool_type);
+        if(best_worker_pool->IsValid())
+        {
+            return best_worker_pool;
+        }
+    }
+
+    throw std::runtime_error("Can not create valid best_worker_pool.");
+}
+
 IWorkerPool::shared_ptr WorkerPoolFactory::CreateWorkerPool(WorkerPoolType worker_pool_type)
 {
     switch (worker_pool_type)
