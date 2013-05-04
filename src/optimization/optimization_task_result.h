@@ -27,6 +27,8 @@ public:
 
     OptimizationTaskResult(const IParameters* optimal_parameters);
 
+    IParameters::shared_ptr get_optimal_parameters() const;
+
 #ifdef BUILD_WITH_MPI
 
     virtual boost::mpi::request ReceiveAsync(boost::mpi::communicator* communicator, int source);

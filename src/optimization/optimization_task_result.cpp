@@ -23,6 +23,11 @@ OptimizationTaskResult::OptimizationTaskResult(const IParameters* optimal_parame
     optimal_parameters_ = IParameters::shared_ptr( optimal_parameters->Clone() );
 }
 
+IParameters::shared_ptr OptimizationTaskResult::get_optimal_parameters() const
+{
+    return optimal_parameters_;
+}
+
 #ifdef BUILD_WITH_MPI
 
 boost::mpi::request OptimizationTaskResult::ReceiveAsync(boost::mpi::communicator* communicator, int source)
