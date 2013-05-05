@@ -42,6 +42,10 @@ IWorkerPool::shared_ptr WorkerPoolFactory::CreateBestWorkerPool()
             throw std::runtime_error("Bug in WorkerPoolFactory::CreateBestWorkerPool");
         }
 
+        if(!WorkerPoolFactory::CanCreateWorkerPool(worker_pool_type))
+        {
+            continue;
+        }
         best_worker_pool = WorkerPoolFactory::CreateWorkerPool(worker_pool_type);
         if(best_worker_pool->IsValid())
         {
