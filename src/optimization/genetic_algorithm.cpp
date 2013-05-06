@@ -311,6 +311,10 @@ void GeneticAlgorithm::ReadPopulationFromFile()
     {
         InputPopulation(fin);
     }
+    else
+    {
+        throw std::runtime_error("Unable to open file " + population_file_name_);
+    }
     fin.close();
 }
 
