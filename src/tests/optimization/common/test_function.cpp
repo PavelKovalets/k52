@@ -1,4 +1,6 @@
 #include "test_function.h"
+#define _USE_MATH_DEFINES 
+#include <math.h>
 
 #include <k52/optimization/params/continuous_parameters_array.h>
 
@@ -84,8 +86,8 @@ void TestFunction::Initialize()
     IObjectiveFunction::shared_ptr square_objective_function( new SquareObjectiveFunction() );
 
     std::vector<double> square_solution_values(2);
-    square_solution_values[0] = 1.414213562;
-    square_solution_values[1] = 1.414213562;
+    square_solution_values[0] = M_SQRT2;
+    square_solution_values[1] = M_SQRT2;
     IContinuousParameters::shared_ptr square_solution( new ContinuousParametersArray(square_solution_values));
 
     std::vector<double> square_start_point_values(2);
