@@ -3,6 +3,7 @@ project(k52)
 
 enable_testing()
 include(k52.config)
+include(configuration/common-config.cmake)
 include(configuration/alglib-config.cmake)
 include(configuration/boost-config.cmake)
 include(configuration/mpi-config.cmake)
