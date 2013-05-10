@@ -1,5 +1,5 @@
 #include "test_function.h"
-#define _USE_MATH_DEFINES 
+
 #include <math.h>
 
 #include <k52/optimization/params/continuous_parameters_array.h>
