@@ -355,6 +355,8 @@ void GeneticAlgorithm::InputPopulation(std::ifstream & in)
                                    "The file may be corrupted or used with wrong GA settings.");
         }
     }
+
+    GatherAllIndividualsStatistics();
 }
 
 bool GeneticAlgorithm::GreaterFitness(Individual::shared_ptr first, Individual::shared_ptr second)
