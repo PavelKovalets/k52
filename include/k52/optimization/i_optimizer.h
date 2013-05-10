@@ -14,9 +14,16 @@ Provides optimization of certain objective function
 over the parameters within the bounds of certain constraints.
 Optimization is performed in terms of minimization or maximization
 */
-class IOptimizer
+class IOptimizer : public k52::common::ICloneable
+
+#ifdef BUILD_WITH_MPI
+    ,public k52::parallel::mpi::ITransferable
+#endif
+
 {
 public:
+    typedef boost::shared_ptr<IOptimizer> shared_ptr;
+
     ///Virtual destructor for correct deallocation of resources in derived classes
     virtual ~IOptimizer() {}
 
@@ -27,6 +34,10 @@ public:
     virtual void Optimize(const IObjectiveFunction &function_to_optimize,
                           IParameters* parametrs_to_optimize,
                           bool maximize) = 0;
+
+    ///Creates deep clone of an object with resource allocation. See ICloneable
+    ///@return deep clone of an object
+    virtual IOptimizer* Clone() const = 0;
 };
 
 }/* namespace optimization */

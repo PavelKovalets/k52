@@ -31,7 +31,8 @@ public:
     virtual void Receive(boost::mpi::communicator* communicator);
 #endif
 
-private:
+//TODO REMOVE HORRIBLE HACK!!!!!
+//private:
     std::vector<double> values_;
 };
 

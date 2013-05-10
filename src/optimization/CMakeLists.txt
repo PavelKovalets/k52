@@ -31,6 +31,9 @@ set(OPTIMIZATION_HEADERS
     mutator.h
     objective_function_counter.h
     objective_function_task_result.h
+    optimization_parameters_processor.h
+    optimization_task.h
+    optimization_task_result.h
     random.h
     simple_parameters_processor.h
     stored_value.h
@@ -47,6 +50,9 @@ set(OPTIMIZE_SOURCE
     mutator.cpp
     objective_function_counter.cpp
     objective_function_task_result.cpp
+    optimization_parameters_processor.cpp
+    optimization_task.cpp
+    optimization_task_result.cpp
     random_search.cpp
     random.cpp
     simple_parameters_processor.cpp

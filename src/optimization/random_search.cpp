@@ -5,6 +5,7 @@
 #include <k52/optimization/params/i_continuous_parameters.h>
 
 #include "simple_parameters_processor.h"
+#include "optimization_parameters_processor.h"
 #include "random.h"
 
 namespace k52
@@ -14,12 +15,24 @@ namespace optimization
 
 RandomSearch::RandomSearch(size_t number_of_random_points,
                            double lower_bound,
-                           double upper_bound):
+                           double upper_bound,
+                           const IOptimizer* optimizer):
     number_of_random_points_(number_of_random_points),
     lower_bound_(lower_bound),
     upper_bound_(upper_bound)
 {
-    parameters_processor_ = SimpleParametersProcessor::shared_ptr(new SimpleParametersProcessor());
+    if(optimizer == NULL)
+    {
+        parameters_processor_ = SimpleParametersProcessor::shared_ptr(
+            new SimpleParametersProcessor()
+        );
+    }
+    else
+    {
+        parameters_processor_ = OptimizationParametersProcessor::shared_ptr(
+            new OptimizationParametersProcessor(optimizer)
+        );
+    }
 }
 
 void RandomSearch::Optimize(const IObjectiveFunction &function_to_optimize,
@@ -45,6 +58,23 @@ void RandomSearch::Optimize(const IObjectiveFunction &function_to_optimize,
 
     continuous_parameters->SetValues(best_parameters->GetValues());
 }
+
+RandomSearch* RandomSearch::Clone() const
+{
+    throw std::logic_error("Cloning is not implemented for RandomSearch");
+}
+
+#ifdef BUILD_WITH_MPI
+void RandomSearch::Send(boost::mpi::communicator* communicator, int target) const
+{
+    throw std::logic_error("Send is not implemented for RandomSearch");
+}
+
+void RandomSearch::Receive(boost::mpi::communicator* communicator)
+{
+    throw std::logic_error("Receive is not implemented for RandomSearch");
+}
+#endif
 
 std::vector<double> RandomSearch::GenerateRandomPoint(size_t vector_size)
 {

@@ -18,9 +18,24 @@ class BoundedNelderMead: public IOptimizer
 {
 public:
     BoundedNelderMead(double l, double precision, double lower_bound, double upper_bound);
+
     virtual void Optimize(const IObjectiveFunction& function_to_optimize,
                           IParameters* parametrs_to_optimize,
                           bool maximize);
+
+    ///Creates deep clone of an object with resource allocation. See ICloneable
+    ///@return deep clone of an object
+    virtual BoundedNelderMead* Clone() const;
+
+    double get_lower_bound() const;
+
+    double get_upper_bound() const;
+
+#ifdef BUILD_WITH_MPI
+    virtual void Send(boost::mpi::communicator* communicator, int target) const;
+
+    virtual void Receive(boost::mpi::communicator* communicator);
+#endif
 
 protected:
     void CorrectByProjectingToBounds(std::vector<double>* point);

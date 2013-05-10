@@ -48,6 +48,16 @@ public:
                   bool maximize);
     void OnNextGenerationReadyConnect(NextGenerationReadyCallback callback);
 
+    ///Creates deep clone of an object with resource allocation. See ICloneable
+    ///@return deep clone of an object
+    virtual GeneticAlgorithm* Clone() const;
+
+#ifdef BUILD_WITH_MPI
+    virtual void Send(boost::mpi::communicator* communicator, int target) const;
+
+    virtual void Receive(boost::mpi::communicator* communicator);
+#endif
+
 protected:
     void Initialize(IDiscreteParameters* parametrs_to_optimize);
     void Mutate();

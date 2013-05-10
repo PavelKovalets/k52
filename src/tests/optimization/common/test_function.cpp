@@ -2,6 +2,10 @@
 
 #include <math.h>
 
+#ifdef BUILD_WITH_MPI
+#include <k52/parallel/mpi/identifyable_objects_manager.h>
+#endif
+
 #include <k52/optimization/params/continuous_parameters_array.h>
 
 #include "test_objective_functions.h"
@@ -96,6 +100,12 @@ void TestFunction::Initialize()
     IContinuousParameters::shared_ptr square_start_point( new ContinuousParametersArray(square_start_point_values));
 
     Register(square_objective_function, square_solution, square_start_point, "square_root(x)", false);
+
+//TODO fix
+#ifdef BUILD_WITH_MPI
+    k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject( *square_objective_function );
+    k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject( *square_start_point );
+#endif
 }
 
 }/* namespace optimization_tests */

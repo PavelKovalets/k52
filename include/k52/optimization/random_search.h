@@ -16,11 +16,24 @@ class IParametersProcessor;
 class RandomSearch : public IOptimizer
 {
 public:
-    RandomSearch(size_t number_of_random_points, double lower_bound, double upper_bound);
+    RandomSearch(size_t number_of_random_points,
+                 double lower_bound,
+                 double upper_bound,
+                 const IOptimizer* optimizer = NULL);
 
     virtual void Optimize(const IObjectiveFunction &function_to_optimize,
                           IParameters* parametrs_to_optimize,
                           bool maximize);
+
+    ///Creates deep clone of an object with resource allocation. See ICloneable
+    ///@return deep clone of an object
+    virtual RandomSearch* Clone() const;
+
+#ifdef BUILD_WITH_MPI
+    virtual void Send(boost::mpi::communicator* communicator, int target) const;
+
+    virtual void Receive(boost::mpi::communicator* communicator);
+#endif
 
 protected:
     std::vector<double> GenerateRandomPoint(size_t vector_size);
