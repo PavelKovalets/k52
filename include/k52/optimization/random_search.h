@@ -22,6 +22,10 @@ public:
                           IParameters* parametrs_to_optimize,
                           bool maximize);
 
+    ///Creates deep clone of an object with resource allocation. See ICloneable
+    ///@return deep clone of an object
+    virtual RandomSearch* Clone() const;
+
 protected:
     std::vector<double> GenerateRandomPoint(size_t vector_size);
 

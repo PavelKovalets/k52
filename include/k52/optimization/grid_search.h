@@ -22,6 +22,10 @@ public:
         const IObjectiveFunction& function_to_optimize,
         IParameters* parametrs_to_optimize);
 
+    ///Creates deep clone of an object with resource allocation. See ICloneable
+    ///@return deep clone of an object
+    virtual GridSearch* Clone() const;
+
 protected:
     static size_t IntegerPow(size_t value, size_t pow);
 

@@ -48,6 +48,10 @@ public:
                   bool maximize);
     void OnNextGenerationReadyConnect(NextGenerationReadyCallback callback);
 
+    ///Creates deep clone of an object with resource allocation. See ICloneable
+    ///@return deep clone of an object
+    virtual GeneticAlgorithm* Clone() const;
+
 protected:
     void Initialize(IDiscreteParameters* parametrs_to_optimize);
     void Mutate();

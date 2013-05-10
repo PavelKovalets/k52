@@ -46,6 +46,11 @@ void RandomSearch::Optimize(const IObjectiveFunction &function_to_optimize,
     continuous_parameters->SetValues(best_parameters->GetValues());
 }
 
+RandomSearch* RandomSearch::Clone() const
+{
+    throw std::logic_error("Cloning is not implemented for RandomSearch");
+}
+
 std::vector<double> RandomSearch::GenerateRandomPoint(size_t vector_size)
 {
     std::vector<double> random_point(vector_size);

@@ -132,6 +132,11 @@ void GeneticAlgorithm::OnNextGenerationReadyConnect(NextGenerationReadyCallback 
     callback_function_ = callback_function;
 }
 
+GeneticAlgorithm* GeneticAlgorithm::Clone() const
+{
+    throw std::logic_error("Cloning is not implemented for GA");
+}
+
 void GeneticAlgorithm::Initialize(IDiscreteParameters* parametrs_to_optimize)
 {
     population_ = vector<Individual::shared_ptr>(population_size_);

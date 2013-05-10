@@ -142,6 +142,11 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
     continuous_parameters->SetValues( polygon[best_index] );
 }
 
+BoundedNelderMead* BoundedNelderMead::Clone() const
+{
+    return new BoundedNelderMead(l_, precision_, lower_bound_, upper_bound_);
+}
+
 void BoundedNelderMead::CorrectByProjectingToBounds(vector<double>* point)
 {
     for(size_t i = 0; i < point->size(); i++)

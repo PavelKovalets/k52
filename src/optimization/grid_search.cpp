@@ -65,6 +65,11 @@ void GridSearch::Optimize(const IObjectiveFunction& function_to_optimize, IParam
     continuous_parameters->SetValues( parameters_storages[best_index]->GetValues() );
 }
 
+GridSearch* GridSearch::Clone() const
+{
+    throw std::logic_error("Cloning is not implemented for GridSearch");
+}
+
 size_t GridSearch::IntegerPow(size_t value, size_t pow)
 {
     size_t result = 1;
