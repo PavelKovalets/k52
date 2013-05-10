@@ -14,13 +14,13 @@ namespace k52
 {
 namespace optimization
 {
-OptimizationParametersProcessor::OptimizationParametersProcessor()
+OptimizationParametersProcessor::OptimizationParametersProcessor(const IOptimizer* optimizer)
 {
 #ifdef BUILD_WITH_MPI
     OptimizationTask task;
     k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject(task);
 #endif
-    
+    optimizer_ = optimizer;
     worker_pool_ = parallel::WorkerPoolFactory::CreateBestWorkerPool();
 }
 
@@ -34,7 +34,8 @@ IContinuousParameters::shared_ptr OptimizationParametersProcessor::ProcessParame
     for(size_t i=0; i<parameters.size(); i++)
     {
         tasks[i] = OptimizationTask::shared_ptr(
-            new OptimizationTask(parameters[i].get(),
+            new OptimizationTask(optimizer_,
+                                 parameters[i].get(),
                                  &function_to_optimize,
                                  maximize)
         );

@@ -16,7 +16,10 @@ class IParametersProcessor;
 class RandomSearch : public IOptimizer
 {
 public:
-    RandomSearch(size_t number_of_random_points, double lower_bound, double upper_bound);
+    RandomSearch(size_t number_of_random_points,
+                 double lower_bound,
+                 double upper_bound,
+                 const IOptimizer* optimizer = NULL);
 
     virtual void Optimize(const IObjectiveFunction &function_to_optimize,
                           IParameters* parametrs_to_optimize,

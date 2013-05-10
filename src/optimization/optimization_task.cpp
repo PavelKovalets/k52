@@ -18,12 +18,22 @@ namespace k52
 namespace optimization
 {
 
-OptimizationTask::OptimizationTask(const IParameters* initial_parameters,
+OptimizationTask::OptimizationTask()
+{
+    //TODO remove temporary fix
+    BoundedNelderMead bnm(1,1,1,1);
+    k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject(bnm);
+}
+
+OptimizationTask::OptimizationTask(const IOptimizer* optimizer,
+                     const IParameters* initial_parameters,
                      const IObjectiveFunction* function_to_optimize,
-                     bool maximize) : maximize_(maximize)
+                     bool maximize)
+    : maximize_(maximize)
 {
     initial_parameters_ = IParameters::shared_ptr( initial_parameters->Clone() );
     function_to_optimize_ = IObjectiveFunction::shared_ptr( function_to_optimize->Clone() );
+    optimizer_ = IOptimizer::shared_ptr( optimizer->Clone() );
 }
 
 #ifdef BUILD_WITH_MPI
@@ -35,9 +45,12 @@ k52::parallel::mpi::IMpiTaskResult::shared_ptr OptimizationTask::CreateEmptyResu
 
 OptimizationTask* OptimizationTask::Clone() const
 {
-    if(initial_parameters_ != NULL || function_to_optimize_!= NULL)
+    if(initial_parameters_ != NULL &&
+       function_to_optimize_!= NULL &&
+       optimizer_ != NULL )
     {
-        return new OptimizationTask(initial_parameters_.get(),
+        return new OptimizationTask(optimizer_.get(),
+                                    initial_parameters_.get(),
                                     function_to_optimize_.get(),
                                     maximize_);
     }
@@ -56,6 +69,10 @@ void OptimizationTask::Send(boost::mpi::communicator* communicator, int target) 
                        k52::parallel::mpi::constants::kCommonTag,
                        k52::parallel::mpi::IdentifyableObjectsManager::GetId(*initial_parameters_));
     initial_parameters_->Send(communicator, target);
+    communicator->send(target,
+                       k52::parallel::mpi::constants::kCommonTag,
+                       k52::parallel::mpi::IdentifyableObjectsManager::GetId(*optimizer_));
+    optimizer_->Send(communicator, target);
     communicator->send(target, k52::parallel::mpi::constants::kCommonTag, maximize_);
 }
 
@@ -84,6 +101,18 @@ void OptimizationTask::Receive(boost::mpi::communicator* communicator)
     initial_parameters_ = IParameters::shared_ptr( parameters->Clone() );
     initial_parameters_->Receive(communicator);
 
+    std::string optimizer_id;
+    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+                       k52::parallel::mpi::constants::kCommonTag,
+                       optimizer_id);
+    const IOptimizer* optimizer =
+        dynamic_cast<const IOptimizer*>(
+            k52::parallel::mpi::IdentifyableObjectsManager::Instance()
+                .GetObject(optimizer_id)
+        );
+    optimizer_ = IOptimizer::shared_ptr( optimizer->Clone() );
+    optimizer_->Receive(communicator);
+
     communicator->recv(k52::parallel::mpi::constants::kServerRank,
                        k52::parallel::mpi::constants::kCommonTag,
                        maximize_);
@@ -97,10 +126,7 @@ k52::parallel::ITaskResult* OptimizationTask::Perform() const
 
 #endif
 {
-    //TODO how to send settings???
-    double l = 10, precision = 1e-9, lower_bound = -1000, upper_bound = 1000;
-    BoundedNelderMead optimizer(l, precision, lower_bound, upper_bound);
-    optimizer.Optimize(*function_to_optimize_, initial_parameters_.get(), maximize_);
+    optimizer_->Optimize(*function_to_optimize_, initial_parameters_.get(), maximize_);
 
     OptimizationTaskResult* result = new OptimizationTaskResult(initial_parameters_.get());
     return result;

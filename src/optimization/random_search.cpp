@@ -15,12 +15,24 @@ namespace optimization
 
 RandomSearch::RandomSearch(size_t number_of_random_points,
                            double lower_bound,
-                           double upper_bound):
+                           double upper_bound,
+                           const IOptimizer* optimizer):
     number_of_random_points_(number_of_random_points),
     lower_bound_(lower_bound),
     upper_bound_(upper_bound)
 {
-    parameters_processor_ = OptimizationParametersProcessor::shared_ptr(new OptimizationParametersProcessor());
+    if(optimizer == NULL)
+    {
+        parameters_processor_ = SimpleParametersProcessor::shared_ptr(
+            new SimpleParametersProcessor()
+        );
+    }
+    else
+    {
+        parameters_processor_ = OptimizationParametersProcessor::shared_ptr(
+            new OptimizationParametersProcessor(optimizer)
+        );
+    }
 }
 
 void RandomSearch::Optimize(const IObjectiveFunction &function_to_optimize,

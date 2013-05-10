@@ -4,6 +4,7 @@
 #include <k52/common/disallow_copy_and_assign.h>
 #include <k52/optimization/params/i_parameters.h>
 #include <k52/optimization/i_objective_function.h>
+#include <k52/optimization/i_optimizer.h>
 
 #ifdef BUILD_WITH_MPI
 
@@ -30,9 +31,10 @@ public:
     typedef boost::shared_ptr<OptimizationTask> shared_ptr;
 
     //TODO remove as needed only for registering
-    OptimizationTask() {}
+    OptimizationTask();
 
-    OptimizationTask(const IParameters* initial_parameters,
+    OptimizationTask(const IOptimizer* optimizer,
+                     const IParameters* initial_parameters,
                      const IObjectiveFunction* function_to_optimize,
                      bool maximize);
 
@@ -57,6 +59,7 @@ public:
 private:
     IParameters::shared_ptr initial_parameters_;
     IObjectiveFunction::shared_ptr function_to_optimize_;
+    IOptimizer::shared_ptr optimizer_;
     bool maximize_;
 };
 
