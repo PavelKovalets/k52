@@ -5,6 +5,7 @@
 #include <k52/optimization/params/i_continuous_parameters.h>
 
 #include "simple_parameters_processor.h"
+#include "optimization_parameters_processor.h"
 #include "random.h"
 
 namespace k52
@@ -19,7 +20,7 @@ RandomSearch::RandomSearch(size_t number_of_random_points,
     lower_bound_(lower_bound),
     upper_bound_(upper_bound)
 {
-    parameters_processor_ = SimpleParametersProcessor::shared_ptr(new SimpleParametersProcessor());
+    parameters_processor_ = OptimizationParametersProcessor::shared_ptr(new OptimizationParametersProcessor());
 }
 
 void RandomSearch::Optimize(const IObjectiveFunction &function_to_optimize,

@@ -36,8 +36,15 @@ k52::parallel::mpi::IMpiTaskResult::shared_ptr OptimizationTask::CreateEmptyResu
 
 OptimizationTask* OptimizationTask::Clone() const
 {
-    return new OptimizationTask(initial_parameters_.get(),
-                                function_to_optimize_.get() );
+    if(initial_parameters_ != NULL || function_to_optimize_!= NULL)
+    {
+        return new OptimizationTask(initial_parameters_.get(),
+                                    function_to_optimize_.get() );
+    }
+    else
+    {
+        return new OptimizationTask();
+    }
 }
 
 void OptimizationTask::Send(boost::mpi::communicator* communicator, int target) const

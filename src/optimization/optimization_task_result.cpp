@@ -52,10 +52,20 @@ boost::mpi::request OptimizationTaskResult::ReceiveAsync(boost::mpi::communicato
 void OptimizationTaskResult::Send(boost::mpi::communicator* communicator)
 {
     //TODO fix copypaste from CountObjectiveFunctionTask::Send
+    //communicator->send(k52::parallel::mpi::constants::kServerRank,
+    //                    k52::parallel::mpi::constants::kCommonTag,
+    //                    k52::parallel::mpi::IdentifyableObjectsManager::GetId(*optimal_parameters_));
+    //optimal_parameters_->Send(communicator, k52::parallel::mpi::constants::kServerRank);
+
+    ContinuousParametersArray::shared_ptr parameters = boost::dynamic_pointer_cast<ContinuousParametersArray>(optimal_parameters_);
+    if(parameters == NULL)
+    {
+        throw std::runtime_error("Currently only ContinuousParametersArray is supported in OptimizationTaskResult.");
+    }
+
     communicator->send(k52::parallel::mpi::constants::kServerRank,
                         k52::parallel::mpi::constants::kCommonTag,
-                        k52::parallel::mpi::IdentifyableObjectsManager::GetId(*optimal_parameters_));
-    optimal_parameters_->Send(communicator, k52::parallel::mpi::constants::kServerRank);
+                        parameters->values_);
 }
 
 #endif

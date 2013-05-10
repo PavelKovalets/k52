@@ -29,6 +29,9 @@ class OptimizationTask :
 public:
     typedef boost::shared_ptr<OptimizationTask> shared_ptr;
 
+    //TODO remove as needed only for registering
+    OptimizationTask() {}
+
     OptimizationTask(const IParameters* initial_parameters,
                      const IObjectiveFunction* function_to_optimize);
 

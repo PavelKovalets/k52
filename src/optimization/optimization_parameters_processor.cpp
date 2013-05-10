@@ -3,6 +3,10 @@
 #include <stdexcept>
 #include <k52/parallel/worker_pool_factory.h>
 
+#ifdef BUILD_WITH_MPI
+#include <k52/parallel/mpi/identifyable_objects_manager.h>
+#endif
+
 #include "optimization_task.h"
 #include "optimization_task_result.h"
 
@@ -12,6 +16,11 @@ namespace optimization
 {
 OptimizationParametersProcessor::OptimizationParametersProcessor()
 {
+#ifdef BUILD_WITH_MPI
+    OptimizationTask task;
+    k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject(task);
+#endif
+    
     worker_pool_ = parallel::WorkerPoolFactory::CreateBestWorkerPool();
 }
 
