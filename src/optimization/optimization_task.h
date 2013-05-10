@@ -33,7 +33,8 @@ public:
     OptimizationTask() {}
 
     OptimizationTask(const IParameters* initial_parameters,
-                     const IObjectiveFunction* function_to_optimize);
+                     const IObjectiveFunction* function_to_optimize,
+                     bool maximize);
 
 #ifdef BUILD_WITH_MPI
 

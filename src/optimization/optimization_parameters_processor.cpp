@@ -29,18 +29,14 @@ IContinuousParameters::shared_ptr OptimizationParametersProcessor::ProcessParame
     const std::vector< IContinuousParameters::shared_ptr >& parameters,
     bool maximize)
 {
-    if(maximize)
-    {
-        //TODO remove
-        throw std::runtime_error("Currently only minimize supported cause BNM used.");
-    }
-
     std::vector< OptimizationTask::shared_ptr > tasks (parameters.size());
     std::vector< const parallel::ITask* > task_pointers (parameters.size());
     for(size_t i=0; i<parameters.size(); i++)
     {
         tasks[i] = OptimizationTask::shared_ptr(
-            new OptimizationTask(parameters[i].get(), &function_to_optimize)
+            new OptimizationTask(parameters[i].get(),
+                                 &function_to_optimize,
+                                 maximize)
         );
         task_pointers[i] = tasks[i].get();
     }

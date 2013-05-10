@@ -19,12 +19,11 @@ namespace optimization
 {
 
 OptimizationTask::OptimizationTask(const IParameters* initial_parameters,
-                     const IObjectiveFunction* function_to_optimize)
+                     const IObjectiveFunction* function_to_optimize,
+                     bool maximize) : maximize_(maximize)
 {
     initial_parameters_ = IParameters::shared_ptr( initial_parameters->Clone() );
     function_to_optimize_ = IObjectiveFunction::shared_ptr( function_to_optimize->Clone() );
-    //TODO generalize
-    maximize_ = false;
 }
 
 #ifdef BUILD_WITH_MPI
@@ -39,7 +38,8 @@ OptimizationTask* OptimizationTask::Clone() const
     if(initial_parameters_ != NULL || function_to_optimize_!= NULL)
     {
         return new OptimizationTask(initial_parameters_.get(),
-                                    function_to_optimize_.get() );
+                                    function_to_optimize_.get(),
+                                    maximize_);
     }
     else
     {
