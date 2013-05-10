@@ -349,7 +349,7 @@ void GeneticAlgorithm::InputPopulation(std::ifstream & in)
     for(int i = 0;i < population_size;i++)
     {
         in >> *(population_[i]);
-        if( (population_[i])->IsValid() )
+        if( !(population_[i])->IsValid() )
         {
             throw std::logic_error("The Individual read from file does not satisfy constraints. "
                                    "The file may be corrupted or used with wrong GA settings.");

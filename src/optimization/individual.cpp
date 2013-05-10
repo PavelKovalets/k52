@@ -289,6 +289,7 @@ std::istream& operator>> (std::istream& in, Individual& individual)
 
     individual.chromosome_ = new_chromosome;
     individual.set_fitness(fitness);
+    individual.SetParametersAccordingToChromosome();
 
     return in;
 }
