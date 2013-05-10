@@ -311,6 +311,10 @@ void GeneticAlgorithm::ReadPopulationFromFile()
     {
         InputPopulation(fin);
     }
+    else
+    {
+        throw std::runtime_error("Unable to open file " + population_file_name_);
+    }
     fin.close();
 }
 
@@ -345,7 +349,14 @@ void GeneticAlgorithm::InputPopulation(std::ifstream & in)
     for(int i = 0;i < population_size;i++)
     {
         in >> *(population_[i]);
+        if( !(population_[i])->IsValid() )
+        {
+            throw std::logic_error("The Individual read from file does not satisfy constraints. "
+                                   "The file may be corrupted or used with wrong GA settings.");
+        }
     }
+
+    GatherAllIndividualsStatistics();
 }
 
 bool GeneticAlgorithm::GreaterFitness(Individual::shared_ptr first, Individual::shared_ptr second)

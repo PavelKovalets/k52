@@ -191,6 +191,13 @@ void Individual::set_fitness(double fitness)
     has_fitness_ = true;
 }
 
+bool Individual::IsValid() const
+{
+    initialization_checker_.InitializationCheck();
+
+    return parameters_->CheckConstraints();
+}
+
 IndividualStatistics Individual::get_individual_statistics() const
 {
     IndividualStatistics statistics;
@@ -282,6 +289,7 @@ std::istream& operator>> (std::istream& in, Individual& individual)
 
     individual.chromosome_ = new_chromosome;
     individual.set_fitness(fitness);
+    individual.SetParametersAccordingToChromosome();
 
     return in;
 }

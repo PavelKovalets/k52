@@ -91,6 +91,9 @@ public:
     ///@param fitness - fitness counted for this Individual' current state
     void set_fitness(double fitness);
 
+    ///@return true if the chromosome representation satisfies parameters constraints, otherwise false
+    bool IsValid() const;
+
     ///Fitness must be already counted, otherwise exception is thrown
     ///@return current individual's statistics
     IndividualStatistics get_individual_statistics() const;
