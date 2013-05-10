@@ -137,6 +137,18 @@ GeneticAlgorithm* GeneticAlgorithm::Clone() const
     throw std::logic_error("Cloning is not implemented for GA");
 }
 
+#ifdef BUILD_WITH_MPI
+void GeneticAlgorithm::Send(boost::mpi::communicator* communicator, int target) const
+{
+    throw std::logic_error("Send is not implemented for GA");
+}
+
+void GeneticAlgorithm::Receive(boost::mpi::communicator* communicator)
+{
+    throw std::logic_error("Receive is not implemented for GA");
+}
+#endif
+
 void GeneticAlgorithm::Initialize(IDiscreteParameters* parametrs_to_optimize)
 {
     population_ = vector<Individual::shared_ptr>(population_size_);

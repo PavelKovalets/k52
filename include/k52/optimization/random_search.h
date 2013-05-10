@@ -26,6 +26,12 @@ public:
     ///@return deep clone of an object
     virtual RandomSearch* Clone() const;
 
+#ifdef BUILD_WITH_MPI
+    virtual void Send(boost::mpi::communicator* communicator, int target) const;
+
+    virtual void Receive(boost::mpi::communicator* communicator);
+#endif
+
 protected:
     std::vector<double> GenerateRandomPoint(size_t vector_size);
 

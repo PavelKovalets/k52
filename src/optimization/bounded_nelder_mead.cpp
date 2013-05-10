@@ -1,5 +1,12 @@
 #include <k52/optimization/bounded_nelder_mead.h>
 
+#ifdef BUILD_WITH_MPI
+
+#include <boost/mpi.hpp>
+#include <k52/parallel/mpi/constants.h>
+
+#endif
+
 #include <math.h>
 #include <stdexcept>
 #include <algorithm>
@@ -146,6 +153,42 @@ BoundedNelderMead* BoundedNelderMead::Clone() const
 {
     return new BoundedNelderMead(l_, precision_, lower_bound_, upper_bound_);
 }
+
+double BoundedNelderMead::get_lower_bound() const
+{
+    return lower_bound_;
+}
+
+double BoundedNelderMead::get_upper_bound() const
+{
+    return upper_bound_;
+}
+
+#ifdef BUILD_WITH_MPI
+void BoundedNelderMead::Send(boost::mpi::communicator* communicator, int target) const
+{
+    communicator->send(target, k52::parallel::mpi::constants::kCommonTag, l_);
+    communicator->send(target, k52::parallel::mpi::constants::kCommonTag, precision_);
+    communicator->send(target, k52::parallel::mpi::constants::kCommonTag, lower_bound_);
+    communicator->send(target, k52::parallel::mpi::constants::kCommonTag, upper_bound_);
+}
+
+void BoundedNelderMead::Receive(boost::mpi::communicator* communicator)
+{
+    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+                       k52::parallel::mpi::constants::kCommonTag,
+                       l_);
+    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+                       k52::parallel::mpi::constants::kCommonTag,
+                       precision_);
+    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+                       k52::parallel::mpi::constants::kCommonTag,
+                       lower_bound_);
+    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+                       k52::parallel::mpi::constants::kCommonTag,
+                       upper_bound_);
+}
+#endif
 
 void BoundedNelderMead::CorrectByProjectingToBounds(vector<double>* point)
 {

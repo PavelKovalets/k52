@@ -27,6 +27,16 @@ public:
     ///@return deep clone of an object
     virtual BoundedNelderMead* Clone() const;
 
+    double get_lower_bound() const;
+
+    double get_upper_bound() const;
+
+#ifdef BUILD_WITH_MPI
+    virtual void Send(boost::mpi::communicator* communicator, int target) const;
+
+    virtual void Receive(boost::mpi::communicator* communicator);
+#endif
+
 protected:
     void CorrectByProjectingToBounds(std::vector<double>* point);
 

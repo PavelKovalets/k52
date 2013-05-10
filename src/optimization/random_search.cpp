@@ -51,6 +51,18 @@ RandomSearch* RandomSearch::Clone() const
     throw std::logic_error("Cloning is not implemented for RandomSearch");
 }
 
+#ifdef BUILD_WITH_MPI
+void RandomSearch::Send(boost::mpi::communicator* communicator, int target) const
+{
+    throw std::logic_error("Send is not implemented for RandomSearch");
+}
+
+void RandomSearch::Receive(boost::mpi::communicator* communicator)
+{
+    throw std::logic_error("Receive is not implemented for RandomSearch");
+}
+#endif
+
 std::vector<double> RandomSearch::GenerateRandomPoint(size_t vector_size)
 {
     std::vector<double> random_point(vector_size);

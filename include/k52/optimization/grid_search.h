@@ -26,6 +26,12 @@ public:
     ///@return deep clone of an object
     virtual GridSearch* Clone() const;
 
+#ifdef BUILD_WITH_MPI
+    virtual void Send(boost::mpi::communicator* communicator, int target) const;
+
+    virtual void Receive(boost::mpi::communicator* communicator);
+#endif
+
 protected:
     static size_t IntegerPow(size_t value, size_t pow);
 

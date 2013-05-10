@@ -15,8 +15,15 @@ over the parameters within the bounds of certain constraints.
 Optimization is performed in terms of minimization or maximization
 */
 class IOptimizer : public k52::common::ICloneable
+
+#ifdef BUILD_WITH_MPI
+    ,public k52::parallel::mpi::ITransferable
+#endif
+
 {
 public:
+    typedef boost::shared_ptr<IOptimizer> shared_ptr;
+
     ///Virtual destructor for correct deallocation of resources in derived classes
     virtual ~IOptimizer() {}
 
