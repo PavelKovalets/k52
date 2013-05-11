@@ -2,11 +2,13 @@ cmake_minimum_required(VERSION 2.6)
 project(k52_optimization_test_common)
 
 set(K52_OPTIMIZATION_TEST_COMMON_HEADERS
+    optimizer_tester.h
     test_objective_functions.h
     test_function.h
     )
 
 set(K52_OPTIMIZATION_TEST_COMMON_SOURCE
+    optimizer_tester.cpp
     test_function.cpp
     )
 

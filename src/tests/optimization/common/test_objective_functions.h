@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <math.h>
+#include <stdexcept>
 
 #include <boost/shared_ptr.hpp>
 
@@ -15,30 +16,77 @@ namespace k52
 namespace optimization_tests
 {
 
-class SquareObjectiveFunction : public k52::optimization::IObjectiveFunction
+class ContinuousObjectiveFunction : public k52::optimization::IObjectiveFunction
 {
 public:
-
     virtual double operator () (const k52::optimization::IParameters* const parameters) const
     {
         const k52::optimization::IContinuousParameters* const continuous_parametrs =
                 dynamic_cast<const k52::optimization::IContinuousParameters* const>(parameters);
+        return (*this) (continuous_parametrs->GetValues());
+    }
 
+    virtual double operator () (const std::vector<double>& values) const = 0;
+};
+
+class SquareObjectiveFunction : public ContinuousObjectiveFunction
+{
+public:
+
+    virtual double operator () (const std::vector<double>& values) const
+    {
         double summ = 0;
-        std::vector<double> values = continuous_parametrs->GetValues();
+        double eps = 1e-15;
 
         for(size_t i=0; i<values.size(); i++)
         {
             double value = values[i];
-            summ += 1/fabs(value*value - 2);
+            double diff = fabs(value*value - 2);
+
+            summ += (diff < eps) ? (1/eps) : (1/diff);
         }
 
         return summ;
     }
 
-    virtual IObjectiveFunction* Clone() const
+    virtual SquareObjectiveFunction* Clone() const
     {
         return new SquareObjectiveFunction();
+    }
+};
+
+class TwoDimmensionalObjectiveFunction : public ContinuousObjectiveFunction
+{
+public:
+    virtual double operator () (const std::vector<double>& values) const
+    {
+        if(values.size() != 2)
+        {
+            throw std::invalid_argument(
+                "TwoDimmensionalObjectiveFunction supports only 2 dimmensions."
+            );
+        }
+        double x = values[0];
+        double y = values[1];
+
+        return (*this) (x, y);
+    }
+    virtual double operator () (const double& x, const double& y) const = 0;
+};
+
+class MultiminimumObjectiveFunction : public TwoDimmensionalObjectiveFunction
+{
+public:
+    virtual double operator () (const double& x, const double& y) const
+    {
+        double result = x * sin(4 * x) + 1.1 * y * sin(2 * y);
+
+        return result;
+    }
+
+    virtual MultiminimumObjectiveFunction* Clone() const
+    {
+        return new MultiminimumObjectiveFunction();
     }
 };
 
