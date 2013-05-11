@@ -99,12 +99,52 @@ void TestFunction::Initialize()
     square_start_point_values[1] = 7;
     IContinuousParameters::shared_ptr square_start_point( new ContinuousParametersArray(square_start_point_values));
 
-    Register(square_objective_function, square_solution, square_start_point, "square_root(x)", false);
+    Register(square_objective_function, square_solution, square_start_point, "1/|x^2-2|", true);
 
 //TODO fix
 #ifdef BUILD_WITH_MPI
     k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject( *square_objective_function );
     k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject( *square_start_point );
+#endif
+
+    //---------
+
+    IObjectiveFunction::shared_ptr simple_square_objective_function( new SimpleSquareObjectiveFunction() );
+    Register(simple_square_objective_function, square_solution, square_start_point, "(x^2-2)^2", false);
+
+//TODO fix
+#ifdef BUILD_WITH_MPI
+    k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject( *simple_square_objective_function );
+#endif
+
+    //---------
+    IObjectiveFunction::shared_ptr difraction_objective_function( new DifractionObjectiveFunction() );
+
+    std::vector<double> zero_solution_values(2);
+    square_solution_values[0] = 0;
+    square_solution_values[1] = 0;
+    IContinuousParameters::shared_ptr zero_solution( new ContinuousParametersArray(zero_solution_values));
+
+    std::vector<double> difraction_start_point_values(2);
+    square_start_point_values[0] = 100;
+    square_start_point_values[1] = 100;
+    IContinuousParameters::shared_ptr difraction_start_point( new ContinuousParametersArray(difraction_start_point_values));
+
+    Register(difraction_objective_function, zero_solution, difraction_start_point, "SUMM( sin(Xi) / Xi )", true);
+    
+//TODO fix
+#ifdef BUILD_WITH_MPI
+    k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject( *difraction_objective_function );
+#endif
+
+    //---------
+    IObjectiveFunction::shared_ptr multiminimum_objective_function( new MultiminimumObjectiveFunction() );
+
+    Register(multiminimum_objective_function, zero_solution, difraction_start_point, "x sin(4 x) + 1.1y sin(2 y)", false);
+
+//TODO fix
+#ifdef BUILD_WITH_MPI
+    k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject( *multiminimum_objective_function );
 #endif
 }
 

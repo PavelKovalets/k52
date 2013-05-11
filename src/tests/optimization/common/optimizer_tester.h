@@ -23,6 +23,8 @@ protected:
     void TestSingleFunction(const TestFunction& function,
                             k52::optimization::IOptimizer* optimizer);
 
+    void PrintParameters(const k52::optimization::IContinuousParameters* parameters) const;
+
 private:
     std::vector<TestFunction::shared_ptr> test_functions_;
 };

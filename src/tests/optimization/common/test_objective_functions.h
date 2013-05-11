@@ -11,6 +11,8 @@
 #include <k52/optimization/i_objective_function.h>
 #include <k52/optimization/params/i_continuous_parameters.h>
 
+#include "consts.h"
+
 namespace k52
 {
 namespace optimization_tests
@@ -36,14 +38,12 @@ public:
     virtual double operator () (const std::vector<double>& values) const
     {
         double summ = 0;
-        double eps = 1e-15;
 
         for(size_t i=0; i<values.size(); i++)
         {
             double value = values[i];
             double diff = fabs(value*value - 2);
-
-            summ += (diff < eps) ? (1/eps) : (1/diff);
+            summ += 1/diff;
         }
 
         return summ;
@@ -52,6 +52,65 @@ public:
     virtual SquareObjectiveFunction* Clone() const
     {
         return new SquareObjectiveFunction();
+    }
+};
+
+class SimpleSquareObjectiveFunction : public ContinuousObjectiveFunction
+{
+public:
+
+    virtual double operator () (const std::vector<double>& values) const
+    {
+        double summ = 0;
+
+        for(size_t i=0; i<values.size(); i++)
+        {
+            double value = values[i];
+            double diff = (value*value - 2);
+
+            summ += diff*diff;
+        }
+
+        return summ;
+    }
+
+    virtual SimpleSquareObjectiveFunction* Clone() const
+    {
+        return new SimpleSquareObjectiveFunction();
+    }
+};
+
+class DifractionObjectiveFunction : public ContinuousObjectiveFunction
+{
+public:
+
+    virtual double operator () (const std::vector<double>& values) const
+    {
+        double summ = 0;
+
+        for(size_t i=0; i<values.size(); i++)
+        {
+            double value = values[i];
+            double add = 0;
+
+            if(fabs(value) < consts::eps)
+            {
+                add = 1;
+            }
+            else
+            {
+                add = sin(value) / value;
+            }
+
+            summ += add;
+        }
+
+        return summ;
+    }
+
+    virtual SimpleSquareObjectiveFunction* Clone() const
+    {
+        return new SimpleSquareObjectiveFunction();
     }
 };
 
