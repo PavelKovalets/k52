@@ -2,9 +2,11 @@
 #define OPTIMIZATION_TASK_H
 
 #include <k52/common/disallow_copy_and_assign.h>
+#include <k52/parallel/i_task.h>
 #include <k52/optimization/params/i_parameters.h>
 #include <k52/optimization/i_objective_function.h>
 #include <k52/optimization/i_optimizer.h>
+
 
 #ifdef BUILD_WITH_MPI
 

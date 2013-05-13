@@ -20,9 +20,11 @@ namespace optimization
 
 OptimizationTask::OptimizationTask()
 {
+#ifdef BUILD_WITH_MPI
     //TODO remove temporary fix
     BoundedNelderMead bnm(1,1,1,1);
     k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject(bnm);
+#endif
 }
 
 OptimizationTask::OptimizationTask(const IOptimizer* optimizer,
