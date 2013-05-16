@@ -79,7 +79,7 @@ void Wavelet::createScale(ScaleType type)
     {
         case Log :
         {
-            double lg = log(max_lenght() / min_lenght());
+            double lg = log(static_cast<double>(max_lenght()) / min_lenght());
             for (int i = 0; i < count(); ++i)
             {
                 scale_.at(i) = exp(i / (double)count() * lg);
