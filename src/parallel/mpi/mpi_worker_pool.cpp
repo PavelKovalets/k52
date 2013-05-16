@@ -181,8 +181,8 @@ void MpiWorkerPool::RunWorkerLoop()
         boost::mpi::request task_id_request = communicator_->irecv(constants::kServerRank, constants::kCommonTag, task_id);
         while(!task_id_request.test())
         {
-            const int milliseconds_delay = 10;
-            DelaySupplier::Sleep(milliseconds_delay);
+            const int milliseconds_delay = 1;
+            DelaySupplier::SleepMillisec(milliseconds_delay);
         }
 
         if(task_id == constants::kEndOfWorkTaskId)

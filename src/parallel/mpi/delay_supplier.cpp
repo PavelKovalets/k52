@@ -24,7 +24,7 @@ DelaySupplier::DelaySupplier()
 
 void DelaySupplier::SleepWithCurrentDelay()
 {
-    DelaySupplier::Sleep(current_delay_);
+    DelaySupplier::SleepMillisec(current_delay_);
 }
 
 void DelaySupplier::IncreaseDelay()
@@ -42,14 +42,14 @@ void DelaySupplier::ResetDelay()
     current_delay_ = initial_delay_;
 }
 
-void DelaySupplier::Sleep(int milliseconds)
+void DelaySupplier::SleepMillisec(int milliseconds)
 {
 #ifdef __unix__
     usleep(milliseconds * 1000);   // usleep takes sleep time in us
 #elif _WIN32
     Sleep(milliseconds);
 #else
-    BOOST_STATIC_ASSERT_MSG(false, "Current system is not supported in k52::parallel::mpi::DelaySupplier::Sleep");
+    BOOST_STATIC_ASSERT_MSG(false, "Current system is not supported in k52::parallel::mpi::DelaySupplier::SleepMillisec");
 #endif
 }
 
