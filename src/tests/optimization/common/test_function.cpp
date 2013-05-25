@@ -121,13 +121,13 @@ void TestFunction::Initialize()
     IObjectiveFunction::shared_ptr difraction_objective_function( new DifractionObjectiveFunction() );
 
     std::vector<double> zero_solution_values(2);
-    square_solution_values[0] = 0;
-    square_solution_values[1] = 0;
+    zero_solution_values[0] = 0;
+    zero_solution_values[1] = 0;
     IContinuousParameters::shared_ptr zero_solution( new ContinuousParametersArray(zero_solution_values));
 
     std::vector<double> difraction_start_point_values(2);
-    square_start_point_values[0] = 100;
-    square_start_point_values[1] = 100;
+    difraction_start_point_values[0] = 100;
+    difraction_start_point_values[1] = 100;
     IContinuousParameters::shared_ptr difraction_start_point( new ContinuousParametersArray(difraction_start_point_values));
 
     Register(difraction_objective_function, zero_solution, difraction_start_point, "SUMM( sin(Xi) / Xi )", true);

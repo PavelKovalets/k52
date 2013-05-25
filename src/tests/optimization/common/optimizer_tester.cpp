@@ -37,7 +37,10 @@ void OptimizerTester::TestSingleFunction(const TestFunction& function,
     const IContinuousParameters* solution = function.get_solution();
     double solution_value = objective_function(solution);
 
-    IContinuousParameters::shared_ptr parameters (function.get_start_point()->Clone());
+    const IContinuousParameters* start_point = function.get_start_point();
+    cout<<"Starting at point"<<endl;
+    PrintParameters(start_point);
+    IContinuousParameters::shared_ptr parameters (start_point->Clone());
     optimizer->Optimize(objective_function, parameters.get(), function.maximize());
 
     const IContinuousParameters* found_solution = parameters.get();
