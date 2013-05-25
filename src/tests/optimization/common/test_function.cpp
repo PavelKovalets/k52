@@ -138,6 +138,15 @@ void TestFunction::Initialize()
 #endif
 
     //---------
+    IObjectiveFunction::shared_ptr square_summ_objective_function(new SquareSummObjectiveFunction());
+    Register(square_summ_objective_function, zero_solution, difraction_start_point, "SUMM( Xi^2 )", false);
+
+//TODO fix
+#ifdef BUILD_WITH_MPI
+    k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject( *square_summ_objective_function );
+#endif
+
+    //---------
     IObjectiveFunction::shared_ptr multiminimum_objective_function( new MultiminimumObjectiveFunction() );
 
     Register(multiminimum_objective_function, zero_solution, difraction_start_point, "x sin(4 x) + 1.1y sin(2 y)", false);

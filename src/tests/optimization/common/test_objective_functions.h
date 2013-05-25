@@ -80,6 +80,29 @@ public:
     }
 };
 
+class SquareSummObjectiveFunction : public ContinuousObjectiveFunction
+{
+public:
+
+    virtual double operator () (const std::vector<double>& values) const
+    {
+        double summ = 0;
+
+        for(size_t i=0; i<values.size(); i++)
+        {
+            double value = values[i];
+            summ += value*value;
+        }
+
+        return summ;
+    }
+
+    virtual SquareSummObjectiveFunction* Clone() const
+    {
+        return new SquareSummObjectiveFunction();
+    }
+};
+
 class DifractionObjectiveFunction : public ContinuousObjectiveFunction
 {
 public:
