@@ -2,14 +2,14 @@
 
 #include <string>
 
-//TODO remove explicit dependancy
-#include <k52/optimization/params/continuous_parameters_array.h>
-
 #ifdef BUILD_WITH_MPI
 
 #include <boost/mpi.hpp>
+#include <boost/bind.hpp>
 #include <k52/parallel/mpi/constants.h>
 #include <k52/parallel/mpi/identifyable_objects_manager.h>
+
+using ::k52::parallel::mpi::AsyncCallChain;
 
 #endif
 
@@ -30,44 +30,43 @@ IParameters::shared_ptr OptimizationTaskResult::get_optimal_parameters() const
 
 #ifdef BUILD_WITH_MPI
 
-boost::mpi::request OptimizationTaskResult::ReceiveAsync(boost::mpi::communicator* communicator, int source)
+AsyncCallChain::shared_ptr OptimizationTaskResult::ReceiveAsync(boost::mpi::communicator* communicator, int source)
 {
     //TODO fix partial copypaste from CountObjectiveFunctionTask::Receive
-    //TODO fix problem with Async receiving and ONLY THEN processing parameters_id
-    //std::string parameters_id;
-    //communicator->irecv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, parameters_id);
-    //const IParameters* parameters = dynamic_cast<const IParameters*>( k52::parallel::mpi::IdentifyableObjectsManager::Instance().GetObject(parameters_id) );
-    //received_parameters_ = IParameters::shared_ptr( parameters->Clone() );
-    //received_parameters_->Receive(communicator);
+    communicator_ = communicator;
+    source_ = source;
 
-    ContinuousParametersArray::shared_ptr parameters = boost::dynamic_pointer_cast<ContinuousParametersArray>(optimal_parameters_);
-    if(parameters == NULL)
-    {
-        throw std::runtime_error("Currently only ContinuousParametersArray is supported in OptimizationTaskResult.");
-    }
-
-    return communicator->irecv(source, k52::parallel::mpi::constants::kCommonTag, parameters->values_);
+    AsyncCallChain::shared_ptr call_chain = AsyncCallChain::CreateAsyncCallChain(
+        boost::bind(&OptimizationTaskResult::ReceiveParametersIdAsyncCall, this)
+    );
+    call_chain->Add(boost::bind(&OptimizationTaskResult::ReceiveParametersAsyncCall, this));
+    return call_chain;
 }
 
 void OptimizationTaskResult::Send(boost::mpi::communicator* communicator)
 {
     //TODO fix copypaste from CountObjectiveFunctionTask::Send
-    //communicator->send(k52::parallel::mpi::constants::kServerRank,
-    //                    k52::parallel::mpi::constants::kCommonTag,
-    //                    k52::parallel::mpi::IdentifyableObjectsManager::GetId(*optimal_parameters_));
-    //optimal_parameters_->Send(communicator, k52::parallel::mpi::constants::kServerRank);
-
-    ContinuousParametersArray::shared_ptr parameters = boost::dynamic_pointer_cast<ContinuousParametersArray>(optimal_parameters_);
-    if(parameters == NULL)
-    {
-        throw std::runtime_error("Currently only ContinuousParametersArray is supported in OptimizationTaskResult.");
-    }
-
     communicator->send(k52::parallel::mpi::constants::kServerRank,
-                        k52::parallel::mpi::constants::kCommonTag,
-                        parameters->values_);
+                       k52::parallel::mpi::constants::kCommonTag,
+                       k52::parallel::mpi::IdentifyableObjectsManager::GetId(*optimal_parameters_));
+    optimal_parameters_->Send(communicator, k52::parallel::mpi::constants::kServerRank);
 }
 
+boost::mpi::request OptimizationTaskResult::ReceiveParametersIdAsyncCall()
+{
+    return communicator_->irecv(source_, k52::parallel::mpi::constants::kCommonTag, parameters_id_);
+}
+
+boost::optional<boost::mpi::request> OptimizationTaskResult::ReceiveParametersAsyncCall()
+{
+    const IParameters* parameters = dynamic_cast<const IParameters*>( k52::parallel::mpi::IdentifyableObjectsManager::Instance().GetObject(parameters_id_) );
+    optimal_parameters_ = IParameters::shared_ptr( parameters->Clone() );
+
+    //TODO implement ReceiveAsync for even more effectivness
+    optimal_parameters_->Receive(communicator_, source_);
+
+    return boost::optional<boost::mpi::request>();
+}
 #endif
 
 }/* namespace optimization */

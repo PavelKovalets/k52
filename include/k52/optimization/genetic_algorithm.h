@@ -55,7 +55,7 @@ public:
 #ifdef BUILD_WITH_MPI
     virtual void Send(boost::mpi::communicator* communicator, int target) const;
 
-    virtual void Receive(boost::mpi::communicator* communicator);
+    virtual void Receive(boost::mpi::communicator* communicator, int source);
 #endif
 
 protected:

@@ -20,11 +20,11 @@ void DiscreteParameters::Send(boost::mpi::communicator* communicator, int target
     communicator->send(target, k52::parallel::mpi::constants::kCommonTag, intermediate_chromosome);
 }
 
-void DiscreteParameters::Receive(boost::mpi::communicator* communicator)
+void DiscreteParameters::Receive(boost::mpi::communicator* communicator, int source)
 {
     //TODO to optimize performance do not create intermediate chromosome
     std::vector<bool> intermediate_chromosome;
-    communicator->recv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, intermediate_chromosome);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, intermediate_chromosome);
     this->SetFromChromosome(intermediate_chromosome.begin(), intermediate_chromosome.end());
 }
 

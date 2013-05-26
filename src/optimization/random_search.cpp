@@ -70,7 +70,7 @@ void RandomSearch::Send(boost::mpi::communicator* communicator, int target) cons
     throw std::logic_error("Send is not implemented for RandomSearch");
 }
 
-void RandomSearch::Receive(boost::mpi::communicator* communicator)
+void RandomSearch::Receive(boost::mpi::communicator* communicator, int source)
 {
     throw std::logic_error("Receive is not implemented for RandomSearch");
 }

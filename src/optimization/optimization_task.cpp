@@ -78,10 +78,10 @@ void OptimizationTask::Send(boost::mpi::communicator* communicator, int target) 
     communicator->send(target, k52::parallel::mpi::constants::kCommonTag, maximize_);
 }
 
-void OptimizationTask::Receive(boost::mpi::communicator* communicator)
+void OptimizationTask::Receive(boost::mpi::communicator* communicator, int source)
 {
     std::string objective_function_id;
-    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+    communicator->recv(source,
                        k52::parallel::mpi::constants::kCommonTag,
                        objective_function_id);
     const IObjectiveFunction* function_to_optimize =
@@ -92,7 +92,7 @@ void OptimizationTask::Receive(boost::mpi::communicator* communicator)
     function_to_optimize_ = IObjectiveFunction::shared_ptr( function_to_optimize->Clone() );
 
     std::string parameters_id;
-    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+    communicator->recv(source,
                        k52::parallel::mpi::constants::kCommonTag,
                        parameters_id);
     const IParameters* parameters =
@@ -101,10 +101,10 @@ void OptimizationTask::Receive(boost::mpi::communicator* communicator)
                 .GetObject(parameters_id)
         );
     initial_parameters_ = IParameters::shared_ptr( parameters->Clone() );
-    initial_parameters_->Receive(communicator);
+    initial_parameters_->Receive(communicator, source);
 
     std::string optimizer_id;
-    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+    communicator->recv(source,
                        k52::parallel::mpi::constants::kCommonTag,
                        optimizer_id);
     const IOptimizer* optimizer =
@@ -113,9 +113,9 @@ void OptimizationTask::Receive(boost::mpi::communicator* communicator)
                 .GetObject(optimizer_id)
         );
     optimizer_ = IOptimizer::shared_ptr( optimizer->Clone() );
-    optimizer_->Receive(communicator);
+    optimizer_->Receive(communicator, source);
 
-    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+    communicator->recv(source,
                        k52::parallel::mpi::constants::kCommonTag,
                        maximize_);
 }

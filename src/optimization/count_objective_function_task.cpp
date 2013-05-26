@@ -59,18 +59,18 @@ void CountObjectiveFunctionTask::Send(boost::mpi::communicator* communicator, in
     get_parameters()->Send(communicator, target);
 }
 
-void CountObjectiveFunctionTask::Receive(boost::mpi::communicator* communicator)
+void CountObjectiveFunctionTask::Receive(boost::mpi::communicator* communicator, int source)
 {
     std::string objective_function_id;
-    communicator->recv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, objective_function_id);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, objective_function_id);
     const IObjectiveFunction* function_to_optimize = dynamic_cast<const IObjectiveFunction*>( k52::parallel::mpi::IdentifyableObjectsManager::Instance().GetObject(objective_function_id) );
     received_function_ = IObjectiveFunction::shared_ptr( function_to_optimize->Clone() );
 
     std::string parameters_id;
-    communicator->recv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, parameters_id);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, parameters_id);
     const IParameters* parameters = dynamic_cast<const IParameters*>( k52::parallel::mpi::IdentifyableObjectsManager::Instance().GetObject(parameters_id) );
     received_parameters_ = IParameters::shared_ptr( parameters->Clone() );
-    received_parameters_->Receive(communicator);
+    received_parameters_->Receive(communicator, source);
 }
 
 k52::parallel::mpi::IMpiTaskResult* CountObjectiveFunctionTask::Perform() const

@@ -31,13 +31,25 @@ public:
 
 #ifdef BUILD_WITH_MPI
 
-    virtual boost::mpi::request ReceiveAsync(boost::mpi::communicator* communicator, int source);
+    virtual k52::parallel::mpi::AsyncCallChain::shared_ptr ReceiveAsync(boost::mpi::communicator* communicator, int source);
 
     virtual void Send(boost::mpi::communicator* communicator);
 
 #endif
 
 private:
+
+#ifdef BUILD_WITH_MPI
+
+    boost::mpi::request ReceiveParametersIdAsyncCall();
+    boost::optional<boost::mpi::request> ReceiveParametersAsyncCall();
+
+    boost::mpi::communicator* communicator_;
+    int source_;
+    std::string parameters_id_;
+
+#endif
+
     IParameters::shared_ptr optimal_parameters_;
 };
 

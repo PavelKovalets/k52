@@ -32,13 +32,22 @@ public:
 
 #ifdef BUILD_WITH_MPI
 
-    virtual boost::mpi::request ReceiveAsync(boost::mpi::communicator* communicator, int source);
+    virtual k52::parallel::mpi::AsyncCallChain::shared_ptr ReceiveAsync(boost::mpi::communicator* communicator, int source);
 
     virtual void Send(boost::mpi::communicator* communicator);
 
 #endif
 
 private:
+
+#ifdef BUILD_WITH_MPI
+
+    boost::mpi::request ReceiveAsyncCall();
+    boost::mpi::communicator* communicator_;
+    int source_;
+
+#endif
+
     double objective_function_value_;
 };
 

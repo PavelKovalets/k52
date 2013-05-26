@@ -17,7 +17,7 @@ public:
 
     virtual void Send(boost::mpi::communicator* communicator, int target) const = 0;
 
-    virtual void Receive(boost::mpi::communicator* communicator) = 0;
+    virtual void Receive(boost::mpi::communicator* communicator, int source) = 0;
 };
 
 } /* namespace mpi */

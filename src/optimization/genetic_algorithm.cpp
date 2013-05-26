@@ -143,7 +143,7 @@ void GeneticAlgorithm::Send(boost::mpi::communicator* communicator, int target) 
     throw std::logic_error("Send is not implemented for GA");
 }
 
-void GeneticAlgorithm::Receive(boost::mpi::communicator* communicator)
+void GeneticAlgorithm::Receive(boost::mpi::communicator* communicator, int source)
 {
     throw std::logic_error("Receive is not implemented for GA");
 }

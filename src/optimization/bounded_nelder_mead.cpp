@@ -173,18 +173,18 @@ void BoundedNelderMead::Send(boost::mpi::communicator* communicator, int target)
     communicator->send(target, k52::parallel::mpi::constants::kCommonTag, upper_bound_);
 }
 
-void BoundedNelderMead::Receive(boost::mpi::communicator* communicator)
+void BoundedNelderMead::Receive(boost::mpi::communicator* communicator, int source)
 {
-    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+    communicator->recv(source,
                        k52::parallel::mpi::constants::kCommonTag,
                        l_);
-    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+    communicator->recv(source,
                        k52::parallel::mpi::constants::kCommonTag,
                        precision_);
-    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+    communicator->recv(source,
                        k52::parallel::mpi::constants::kCommonTag,
                        lower_bound_);
-    communicator->recv(k52::parallel::mpi::constants::kServerRank,
+    communicator->recv(source,
                        k52::parallel::mpi::constants::kCommonTag,
                        upper_bound_);
 }

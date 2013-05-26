@@ -10,6 +10,7 @@ set(PARALLEL_HEADERS
     ${PARALLEL_COMMON_INCLUDE}/i_worker_pool.h
     ${PARALLEL_COMMON_INCLUDE}/worker_pool_factory.h
     ${PARALLEL_COMMON_INCLUDE}/worker_statistics.h
+    ${PARALLEL_COMMON_INCLUDE}/mpi/async_call_chain.h
     ${PARALLEL_COMMON_INCLUDE}/mpi/boost_mpi_declaration.h
     ${PARALLEL_COMMON_INCLUDE}/mpi/constants.h
     ${PARALLEL_COMMON_INCLUDE}/mpi/i_mpi_task_result.h
@@ -32,6 +33,7 @@ set(PARALLEL_SOURCE
     sequential_worker_pool.cpp
     worker_pool_factory.cpp
     worker_statistics.cpp
+    mpi/async_call_chain.cpp
     mpi/identifyable_objects_manager.cpp
     mpi/mpi_worker_pool.cpp
     mpi/delay_supplier.cpp

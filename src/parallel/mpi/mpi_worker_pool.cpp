@@ -20,7 +20,7 @@ namespace mpi
 struct ResultExpectation
 {
     int worker_rank;
-    boost::mpi::request request;
+    AsyncCallChain::shared_ptr asyncCallChain;
 };
 
 MpiWorkerPool::MpiWorkerPool()
@@ -109,7 +109,12 @@ ResultExpectation MpiWorkerPool::SendTask(const IMpiTask* task,
     (*result_to_set) = mpi_task_result;
 
     ResultExpectation expectaton;
-    expectaton.request = mpi_task_result->ReceiveAsync(communicator_, current_worker_rank);
+    expectaton.asyncCallChain = mpi_task_result->ReceiveAsync(communicator_, current_worker_rank);
+    if(!expectaton.asyncCallChain->WillBeNextCall())
+    {
+        throw std::runtime_error("AsyncCallChain MUST have at least one element.");
+    }
+    expectaton.asyncCallChain->MakeNextCall();
     expectaton.worker_rank = current_worker_rank;
 
     return expectaton;
@@ -119,21 +124,25 @@ ResultExpectation MpiWorkerPool::WaitAndPopNextExpectation(std::list<ResultExpec
 {
     DelaySupplier delay_supplier;
     while(true)
-    {        
+    {
         for(std::list<ResultExpectation>::iterator it = result_expectations.begin();
                         it!=result_expectations.end();
                         it++)
         {
-            bool received = (*it).request.test();
-
-            if(received)
+            if( it->asyncCallChain->IsCurrentCallFinished() )
             {
-                ResultExpectation received_expectation = *it;
-                result_expectations.erase(it);
+                if(it->asyncCallChain->WillBeNextCall())
+                {
+                    it->asyncCallChain->MakeNextCall();
+                }
+                else
+                {
+                    ResultExpectation received_expectation = *it;
+                    result_expectations.erase(it);
+                    statistics_aggregator_.RegisterCount(received_expectation.worker_rank);
+                    return received_expectation;
+                }
 
-                statistics_aggregator_.RegisterCount(received_expectation.worker_rank);
-
-                return received_expectation;
             }
         }
         delay_supplier.SleepWithCurrentDelay();
@@ -194,7 +203,7 @@ void MpiWorkerPool::RunWorkerLoop()
         counted++;
 
         IMpiTask::shared_ptr next_task = CreateTask(task_id);
-        next_task->Receive(communicator_);
+        next_task->Receive(communicator_, constants::kServerRank);
         IMpiTaskResult::shared_ptr result = IMpiTaskResult::shared_ptr( next_task->Perform() );
         result->Send(communicator_);
     }

@@ -63,11 +63,9 @@ void ContinuousParametersArray::Send(boost::mpi::communicator* communicator, int
     communicator->send(target, k52::parallel::mpi::constants::kCommonTag, values_);
 }
 
-void ContinuousParametersArray::Receive(boost::mpi::communicator* communicator)
+void ContinuousParametersArray::Receive(boost::mpi::communicator* communicator, int source)
 {
-    std::vector<double> values;
-    communicator->recv(k52::parallel::mpi::constants::kServerRank, k52::parallel::mpi::constants::kCommonTag, values);
-    values_ = values;
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, values_);
 }
 
 #endif

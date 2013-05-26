@@ -48,7 +48,7 @@ public:
 
     virtual void Send(boost::mpi::communicator* communicator, int target) const;
 
-    virtual void Receive(boost::mpi::communicator* communicator);
+    virtual void Receive(boost::mpi::communicator* communicator, int source);
 
     virtual k52::parallel::mpi::IMpiTaskResult* Perform() const;
 
