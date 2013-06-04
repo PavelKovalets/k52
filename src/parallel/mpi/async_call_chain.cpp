@@ -1,3 +1,5 @@
+#ifdef BUILD_WITH_MPI
+
 #include <k52/parallel/mpi/async_call_chain.h>
 
 #include <boost/mpi.hpp>
@@ -76,3 +78,4 @@ void AsyncCallChain::MakeNextCall()
 } /* namespace parallel */
 } /* namespace k52 */
 
+#endif
