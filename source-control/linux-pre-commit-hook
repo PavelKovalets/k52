@@ -1,0 +1,48 @@
+#/bin/bash
+
+RETURN_CODE=0
+BUILD_DIR="autobuild.tmp"
+
+function on_exit()
+{
+  popd
+  [ -d ${BUILD_DIR} ] && echo "Cleaning up leftovers" && rm -rf ${BUILD_DIR}
+  exit ${RETURN_CODE}
+}
+
+function exit_if_error()
+{
+  RETURN_CODE=$?
+  if [ ${RETURN_CODE} -gt 0 ]; then
+    echo "Em: $1, ec: $?"
+    on_exit
+  fi
+  return 0
+}
+
+trap on_exit INT
+
+pushd $(pwd)
+[ -d ${BUILD_DIR} ] && echo "Cleaning up leftovers" && rm -rf ${BUILD_DIR}
+
+echo "Create temp directory"
+mkdir -p ${BUILD_DIR}
+
+if [ -d ${BUILD_DIR} ]; then
+  cd ${BUILD_DIR}
+  exit_if_error "Failed to change directory"
+  
+  echo "Cmake"
+  cmake ..
+  exit_if_error
+
+  echo "make"
+  make 
+  exit_if_error
+  
+  echo "make tests"
+  make test
+  exit_if_error
+fi
+
+on_exit
