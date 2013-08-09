@@ -7,4 +7,5 @@ add_subdirectory(common)
 # Please add all optimization tests to this file
 add_subdirectory(random_search)
 add_subdirectory(bounded_nelder_mead)
+add_subdirectory(hleborodov_rosenbrock_method)
 add_subdirectory(genetic_algorithm)
