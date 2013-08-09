@@ -43,7 +43,7 @@ private:
     DISALLOW_COPY_AND_ASSIGN(ICloneable);
 };
 
-};/* namespace common */
-};/* namespace k52 */
+}/* namespace common */
+}/* namespace k52 */
 
 #endif /* ICLONEABLE_H_ */
