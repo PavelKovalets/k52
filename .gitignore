@@ -5,6 +5,11 @@ build/
 lib/
 bin/
 
+# KDevelop folder and files#
+############################
+.kdev4/
+k52.kdev4
+
 # Eclipse files #
 ###########
 .cproject
