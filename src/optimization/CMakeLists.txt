@@ -6,6 +6,7 @@ set(OPTIMIZATION_COMMON_INCLUDE ${k52_SOURCE_DIR}/include/k52/optimization)
 # optimization algoritms library
 set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/bounded_nelder_mead.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/conjugate_gradient_method.h
     ${OPTIMIZATION_COMMON_INCLUDE}/generation_statistics.h
     ${OPTIMIZATION_COMMON_INCLUDE}/genetic_algorithm.h
     ${OPTIMIZATION_COMMON_INCLUDE}/grid_search.h
@@ -42,6 +43,7 @@ set(OPTIMIZATION_HEADERS
 
 set(OPTIMIZE_SOURCE
     bounded_nelder_mead.cpp
+    conjugate_gradient_method.cpp
     count_objective_function_task.cpp
     generation_statistics.cpp
     genetic_algorithm.cpp
