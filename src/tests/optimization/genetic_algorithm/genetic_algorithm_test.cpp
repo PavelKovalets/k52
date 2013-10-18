@@ -87,9 +87,9 @@ int main(int argc, char* argv[])
 {
     time_t begin, end;
     time(&begin);
-    cout<<"Begin"<<endl;
+    cout << "Begin" << endl;
 
-    k52::SettingsManager settings_manager(Initialize(argc, argv));
+    k52::SettingsManager settings_manager(argc, argv);
 
     /////////////Genetic Algrythm///////////////
     k52::optimization::DoubleParametersArray parameters(GlobalMinValue, GlobalMaxValue, GlobalPrecision, GlobalNumberOfParameters);
