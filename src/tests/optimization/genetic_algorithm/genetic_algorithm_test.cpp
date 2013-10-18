@@ -9,6 +9,7 @@
 #include <k52/parallel/mpi/identifyable_objects_manager.h>
 #endif
 
+#include <k52/common/settings_manager.h>
 #include <k52/optimization/genetic_algorithm.h>
 #include <k52/optimization/params/double_parameters_array.h>
 #include <k52/optimization/params/continuous_parameters_array.h>
@@ -82,11 +83,13 @@ void printStatistics(k52::optimization::GenerationStatistics s)
     cout << endl;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     time_t begin, end;
     time(&begin);
     cout<<"Begin"<<endl;
+
+    k52::SettingsManager settings_manager(Initialize(argc, argv));
 
     /////////////Genetic Algrythm///////////////
     k52::optimization::DoubleParametersArray parameters(GlobalMinValue, GlobalMaxValue, GlobalPrecision, GlobalNumberOfParameters);
@@ -106,19 +109,21 @@ int main()
     double mutation = 0.000001;
     bool cacheFitness = true;
 
-    k52::optimization::GeneticAlgorithm ga(populationSize, elitismPairs, numberOfIterations, cacheFitness, std::numeric_limits<double>::max(), mutation/*, "Population.txt"*/);
+    k52::optimization::GeneticAlgorithm::shared_ptr ga(k52::optimization::GeneticAlgorithm::Create(populationSize, elitismPairs,
+                                                                                                   numberOfIterations, cacheFitness,
+                                                                                                   std::numeric_limits<double>::max(),
+                                                                                                   mutation/*, "Population.txt"*/));
 
     //TODO FIX
-    ga.OnNextGenerationReadyConnect(&printStatistics);
+    ga->OnNextGenerationReadyConnect(&printStatistics);
 
-    k52::optimization::IOptimizer* optimizer = &ga;
     try
     {
-        optimizer->Optimize(of, &parameters, true);
+        ga->Optimize(of, &parameters, true);
     }
     catch (const std::exception& e)
     {
-        cout<<e.what()<<endl;
+        cout << e.what() << endl;
         return -1;
     }
 
