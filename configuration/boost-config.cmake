@@ -53,3 +53,15 @@ endif(NOT Boost_MPI_FOUND OR NOT Boost_SERIALIZATION_FOUND)
 if(Boost_MPI_FOUND AND Boost_SERIALIZATION_FOUND)
   set(K52_BOOST_LIBRARIES ${K52_BOOST_LIBRARIES} boost_mpi boost_serialization)
 endif(Boost_MPI_FOUND AND Boost_SERIALIZATION_FOUND)
+
+# Detecting Boost.Test library - unit test framework
+find_package(Boost COMPONENTS unit_test_framework)
+if(NOT Boost_UNIT_TEST_FRAMEWORK_FOUND)
+  message("boost component [unit test framework] has not been found : ${Boost_ERROR_REASON}")
+endif(NOT Boost_UNIT_TEST_FRAMEWORK_FOUND)
+
+if(Boost_UNIT_TEST_FRAMEWORK_FOUND)
+  add_definitions(-DBUILD_WITH_BOOST_UNIT_TESTS)
+  set(BUILD_WITH_BOOST_UNIT_TESTS)
+  set(K52_BOOST_LIBRARIES ${K52_BOOST_LIBRARIES} ${Boost_UNIT_TEST_FRAMEWORK_LIBRARIES})
+endif(Boost_UNIT_TEST_FRAMEWORK_FOUND)
