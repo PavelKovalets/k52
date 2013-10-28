@@ -20,12 +20,11 @@ namespace
 const std::string kGeneticSettingsPrefix  ("genetic_algorithm.");
 const std::string kElitizmPairsParameter  (kGeneticSettingsPrefix + "elitizm_pairs");
 const std::string kPopulationSizeParameter(kGeneticSettingsPrefix + "population_size");
-const std::string kUseFitnessCacheValueParameter(kGeneticSettingsPrefix + "cache_fitness_value");
+const std::string kUseFitnessCacheValueParameter(kGeneticSettingsPrefix + "use_fitness_cache");
 const std::string kFitnessStopCriteriaParameter (kGeneticSettingsPrefix + "fitness_stop_criteria");
 const std::string kMutationProbabilityParameter (kGeneticSettingsPrefix + "mutation_probability");
 const std::string kPopulationFileNameParameter  (kGeneticSettingsPrefix + "population_filename");
 const std::string kMaxNumberOfGenerationsParameter(kGeneticSettingsPrefix + "maximum_number_of_generations");
-
 
 // Some default values
 const bool   kUseFitnessCacheValue = true;
