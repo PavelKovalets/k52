@@ -1,0 +1,6 @@
+<genetic_algorithm>
+  <population_size>100</population_size>
+  <elitizm_pairs>10</elitizm_pairs>
+  <maximum_number_of_generations>100</maximum_number_of_generations>
+  <use_fitness_cache>true</use_fitness_cache>
+</genetic_algorithm>
