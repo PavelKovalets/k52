@@ -11,6 +11,8 @@ project(k52)
 #endif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 enable_testing()
+set(K52_MESSAGE_PREFIX "\n->-> K52 MESSAGE <-<- :")
+set(K52_MESSAGE_POSTFIX "\n")
 include(k52.config)
 include(configuration/common-config.cmake)
 include(configuration/alglib-config.cmake)

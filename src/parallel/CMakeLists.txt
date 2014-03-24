@@ -44,10 +44,6 @@ set(PARALLEL_SOURCE
 include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_BOOST_LIBRARY_DIRS})
 
-message("k52 boost libraries : ${K52_BOOST_LIBRARIES}")
-message("k52 boost library dirs : ${K52_BOOST_LIBRARY_DIRS}")
-message("k52 boost include dirs : ${K52_BOOST_INCLUDE_DIRS}")
-
 add_library(k52_parallel_static STATIC ${PARALLEL_SOURCE} ${PARALLEL_HEADERS})
 INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_parallel_static)
 
