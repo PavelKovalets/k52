@@ -35,9 +35,15 @@ set(PROCESSING_SOURCE
 include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${K52_ALGLIB_INCLUDE_DIRS} ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_ALGLIB_LIBRARY_DIRS})
 
-add_library(k52_processing_static STATIC ${PROCESSING_SOURCE} ${PROCESSING_HEADERS})
-add_library(k52_processing SHARED ${PROCESSING_SOURCE} ${PROCESSING_HEADERS})
-target_link_libraries(k52_processing ${K52_ALGLIB_LIBRARIES})
+IF(BUILD_K52_STATIC)
+    add_library(k52_processing_static STATIC ${PROCESSING_SOURCE} ${PROCESSING_HEADERS})
+    INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_processing_static)
+ENDIF()
 
-INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_processing_static)
-INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_processing)
+IF(BUILD_K52_DYNAMIC)
+    add_library(k52_processing_dynamic SHARED ${PROCESSING_SOURCE} ${PROCESSING_HEADERS})
+    target_link_libraries(k52_processing_dynamic ${K52_ALGLIB_LIBRARIES})
+    INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_processing_dynamic)
+ENDIF()
+
+

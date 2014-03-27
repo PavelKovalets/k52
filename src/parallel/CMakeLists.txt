@@ -44,11 +44,15 @@ set(PARALLEL_SOURCE
 include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_BOOST_LIBRARY_DIRS})
 
-add_library(k52_parallel_static STATIC ${PARALLEL_SOURCE} ${PARALLEL_HEADERS})
-INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_parallel_static)
+IF(BUILD_K52_STATIC)
+    add_library(k52_parallel_static STATIC ${PARALLEL_SOURCE} ${PARALLEL_HEADERS})
+    INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_parallel_static)
+ENDIF()
 
-add_library(k52_parallel SHARED ${PARALLEL_SOURCE} ${PARALLEL_HEADERS})
-target_link_libraries(k52_parallel
-                      ${K52_BOOST_LIBRARIES}
-                      ${K52_MPI_LIBRARIES})
-INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_parallel)
+IF(BUILD_K52_DYNAMIC)
+    add_library(k52_parallel_dynamic SHARED ${PARALLEL_SOURCE} ${PARALLEL_HEADERS})
+    target_link_libraries(k52_parallel_dynamic
+                          ${K52_BOOST_LIBRARIES}
+                          ${K52_MPI_LIBRARIES})
+    INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_parallel_dynamic)
+ENDIF()
