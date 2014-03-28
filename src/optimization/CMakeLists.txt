@@ -72,17 +72,15 @@ set(OPTIMIZE_SOURCE
 include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_BOOST_LIBRARY_DIRS})
 
-IF(BUILD_K52_STATIC)
-    add_library(k52_optimization_static STATIC ${OPTIMIZE_SOURCE} ${OPTIMIZATION_HEADERS})
-    INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_optimization_static)
-ENDIF()
+set(k52_OPTIMIZE_LIB k52_optimization)
+add_library(${k52_OPTIMIZE_LIB} ${K52_LIBS_TYPE} ${OPTIMIZE_SOURCE} ${OPTIMIZATION_HEADERS})
 
-IF(BUILD_K52_DYNAMIC)
-    add_library (k52_optimization_dynamic SHARED ${OPTIMIZE_SOURCE} ${OPTIMIZATION_HEADERS})
-    target_link_libraries(k52_optimization_dynamic
-                          k52_parallel_dynamic
+IF(K52_LIBS_TYPE_DYNAMIC)
+    target_link_libraries(${k52_OPTIMIZE_LIB}
+                          ${k52_PARALLEL_LIB}
                           ${K52_MPI_LIBRARIES}
                           ${K52_BOOST_LIBRARIES}
                           )
-    INSTALL_TARGETS(${k52_LIB_DESTINATION} k52_optimization_dynamic)
 ENDIF()
+
+INSTALL_TARGETS(${k52_LIB_DESTINATION} ${k52_OPTIMIZE_LIB})

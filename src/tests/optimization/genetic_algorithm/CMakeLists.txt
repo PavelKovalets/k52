@@ -12,8 +12,8 @@ add_executable(k52_genetic_algorithm_test ${K52_GENETIC_ALGOTITHM_TEST_SOURCE})
 
 target_link_libraries(k52_genetic_algorithm_test 
                       k52_optimization_test_common 
-                      k52_optimization_static 
-                      k52_parallel_static 
+                      k52_optimization
+                      k52_parallel
                       ${K52_MPI_LIBRARIES}
                       ${K52_BOOST_LIBRARIES})
 
