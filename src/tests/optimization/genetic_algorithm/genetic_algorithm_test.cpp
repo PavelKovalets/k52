@@ -89,19 +89,12 @@ int main(int argc, char* argv[])
     time(&begin);
     cout << "Begin" << endl;
 
-    // Create some example xml config file
-    std::ofstream xml_config_stream;
-    xml_config_stream.open("test_config.xml");
-    xml_config_stream << "<genetic_algorithm>"
-                         "<population_size>100</population_size>"
-                         "<elitizm_pairs>10</elitizm_pairs>"
-                         "<maximum_number_of_generations>10</maximum_number_of_generations>"
-                         "</genetic_algorithm>" << std::endl;
-    xml_config_stream.close();
 
-    k52::SettingsManager settings_manager("test_config.xml");
-    //settings_manager.put("genetic_algorithm.population_size", 1000);
-    //settings_manager.put("log_file", "log.txt");
+    int populationSize = 1000;
+    int numberOfIterations = 10;
+    int elitismPairs = 25;
+    double mutation = 0.000001;
+    bool cacheFitness = true;
 
     /////////////Genetic Algrythm///////////////
     k52::optimization::DoubleParametersArray parameters(GlobalMinValue, GlobalMaxValue, GlobalPrecision, GlobalNumberOfParameters);
@@ -114,7 +107,9 @@ int main(int argc, char* argv[])
 #endif
 
     cout<<"pr="<<GlobalPrecision<<"    apr="<<parameters.get_actual_precision()<<endl;
-    k52::optimization::GeneticAlgorithm::shared_ptr ga(k52::optimization::GeneticAlgorithm::Create(settings_manager));
+
+    k52::optimization::GeneticAlgorithm::shared_ptr ga =
+        k52::optimization::GeneticAlgorithm::Create(populationSize, elitismPairs, numberOfIterations, cacheFitness, std::numeric_limits<double>::max(), mutation/*, "Population.txt"*/);
 
     //TODO FIX
     ga->OnNextGenerationReadyConnect(&printStatistics);
