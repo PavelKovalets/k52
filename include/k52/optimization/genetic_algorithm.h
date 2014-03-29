@@ -4,6 +4,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include <k52/common/disallow_copy_and_assign.h>
+#include <k52/common/settings_manager.h>
 #include <k52/optimization/i_optimizer.h>
 #include <k52/optimization/individual.h>
 #include <k52/optimization/params/i_discrete_parameters.h>
@@ -26,22 +27,28 @@ Best individual of all generations is selected and returned as result.
 class GeneticAlgorithm: public IOptimizer
 {
 public:
+    typedef boost::shared_ptr<GeneticAlgorithm> shared_ptr;
+
     ///Creates an instance of GA with specified parameters
     ///@param population_size - size of population that will be used during GA
-    ///@param elitism_pairs - number of best pairs in population to be copied to the next population every time 
+    ///@param elitism_pairs - number of best pairs in population to be copied to the next population every time
     ///(for example if elitism_pairs=1, 2 best individuals will be transfered to the next population)
     ///@param max_number_of_generations - maximum number of generations for population. One of the stop criteria.
     ///@param use_fitness_value_caching - to use fitness cache based on chromosomes or not
     ///@param fitness_stop_criteria - the value of objective function witch consider to be optimal and further optimization has no need. One of the stop criteria.
     ///@param mutation_probability - mutation probability per one boolean gen in chromosome
     ///@param population_file_name - file to load population from(if no load is needed - pass empty string or ignore)
-    GeneticAlgorithm(int population_size,
-        int elitism_pairs,
-        int max_number_of_generations,
-        bool use_fitness_value_caching = false,
-        double fitness_stop_criteria = 10000000,
-        double mutation_probability = 0.005,
-        std::string population_file_name = "");
+    static GeneticAlgorithm::shared_ptr Create(int population_size,
+                                               int elitism_pairs,
+                                               int max_number_of_generations,
+                                               bool use_fitness_value_caching = false,
+                                               double fitness_stop_criteria = 10000000,
+                                               double mutation_probability = 0.005,
+                                               std::string population_file_name = "");
+
+    ///Overload for convinence
+    ///It gets all settings via SettingsManager
+    static GeneticAlgorithm::shared_ptr Create(const SettingsManager& settings_manager);
 
     void Optimize(const IObjectiveFunction &function_to_optimize,
                   IParameters* parametrs_to_optimize,
@@ -74,6 +81,14 @@ protected:
     static bool GreaterFitness(Individual::shared_ptr first, Individual::shared_ptr second);
 
 private:
+    GeneticAlgorithm(int population_size,
+        int elitism_pairs,
+        int max_number_of_generations,
+        bool use_fitness_value_caching = false,
+        double fitness_stop_criteria = 10000000,
+        double mutation_probability = 0.005,
+        std::string population_file_name = "");
+
     Individual::shared_ptr best_individ_;
     std::vector<Individual::shared_ptr> population_;
     std::vector<IndividualStatistics> population_statistics_;

@@ -1,0 +1,2 @@
+For Visual Studio there might be problems with libs (e.g. "cannot open file 'libboost_date_time-vc120-mt-gd-1_55.lib'").
+Not completelly clear, is it a bug or feature, but according to http://www.boost.org/doc/libs/1_54_0/doc/html/thread/build.html it is fixed by compiling ALL dependant libs explicitly (bjam --build-type=complete --with-thread --with-chrono --with-date_time).
