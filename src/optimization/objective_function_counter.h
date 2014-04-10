@@ -65,7 +65,7 @@ private:
     bool use_value_caching_;
     k52::parallel::IWorkerPool::shared_ptr fitness_worker_pool_;
     boost::unordered_map<std::size_t, StoredValue> cache_;
-    boost::hash<std::vector<bool>> chromosome_hash_function_;
+    boost::hash< std::vector<bool> > chromosome_hash_function_;
     int objective_function_counts_;
     int cache_hits_;
 
