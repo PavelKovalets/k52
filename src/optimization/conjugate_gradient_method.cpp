@@ -9,6 +9,7 @@
 
 #include <cmath>
 #include <stdexcept>
+#include <iostream>
 
 #include <k52/optimization/params/i_continuous_parameters.h>
 

@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <fstream>
+#include <iostream>
 
 #include <k52/optimization/params/i_continuous_parameters.h>
 
