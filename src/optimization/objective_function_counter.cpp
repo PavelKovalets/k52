@@ -92,7 +92,8 @@ void ObjectiveFunctionCounter::ProcessPopulation(
     {
         if(use_value_caching_)
         {
-            StoredValue stored_fitness = cache_[ ((*population)[i])->GetChromosome()];
+            size_t chromosome_hash_value = chromosome_hash_function_( ((*population)[i])->GetChromosome() );
+            StoredValue stored_fitness = cache_[chromosome_hash_value];
             if(stored_fitness.has_value())
             {
                 ((*population)[i])->set_fitness( stored_fitness.get_value() );
@@ -160,8 +161,8 @@ void ObjectiveFunctionCounter::AddNewCacheValues(
         Individual::shared_ptr current_individ = (*population)[ new_cache_indexes[i] ];
         StoredValue stored_fitness( current_individ->get_fitness() );
 
-        //TODO use hash instead of whole vector?
-        cache_[current_individ->GetChromosome()] = stored_fitness;
+        size_t chromosome_hash_value = chromosome_hash_function_( current_individ->GetChromosome() );
+        cache_[chromosome_hash_value] = stored_fitness;
     }
 }
 
