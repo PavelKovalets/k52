@@ -1,4 +1,4 @@
-#include "random.h"
+#include <k52/common/random.h>
 
 #include <stdlib.h>
 #include <cstdlib>

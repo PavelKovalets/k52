@@ -1,3 +1,4 @@
+#include <k52/common/random.h>
 #include <k52/optimization/individual.h>
 
 #include <vector>
@@ -10,7 +11,6 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "random.h"
 #include "mutator.h"
 
 using ::std::vector;

@@ -1,3 +1,4 @@
+#include <k52/common/random.h>
 #include <k52/optimization/genetic_algorithm.h>
 
 #include <stdexcept>
@@ -10,8 +11,7 @@
 #include <iterator>
 #include <algorithm>
 
-#include "random.h"
-#include "objective_function_counter.h"
+#include "../objective_function_counter.h"
 
 using ::std::vector;
 

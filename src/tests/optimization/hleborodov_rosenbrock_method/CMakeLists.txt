@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 project(k52_hleborodov_rosenbrock_test)
 
 # hleborodov rosenbrock tests executable
@@ -14,6 +14,7 @@ target_link_libraries(k52_hleborodov_rosenbrock_test
                       k52_optimization_test_common
                       k52_optimization
                       k52_parallel
+                      k52_common
                       ${K52_MPI_LIBRARIES}
                       ${K52_BOOST_LIBRARIES}
                       )

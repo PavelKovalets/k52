@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 project(k52_optimization_test_common)
 
 set(K52_OPTIMIZATION_TEST_COMMON_HEADERS

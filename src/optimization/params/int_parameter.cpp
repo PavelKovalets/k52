@@ -1,6 +1,5 @@
+#include <k52/common/random.h>
 #include <k52/optimization/params/int_parameter.h>
-
-#include "../random.h"
 
 using ::std::vector;
 

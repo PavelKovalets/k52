@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 project(k52_processing)
 
 set(PROCESSING_COMMON_INCLUDE ${k52_SOURCE_DIR}/include/k52/processing)

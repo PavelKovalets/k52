@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 project(k52_optimization)
 
 set(OPTIMIZATION_COMMON_INCLUDE ${k52_SOURCE_DIR}/include/k52/optimization)
@@ -28,38 +28,41 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/params/i_discrete_parameters.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/i_parameters.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/int_parameter.h
+
     count_objective_function_task.h
     i_parameters_processor.h
-    mutator.h
     objective_function_counter.h
     objective_function_task_result.h
     optimization_parameters_processor.h
     optimization_task.h
     optimization_task_result.h
-    random.h
     simple_parameters_processor.h
     stored_value.h
+
+    genetic_algorithm/mutator.h
+
     )
 
 set(OPTIMIZE_SOURCE
     bounded_nelder_mead.cpp
     conjugate_gradient_method.cpp
     count_objective_function_task.cpp
-    generation_statistics.cpp
-    genetic_algorithm.cpp
     grid_search.cpp
     hleborodov_rosenbrock_method.cpp
-    individual.cpp
     initialization_checker.cpp
-    mutator.cpp
     objective_function_counter.cpp
     objective_function_task_result.cpp
     optimization_parameters_processor.cpp
     optimization_task.cpp
     optimization_task_result.cpp
     random_search.cpp
-    random.cpp
     simple_parameters_processor.cpp
+
+    genetic_algorithm/generation_statistics.cpp
+    genetic_algorithm/genetic_algorithm.cpp
+    genetic_algorithm/individual.cpp
+    genetic_algorithm/mutator.cpp
+
     params/composite_discrete_parameters.cpp
     params/const_chromosome_size_paremeters.cpp
     params/continuous_parameters_array.cpp
@@ -77,6 +80,7 @@ add_library(${k52_OPTIMIZE_LIB} ${K52_LIBS_TYPE} ${OPTIMIZE_SOURCE} ${OPTIMIZATI
 
 IF(K52_LIBS_TYPE_DYNAMIC)
     target_link_libraries(${k52_OPTIMIZE_LIB}
+                          ${k52_COMMON_LIB}
                           ${k52_PARALLEL_LIB}
                           ${K52_MPI_LIBRARIES}
                           ${K52_BOOST_LIBRARIES}

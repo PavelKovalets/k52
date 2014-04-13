@@ -14,10 +14,12 @@ set(CMAKE_INSTALL_PREFIX ${k52_SOURCE_DIR})
 set(k52_LIB_DESTINATION /lib)
 
 ### Libraries
+add_subdirectory(src/common)
+
 # parallel library
 add_subdirectory(src/parallel)
 
-# optimization algoritms library
+# optimization algorithms library
 add_subdirectory(src/optimization)
 
 # sound signal processing library

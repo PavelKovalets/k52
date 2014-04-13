@@ -1,9 +1,8 @@
+#include <k52/common/random.h>
 #include <k52/optimization/params/double_parameter.h>
 
 #include <math.h>
 #include <stdexcept>
-
-#include "../random.h"
 
 namespace k52
 {

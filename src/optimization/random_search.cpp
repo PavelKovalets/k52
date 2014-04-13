@@ -2,11 +2,11 @@
 
 #include <stdexcept>
 
+#include <k52/common/random.h>
 #include <k52/optimization/params/i_continuous_parameters.h>
 
 #include "simple_parameters_processor.h"
 #include "optimization_parameters_processor.h"
-#include "random.h"
 
 namespace k52
 {
