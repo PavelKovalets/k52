@@ -35,6 +35,7 @@ public:
     ///(for example if elitism_pairs=1, 2 best individuals will be transfered to the next population)
     ///@param max_number_of_generations - maximum number of generations for population. One of the stop criteria.
     ///@param use_fitness_value_caching - to use fitness cache based on chromosomes or not
+    ///@param cache_data_limit_in_megabytes - maximum memory size allowed for cache
     ///@param fitness_stop_criteria - the value of objective function witch consider to be optimal and further optimization has no need. One of the stop criteria.
     ///@param mutation_probability - mutation probability per one boolean gen in chromosome
     ///@param population_file_name - file to load population from(if no load is needed - pass empty string or ignore)
@@ -42,6 +43,7 @@ public:
                                                int elitism_pairs,
                                                int max_number_of_generations,
                                                bool use_fitness_value_caching = false,
+                                               double cache_data_limit_in_megabytes = 0,
                                                double fitness_stop_criteria = 10000000,
                                                double mutation_probability = 0.005,
                                                std::string population_file_name = "");
@@ -85,6 +87,7 @@ private:
         int elitism_pairs,
         int max_number_of_generations,
         bool use_fitness_value_caching = false,
+        double cache_data_limit_in_megabytes = 0,
         double fitness_stop_criteria = 10000000,
         double mutation_probability = 0.005,
         std::string population_file_name = "");

@@ -26,7 +26,7 @@ class ObjectiveFunctionCounter
 public:
     typedef boost::shared_ptr<ObjectiveFunctionCounter> shared_ptr;
 
-    explicit ObjectiveFunctionCounter(bool use_value_caching);
+    explicit ObjectiveFunctionCounter(bool use_value_caching, double cache_data_limit_in_megabytes);
 
     void ObtainFitness(
         const IObjectiveFunction& objective_function,

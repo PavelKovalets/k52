@@ -13,7 +13,7 @@ namespace k52
 namespace optimization
 {
 
-ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool use_value_caching)
+ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool use_value_caching, double cache_data_limit_in_megabytes)
 {
     cache_hits_ = 0;
     objective_function_counts_ = 0;
@@ -21,7 +21,7 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool use_value_caching)
 
     if(use_value_caching)
     {
-        cache_ = Cache::Create();
+        cache_ = Cache::Create(cache_data_limit_in_megabytes);
     }
 
 #ifdef BUILD_WITH_MPI
@@ -161,13 +161,17 @@ void ObjectiveFunctionCounter::AddNewCacheValues(
     vector<Individual::shared_ptr>* population, 
     const vector<int>&  new_cache_indexes)
 {
+    std::vector<Cache::CacheRecord> value_records;
+
     for(size_t i=0; i<new_cache_indexes.size(); i++)
     {
         Individual::shared_ptr current_individ = (*population)[ new_cache_indexes[i] ];
         double fitness_value = current_individ->get_fitness();
         size_t chromosome_hash_value = chromosome_hash_function_( current_individ->GetChromosome() );
-        cache_->AddValue(chromosome_hash_value, fitness_value);
+        value_records.push_back(Cache::CacheRecord(chromosome_hash_value, fitness_value));
     }
+
+    cache_->AddValues(value_records);
 }
 
 }/* namespace optimization */

@@ -1,6 +1,8 @@
 #ifndef CACHE_H_
 #define CACHE_H_
 
+#include <vector>
+
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
 
@@ -16,20 +18,37 @@ namespace optimization
 class Cache
 {
 public:
-    typedef boost::shared_ptr<Cache> shared_ptr;
+    struct CacheRecord
+    {
+        CacheRecord(size_t key, double value) 
+            : key(key), value(value)
+        {}
 
-    static Cache::shared_ptr Create();
+        size_t key;
+        double value;
+    };
+
+    typedef boost::shared_ptr<Cache> shared_ptr;
+    typedef boost::unordered_map<std::size_t, StoredValue> cache_map_type;
+
+    static Cache::shared_ptr Create(double data_limit_in_megabytes);
 
     bool IsCached(size_t parameters_hash);
 
     double GetCachedValue(size_t parameters_hash);
 
-    void AddValue(size_t parameters_hash, double value);
+    void AddValues(const std::vector<CacheRecord>& value_records);
+
+protected:
+    void ClearCacheUpToLimit();
+    bool IsSizeLimitExceeded();
+    void ClearUnusedCacheValues(int number_of_min_usage);
 
 private:
-    Cache() {}
+    Cache(double data_limit_in_megabytes);
 
-    boost::unordered_map<std::size_t, StoredValue> cache_map_;
+    Cache::cache_map_type cache_map_;
+    double data_limit_in_megabytes_;
 
     DISALLOW_COPY_AND_ASSIGN(Cache);
 };

@@ -17,7 +17,7 @@ namespace optimization
 
 GridSearch::GridSearch(double precision, double lower_bound, double upper_bound)
 {
-    fitness_counter_ = ObjectiveFunctionCounter::shared_ptr(new ObjectiveFunctionCounter(false));
+    fitness_counter_ = ObjectiveFunctionCounter::shared_ptr(new ObjectiveFunctionCounter(false, 0));
     lower_bound_ = lower_bound;
     upper_bound_ = upper_bound;
     precision_ = precision;
