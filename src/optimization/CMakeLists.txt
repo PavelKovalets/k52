@@ -29,6 +29,7 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/params/i_parameters.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/int_parameter.h
 
+    cache.h
     count_objective_function_task.h
     i_parameters_processor.h
     objective_function_counter.h
@@ -45,6 +46,7 @@ set(OPTIMIZATION_HEADERS
 
 set(OPTIMIZE_SOURCE
     bounded_nelder_mead.cpp
+    cache.cpp
     conjugate_gradient_method.cpp
     count_objective_function_task.cpp
     grid_search.cpp

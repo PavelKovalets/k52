@@ -19,6 +19,11 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool use_value_caching)
     objective_function_counts_ = 0;
     use_value_caching_ = use_value_caching;
 
+    if(use_value_caching)
+    {
+        cache_ = Cache::Create();
+    }
+
 #ifdef BUILD_WITH_MPI
     CountObjectiveFunctionTask task;
     k52::parallel::mpi::IdentifyableObjectsManager::Instance().RegisterObject(task);
@@ -93,10 +98,10 @@ void ObjectiveFunctionCounter::ProcessPopulation(
         if(use_value_caching_)
         {
             size_t chromosome_hash_value = chromosome_hash_function_( ((*population)[i])->GetChromosome() );
-            StoredValue stored_fitness = cache_[chromosome_hash_value];
-            if(stored_fitness.has_value())
+
+            if (cache_->IsCached(chromosome_hash_value))
             {
-                ((*population)[i])->set_fitness( stored_fitness.get_value() );
+                ((*population)[i])->set_fitness(cache_->GetCachedValue(chromosome_hash_value));
                 cache_hits_ ++;
                 continue;
             }
@@ -159,10 +164,9 @@ void ObjectiveFunctionCounter::AddNewCacheValues(
     for(size_t i=0; i<new_cache_indexes.size(); i++)
     {
         Individual::shared_ptr current_individ = (*population)[ new_cache_indexes[i] ];
-        StoredValue stored_fitness( current_individ->get_fitness() );
-
+        double fitness_value = current_individ->get_fitness();
         size_t chromosome_hash_value = chromosome_hash_function_( current_individ->GetChromosome() );
-        cache_[chromosome_hash_value] = stored_fitness;
+        cache_->AddValue(chromosome_hash_value, fitness_value);
     }
 }
 

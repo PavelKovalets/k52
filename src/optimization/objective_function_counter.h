@@ -5,7 +5,6 @@
 #include <vector>
 #include <queue>
 
-#include <boost/unordered_map.hpp>
 #include <boost/functional/hash.hpp>
 
 #include <k52/common/disallow_copy_and_assign.h>
@@ -13,7 +12,7 @@
 #include <k52/optimization/i_objective_function.h>
 #include <k52/optimization/individual.h>
 
-#include "stored_value.h"
+#include "cache.h"
 #include "count_objective_function_task.h"
 #include "objective_function_task_result.h"
 
@@ -64,7 +63,7 @@ protected:
 private:
     bool use_value_caching_;
     k52::parallel::IWorkerPool::shared_ptr fitness_worker_pool_;
-    boost::unordered_map<std::size_t, StoredValue> cache_;
+    k52::optimization::Cache::shared_ptr cache_;
     boost::hash< std::vector<bool> > chromosome_hash_function_;
     int objective_function_counts_;
     int cache_hits_;
