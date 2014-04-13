@@ -74,6 +74,8 @@ set(OPTIMIZE_SOURCE
     params/int_parameter.cpp
     )
 
+add_source_groups(genetic_algorithm params)
+
 include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_BOOST_LIBRARY_DIRS})
 

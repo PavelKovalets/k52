@@ -41,6 +41,8 @@ set(PARALLEL_SOURCE
     thread/thread_worker_pool_task.cpp
     )
 
+add_source_groups(mpi thread)
+
 include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_BOOST_LIBRARY_DIRS})
 

@@ -1,5 +1,17 @@
 add_definitions(-D_USE_MATH_DEFINES)
 
+set(HEADERS_FOLDER "Header Files")
+set(SRC_FOLDER "Source Files")
+set(HEADERS_REGEXP ".*\\.h")
+set(SRC_REGEXP ".*\\.cpp")
+
+FUNCTION(add_source_groups)
+    FOREACH(dir ${ARGN})
+        SOURCE_GROUP(${HEADERS_FOLDER}\\${dir} REGULAR_EXPRESSION "${dir}/${HEADERS_REGEXP}")
+        SOURCE_GROUP(${SRC_FOLDER}\\${dir} REGULAR_EXPRESSION "${dir}/${SRC_REGEXP}")
+    ENDFOREACH()
+ENDFUNCTION()
+
 IF(BUILD_K52_LIBRARY_TYPE STREQUAL Dynamic)
     SET(K52_LIBS_TYPE SHARED)
     SET(K52_LIBS_TYPE_DYNAMIC TRUE)
