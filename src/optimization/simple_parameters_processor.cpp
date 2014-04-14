@@ -8,7 +8,7 @@ namespace optimization
 {
 
 SimpleParametersProcessor::SimpleParametersProcessor()
-    :function_counter_(false, 0)
+    :function_counter_(-1)
 {
 }
 

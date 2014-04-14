@@ -94,7 +94,6 @@ int main(int argc, char* argv[])
     int numberOfIterations = 10;
     int elitismPairs = 25;
     double mutation = 0.000001;
-    bool cacheFitness = true;
     double cacheLimitInMegabytes = 1;
 
     /////////////Genetic Algrythm///////////////
@@ -110,7 +109,7 @@ int main(int argc, char* argv[])
     cout<<"pr="<<GlobalPrecision<<"    apr="<<parameters.get_actual_precision()<<endl;
 
     k52::optimization::GeneticAlgorithm::shared_ptr ga =
-        k52::optimization::GeneticAlgorithm::Create(populationSize, elitismPairs, numberOfIterations, cacheFitness, cacheLimitInMegabytes, std::numeric_limits<double>::max(), mutation/*, "Population.txt"*/);
+        k52::optimization::GeneticAlgorithm::Create(populationSize, elitismPairs, numberOfIterations, cacheLimitInMegabytes, std::numeric_limits<double>::max(), mutation/*, "Population.txt"*/);
 
     //TODO FIX
     ga->OnNextGenerationReadyConnect(&printStatistics);

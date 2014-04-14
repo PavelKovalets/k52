@@ -20,7 +20,6 @@ namespace
 const std::string kGeneticSettingsPrefix  ("genetic_algorithm.");
 const std::string kElitizmPairsParameter  (kGeneticSettingsPrefix + "elitizm_pairs");
 const std::string kPopulationSizeParameter(kGeneticSettingsPrefix + "population_size");
-const std::string kUseFitnessCacheValueParameter(kGeneticSettingsPrefix + "use_fitness_cache");
 const std::string kCacheDataLimitInMegabytesParameter(kGeneticSettingsPrefix + "cache_data_limit_in_megabytes");
 const std::string kFitnessStopCriteriaParameter (kGeneticSettingsPrefix + "fitness_stop_criteria");
 const std::string kMutationProbabilityParameter (kGeneticSettingsPrefix + "mutation_probability");
@@ -28,7 +27,6 @@ const std::string kPopulationFileNameParameter  (kGeneticSettingsPrefix + "popul
 const std::string kMaxNumberOfGenerationsParameter(kGeneticSettingsPrefix + "maximum_number_of_generations");
 
 // Some default values
-const bool   kUseFitnessCacheValue = true;
 const double kCacheDataLimitInMegabytes = 100;
 const double kFitnessStopCriteria  = 10000000;
 const double kMutationProbability  = 0.001;
@@ -48,7 +46,6 @@ GeneticAlgorithm::shared_ptr GeneticAlgorithm::Create(const SettingsManager& set
         genetic_algorithm.reset(new GeneticAlgorithm(settings_manager.get<size_t>(kPopulationSizeParameter),
                                                      settings_manager.get<size_t>(kElitizmPairsParameter),
                                                      settings_manager.get<size_t>(kMaxNumberOfGenerationsParameter),
-                                                     settings_manager.get<bool>(kUseFitnessCacheValueParameter, kUseFitnessCacheValue),
                                                      settings_manager.get<double>(kCacheDataLimitInMegabytesParameter, kCacheDataLimitInMegabytes),
                                                      settings_manager.get<double>(kFitnessStopCriteriaParameter, kFitnessStopCriteria),
                                                      settings_manager.get<double>(kMutationProbabilityParameter, kMutationProbability),
@@ -65,7 +62,6 @@ GeneticAlgorithm::shared_ptr GeneticAlgorithm::Create(const SettingsManager& set
 GeneticAlgorithm::shared_ptr GeneticAlgorithm::Create(int population_size,
                                                       int elitism_pairs,
                                                       int max_number_of_generations,
-                                                      bool use_fitness_value_caching,
                                                       double cache_data_limit_in_megabytes,
                                                       double fitness_stop_criteria,
                                                       double mutation_probability,
@@ -74,7 +70,7 @@ GeneticAlgorithm::shared_ptr GeneticAlgorithm::Create(int population_size,
     GeneticAlgorithm::shared_ptr genetic_algorithm;
     try
     {
-        genetic_algorithm.reset(new GeneticAlgorithm(population_size, elitism_pairs, max_number_of_generations, use_fitness_value_caching,
+        genetic_algorithm.reset(new GeneticAlgorithm(population_size, elitism_pairs, max_number_of_generations,
             cache_data_limit_in_megabytes, fitness_stop_criteria, mutation_probability, population_file_name));
     }
     catch(...)
@@ -89,14 +85,13 @@ GeneticAlgorithm::GeneticAlgorithm(
     int population_size,
     int elitism_pairs,
     int max_number_of_generations,
-    bool use_fitness_value_caching,
     double cache_data_limit_in_megabytes,
     double fitness_stop_criteria,
     double mutation_probability,
     std::string population_file_name)
         :population_(0),
          population_statistics_(0),
-         fitness_counter_(new ObjectiveFunctionCounter(use_fitness_value_caching, cache_data_limit_in_megabytes))
+         fitness_counter_(new ObjectiveFunctionCounter(cache_data_limit_in_megabytes))
 {
     if(population_size%2!=0)
     {

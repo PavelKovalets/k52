@@ -13,13 +13,13 @@ namespace k52
 namespace optimization
 {
 
-ObjectiveFunctionCounter::ObjectiveFunctionCounter(bool use_value_caching, double cache_data_limit_in_megabytes)
+ObjectiveFunctionCounter::ObjectiveFunctionCounter(double cache_data_limit_in_megabytes)
 {
     cache_hits_ = 0;
     objective_function_counts_ = 0;
-    use_value_caching_ = use_value_caching;
+    use_value_caching_ = cache_data_limit_in_megabytes > 0;
 
-    if(use_value_caching)
+    if(use_value_caching_)
     {
         cache_ = Cache::Create(cache_data_limit_in_megabytes);
     }
