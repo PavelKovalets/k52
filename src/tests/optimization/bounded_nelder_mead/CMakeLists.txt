@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
-project(k52_bounded_nelder_mead_test)
+
+set(PROJECT_NAME k52_bounded_nelder_mead_test)
+project(${PROJECT_NAME})
 
 # nelder mead tests executable
 set(K52_BOUNDED_NELDER_MEAD_TEST_SOURCE
@@ -8,9 +10,9 @@ set(K52_BOUNDED_NELDER_MEAD_TEST_SOURCE
 
 include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_BOOST_LIBRARY_DIRS})
-add_executable(k52_bounded_nelder_mead_test ${K52_BOUNDED_NELDER_MEAD_TEST_SOURCE})
+add_executable(${PROJECT_NAME} ${K52_BOUNDED_NELDER_MEAD_TEST_SOURCE})
 
-target_link_libraries(k52_bounded_nelder_mead_test 
+target_link_libraries(${PROJECT_NAME} 
                       k52_optimization_test_common 
                       k52_optimization
                       k52_parallel
@@ -19,4 +21,6 @@ target_link_libraries(k52_bounded_nelder_mead_test
                       ${K52_BOOST_LIBRARIES}
                       )
 
-add_test(NAME "Nelder-Mead-method-test" COMMAND k52_bounded_nelder_mead_test)
+add_test(NAME "Nelder-Mead-method-test" COMMAND ${PROJECT_NAME})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER ${TESTS_SOLUTION_FOLDER_NAME})

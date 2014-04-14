@@ -1,5 +1,9 @@
 add_definitions(-D_USE_MATH_DEFINES)
 
+#Use solution folders
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set(TESTS_SOLUTION_FOLDER_NAME Tests)
+
 set(HEADERS_FOLDER "Header Files")
 set(SRC_FOLDER "Source Files")
 set(HEADERS_REGEXP ".*\\.h")
