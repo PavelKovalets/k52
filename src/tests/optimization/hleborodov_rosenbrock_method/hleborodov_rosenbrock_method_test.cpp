@@ -9,7 +9,7 @@ int main()
     k52::optimization_tests::OptimizerTester tester;
 
     double precision = 1e-30;
-    size_t max_iteration_number = 1e3;
+    size_t max_iteration_number = 1000;
     double first_step = 1;
     double max_step = 3;
     k52::optimization::HleborodovRosenbrockMethod hleborodov_rosenbrock_method(precision, max_iteration_number, first_step, max_step);

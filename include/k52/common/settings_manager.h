@@ -33,7 +33,7 @@ public:
     }
 
     // Initialize from command line
-    void ParseCommandLine(int argument_count, const char* argument_values[])
+    void ParseCommandLine(size_t argument_count, const char* argument_values[])
     {
         for (size_t i = 0; i < argument_count; ++i)
         {

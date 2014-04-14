@@ -17,7 +17,6 @@ public:
 
 BOOST_AUTO_TEST_CASE(constructors)
 {
-    BOOST_REQUIRE_NO_THROW(SettingsManager sm());                  // Default
     BOOST_REQUIRE_NO_THROW(SettingsManager sm(0, NULL));           // Empty Parameters
     BOOST_REQUIRE_NO_THROW(SettingsManager sm(std::string("")));   // Empty Parameter
 

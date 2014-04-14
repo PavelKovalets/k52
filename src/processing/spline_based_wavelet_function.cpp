@@ -14,7 +14,7 @@ void SplineBased::Init(const std::vector<double> &real, const std::vector<double
 {
     std::vector<double> points(real.size() + 2);
     double delta = 8. / real.size();
-    for (int i = 0; i < real.size(); ++i)
+    for (size_t i = 0; i < real.size(); ++i)
     {
         points[i+1] = -4 + delta * i;
     }

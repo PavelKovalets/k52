@@ -45,7 +45,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
     size_t n = initial_parameters.size();
 
     //Iteration index
-    int r = 0;
+    size_t r = 0;
 
     //For simplex points count
     double square_root_from_2 = sqrt(2.);
@@ -63,7 +63,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
         OutputPolygon(polygon);
         r++;
         //TODO fix terminating criteria
-        const int iterations_per_dimension = 1000;
+        const size_t iterations_per_dimension = 1000;
         if(r > iterations_per_dimension * initial_parameters.size())
         {
             std::cout<< "WARNING: Exiting BDNM by iterations"
