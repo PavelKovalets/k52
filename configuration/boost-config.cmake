@@ -46,7 +46,7 @@ endif(NOT Boost_THREAD_FOUND OR NOT Boost_SYSTEM_FOUND)
 
 if(Boost_THREAD_FOUND AND Boost_SYSTEM_FOUND)
   add_definitions(-DBUILD_WITH_BOOST_THREAD)  
-  set(K52_BOOST_LIBRARIES ${K52_BOOST_LIBRARIES} boost_thread boost_system)
+  set(K52_BOOST_LIBRARIES ${K52_BOOST_LIBRARIES} ${Boost_THREAD_LIBRARIES} ${Boost_SYSTEM_LIBRARIES})
 endif(Boost_THREAD_FOUND AND Boost_SYSTEM_FOUND)
 
 find_package(Boost COMPONENTS mpi serialization)

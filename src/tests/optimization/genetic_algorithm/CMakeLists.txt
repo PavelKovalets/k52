@@ -20,6 +20,8 @@ target_link_libraries(${PROJECT_NAME}
                       ${K52_MPI_LIBRARIES}
                       ${K52_BOOST_LIBRARIES})
 
+target_link_special_libraries_for_linux(${PROJECT_NAME})
+
 add_test(NAME "Genetic-Algorithm-test" COMMAND ${PROJECT_NAME})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER ${TESTS_SOLUTION_FOLDER_NAME})

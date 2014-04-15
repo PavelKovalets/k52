@@ -16,6 +16,13 @@ FUNCTION(add_source_groups)
     ENDFOREACH()
 ENDFUNCTION()
 
+#This is a temporary solution. Should find better approach
+FUNCTION(target_link_special_libraries_for_linux ARG_TARGET_NAME)
+    if(UNIX AND NOT APPLE)
+        target_link_libraries(${ARG_TARGET_NAME} rt)
+    endif()
+ENDFUNCTION()
+
 IF(BUILD_K52_LIBRARY_TYPE STREQUAL Dynamic)
     SET(K52_LIBS_TYPE SHARED)
     SET(K52_LIBS_TYPE_DYNAMIC TRUE)
