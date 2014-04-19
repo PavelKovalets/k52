@@ -127,7 +127,7 @@ ResultExpectation MpiWorkerPool::WaitAndPopNextExpectation(std::list<ResultExpec
     {
         for(std::list<ResultExpectation>::iterator it = result_expectations.begin();
                         it!=result_expectations.end();
-                        it++)
+                        ++it)
         {
             if( it->asyncCallChain->IsCurrentCallFinished() )
             {

@@ -337,7 +337,7 @@ void GeneticAlgorithm::ProcessStatistics(int number_of_generation)
     FireNextGenerationReady(current_population_statistics);
 
 
-    for(std::list<std::string>::iterator it = files_to_save.begin(); it != files_to_save.end(); it++)
+    for(std::list<std::string>::iterator it = files_to_save.begin(); it != files_to_save.end(); ++it)
     {
         SavePopulationToFile(*it);
     }

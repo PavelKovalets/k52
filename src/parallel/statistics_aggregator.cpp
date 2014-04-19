@@ -26,7 +26,7 @@ std::vector<WorkerStatistics> StatisticsAggregator::GetStatistics()
     std::vector<WorkerStatistics> statistics;
     statistics.reserve(statistics_.size());
 
-    for(StatisticsContainer::iterator it = statistics_.begin(); it != statistics_.end(); it++)
+    for(StatisticsContainer::iterator it = statistics_.begin(); it != statistics_.end(); ++it)
     {
         statistics.push_back( (*it).second );
     }

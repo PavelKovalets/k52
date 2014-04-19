@@ -93,7 +93,7 @@ int IntParameter::GetIntFromBoolVector(vector<bool>::const_iterator from, vector
 
     size_t bit_number = 0;
 
-    for (vector<bool>::const_iterator it = from; it != to; it++)
+    for (vector<bool>::const_iterator it = from; it != to; ++it)
     {
         if (*it)
         {
@@ -114,7 +114,7 @@ void IntParameter::SetBoolVectorFromInt(vector<bool>::iterator from, vector<bool
 {
     size_t bit_number = 0;
 
-    for (vector<bool>::iterator it = from; it != to; it++)
+    for (vector<bool>::iterator it = from; it != to; ++it)
     {
         if ((value >> bit_number) & 1)
         {
