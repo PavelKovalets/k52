@@ -56,7 +56,7 @@ public:
     ///ATTENTION! Returned value refers to the inner variable of this
     ///individual and no longer valid and MUST NOT be used
     ///when this individual's destructor is called
-    const std::vector<bool>& GetChromosome() const;
+    const ChromosomeType& GetChromosome() const;
 
     ///Set random chromosome for current Individual and synchronizes it with local parameters
     ///@return number of invalid chromosomes, generated during setting random chromosome
@@ -103,7 +103,7 @@ private:
     void CheckForHavingFitness() const;
     void SetParametersAccordingToChromosome();
 
-    static void BoolCrossover(std::vector<bool> *first, std::vector<bool> *second);
+    static void BoolCrossover(ChromosomeType *first, ChromosomeType *second);
 
     friend std::ostream& operator<< (std::ostream& out, const Individual& individual);
     friend std::istream& operator>> (std::istream& in, Individual& individual);
@@ -111,7 +111,7 @@ private:
     InitializationChecker  initialization_checker_;
     IDiscreteParameters::shared_ptr parameters_;
     int times_chosen_for_crossover_;
-    std::vector<bool> chromosome_;
+    ChromosomeType chromosome_;
     bool has_fitness_;
     double fitness_;
 };

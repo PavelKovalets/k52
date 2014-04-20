@@ -1,8 +1,6 @@
 #ifndef COMPOSITEDISCRETEPARAMETERS_H_
 #define COMPOSITEDISCRETEPARAMETERS_H_
 
-#include <vector>
-
 #include <k52/optimization/initialization_checker.h>
 #include <k52/optimization/params/const_chromosome_size_paremeters.h>
 
@@ -22,9 +20,9 @@ public:
 
     bool CheckConstraints() const;
 
-    void SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const;
+    void SetChromosome(ChromosomeType::iterator from, ChromosomeType::iterator to) const;
 
-    void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
+    void SetFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to);
 
     void Initialize(const std::vector<IDiscreteParameters::shared_ptr>& parameters);
 

@@ -24,9 +24,9 @@ public:
 
     size_t GetChromosomeSize() const;
 
-    void SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const = 0;
+    void SetChromosome(ChromosomeType::iterator from, ChromosomeType::iterator to) const = 0;
 
-    void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to) = 0;
+    void SetFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to) = 0;
 
     virtual bool CheckConstraints() const = 0;
 

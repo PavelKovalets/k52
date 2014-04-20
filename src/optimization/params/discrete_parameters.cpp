@@ -15,7 +15,7 @@ void DiscreteParameters::Send(boost::mpi::communicator* communicator, int target
 {
     //Discrete parameters are considered to be completely represented by theirs chromosome
     //TODO to optimize performance do not create intermediate chromosome
-    std::vector<bool> intermediate_chromosome = std::vector<bool>(this->GetChromosomeSize());
+    ChromosomeType intermediate_chromosome = ChromosomeType(this->GetChromosomeSize());
     this->SetChromosome(intermediate_chromosome.begin(), intermediate_chromosome.end());
     communicator->send(target, k52::parallel::mpi::constants::kCommonTag, intermediate_chromosome);
 }
@@ -23,7 +23,7 @@ void DiscreteParameters::Send(boost::mpi::communicator* communicator, int target
 void DiscreteParameters::Receive(boost::mpi::communicator* communicator, int source)
 {
     //TODO to optimize performance do not create intermediate chromosome
-    std::vector<bool> intermediate_chromosome;
+    ChromosomeType intermediate_chromosome;
     communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, intermediate_chromosome);
     this->SetFromChromosome(intermediate_chromosome.begin(), intermediate_chromosome.end());
 }

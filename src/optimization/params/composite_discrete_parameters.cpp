@@ -30,7 +30,7 @@ bool CompositeDiscreteParameters::CheckConstraints() const
     return true;
 }
 
-void CompositeDiscreteParameters::SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
+void CompositeDiscreteParameters::SetChromosome(ChromosomeType::iterator from, ChromosomeType::iterator to) const
 {
     initialization_checker_.InitializationCheck();
 
@@ -38,13 +38,13 @@ void CompositeDiscreteParameters::SetChromosome(std::vector<bool>::iterator from
 
     this->CheckForConstChromosomeSize(chromosome_size);
 
-    std::vector<bool>::iterator current_from = from;
+    ChromosomeType::iterator current_from = from;
 
     for(size_t i = 0; i < parameters_set_.size(); i++)
     {
         size_t parameter_chromosome_size = parameters_set_[i]->GetChromosomeSize();
 
-        std::vector<bool>::iterator current_to = current_from + parameter_chromosome_size;
+        ChromosomeType::iterator current_to = current_from + parameter_chromosome_size;
 
         parameters_set_[i]->SetChromosome(current_from, current_to);
 
@@ -52,7 +52,7 @@ void CompositeDiscreteParameters::SetChromosome(std::vector<bool>::iterator from
     }
 }
 
-void CompositeDiscreteParameters::SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
+void CompositeDiscreteParameters::SetFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to)
 {
     initialization_checker_.InitializationCheck();
 
@@ -60,13 +60,13 @@ void CompositeDiscreteParameters::SetFromChromosome(std::vector<bool>::const_ite
 
     this->CheckForConstChromosomeSize(chromosome_size);
 
-    std::vector<bool>::const_iterator current_from = from;
+    ChromosomeType::const_iterator current_from = from;
 
     for(size_t i = 0; i < parameters_set_.size(); i++)
     {
         size_t parameter_chromosome_size = parameters_set_[i]->GetChromosomeSize();
 
-        std::vector<bool>::const_iterator current_to = current_from + parameter_chromosome_size;
+        ChromosomeType::const_iterator current_to = current_from + parameter_chromosome_size;
 
         parameters_set_[i]->SetFromChromosome(current_from, current_to);
 

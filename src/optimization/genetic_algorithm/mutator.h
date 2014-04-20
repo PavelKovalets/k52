@@ -2,8 +2,7 @@
 #define MUTATOR_H_
 
 #include <k52/common/disallow_copy_and_assign.h>
-
-#include <vector>
+#include <k52/optimization/chromosome.h>
 
 namespace k52
 {
@@ -16,7 +15,7 @@ public:
     /// Implementation of singleton pattern
     /// @return the only instance of Mutator class
     static Mutator& Instance();
-    void MutateBoolArray(double gen_mutation_probability, std::vector<bool>* array);
+    void MutateBoolArray(double gen_mutation_probability, ChromosomeType* array);
 
 private:
     Mutator();

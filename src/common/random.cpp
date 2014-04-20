@@ -33,14 +33,6 @@ bool Random::GetRandomBool()
     return bit == 0;
 }
 
-void Random::SetRandomBoolVector(std::vector<bool>* array)
-{
-    for(size_t i = 0; i < array->size(); i++)
-    {
-        (*array)[i] = GetRandomBool();
-    }
-}
-
 int Random::GetUniformlyDistributedDiscreteRandomQuantity(int min_value, int max_value)
 {
     return rand() % (max_value-min_value+1) + min_value;

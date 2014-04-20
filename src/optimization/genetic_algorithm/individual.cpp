@@ -1,7 +1,6 @@
 #include <k52/common/random.h>
 #include <k52/optimization/individual.h>
 
-#include <vector>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -12,8 +11,6 @@
 #include <stdexcept>
 
 #include "mutator.h"
-
-using ::std::vector;
 
 namespace k52
 {
@@ -57,7 +54,7 @@ Individual& Individual::operator=(const Individual & a)
 void Individual::Initialize(const IDiscreteParameters* const parameters)
 {
     parameters_ = IDiscreteParameters::shared_ptr(parameters->Clone());
-    chromosome_ = vector<bool> ( parameters_->GetChromosomeSize() );
+    chromosome_ = ChromosomeType ( parameters_->GetChromosomeSize() );
     parameters->SetChromosome(chromosome_.begin(), chromosome_.end());
 
     has_fitness_ = false;
@@ -74,7 +71,7 @@ const IDiscreteParameters* const Individual::GetParametersAccordingToChromosome(
     return parameters_.get();
 }
 
-const vector<bool>& Individual:: GetChromosome() const
+const ChromosomeType& Individual:: GetChromosome() const
 {
     initialization_checker_.InitializationCheck();
     return chromosome_;
@@ -92,7 +89,11 @@ int Individual::SetRandomChromosome()
     {
         success = true;
 
-        Random::Instance().SetRandomBoolVector(&chromosome_);
+        for (ChromosomeType::iterator it = chromosome_.begin(); it != chromosome_.end(); ++it)
+        {
+            *it = Random::Instance().GetRandomBool();
+        }
+
         this->SetParametersAccordingToChromosome();
         success = this->parameters_->CheckConstraints();
 
@@ -223,7 +224,7 @@ void Individual::SetParametersAccordingToChromosome()
     parameters_->SetFromChromosome(chromosome_.begin(), chromosome_.end());
 }
 
-void Individual::BoolCrossover(vector<bool> *first, vector<bool> *second)
+void Individual::BoolCrossover(ChromosomeType *first, ChromosomeType *second)
 {
     if(first->size() != second->size())
     {
@@ -246,7 +247,7 @@ void Individual::BoolCrossover(vector<bool> *first, vector<bool> *second)
 std::ostream& operator<< (std::ostream& out, const Individual& individual)
 {
     out<<"Chromosome:\t";
-    const vector<bool>& chromosome = individual.GetChromosome();
+    const ChromosomeType& chromosome = individual.GetChromosome();
     for(size_t i=0; i<chromosome.size(); i++)
     {
         out<< (chromosome[i] ? '1' : '0');
@@ -269,7 +270,7 @@ std::istream& operator>> (std::istream& in, Individual& individual)
         throw std::logic_error("Attempt to read chromosome of inappropriate size");
     }
 
-    vector<bool> new_chromosome(chromosome.size());
+    ChromosomeType new_chromosome(chromosome.size());
 
     for(size_t i=0; i < chromosome.size(); i++)
     {

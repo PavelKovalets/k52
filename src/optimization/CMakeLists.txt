@@ -6,6 +6,7 @@ set(OPTIMIZATION_COMMON_INCLUDE ${k52_SOURCE_DIR}/include/k52/optimization)
 # optimization algoritms library
 set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/bounded_nelder_mead.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/chromosome.h
     ${OPTIMIZATION_COMMON_INCLUDE}/conjugate_gradient_method.h
     ${OPTIMIZATION_COMMON_INCLUDE}/generation_statistics.h
     ${OPTIMIZATION_COMMON_INCLUDE}/genetic_algorithm.h

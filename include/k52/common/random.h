@@ -1,8 +1,6 @@
 #ifndef RANDOM_H_
 #define RANDOM_H_
 
-#include <vector>
-
 #include <k52/common/disallow_copy_and_assign.h>
 
 namespace k52
@@ -34,10 +32,6 @@ public:
     ///Generates uniformly distributed boolean - 0.5 to true, 0.5 to false
     ///@return random boolean
     bool GetRandomBool();
-
-    ///Sets vector to uniformly distributed booleans - 0.5 to true, 0.5 to false
-    ///@param array - vector to be set for random boolean values
-    void SetRandomBoolVector(std::vector<bool>* array);
 
     ///Generates uniformly distributed discrete random quantity within [min_value, max_value] interval
     ///@param min_value - interval lower bound

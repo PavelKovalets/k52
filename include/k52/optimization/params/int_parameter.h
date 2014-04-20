@@ -42,17 +42,17 @@ public:
 
     bool CheckConstraints() const;
 
-    void SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const;
+    void SetChromosome(ChromosomeType::iterator from, ChromosomeType::iterator to) const;
 
-    void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
+    void SetFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to);
 
 protected:
     void Initialize(int value, int min_value, int max_value);
 
 private:
-    static size_t CountVectorSize(int min_value, int max_value);
-    static int GetIntFromBoolVector(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
-    static void SetBoolVectorFromInt(std::vector<bool>::iterator from, std::vector<bool>::iterator to, int value);
+    static size_t CountChromosomeSize(int min_value, int max_value);
+    static int GetIntFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to);
+    static void SetChromosomeFromInt(ChromosomeType::iterator from, ChromosomeType::iterator to, int value);
 
     int value_;
     int min_value_;

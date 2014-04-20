@@ -1,8 +1,6 @@
 #include <k52/common/random.h>
 #include <k52/optimization/params/int_parameter.h>
 
-using ::std::vector;
-
 namespace k52
 {
 namespace optimization
@@ -49,32 +47,32 @@ bool IntParameter::CheckConstraints() const
     return (value_ <= max_value_) && (value_ >= min_value_);
 }
 
-void IntParameter::SetChromosome(vector<bool>::iterator from, vector<bool>::iterator to) const
+void IntParameter::SetChromosome(ChromosomeType::iterator from, ChromosomeType::iterator to) const
 {
     size_t chromosome_size = to - from;
     this->CheckForConstChromosomeSize(chromosome_size);
 
-    IntParameter::SetBoolVectorFromInt(from, to, value_ - min_value_);
+    IntParameter::SetChromosomeFromInt(from, to, value_ - min_value_);
 }
 
-void IntParameter::SetFromChromosome(vector<bool>::const_iterator from, vector<bool>::const_iterator to)
+void IntParameter::SetFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to)
 {
     size_t chromosome_size = to - from;
     this->CheckForConstChromosomeSize(chromosome_size);
 
-    value_ = IntParameter::GetIntFromBoolVector(from, to) + min_value_;
+    value_ = IntParameter::GetIntFromChromosome(from, to) + min_value_;
 }
 
 void IntParameter::Initialize(int value, int min_value, int max_value)
 {
-    SetConstChromosomeSize( CountVectorSize(min_value, max_value) );
+    SetConstChromosomeSize( CountChromosomeSize(min_value, max_value) );
 
     value_ = value;
     min_value_ = min_value;
     max_value_ = max_value;
 }
 
-size_t IntParameter::CountVectorSize(int min_value, int max_value)
+size_t IntParameter::CountChromosomeSize(int min_value, int max_value)
 {
     int x = 1;
     int target = max_value - min_value;
@@ -87,13 +85,13 @@ size_t IntParameter::CountVectorSize(int min_value, int max_value)
     return power;
 }
 
-int IntParameter::GetIntFromBoolVector(vector<bool>::const_iterator from, vector<bool>::const_iterator to)
+int IntParameter::GetIntFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to)
 {
     unsigned int result = 0;
 
     size_t bit_number = 0;
 
-    for (vector<bool>::const_iterator it = from; it != to; ++it)
+    for (ChromosomeType::const_iterator it = from; it != to; ++it)
     {
         if (*it)
         {
@@ -110,11 +108,11 @@ int IntParameter::GetIntFromBoolVector(vector<bool>::const_iterator from, vector
     return ((int)result);
 }
 
-void IntParameter::SetBoolVectorFromInt(vector<bool>::iterator from, vector<bool>::iterator to, int value)
+void IntParameter::SetChromosomeFromInt(ChromosomeType::iterator from, ChromosomeType::iterator to, int value)
 {
     size_t bit_number = 0;
 
-    for (vector<bool>::iterator it = from; it != to; ++it)
+    for (ChromosomeType::iterator it = from; it != to; ++it)
     {
         if ((value >> bit_number) & 1)
         {

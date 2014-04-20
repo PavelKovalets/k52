@@ -66,12 +66,12 @@ bool DoubleParameter::CheckConstraints() const
     return CheckBounds(GetValue());
 }
 
-void DoubleParameter::SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
+void DoubleParameter::SetChromosome(ChromosomeType::iterator from, ChromosomeType::iterator to) const
 {
     base_int_parameter_->SetChromosome(from, to);
 }
 
-void DoubleParameter::SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
+void DoubleParameter::SetFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to)
 {
     base_int_parameter_->SetFromChromosome(from, to);
 }

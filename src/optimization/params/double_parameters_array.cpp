@@ -44,18 +44,18 @@ bool DoubleParametersArray::CheckConstraints() const
     return true;
 }
 
-void DoubleParametersArray::SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const
+void DoubleParametersArray::SetChromosome(ChromosomeType::iterator from, ChromosomeType::iterator to) const
 {
     size_t chromosome_size = to - from;
 
     this->CheckForConstChromosomeSize(chromosome_size);
 
-    std::vector<bool>::iterator current_from = from;
+    ChromosomeType::iterator current_from = from;
     size_t parameter_chromosome_size = sample_parameter_->GetChromosomeSize();
 
     for(size_t i = 0; i < values_.size(); i++)
     {
-        std::vector<bool>::iterator current_to = current_from + parameter_chromosome_size;
+        ChromosomeType::iterator current_to = current_from + parameter_chromosome_size;
 
         sample_parameter_->SetValue(values_[i]);
         sample_parameter_->SetChromosome(current_from, current_to);
@@ -64,18 +64,18 @@ void DoubleParametersArray::SetChromosome(std::vector<bool>::iterator from, std:
     }
 }
 
-void DoubleParametersArray::SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to)
+void DoubleParametersArray::SetFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to)
 {
     size_t chromosome_size = to - from;
 
     this->CheckForConstChromosomeSize(chromosome_size);
 
-    std::vector<bool>::const_iterator current_from = from;
+    ChromosomeType::const_iterator current_from = from;
     size_t parameter_chromosome_size = sample_parameter_->GetChromosomeSize();
 
     for(size_t i = 0; i < values_.size(); i++)
     {
-        std::vector<bool>::const_iterator current_to = current_from + parameter_chromosome_size;
+        ChromosomeType::const_iterator current_to = current_from + parameter_chromosome_size;
 
         sample_parameter_->SetFromChromosome(current_from, current_to);
         values_[i] = sample_parameter_->GetValue();

@@ -23,9 +23,9 @@ public:
 
     bool CheckConstraints() const;
 
-    void SetChromosome(std::vector<bool>::iterator from, std::vector<bool>::iterator to) const;
+    void SetChromosome(ChromosomeType::iterator from, ChromosomeType::iterator to) const;
 
-    void SetFromChromosome(std::vector<bool>::const_iterator from, std::vector<bool>::const_iterator to);
+    void SetFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to);
 
     std::vector<double> get_values() const;
     double get_max_value() const;

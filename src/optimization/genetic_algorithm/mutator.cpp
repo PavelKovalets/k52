@@ -16,7 +16,7 @@ Mutator& Mutator::Instance()
     return self;
 }
 
-void Mutator::MutateBoolArray(double gen_mutation_probability, std::vector<bool>* array)
+void Mutator::MutateBoolArray(double gen_mutation_probability, ChromosomeType* array)
 {
     if(was_probability_set_)
     {
