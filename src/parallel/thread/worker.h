@@ -63,21 +63,21 @@ void Worker<TTask>::ProcessTasksQueue(ThreadSafeQueue<TTask>* tasks_to_do, Threa
             to_do.DoTask();
             done_tasks->Push(to_do);
         }
-        catch(boost::thread_interrupted& ex)
+        catch(boost::thread_interrupted&)
         {
             std::cout << "Incorrect finish" << std::endl;
             break;
         }
         catch(const std::exception& ex)
         {
-            std::cout << "Incorrect task: " << ex.what()<<std::endl;
+            std::cout << "Incorrect task: " << ex.what() <<std::endl;
         }
 
         try
         {
             boost::this_thread::interruption_point();
         }
-        catch(boost::thread_interrupted& ex)
+        catch(boost::thread_interrupted&)
         {
             std::cout<<"Correct finish."<<std::endl;
             break;
