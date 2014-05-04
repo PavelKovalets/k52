@@ -1,5 +1,7 @@
 #include <k52/optimization/continuous_optimizer.h>
 
+#include <stdexcept>
+
 namespace k52
 {
 namespace optimization

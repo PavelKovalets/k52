@@ -1,5 +1,7 @@
 #include <k52/optimization/discrete_objective_function.h>
 
+#include <stdexcept>
+
 namespace k52
 {
 namespace optimization
