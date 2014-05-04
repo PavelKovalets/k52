@@ -19,7 +19,7 @@ int main()
                                                              precision,
                                                              global_lower_bound,
                                                              global_upper_bound);
-    k52::optimization::IOptimizer* optimizer = &bounded_nelder_mead;
+    k52::optimization::ContinuousOptimizer* optimizer = &bounded_nelder_mead;
 
     tester.Test(optimizer);
 

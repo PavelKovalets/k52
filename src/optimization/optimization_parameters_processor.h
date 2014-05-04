@@ -19,9 +19,10 @@ public:
 
     OptimizationParametersProcessor(const IOptimizer* optimizer);
 
-    virtual IContinuousParameters::shared_ptr ProcessParameters(const IObjectiveFunction& function_to_optimize,
-                                    const std::vector< IContinuousParameters::shared_ptr >& parameters,
-                                    bool maximize);
+    virtual IParameters::shared_ptr ProcessParameters(
+        const IObjectiveFunction& function_to_optimize,
+        const std::vector< IParameters::shared_ptr >& parameters,
+        bool maximize);
 
 private:
     parallel::IWorkerPool::shared_ptr worker_pool_;

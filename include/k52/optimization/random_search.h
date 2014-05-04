@@ -3,8 +3,7 @@
 
 #include <vector>
 
-#include <k52/optimization/i_optimizer.h>
-#include <k52/optimization/params/i_continuous_parameters.h>
+#include <k52/optimization/continuous_optimizer.h>
 
 namespace k52
 {
@@ -13,16 +12,16 @@ namespace optimization
 
 class IParametersProcessor;
 
-class RandomSearch : public IOptimizer
+class RandomSearch : public ContinuousOptimizer
 {
 public:
     RandomSearch(size_t number_of_random_points,
                  double lower_bound,
                  double upper_bound,
-                 const IOptimizer* optimizer = NULL);
+                 const ContinuousOptimizer* optimizer = NULL);
 
-    virtual void Optimize(const IObjectiveFunction &function_to_optimize,
-                          IParameters* parametrs_to_optimize,
+    virtual void Optimize(const ContinuousObjectiveFunction &function_to_optimize,
+                          IContinuousParameters* parametrs_to_optimize,
                           bool maximize);
 
     ///Creates deep clone of an object with resource allocation. See ICloneable

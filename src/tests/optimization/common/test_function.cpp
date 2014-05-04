@@ -10,7 +10,7 @@
 
 #include "test_objective_functions.h"
 
-using ::k52::optimization::IObjectiveFunction;
+using ::k52::optimization::ContinuousObjectiveFunction;
 using ::k52::optimization::IContinuousParameters;
 using ::k52::optimization::ContinuousParametersArray;
 
@@ -22,7 +22,7 @@ namespace optimization_tests
 bool TestFunction::was_initialized_ = false;
 std::vector<TestFunction::shared_ptr> TestFunction::test_functions_;
 
-const IObjectiveFunction& TestFunction::get_objective_function() const
+const ContinuousObjectiveFunction& TestFunction::get_objective_function() const
 {
     return *function_.get();
 }
@@ -47,7 +47,7 @@ bool TestFunction::maximize() const
     return maximize_;
 }
 
-void TestFunction::Register(IObjectiveFunction::shared_ptr function,
+void TestFunction::Register(ContinuousObjectiveFunction::shared_ptr function,
                             IContinuousParameters::shared_ptr solution,
                             IContinuousParameters::shared_ptr start_point,
                             std::string analitical_form,
@@ -72,7 +72,7 @@ std::vector<TestFunction::shared_ptr> TestFunction::get_test_functions()
     return test_functions_;
 }
 
-TestFunction::TestFunction(IObjectiveFunction::shared_ptr function,
+TestFunction::TestFunction(ContinuousObjectiveFunction::shared_ptr function,
                            IContinuousParameters::shared_ptr solution,
                            IContinuousParameters::shared_ptr start_point,
                            std::string analitical_form,
@@ -87,7 +87,7 @@ TestFunction::TestFunction(IObjectiveFunction::shared_ptr function,
 
 void TestFunction::Initialize()
 {
-    IObjectiveFunction::shared_ptr square_objective_function( new SquareObjectiveFunction() );
+    ContinuousObjectiveFunction::shared_ptr square_objective_function(new SquareObjectiveFunction());
 
     std::vector<double> square_solution_values(2);
     square_solution_values[0] = M_SQRT2;
@@ -109,7 +109,7 @@ void TestFunction::Initialize()
 
     //---------
 
-    IObjectiveFunction::shared_ptr simple_square_objective_function( new SimpleSquareObjectiveFunction() );
+    ContinuousObjectiveFunction::shared_ptr simple_square_objective_function(new SimpleSquareObjectiveFunction());
     Register(simple_square_objective_function, square_solution, square_start_point, "(x^2-2)^2", false);
 
 //TODO fix
@@ -118,7 +118,7 @@ void TestFunction::Initialize()
 #endif
 
     //---------
-    IObjectiveFunction::shared_ptr difraction_objective_function( new DifractionObjectiveFunction() );
+    ContinuousObjectiveFunction::shared_ptr difraction_objective_function(new DifractionObjectiveFunction());
 
     std::vector<double> zero_solution_values(2);
     zero_solution_values[0] = 0;
@@ -138,7 +138,7 @@ void TestFunction::Initialize()
 #endif
 
     //---------
-    IObjectiveFunction::shared_ptr square_summ_objective_function(new SquareSummObjectiveFunction());
+    ContinuousObjectiveFunction::shared_ptr square_summ_objective_function(new SquareSummObjectiveFunction());
     Register(square_summ_objective_function, zero_solution, difraction_start_point, "SUMM( Xi^2 )", false);
 
 //TODO fix
@@ -147,7 +147,7 @@ void TestFunction::Initialize()
 #endif
 
     //---------
-    IObjectiveFunction::shared_ptr multiminimum_objective_function( new MultiminimumObjectiveFunction() );
+    ContinuousObjectiveFunction::shared_ptr multiminimum_objective_function(new MultiminimumObjectiveFunction());
 
     Register(multiminimum_objective_function, zero_solution, difraction_start_point, "x sin(4 x) + 1.1y sin(2 y)", false);
 

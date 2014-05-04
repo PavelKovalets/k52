@@ -23,18 +23,23 @@ const double GlobalMinValue = GlobalPrecision;
 const double GlobalMaxValue = 100;
 const int GlobalThreads= 4;
 
-class DiscreteObjectiveFunction : public k52::optimization::IObjectiveFunction
+class ExactDiscreteObjectiveFunction : public k52::optimization::DiscreteObjectiveFunction
 {
 public:
 
-    virtual DiscreteObjectiveFunction* Clone() const
+    virtual ExactDiscreteObjectiveFunction* Clone() const
     {
-        return new DiscreteObjectiveFunction();
+        return new ExactDiscreteObjectiveFunction();
     }
 
-    double operator () (const IParameters* const iparameters) const
+    double operator () (const IDiscreteParameters* const iparameters) const
     {
         const DoubleParametersArray* const parametrs = dynamic_cast<const DoubleParametersArray* const>(iparameters);
+
+        if (!parametrs)
+        {
+            throw std::logic_error("ExactDiscreteObjectiveFunction must accept DoubleParametersArray.");
+        }
 
         double summ = 0;
         vector<double> values = parametrs->get_values();
@@ -89,7 +94,6 @@ int main(int argc, char* argv[])
     time(&begin);
     cout << "Begin" << endl;
 
-
     int populationSize = 1000;
     int numberOfIterations = 10;
     int elitismPairs = 25;
@@ -98,7 +102,7 @@ int main(int argc, char* argv[])
 
     /////////////Genetic Algrythm///////////////
     k52::optimization::DoubleParametersArray parameters(GlobalMinValue, GlobalMaxValue, GlobalPrecision, GlobalNumberOfParameters);
-    DiscreteObjectiveFunction of;
+    ExactDiscreteObjectiveFunction of;
 
     //TODO currently have to manually all nesessary objects
 #ifdef BUILD_WITH_MPI

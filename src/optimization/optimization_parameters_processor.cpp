@@ -24,9 +24,9 @@ OptimizationParametersProcessor::OptimizationParametersProcessor(const IOptimize
     worker_pool_ = parallel::WorkerPoolFactory::CreateBestWorkerPool();
 }
 
-IContinuousParameters::shared_ptr OptimizationParametersProcessor::ProcessParameters(
+IParameters::shared_ptr OptimizationParametersProcessor::ProcessParameters(
     const IObjectiveFunction& function_to_optimize,
-    const std::vector< IContinuousParameters::shared_ptr >& parameters,
+    const std::vector< IParameters::shared_ptr >& parameters,
     bool maximize)
 {
     std::vector< OptimizationTask::shared_ptr > tasks (parameters.size());

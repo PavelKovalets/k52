@@ -16,7 +16,7 @@ namespace optimization
 RandomSearch::RandomSearch(size_t number_of_random_points,
                            double lower_bound,
                            double upper_bound,
-                           const IOptimizer* optimizer):
+                           const ContinuousOptimizer* optimizer) :
     number_of_random_points_(number_of_random_points),
     lower_bound_(lower_bound),
     upper_bound_(upper_bound)
@@ -35,28 +35,33 @@ RandomSearch::RandomSearch(size_t number_of_random_points,
     }
 }
 
-void RandomSearch::Optimize(const IObjectiveFunction &function_to_optimize,
-                      IParameters* parametrs_to_optimize,
-                      bool maximize)
+void RandomSearch::Optimize(const ContinuousObjectiveFunction &function_to_optimize,
+    IContinuousParameters* parametrs_to_optimize,
+    bool maximize)
 {
-    IContinuousParameters* continuous_parameters = dynamic_cast<IContinuousParameters*> (parametrs_to_optimize);
-    if(continuous_parameters == NULL)
-    {
-        throw std::invalid_argument("parametrs_to_optimize must be of type IContinuousParameters for RandomSearch");
-    }
-    size_t vector_size = continuous_parameters->GetValues().size();
+    size_t vector_size = parametrs_to_optimize->GetValues().size();
 
-    std::vector< IContinuousParameters::shared_ptr > random_parameters(number_of_random_points_);
+    std::vector< IParameters::shared_ptr > random_parameters(number_of_random_points_);
     for(size_t i=0; i<number_of_random_points_; i++)
     {
-        random_parameters[i] = IContinuousParameters::shared_ptr( continuous_parameters->Clone() );
-        random_parameters[i]->SetValues( GenerateRandomPoint(vector_size) );
+        IContinuousParameters::shared_ptr tmp = IContinuousParameters::shared_ptr(parametrs_to_optimize->Clone());
+        tmp->SetValues(GenerateRandomPoint(vector_size));
+        random_parameters[i] = tmp;
     }
 
-    IContinuousParameters::shared_ptr best_parameters =
+    IParameters::shared_ptr best_parameters =
             parameters_processor_->ProcessParameters(function_to_optimize, random_parameters, maximize);
 
-    continuous_parameters->SetValues(best_parameters->GetValues());
+    IContinuousParameters::shared_ptr best_continuous_parameters = boost::dynamic_pointer_cast<IContinuousParameters>(best_parameters);
+
+    if (best_continuous_parameters)
+    {
+        parametrs_to_optimize->SetValues(best_continuous_parameters->GetValues());
+    }
+    else
+    {
+        throw std::logic_error("parameters_processor must return ContinuousParameters for same input");
+    }
 }
 
 RandomSearch* RandomSearch::Clone() const

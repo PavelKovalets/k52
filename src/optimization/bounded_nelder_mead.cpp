@@ -13,8 +13,6 @@
 #include <fstream>
 #include <iostream>
 
-#include <k52/optimization/params/i_continuous_parameters.h>
-
 using ::std::vector;
 
 namespace k52
@@ -30,16 +28,11 @@ BoundedNelderMead::BoundedNelderMead(double l, double precision, double lower_bo
     l_ = l;
 }
 
-void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
-                                 IParameters* parametrs_to_optimize,
-                                 bool maximize)
+void BoundedNelderMead::Optimize(const ContinuousObjectiveFunction &function_to_optimize,
+    IContinuousParameters* parametrs_to_optimize,
+    bool maximize)
 {
-    IContinuousParameters* continuous_parameters = dynamic_cast<IContinuousParameters*> (parametrs_to_optimize);
-    if(continuous_parameters == NULL)
-    {
-        throw std::invalid_argument("parametrs_to_optimize must be of type IContinuousParameters for BoundedNelderMead");
-    }
-    vector<double> initial_parameters = continuous_parameters->GetValues();
+    vector<double> initial_parameters = parametrs_to_optimize->GetValues();
 
     //Size of task
     size_t n = initial_parameters.size();
@@ -56,7 +49,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
     vector< vector<double> > polygon = GetRegularSimplex(initial_parameters, l_);
 
     //count values
-    vector<double> function_values = CountObjectiveFunctionValues(polygon, continuous_parameters, function_to_optimize, maximize);
+    vector<double> function_values = CountObjectiveFunctionValues(polygon, parametrs_to_optimize, function_to_optimize, maximize);
 
     do
     {
@@ -84,13 +77,13 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
         //Reflect max point - we seek for minimum
         vector<double> reflected_point = Reflexion(center_of_mass, polygon[first_max_index]);
         CorrectByProjectingToBounds(&reflected_point);
-        double reflected_point_value = CountObjectiveFunctionValue(reflected_point, continuous_parameters, function_to_optimize, maximize);
+        double reflected_point_value = CountObjectiveFunctionValue(reflected_point, parametrs_to_optimize, function_to_optimize, maximize);
 
         if(reflected_point_value < lowest_value)
         {
             vector<double> expanded_point = Expansion(center_of_mass, reflected_point);
             CorrectByProjectingToBounds(&expanded_point);
-            double expanded_point_value = CountObjectiveFunctionValue(expanded_point, continuous_parameters, function_to_optimize, maximize);
+            double expanded_point_value = CountObjectiveFunctionValue(expanded_point, parametrs_to_optimize, function_to_optimize, maximize);
 
             if(expanded_point_value < reflected_point_value )
             {
@@ -127,7 +120,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
                 }
 
                 vector<double> contraction_point = Contraction(center_of_mass, polygon[first_max_index]);
-                double contraction_point_value = CountObjectiveFunctionValue(contraction_point, continuous_parameters, function_to_optimize, maximize);
+                double contraction_point_value = CountObjectiveFunctionValue(contraction_point, parametrs_to_optimize, function_to_optimize, maximize);
 
                 if(contraction_point_value > highest_value)
                 {
@@ -147,7 +140,7 @@ void BoundedNelderMead::Optimize(const IObjectiveFunction &function_to_optimize,
 
 
     size_t best_index = std::distance(function_values.begin(), std::max_element(function_values.begin(), function_values.end()));
-    continuous_parameters->SetValues( polygon[best_index] );
+    parametrs_to_optimize->SetValues( polygon[best_index] );
 }
 
 BoundedNelderMead* BoundedNelderMead::Clone() const

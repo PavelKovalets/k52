@@ -3,15 +3,14 @@
 
 #include <vector>
 
-#include <k52/optimization/i_optimizer.h>
-#include <k52/optimization/params/i_continuous_parameters.h>
+#include <k52/optimization/continuous_optimizer.h>
 
 namespace k52
 {
 namespace optimization
 {
 
-class ConjugateGradientMethod: public IOptimizer
+class ConjugateGradientMethod : public ContinuousOptimizer
 {
 public:
     ConjugateGradientMethod(
@@ -20,8 +19,8 @@ public:
         size_t number_of_iterations = 1000);
 
     virtual void Optimize(
-        const IObjectiveFunction& function_to_optimize,
-        IParameters* parametrs_to_optimize,
+        const ContinuousObjectiveFunction& function_to_optimize,
+        IContinuousParameters* parametrs_to_optimize,
         bool maximize);
 
     /// Creates deep clone of an object with resource allocation. See ICloneable
@@ -61,7 +60,7 @@ protected:
 
 private:
     const IContinuousParameters* parametrs_to_optimize_;
-    const IObjectiveFunction* function_to_optimize_;
+    const ContinuousObjectiveFunction* function_to_optimize_;
     bool maximize_;
 
     double precision_;

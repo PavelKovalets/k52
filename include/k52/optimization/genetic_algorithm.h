@@ -5,9 +5,8 @@
 
 #include <k52/common/disallow_copy_and_assign.h>
 #include <k52/common/settings_manager.h>
-#include <k52/optimization/i_optimizer.h>
+#include <k52/optimization/discrete_optimizer.h>
 #include <k52/optimization/individual.h>
-#include <k52/optimization/params/i_discrete_parameters.h>
 #include <k52/optimization/generation_statistics.h>
 
 namespace k52
@@ -24,7 +23,7 @@ typedef void (*NextGenerationReadyCallback)(GenerationStatistics);
 Performs evolutionary optimization.
 Best individual of all generations is selected and returned as result.
 */
-class GeneticAlgorithm: public IOptimizer
+class GeneticAlgorithm: public DiscreteOptimizer
 {
 public:
     typedef boost::shared_ptr<GeneticAlgorithm> shared_ptr;
@@ -50,9 +49,10 @@ public:
     ///It gets all settings via SettingsManager
     static GeneticAlgorithm::shared_ptr Create(const SettingsManager& settings_manager);
 
-    void Optimize(const IObjectiveFunction &function_to_optimize,
-                  IParameters* parametrs_to_optimize,
-                  bool maximize);
+    void Optimize(const DiscreteObjectiveFunction &function_to_optimize,
+        IDiscreteParameters* parametrs_to_optimize,
+        bool maximize);
+
     void OnNextGenerationReadyConnect(NextGenerationReadyCallback callback);
 
     ///Creates deep clone of an object with resource allocation. See ICloneable

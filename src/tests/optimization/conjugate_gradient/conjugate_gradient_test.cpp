@@ -10,7 +10,7 @@ int main()
 
     k52::optimization::ConjugateGradientMethod conjugate_gradient;
 
-    k52::optimization::IOptimizer* optimizer = &conjugate_gradient;
+    k52::optimization::ContinuousOptimizer* optimizer = &conjugate_gradient;
 
     tester.Test(optimizer);
 

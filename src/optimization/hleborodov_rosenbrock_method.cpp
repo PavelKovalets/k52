@@ -39,13 +39,11 @@ HleborodovRosenbrockMethod::HleborodovRosenbrockMethod(
 }
 
 void HleborodovRosenbrockMethod::Optimize(
-    const IObjectiveFunction &function_to_optimize,
-    IParameters* parametrs_to_optimize,
+    const ContinuousObjectiveFunction &function_to_optimize,
+    IContinuousParameters* parametrs_to_optimize,
     bool maximize)
 {
-    IContinuousParameters* continuous_parameters = dynamic_cast<IContinuousParameters*> (parametrs_to_optimize);
-
-    vector<double> arguments(continuous_parameters->GetValues());
+    vector<double> arguments(parametrs_to_optimize->GetValues());
     dimension_ = arguments.size();
     vector<double> next_step_arguments(arguments);
 
@@ -54,7 +52,7 @@ void HleborodovRosenbrockMethod::Optimize(
     for(size_t i = 1; i<=max_iteration_number_; i++)
     {
         // Research of next arguments, that minimize function
-        MakeStep(next_step_arguments, continuous_parameters, function_to_optimize, maximize);
+        MakeStep(next_step_arguments, parametrs_to_optimize, function_to_optimize, maximize);
 
         if(IsExitCriteriaFulfilled(next_step_arguments, arguments))
         {
@@ -72,7 +70,7 @@ void HleborodovRosenbrockMethod::Optimize(
         arguments = next_step_arguments;
     }
 
-    continuous_parameters->SetValues(next_step_arguments);
+    parametrs_to_optimize->SetValues(next_step_arguments);
 }
 
 HleborodovRosenbrockMethod* HleborodovRosenbrockMethod::Clone() const
@@ -109,7 +107,7 @@ void HleborodovRosenbrockMethod::Receive(boost::mpi::communicator* communicator,
 double HleborodovRosenbrockMethod::CountObjectiveFunctionValue(
     const IContinuousParameters* base_parameters,
     const std::vector<double>& parameters_values,
-    const IObjectiveFunction& function_to_optimize,
+    const ContinuousObjectiveFunction& function_to_optimize,
     bool maximize)
 {
     IContinuousParameters::shared_ptr parameters_clone(base_parameters->Clone());
@@ -151,7 +149,7 @@ void HleborodovRosenbrockMethod::MakeStep(
     //TODO fix
     vector<double> &arguments,
     const IContinuousParameters* base_parameters,
-    const IObjectiveFunction &function_to_optimize,
+    const ContinuousObjectiveFunction &function_to_optimize,
     bool maximize)
 {
     double start_function_value = CountObjectiveFunctionValue(base_parameters, arguments, function_to_optimize, maximize);

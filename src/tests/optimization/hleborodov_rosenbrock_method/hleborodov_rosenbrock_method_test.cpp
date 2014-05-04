@@ -13,7 +13,7 @@ int main()
     double first_step = 1;
     double max_step = 3;
     k52::optimization::HleborodovRosenbrockMethod hleborodov_rosenbrock_method(precision, max_iteration_number, first_step, max_step);
-    k52::optimization::IOptimizer* optimizer = &hleborodov_rosenbrock_method;
+    k52::optimization::ContinuousOptimizer* optimizer = &hleborodov_rosenbrock_method;
 
     tester.Test(optimizer);
     return 0;

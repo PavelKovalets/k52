@@ -8,6 +8,10 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/bounded_nelder_mead.h
     ${OPTIMIZATION_COMMON_INCLUDE}/chromosome.h
     ${OPTIMIZATION_COMMON_INCLUDE}/conjugate_gradient_method.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/continuous_objective_function.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/continuous_optimizer.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/discrete_objective_function.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/discrete_optimizer.h
     ${OPTIMIZATION_COMMON_INCLUDE}/generation_statistics.h
     ${OPTIMIZATION_COMMON_INCLUDE}/genetic_algorithm.h
     ${OPTIMIZATION_COMMON_INCLUDE}/grid_search.h
@@ -49,7 +53,11 @@ set(OPTIMIZE_SOURCE
     bounded_nelder_mead.cpp
     cache.cpp
     conjugate_gradient_method.cpp
+    continuous_objective_function.cpp
+    continuous_optimizer.cpp
     count_objective_function_task.cpp
+    discrete_objective_function.cpp
+    discrete_optimizer.cpp
     grid_search.cpp
     hleborodov_rosenbrock_method.cpp
     initialization_checker.cpp

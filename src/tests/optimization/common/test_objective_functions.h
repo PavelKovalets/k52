@@ -8,7 +8,7 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include <k52/optimization/i_objective_function.h>
+#include <k52/optimization/continuous_objective_function.h>
 #include <k52/optimization/params/i_continuous_parameters.h>
 
 #include "consts.h"
@@ -18,20 +18,7 @@ namespace k52
 namespace optimization_tests
 {
 
-class ContinuousObjectiveFunction : public k52::optimization::IObjectiveFunction
-{
-public:
-    virtual double operator () (const k52::optimization::IParameters* const parameters) const
-    {
-        const k52::optimization::IContinuousParameters* const continuous_parametrs =
-                dynamic_cast<const k52::optimization::IContinuousParameters* const>(parameters);
-        return (*this) (continuous_parametrs->GetValues());
-    }
-
-    virtual double operator () (const std::vector<double>& values) const = 0;
-};
-
-class SquareObjectiveFunction : public ContinuousObjectiveFunction
+class SquareObjectiveFunction : public k52::optimization::ContinuousObjectiveFunction
 {
 public:
 
@@ -55,7 +42,7 @@ public:
     }
 };
 
-class SimpleSquareObjectiveFunction : public ContinuousObjectiveFunction
+class SimpleSquareObjectiveFunction : public k52::optimization::ContinuousObjectiveFunction
 {
 public:
 
@@ -80,7 +67,7 @@ public:
     }
 };
 
-class SquareSummObjectiveFunction : public ContinuousObjectiveFunction
+class SquareSummObjectiveFunction : public k52::optimization::ContinuousObjectiveFunction
 {
 public:
 
@@ -103,7 +90,7 @@ public:
     }
 };
 
-class DifractionObjectiveFunction : public ContinuousObjectiveFunction
+class DifractionObjectiveFunction : public k52::optimization::ContinuousObjectiveFunction
 {
 public:
 
@@ -137,7 +124,7 @@ public:
     }
 };
 
-class TwoDimmensionalObjectiveFunction : public ContinuousObjectiveFunction
+class TwoDimmensionalObjectiveFunction : public k52::optimization::ContinuousObjectiveFunction
 {
 public:
     virtual double operator () (const std::vector<double>& values) const

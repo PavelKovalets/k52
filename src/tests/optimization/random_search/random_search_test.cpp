@@ -25,7 +25,7 @@ int main()
                                                   global_lower_bound,
                                                   global_upper_bound,
                                                   &bounded_nelder_mead);
-    k52::optimization::IOptimizer* optimizer = &random_search;
+    k52::optimization::ContinuousOptimizer* optimizer = &random_search;
 
     tester.Test(optimizer);
 

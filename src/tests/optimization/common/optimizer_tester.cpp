@@ -4,8 +4,8 @@
 
 using ::std::cout;
 using ::std::endl;
-using ::k52::optimization::IParameters;
 using ::k52::optimization::IContinuousParameters;
+using ::k52::optimization::ContinuousOptimizer;
 
 namespace k52
 {
@@ -17,7 +17,7 @@ OptimizerTester::OptimizerTester()
     test_functions_ = TestFunction::get_test_functions();
 }
 
-void OptimizerTester::Test(k52::optimization::IOptimizer* optimizer)
+void OptimizerTester::Test(ContinuousOptimizer* optimizer)
 {
     for (size_t i = 0; i<test_functions_.size(); i++)
     {
@@ -26,12 +26,12 @@ void OptimizerTester::Test(k52::optimization::IOptimizer* optimizer)
 }
 
 void OptimizerTester::TestSingleFunction(const TestFunction& function,
-                                         k52::optimization::IOptimizer* optimizer)
+                                         ContinuousOptimizer* optimizer)
 {
     cout<<"---- Testing "<<function.get_analitical_form()<<" "
         << (function.maximize() ? "max" : "min") << " ----"<<endl;
 
-    const k52::optimization::IObjectiveFunction& objective_function
+    const k52::optimization::ContinuousObjectiveFunction& objective_function
         = function.get_objective_function();
 
     const IContinuousParameters* solution = function.get_solution();

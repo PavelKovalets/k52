@@ -4,8 +4,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include <k52/common/disallow_copy_and_assign.h>
-#include <k52/optimization/params/i_continuous_parameters.h>
-#include <k52/optimization/i_optimizer.h>
+#include <k52/optimization/continuous_optimizer.h>
 
 namespace k52
 {
@@ -14,14 +13,14 @@ namespace optimization
 
 class ObjectiveFunctionCounter;
 
-class BoundedNelderMead: public IOptimizer
+class BoundedNelderMead: public ContinuousOptimizer
 {
 public:
     BoundedNelderMead(double l, double precision, double lower_bound, double upper_bound);
 
-    virtual void Optimize(const IObjectiveFunction& function_to_optimize,
-                          IParameters* parametrs_to_optimize,
-                          bool maximize);
+    virtual void Optimize(const ContinuousObjectiveFunction &function_to_optimize,
+        IContinuousParameters* parametrs_to_optimize,
+        bool maximize);
 
     ///Creates deep clone of an object with resource allocation. See ICloneable
     ///@return deep clone of an object

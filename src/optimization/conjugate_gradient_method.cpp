@@ -29,15 +29,14 @@ ConjugateGradientMethod::ConjugateGradientMethod(
 }
 
 void ConjugateGradientMethod::Optimize(
-    const IObjectiveFunction& function_to_optimize,
-    IParameters* parametrs_to_optimize,
+    const ContinuousObjectiveFunction& function_to_optimize,
+    IContinuousParameters* parametrs_to_optimize,
     bool maximize)
 {
     function_to_optimize_ = &function_to_optimize;
     maximize_ = maximize;
-    IContinuousParameters* continuous_parameters = dynamic_cast<IContinuousParameters*> (parametrs_to_optimize);
-    parametrs_to_optimize_ = continuous_parameters;
-    std::vector<double> parameters = continuous_parameters->GetValues();
+    parametrs_to_optimize_ = parametrs_to_optimize;
+    std::vector<double> parameters = parametrs_to_optimize->GetValues();
 
     std::vector<double> gradient = CalculateGradient(parameters);
     std::vector<double> previous_gradient(parameters.size());
@@ -84,7 +83,7 @@ void ConjugateGradientMethod::Optimize(
     }
     while (exit >= precision_);
 
-    continuous_parameters->SetValues(parameters);
+    parametrs_to_optimize->SetValues(parameters);
 }
 
 ConjugateGradientMethod* ConjugateGradientMethod::Clone() const

@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include <k52/optimization/i_optimizer.h>
+#include <k52/optimization/continuous_optimizer.h>
 
 #include "test_function.h"
 
@@ -17,11 +17,11 @@ class OptimizerTester
 public:
     OptimizerTester();
 
-    void Test(k52::optimization::IOptimizer* optimizer);
+    void Test(k52::optimization::ContinuousOptimizer* optimizer);
 
 protected:
     void TestSingleFunction(const TestFunction& function,
-                            k52::optimization::IOptimizer* optimizer);
+                            k52::optimization::ContinuousOptimizer* optimizer);
 
     void PrintParameters(const k52::optimization::IContinuousParameters* parameters) const;
 

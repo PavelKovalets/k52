@@ -4,15 +4,14 @@
 #include <boost/shared_ptr.hpp>
 
 #include <k52/common/disallow_copy_and_assign.h>
-#include <k52/optimization/params/i_continuous_parameters.h>
-#include <k52/optimization/i_optimizer.h>
+#include <k52/optimization/continuous_optimizer.h>
 
 namespace k52
 {
 namespace optimization
 {
 
-class HleborodovRosenbrockMethod: public IOptimizer
+class HleborodovRosenbrockMethod: public ContinuousOptimizer
 {
 public:
     HleborodovRosenbrockMethod(
@@ -22,8 +21,8 @@ public:
         double max_step);
 
     virtual void Optimize(
-        const IObjectiveFunction& function_to_optimize,
-        IParameters* parametrs_to_optimize,
+        const ContinuousObjectiveFunction& function_to_optimize,
+        IContinuousParameters* parametrs_to_optimize,
         bool maximize);
 
     /// Creates deep clone of an object with resource allocation. See ICloneable
@@ -41,7 +40,7 @@ protected:
     double CountObjectiveFunctionValue(
         const IContinuousParameters *base_parameters,
         const std::vector<double>& parameters_values,
-        const IObjectiveFunction &function_to_optimize,
+        const ContinuousObjectiveFunction &function_to_optimize,
         bool maximize);
 
     /// Set basis to Decart and steps to default
@@ -56,7 +55,7 @@ protected:
     /// Make test step in old basis
     void MakeStep(std::vector<double> &arguments,
         const IContinuousParameters *base_parameters,
-        const IObjectiveFunction &function_to_optimize,
+        const ContinuousObjectiveFunction &function_to_optimize,
         bool maximize);
 
     void MakeStepPerCoordinate(int basis_index, std::vector<double>* arguments);

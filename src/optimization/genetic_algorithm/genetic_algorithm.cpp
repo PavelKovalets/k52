@@ -121,21 +121,16 @@ GeneticAlgorithm::GeneticAlgorithm(
     invalid_chromosomes_ = 0;
 }
 
-void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize,
-                                IParameters* parametrs_to_optimize,
-                                bool maximize)
+void GeneticAlgorithm::Optimize(const DiscreteObjectiveFunction &function_to_optimize,
+    IDiscreteParameters* parametrs_to_optimize,
+    bool maximize)
 {
     if(!maximize)
     {
         throw std::invalid_argument("GeneticAlgorithm currently can only maximize function.");
     }
 
-    IDiscreteParameters* discrete_parameters = dynamic_cast<IDiscreteParameters*>(parametrs_to_optimize);
-    if(discrete_parameters == NULL)
-    {
-        throw std::invalid_argument("GeneticAlgorithm currently can optimize only IDiscreteParameters.");
-    }
-    Initialize(discrete_parameters);
+    Initialize(parametrs_to_optimize);
 
     if(!population_file_name_.empty())
     {
@@ -171,7 +166,7 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize,
 
         if(best_individ_->get_fitness() >= fitness_stop_criteria_)
         {
-            discrete_parameters->SetFromChromosome(
+            parametrs_to_optimize->SetFromChromosome(
                 best_individ_->GetChromosome().begin(),
                 best_individ_->GetChromosome().end() );
             return;
@@ -181,7 +176,7 @@ void GeneticAlgorithm::Optimize(const IObjectiveFunction &function_to_optimize,
         Mutate();
     }
 
-    discrete_parameters->SetFromChromosome(
+    parametrs_to_optimize->SetFromChromosome(
         best_individ_->GetChromosome().begin(),
         best_individ_->GetChromosome().end() );
 

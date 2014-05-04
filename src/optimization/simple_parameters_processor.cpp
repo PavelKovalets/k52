@@ -12,10 +12,10 @@ SimpleParametersProcessor::SimpleParametersProcessor()
 {
 }
 
-IContinuousParameters::shared_ptr SimpleParametersProcessor::ProcessParameters(
-        const IObjectiveFunction &function_to_optimize,
-        const std::vector< IContinuousParameters::shared_ptr >& parameters,
-        bool maximize)
+IParameters::shared_ptr SimpleParametersProcessor::ProcessParameters(
+    const IObjectiveFunction &function_to_optimize,
+    const std::vector< IParameters::shared_ptr >& parameters,
+    bool maximize)
 {
     if(parameters.size() < 1)
     {
@@ -43,7 +43,7 @@ IContinuousParameters::shared_ptr SimpleParametersProcessor::ProcessParameters(
 }
 
 std::vector<const IParameters*> SimpleParametersProcessor::ExtractPointers(
-        const std::vector< IContinuousParameters::shared_ptr >& parameters)
+        const std::vector< IParameters::shared_ptr >& parameters)
 {
     std::vector<const IParameters*> pointers(parameters.size());
     for(size_t i=0; i<parameters.size(); i++)
