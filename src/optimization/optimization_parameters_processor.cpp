@@ -71,7 +71,7 @@ IParameters::shared_ptr OptimizationParametersProcessor::ProcessParameters(
     }
 
     //TODO FIX
-    return boost::dynamic_pointer_cast<IContinuousParameters>(
+    return boost::dynamic_pointer_cast<IParameters>(
         boost::dynamic_pointer_cast<OptimizationTaskResult>(
             task_results[index]
         )->get_optimal_parameters()
