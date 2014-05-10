@@ -38,41 +38,6 @@ HleborodovRosenbrockMethod::HleborodovRosenbrockMethod(
     max_iteration_number_ = max_iteration_number;
 }
 
-void HleborodovRosenbrockMethod::Optimize(
-    const ContinuousObjectiveFunction &function_to_optimize,
-    IContinuousParameters* parametrs_to_optimize,
-    bool maximize)
-{
-    vector<double> arguments(parametrs_to_optimize->GetValues());
-    dimension_ = arguments.size();
-    vector<double> next_step_arguments(arguments);
-
-    InitializeBasisAndSteps();
-
-    for(size_t i = 1; i<=max_iteration_number_; i++)
-    {
-        // Research of next arguments, that minimize function
-        MakeStep(next_step_arguments, parametrs_to_optimize, function_to_optimize, maximize);
-
-        if(IsExitCriteriaFulfilled(next_step_arguments, arguments))
-        {
-            break;
-        }
-
-        // Check number of iterations
-        if(i == max_iteration_number_)
-        {
-            std::cout<<" Minimun has not found";
-        }
-
-        // Make new basis by Gramm-Shmidt method
-        CreateNewBasis();
-        arguments = next_step_arguments;
-    }
-
-    parametrs_to_optimize->SetValues(next_step_arguments);
-}
-
 HleborodovRosenbrockMethod* HleborodovRosenbrockMethod::Clone() const
 {
     return new HleborodovRosenbrockMethod(precision_, max_iteration_number_, first_step_, max_step_);
@@ -104,16 +69,36 @@ void HleborodovRosenbrockMethod::Receive(boost::mpi::communicator* communicator,
 }
 #endif
 
-double HleborodovRosenbrockMethod::CountObjectiveFunctionValue(
-    const IContinuousParameters* base_parameters,
-    const std::vector<double>& parameters_values,
-    const ContinuousObjectiveFunction& function_to_optimize,
-    bool maximize)
+vector<double> HleborodovRosenbrockMethod::FindOptimalParameters(const vector<double>& initial_values)
 {
-    IContinuousParameters::shared_ptr parameters_clone(base_parameters->Clone());
-    parameters_clone->SetValues(parameters_values);
-    double counted_value = function_to_optimize(parameters_clone.get());
-    return maximize ? (-counted_value) : counted_value;
+    vector<double> arguments = initial_values;
+    dimension_ = arguments.size();
+    vector<double> next_step_arguments(arguments);
+
+    InitializeBasisAndSteps();
+
+    for (size_t i = 1; i <= max_iteration_number_; i++)
+    {
+        // Research of next arguments, that minimize function
+        MakeStep(next_step_arguments);
+
+        if (IsExitCriteriaFulfilled(next_step_arguments, arguments))
+        {
+            break;
+        }
+
+        // Check number of iterations
+        if (i == max_iteration_number_)
+        {
+            std::cout << " Minimun has not found";
+        }
+
+        // Make new basis by Gramm-Shmidt method
+        CreateNewBasis();
+        arguments = next_step_arguments;
+    }
+
+    return next_step_arguments;
 }
 
 void HleborodovRosenbrockMethod::InitializeBasisAndSteps()
@@ -146,13 +131,9 @@ bool HleborodovRosenbrockMethod::IsExitCriteriaFulfilled(
 }
 
 void HleborodovRosenbrockMethod::MakeStep(
-    //TODO fix
-    vector<double> &arguments,
-    const IContinuousParameters* base_parameters,
-    const ContinuousObjectiveFunction &function_to_optimize,
-    bool maximize)
+    vector<double> &arguments)
 {
-    double start_function_value = CountObjectiveFunctionValue(base_parameters, arguments, function_to_optimize, maximize);
+    double start_function_value = CountObjectiveFunctionValueToMinimize(arguments);
 
     vector<double> tested_arguments(arguments);
     vector<double> tested_arguments2(arguments);
@@ -166,11 +147,7 @@ void HleborodovRosenbrockMethod::MakeStep(
         // make it by each of coordinates
         MakeStepPerCoordinate(i, &tested_arguments);
 
-        double counted_value = CountObjectiveFunctionValue(
-            base_parameters,
-            tested_arguments,
-            function_to_optimize,
-            maximize);
+        double counted_value = CountObjectiveFunctionValueToMinimize(tested_arguments);
 
         if(start_function_value > counted_value)
         {

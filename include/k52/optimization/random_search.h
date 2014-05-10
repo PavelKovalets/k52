@@ -20,10 +20,6 @@ public:
                  double upper_bound,
                  const ContinuousOptimizer* optimizer = NULL);
 
-    virtual void Optimize(const ContinuousObjectiveFunction &function_to_optimize,
-                          IContinuousParameters* parametrs_to_optimize,
-                          bool maximize);
-
     ///Creates deep clone of an object with resource allocation. See ICloneable
     ///@return deep clone of an object
     virtual RandomSearch* Clone() const;
@@ -35,7 +31,7 @@ public:
 #endif
 
 protected:
-    std::vector<double> GenerateRandomPoint(size_t vector_size);
+    virtual std::vector<double> FindOptimalParameters(const std::vector<double>& initial_values);
 
 private:
     boost::shared_ptr<IParametersProcessor> parameters_processor_;

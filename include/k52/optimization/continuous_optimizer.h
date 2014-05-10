@@ -18,16 +18,34 @@ public:
     virtual ~ContinuousOptimizer() {}
 
     virtual void Optimize(const IObjectiveFunction &function_to_optimize,
-        IParameters* parametrs_to_optimize,
+        IParameters* parameters_to_optimize,
         bool maximize);
 
     virtual void Optimize(const ContinuousObjectiveFunction &function_to_optimize,
-        IContinuousParameters* parametrs_to_optimize,
-        bool maximize) = 0;
+        IContinuousParameters* parameters_to_optimize,
+        bool maximize);
 
     ///Creates deep clone of an object with resource allocation. See ICloneable
     ///@return deep clone of an object
     virtual ContinuousOptimizer* Clone() const = 0;
+
+protected:
+    virtual std::vector<double> FindOptimalParameters(const std::vector<double>& initial_values) = 0;
+
+    double CountObjectiveFunctionValueToMaximize(const std::vector<double>& parameters) const;
+    double CountObjectiveFunctionValueToMinimize(const std::vector<double>& parameters) const;
+
+    const ContinuousObjectiveFunction* get_function_to_optimize() const;
+    const IContinuousParameters* get_parameters_to_optimize() const;
+    bool get_maximize() const;
+
+private:
+    double CountObjectiveFunctionValue(const std::vector<double>& parameters) const;
+
+    const ContinuousObjectiveFunction* function_to_optimize_;
+    IContinuousParameters* parameters_to_optimize_;
+    bool maximize_;
+
 };
 
 }/* namespace optimization */

@@ -13,6 +13,8 @@
 
 #include <k52/optimization/params/i_continuous_parameters.h>
 
+using ::std::vector;
+
 namespace k52
 {
 namespace optimization
@@ -26,64 +28,6 @@ ConjugateGradientMethod::ConjugateGradientMethod(
     precision_ = precision;
     increment_of_the_argument_ = increment_of_the_argument;
     number_of_iterations_ = number_of_iterations;
-}
-
-void ConjugateGradientMethod::Optimize(
-    const ContinuousObjectiveFunction& function_to_optimize,
-    IContinuousParameters* parametrs_to_optimize,
-    bool maximize)
-{
-    function_to_optimize_ = &function_to_optimize;
-    maximize_ = maximize;
-    parametrs_to_optimize_ = parametrs_to_optimize;
-    std::vector<double> parameters = parametrs_to_optimize->GetValues();
-
-    std::vector<double> gradient = CalculateGradient(parameters);
-    std::vector<double> previous_gradient(parameters.size());
-
-    std::vector<double> search_direction(parameters.size());
-    std::vector<double> previous_search_direction(parameters.size());
-
-    double weighting_coefficient = 0;
-    double exit = 0;
-    size_t iteration = 1;
-
-    //http://en.wikipedia.org/wiki/Nonlinear_conjugate_gradient_method
-    do
-    {
-        previous_search_direction = search_direction;
-        search_direction = FindNextSearchDirection(gradient, previous_search_direction, weighting_coefficient, iteration);
-
-        double minimizing_parameter = PerformOneDimensionalSearch(parameters, search_direction);
-        //TODO use vector math
-        for (size_t i=0; i<parameters.size(); i++)
-        {
-            parameters[i] += minimizing_parameter * search_direction[i];
-        }
-
-        previous_gradient = gradient;
-        gradient = CalculateGradient(parameters);
-
-        weighting_coefficient = CalculateWeightingCoefficient(gradient, previous_gradient);
-
-        //TODO use vector math
-        exit = 0;
-        for (size_t i=0; i<parameters.size(); i++)
-        {
-            exit += pow(gradient[i],2);
-        }
-        exit = sqrt(exit);
-
-        iteration++;
-        if (iteration == number_of_iterations_)
-        {
-            std::cout<<"Solution not found"<<std::endl;
-            break;
-        }
-    }
-    while (exit >= precision_);
-
-    parametrs_to_optimize->SetValues(parameters);
 }
 
 ConjugateGradientMethod* ConjugateGradientMethod::Clone() const
@@ -113,45 +57,85 @@ void ConjugateGradientMethod::Receive(boost::mpi::communicator* communicator, in
 }
 #endif
 
-double ConjugateGradientMethod::CountObjectiveFunctionValue(
-    const std::vector<double>& parameters)
+vector<double> ConjugateGradientMethod::FindOptimalParameters(
+    const vector<double>& initial_values)
 {
-    IContinuousParameters::shared_ptr parameters_clone( parametrs_to_optimize_->Clone() );
-    parameters_clone->SetValues(parameters);
+    vector<double> parameters = initial_values;
 
-    double counted_value = (*function_to_optimize_)(parameters_clone.get());
+    vector<double> gradient = CalculateGradient(parameters);
+    vector<double> previous_gradient(parameters.size());
 
+    vector<double> search_direction(parameters.size());
+    vector<double> previous_search_direction(parameters.size());
+
+    double weighting_coefficient = 0;
+    double exit = 0;
+    size_t iteration = 1;
+
+    //http://en.wikipedia.org/wiki/Nonlinear_conjugate_gradient_method
+    do
+    {
+        previous_search_direction = search_direction;
+        search_direction = FindNextSearchDirection(gradient, previous_search_direction, weighting_coefficient, iteration);
+
+        double minimizing_parameter = PerformOneDimensionalSearch(parameters, search_direction);
+        //TODO use vector math
+        for (size_t i = 0; i<parameters.size(); i++)
+        {
+            parameters[i] += minimizing_parameter * search_direction[i];
+        }
+
+        previous_gradient = gradient;
+        gradient = CalculateGradient(parameters);
+
+        weighting_coefficient = CalculateWeightingCoefficient(gradient, previous_gradient);
+
+        //TODO use vector math
+        exit = 0;
+        for (size_t i = 0; i<parameters.size(); i++)
+        {
+            exit += pow(gradient[i], 2);
+        }
+        exit = sqrt(exit);
+
+        iteration++;
+        if (iteration == number_of_iterations_)
+        {
+            std::cout << "Solution not found" << std::endl;
+            break;
+        }
+    } while (exit >= precision_);
+
+    return parameters;
+}
+
+double ConjugateGradientMethod::CountCorrectedObjectiveFunctionValue(
+    const vector<double>& parameters)
+{
     //Searching for minimum in the method
-    if (maximize_)
-    {
-        return (-1)*counted_value;
-    }
-    else
-    {
-        return counted_value;
-    }
+    return CountObjectiveFunctionValueToMinimize(parameters);
 }
 
 double ConjugateGradientMethod::CalculateDerivative(
-    const std::vector<double>& parameters,
+    const vector<double>& parameters,
     size_t index)
 {
-    std::vector<double> decrement_function (parameters);
-    std::vector<double> increment_function (parameters);
+    vector<double> decrement_function (parameters);
+    vector<double> increment_function (parameters);
     decrement_function[index] = parameters[index] - increment_of_the_argument_/2;
     increment_function[index] = parameters[index] + increment_of_the_argument_/2;
-    double increment_function_value = CountObjectiveFunctionValue(increment_function);
-    double decrement_function_value = CountObjectiveFunctionValue(decrement_function);
+    double increment_function_value = CountCorrectedObjectiveFunctionValue(increment_function);
+    double decrement_function_value = CountCorrectedObjectiveFunctionValue(decrement_function);
     return (increment_function_value - decrement_function_value)/increment_of_the_argument_;
 }
 
-std::vector<double> ConjugateGradientMethod::FindNextSearchDirection(
-    const std::vector<double>& gradient,
-    const std::vector<double>& previous_search_direction,
+vector<double> ConjugateGradientMethod::FindNextSearchDirection(
+    const vector<double>& gradient,
+    const vector<double>& previous_search_direction,
     double weighting_coefficient,
     int iteration)
 {
-    std::vector<double> search_direction = gradient;
+    vector<double> search_direction = gradient;
 
     if (iteration > 1)
     {
@@ -165,10 +149,10 @@ std::vector<double> ConjugateGradientMethod::FindNextSearchDirection(
     return search_direction;
 }
 
-std::vector<double> ConjugateGradientMethod::CalculateGradient(
-    const std::vector<double>& parameters)
+vector<double> ConjugateGradientMethod::CalculateGradient(
+    const vector<double>& parameters)
 {
-    std::vector<double> gradient(parameters.size());
+    vector<double> gradient(parameters.size());
 
     //TODO use vector math
     for (size_t i=0; i<parameters.size(); i++)
@@ -180,8 +164,8 @@ std::vector<double> ConjugateGradientMethod::CalculateGradient(
 }
 
 double ConjugateGradientMethod::PerformOneDimensionalSearch(
-    const std::vector<double>& parameters,
-    const std::vector<double>& search_direction)
+    const vector<double>& parameters,
+    const vector<double>& search_direction)
 {
     double x = 0, previous_x=0;
 
@@ -192,9 +176,9 @@ double ConjugateGradientMethod::PerformOneDimensionalSearch(
 
         //Counting derivatives
         //TODO use vector math
-        std::vector<double> point = parameters;
-        std::vector<double> incremented = parameters;
-        std::vector<double> decremented = parameters;
+        vector<double> point = parameters;
+        vector<double> incremented = parameters;
+        vector<double> decremented = parameters;
         for(size_t i=0; i<parameters.size(); i++)
         {
             point[i] += x*search_direction[i];
@@ -202,9 +186,9 @@ double ConjugateGradientMethod::PerformOneDimensionalSearch(
             decremented[i] += (x - increment_of_the_argument_/2)*search_direction[i];
         }
 
-        double f = CountObjectiveFunctionValue(point);
-        double f_incremented = CountObjectiveFunctionValue(incremented);
-        double f_decremented = CountObjectiveFunctionValue(decremented);
+        double f = CountCorrectedObjectiveFunctionValue(point);
+        double f_incremented = CountCorrectedObjectiveFunctionValue(incremented);
+        double f_decremented = CountCorrectedObjectiveFunctionValue(decremented);
 
         double dirivative = (f_incremented - f_decremented)/increment_of_the_argument_;
         double secound_derivative = (f_incremented - 2*f + f_decremented) / (increment_of_the_argument_*increment_of_the_argument_/4);
@@ -215,8 +199,8 @@ double ConjugateGradientMethod::PerformOneDimensionalSearch(
 }
 
 double ConjugateGradientMethod::CalculateWeightingCoefficient(
-    const std::vector<double>& gradient,
-    const std::vector<double>& previous_gradient)
+    const vector<double>& gradient,
+    const vector<double>& previous_gradient)
 {
     //Fletcher–Reeves coefficient
     double gradient_square=0;

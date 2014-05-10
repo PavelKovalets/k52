@@ -27,12 +27,12 @@ public:
     ///Virtual destructor for correct deallocation of resources in derived classes
     virtual ~IOptimizer() {}
 
-    ///Performs optimization of parametrsToOptimize according to functionToOptimize
+    ///Performs optimization of parametersToOptimize according to functionToOptimize
     ///@param function_to_optimize - the target function to be optimized for maximum
-    ///@param parametrs_to_optimize - this will be set to the optimal values after method's invocation
+    ///@param parameters_to_optimize - this will be set to the optimal values after method's invocation
     ///@param maximize - if true function's maximum to be found, if false - minimum
     virtual void Optimize(const IObjectiveFunction &function_to_optimize,
-                          IParameters* parametrs_to_optimize,
+                          IParameters* parameters_to_optimize,
                           bool maximize) = 0;
 
     ///Creates deep clone of an object with resource allocation. See ICloneable

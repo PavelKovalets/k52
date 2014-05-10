@@ -18,11 +18,6 @@ public:
         double increment_of_the_argument = 0.00001,
         size_t number_of_iterations = 1000);
 
-    virtual void Optimize(
-        const ContinuousObjectiveFunction& function_to_optimize,
-        IContinuousParameters* parametrs_to_optimize,
-        bool maximize);
-
     /// Creates deep clone of an object with resource allocation. See ICloneable
     /// @return deep clone of an object
     virtual ConjugateGradientMethod* Clone() const;
@@ -34,7 +29,10 @@ public:
 #endif
 
 protected:
-    double CountObjectiveFunctionValue(
+    virtual std::vector<double> FindOptimalParameters(
+        const std::vector<double>& initial_values);
+
+    double CountCorrectedObjectiveFunctionValue(
         const std::vector<double>& parameters);
 
     double CalculateDerivative (
@@ -59,10 +57,6 @@ protected:
         const std::vector<double>& parameters);
 
 private:
-    const IContinuousParameters* parametrs_to_optimize_;
-    const ContinuousObjectiveFunction* function_to_optimize_;
-    bool maximize_;
-
     double precision_;
     double increment_of_the_argument_;
     size_t number_of_iterations_;

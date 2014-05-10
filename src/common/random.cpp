@@ -27,6 +27,16 @@ double Random::GetContinuousRandomQuantity(double min_value, double max_value)
     return base * (max_value - min_value) + min_value;
 }
 
+std::vector<double> Random::GenerateRandomVector(size_t vector_size, double min_value, double max_value)
+{
+    std::vector<double> random_point(vector_size);
+    for (size_t i = 0; i<vector_size; i++)
+    {
+        random_point[i] = this->GetContinuousRandomQuantity(min_value, max_value);
+    }
+    return random_point;
+}
+
 bool Random::GetRandomBool()
 {
     int bit = GetNextBitFromBoolBase();

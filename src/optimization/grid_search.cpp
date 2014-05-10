@@ -23,9 +23,9 @@ GridSearch::GridSearch(double precision, double lower_bound, double upper_bound)
     precision_ = precision;
 }
 
-void GridSearch::Optimize(const IObjectiveFunction& function_to_optimize, IParameters* parametrs_to_optimize)
+void GridSearch::Optimize(const IObjectiveFunction& function_to_optimize, IParameters* parameters_to_optimize)
 {
-    IContinuousParameters* continuous_parameters = dynamic_cast<IContinuousParameters*> (parametrs_to_optimize);
+    IContinuousParameters* continuous_parameters = dynamic_cast<IContinuousParameters*> (parameters_to_optimize);
 
     vector<double> initial_parameters = continuous_parameters->GetValues();
 

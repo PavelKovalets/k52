@@ -28,121 +28,6 @@ BoundedNelderMead::BoundedNelderMead(double l, double precision, double lower_bo
     l_ = l;
 }
 
-void BoundedNelderMead::Optimize(const ContinuousObjectiveFunction &function_to_optimize,
-    IContinuousParameters* parametrs_to_optimize,
-    bool maximize)
-{
-    vector<double> initial_parameters = parametrs_to_optimize->GetValues();
-
-    //Size of task
-    size_t n = initial_parameters.size();
-
-    //Iteration index
-    size_t r = 0;
-
-    //For simplex points count
-    double square_root_from_2 = sqrt(2.);
-    double r1 = l_ * ( sqrt((double)(n+1)) + n - 1 ) / ( n * square_root_from_2 );
-    double r2 = l_ * ( sqrt((double)(n+1)) - 1 ) / ( n * square_root_from_2 );
-
-    //Build simplex based on initial_parameters
-    vector< vector<double> > polygon = GetRegularSimplex(initial_parameters, l_);
-
-    //count values
-    vector<double> function_values = CountObjectiveFunctionValues(polygon, parametrs_to_optimize, function_to_optimize, maximize);
-
-    do
-    {
-        OutputPolygon(polygon);
-        r++;
-        //TODO fix terminating criteria
-        const size_t iterations_per_dimension = 1000;
-        if(r > iterations_per_dimension * initial_parameters.size())
-        {
-            std::cout<< "WARNING: Exiting BDNM by iterations"
-                        " criteria!"<<std::endl;
-            break;
-        }
-        size_t first_max_index = 0, second_max_index = 0, min_index = 0;
-        //determine maximums and minimum
-        GetIndexes(function_values, &first_max_index, &second_max_index, &min_index);
-
-        double highest_value = function_values[first_max_index];
-        double second_highest_value = function_values[second_max_index];
-        double lowest_value = function_values[min_index];
-
-        //determine center of mass
-        vector<double> center_of_mass = GetCenterOfMass(polygon, first_max_index); 
-
-        //Reflect max point - we seek for minimum
-        vector<double> reflected_point = Reflexion(center_of_mass, polygon[first_max_index]);
-        CorrectByProjectingToBounds(&reflected_point);
-        double reflected_point_value = CountObjectiveFunctionValue(reflected_point, parametrs_to_optimize, function_to_optimize, maximize);
-
-        if(reflected_point_value < lowest_value)
-        {
-            vector<double> expanded_point = Expansion(center_of_mass, reflected_point);
-            CorrectByProjectingToBounds(&expanded_point);
-            double expanded_point_value = CountObjectiveFunctionValue(expanded_point, parametrs_to_optimize, function_to_optimize, maximize);
-
-            if(expanded_point_value < reflected_point_value )
-            {
-                //Replace max with expanded
-                polygon[first_max_index] = expanded_point;
-                function_values[first_max_index] = expanded_point_value;
-                continue;
-            }
-            else
-            {
-                //Replace max with reflected
-                polygon[first_max_index] = reflected_point;
-                function_values[first_max_index] = reflected_point_value;
-                continue;
-            }
-        }
-        else
-        {
-            if(reflected_point_value <= second_highest_value)
-            {
-                //Replace max with reflected
-                polygon[first_max_index] = reflected_point;
-                function_values[first_max_index] = reflected_point_value;
-                continue;
-            }
-            else
-            {
-                if(reflected_point_value < highest_value)
-                {
-                    //Replace max with reflected
-                    polygon[first_max_index] = reflected_point;
-                    function_values[first_max_index] = reflected_point_value;
-                    highest_value = reflected_point_value;
-                }
-
-                vector<double> contraction_point = Contraction(center_of_mass, polygon[first_max_index]);
-                double contraction_point_value = CountObjectiveFunctionValue(contraction_point, parametrs_to_optimize, function_to_optimize, maximize);
-
-                if(contraction_point_value > highest_value)
-                {
-                    Reduction(&polygon, min_index);
-                    continue;
-                }
-                else
-                {
-                    //Replace max with contracted
-                    polygon[first_max_index] = contraction_point;
-                    function_values[first_max_index] = contraction_point_value;
-                    continue;
-                }
-            }
-        }
-    }while( CountDifferance(function_values) > precision_ );
-
-
-    size_t best_index = std::distance(function_values.begin(), std::max_element(function_values.begin(), function_values.end()));
-    parametrs_to_optimize->SetValues( polygon[best_index] );
-}
-
 BoundedNelderMead* BoundedNelderMead::Clone() const
 {
     return new BoundedNelderMead(l_, precision_, lower_bound_, upper_bound_);
@@ -184,6 +69,117 @@ void BoundedNelderMead::Receive(boost::mpi::communicator* communicator, int sour
 }
 #endif
 
+std::vector<double> BoundedNelderMead::FindOptimalParameters(const std::vector<double>& initial_values)
+{
+    //Size of task
+    size_t n = initial_values.size();
+
+    //Iteration index
+    size_t r = 0;
+
+    //For simplex points count
+    double square_root_from_2 = sqrt(2.);
+    double r1 = l_ * (sqrt((double)(n + 1)) + n - 1) / (n * square_root_from_2);
+    double r2 = l_ * (sqrt((double)(n + 1)) - 1) / (n * square_root_from_2);
+
+    //Build simplex based on initial_parameters
+    vector< vector<double> > polygon = GetRegularSimplex(initial_values, l_);
+
+    //count values
+    vector<double> function_values = CountObjectiveFunctionValues(polygon);
+
+    do
+    {
+        OutputPolygon(polygon);
+        r++;
+        //TODO fix terminating criteria
+        const size_t iterations_per_dimension = 1000;
+        if (r > iterations_per_dimension * initial_values.size())
+        {
+            std::cout << "WARNING: Exiting BDNM by iterations"
+                " criteria!" << std::endl;
+            break;
+        }
+        size_t first_max_index = 0, second_max_index = 0, min_index = 0;
+        //determine maximums and minimum
+        GetIndexes(function_values, &first_max_index, &second_max_index, &min_index);
+
+        double highest_value = function_values[first_max_index];
+        double second_highest_value = function_values[second_max_index];
+        double lowest_value = function_values[min_index];
+
+        //determine center of mass
+        vector<double> center_of_mass = GetCenterOfMass(polygon, first_max_index);
+
+        //Reflect max point - we seek for minimum
+        vector<double> reflected_point = Reflexion(center_of_mass, polygon[first_max_index]);
+        CorrectByProjectingToBounds(&reflected_point);
+        double reflected_point_value = CountSingleObjectiveFunctionValue(reflected_point);
+
+        if (reflected_point_value < lowest_value)
+        {
+            vector<double> expanded_point = Expansion(center_of_mass, reflected_point);
+            CorrectByProjectingToBounds(&expanded_point);
+            double expanded_point_value = CountSingleObjectiveFunctionValue(expanded_point);
+
+            if (expanded_point_value < reflected_point_value)
+            {
+                //Replace max with expanded
+                polygon[first_max_index] = expanded_point;
+                function_values[first_max_index] = expanded_point_value;
+                continue;
+            }
+            else
+            {
+                //Replace max with reflected
+                polygon[first_max_index] = reflected_point;
+                function_values[first_max_index] = reflected_point_value;
+                continue;
+            }
+        }
+        else
+        {
+            if (reflected_point_value <= second_highest_value)
+            {
+                //Replace max with reflected
+                polygon[first_max_index] = reflected_point;
+                function_values[first_max_index] = reflected_point_value;
+                continue;
+            }
+            else
+            {
+                if (reflected_point_value < highest_value)
+                {
+                    //Replace max with reflected
+                    polygon[first_max_index] = reflected_point;
+                    function_values[first_max_index] = reflected_point_value;
+                    highest_value = reflected_point_value;
+                }
+
+                vector<double> contraction_point = Contraction(center_of_mass, polygon[first_max_index]);
+                double contraction_point_value = CountSingleObjectiveFunctionValue(contraction_point);
+
+                if (contraction_point_value > highest_value)
+                {
+                    Reduction(&polygon, min_index);
+                    continue;
+                }
+                else
+                {
+                    //Replace max with contracted
+                    polygon[first_max_index] = contraction_point;
+                    function_values[first_max_index] = contraction_point_value;
+                    continue;
+                }
+            }
+        }
+    } while (CountDifferance(function_values) > precision_);
+
+
+    size_t best_index = std::distance(function_values.begin(), std::max_element(function_values.begin(), function_values.end()));
+    return polygon[best_index];
+}
+
 void BoundedNelderMead::CorrectByProjectingToBounds(vector<double>* point)
 {
     for(size_t i = 0; i < point->size(); i++)
@@ -200,39 +196,26 @@ void BoundedNelderMead::CorrectByProjectingToBounds(vector<double>* point)
 }
 
 vector<double> BoundedNelderMead::CountObjectiveFunctionValues(
-    const vector< vector<double> >& parameters_values,
-    IContinuousParameters* base_parameters,
-    const IObjectiveFunction & function_to_optimize,
-    bool maximize)
+    const vector< vector<double> >& parameters_values)
 {
-    size_t N = parameters_values.size();    
+    size_t N = parameters_values.size();
     vector<double> counted_values(N);
 
     for(size_t i = 0; i < N; i++)
     {
-        base_parameters->SetValues(parameters_values[i]);
-        IContinuousParameters::shared_ptr parameters_clone( base_parameters->Clone() );
-        counted_values[i] = function_to_optimize(parameters_clone.get());
-
         //As Nelder-Mead tends to minimize function we need to reverse it to find max
-        if(maximize)
-        {
-            counted_values[i] = -counted_values[i];
-        }
+        counted_values[i] = CountObjectiveFunctionValueToMinimize(parameters_values[i]);
     }
 
     return counted_values;
 }
 
-double BoundedNelderMead::CountObjectiveFunctionValue(
-    const vector<double>& parameters,
-    IContinuousParameters* base_parameters,
-    const IObjectiveFunction & function_to_optimize,
-    bool maximize)
+double BoundedNelderMead::CountSingleObjectiveFunctionValue(
+    const vector<double>& parameters)
 {
     vector< vector<double> > cover(1);
     cover[0] = parameters;
-    return CountObjectiveFunctionValues(cover, base_parameters, function_to_optimize, maximize)[0];
+    return CountObjectiveFunctionValues(cover)[0];
 }
 
 void BoundedNelderMead::GetIndexes(const vector<double>& values, size_t* first_max_index, size_t* secound_max_index, size_t* min_index)

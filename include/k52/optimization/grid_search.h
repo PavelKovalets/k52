@@ -20,7 +20,7 @@ public:
 
     virtual void Optimize(
         const IObjectiveFunction& function_to_optimize,
-        IParameters* parametrs_to_optimize);
+        IParameters* parameters_to_optimize);
 
     ///Creates deep clone of an object with resource allocation. See ICloneable
     ///@return deep clone of an object

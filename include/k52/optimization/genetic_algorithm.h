@@ -50,7 +50,7 @@ public:
     static GeneticAlgorithm::shared_ptr Create(const SettingsManager& settings_manager);
 
     void Optimize(const DiscreteObjectiveFunction &function_to_optimize,
-        IDiscreteParameters* parametrs_to_optimize,
+        IDiscreteParameters* parameters_to_optimize,
         bool maximize);
 
     void OnNextGenerationReadyConnect(NextGenerationReadyCallback callback);
@@ -66,7 +66,7 @@ public:
 #endif
 
 protected:
-    void Initialize(IDiscreteParameters* parametrs_to_optimize);
+    void Initialize(IDiscreteParameters* parameters_to_optimize);
     void Mutate();
     void GenerateNextPopulation();
     int SelectRandomIndividualIndexForCrossover(double total_fitness);

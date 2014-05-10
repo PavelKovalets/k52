@@ -9,14 +9,14 @@ namespace optimization
 
 double DiscreteObjectiveFunction::operator () (const IParameters* const parameters) const
 {
-    const IDiscreteParameters* discrete_parametrs = dynamic_cast<const IDiscreteParameters*>(parameters);
+    const IDiscreteParameters* discrete_parameters = dynamic_cast<const IDiscreteParameters*>(parameters);
 
-    if (!discrete_parametrs)
+    if (!discrete_parameters)
     {
         throw std::logic_error("DiscreteObjectiveFunction must accept IDiscreteParameters");
     }
 
-    return (*this) (discrete_parametrs);
+    return (*this) (discrete_parameters);
 }
 
 }/* namespace optimization */

@@ -1,6 +1,7 @@
 #ifndef RANDOM_H_
 #define RANDOM_H_
 
+#include <vector>
 #include <k52/common/disallow_copy_and_assign.h>
 
 namespace k52
@@ -28,6 +29,12 @@ public:
     ///@param max_value - interval upper bound 
     ///@return continuous random quantity between min_value and max_value
     double GetContinuousRandomQuantity(double min_value, double max_value);
+
+    ///@param vector_size - size of vector to be generated
+    ///@param min_value - interval lower bound
+    ///@param max_value - interval upper bound 
+    ///@return vector of continuous random quantities
+    std::vector<double> GenerateRandomVector(size_t vector_size, double min_value, double max_value);
 
     ///Generates uniformly distributed boolean - 0.5 to true, 0.5 to false
     ///@return random boolean

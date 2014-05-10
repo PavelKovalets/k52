@@ -9,14 +9,14 @@ namespace optimization
 
 double ContinuousObjectiveFunction::operator () (const IParameters* const parameters) const
 {
-    const IContinuousParameters* continuous_parametrs = dynamic_cast<const IContinuousParameters*>(parameters);
+    const IContinuousParameters* continuous_parameters = dynamic_cast<const IContinuousParameters*>(parameters);
 
-    if (!continuous_parametrs)
+    if (!continuous_parameters)
     {
         throw std::logic_error("ContinuousObjectiveFunction must accept IContinuousParameters");
     }
 
-    return (*this) (continuous_parametrs);
+    return (*this) (continuous_parameters);
 }
 
 double ContinuousObjectiveFunction::operator () (const IContinuousParameters* const parameters) const

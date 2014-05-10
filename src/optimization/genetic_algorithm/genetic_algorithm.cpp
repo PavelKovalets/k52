@@ -122,7 +122,7 @@ GeneticAlgorithm::GeneticAlgorithm(
 }
 
 void GeneticAlgorithm::Optimize(const DiscreteObjectiveFunction &function_to_optimize,
-    IDiscreteParameters* parametrs_to_optimize,
+    IDiscreteParameters* parameters_to_optimize,
     bool maximize)
 {
     if(!maximize)
@@ -130,7 +130,7 @@ void GeneticAlgorithm::Optimize(const DiscreteObjectiveFunction &function_to_opt
         throw std::invalid_argument("GeneticAlgorithm currently can only maximize function.");
     }
 
-    Initialize(parametrs_to_optimize);
+    Initialize(parameters_to_optimize);
 
     if(!population_file_name_.empty())
     {
@@ -166,7 +166,7 @@ void GeneticAlgorithm::Optimize(const DiscreteObjectiveFunction &function_to_opt
 
         if(best_individ_->get_fitness() >= fitness_stop_criteria_)
         {
-            parametrs_to_optimize->SetFromChromosome(
+            parameters_to_optimize->SetFromChromosome(
                 best_individ_->GetChromosome().begin(),
                 best_individ_->GetChromosome().end() );
             return;
@@ -176,7 +176,7 @@ void GeneticAlgorithm::Optimize(const DiscreteObjectiveFunction &function_to_opt
         Mutate();
     }
 
-    parametrs_to_optimize->SetFromChromosome(
+    parameters_to_optimize->SetFromChromosome(
         best_individ_->GetChromosome().begin(),
         best_individ_->GetChromosome().end() );
 
@@ -205,7 +205,7 @@ void GeneticAlgorithm::Receive(boost::mpi::communicator* communicator, int sourc
 }
 #endif
 
-void GeneticAlgorithm::Initialize(IDiscreteParameters* parametrs_to_optimize)
+void GeneticAlgorithm::Initialize(IDiscreteParameters* parameters_to_optimize)
 {
     population_ = vector<Individual::shared_ptr>(population_size_);
     population_statistics_ = vector<IndividualStatistics>(population_size_);
@@ -213,10 +213,10 @@ void GeneticAlgorithm::Initialize(IDiscreteParameters* parametrs_to_optimize)
     for(int i =0; i<population_size_; i++)
     {
         population_[i] = Individual::shared_ptr(new Individual());
-        population_[i]->Initialize(parametrs_to_optimize);
+        population_[i]->Initialize(parameters_to_optimize);
         invalid_chromosomes_ += population_[i]->SetRandomChromosome();
     }
-    best_individ_ = Individual::shared_ptr(new Individual(parametrs_to_optimize) );
+    best_individ_ = Individual::shared_ptr(new Individual(parameters_to_optimize) );
 }
 
 void GeneticAlgorithm::Mutate()

@@ -20,11 +20,6 @@ public:
         double first_step,
         double max_step);
 
-    virtual void Optimize(
-        const ContinuousObjectiveFunction& function_to_optimize,
-        IContinuousParameters* parametrs_to_optimize,
-        bool maximize);
-
     /// Creates deep clone of an object with resource allocation. See ICloneable
     /// @return deep clone of an object
     virtual HleborodovRosenbrockMethod* Clone() const;
@@ -36,12 +31,7 @@ public:
 #endif
 
 protected:
-    /// Count value of function_to_optimize in point parameters_values
-    double CountObjectiveFunctionValue(
-        const IContinuousParameters *base_parameters,
-        const std::vector<double>& parameters_values,
-        const ContinuousObjectiveFunction &function_to_optimize,
-        bool maximize);
+    virtual std::vector<double> FindOptimalParameters(const std::vector<double>& initial_values);
 
     /// Set basis to Decart and steps to default
     void InitializeBasisAndSteps();
@@ -53,10 +43,7 @@ protected:
         const std::vector<double>& previous_step_arguments);
 
     /// Make test step in old basis
-    void MakeStep(std::vector<double> &arguments,
-        const IContinuousParameters *base_parameters,
-        const ContinuousObjectiveFunction &function_to_optimize,
-        bool maximize);
+    void MakeStep(std::vector<double> &arguments);
 
     void MakeStepPerCoordinate(int basis_index, std::vector<double>* arguments);
 

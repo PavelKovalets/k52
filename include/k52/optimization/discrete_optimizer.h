@@ -18,11 +18,11 @@ public:
     virtual ~DiscreteOptimizer() {}
 
     virtual void Optimize(const DiscreteObjectiveFunction &function_to_optimize,
-        IDiscreteParameters* parametrs_to_optimize,
+        IDiscreteParameters* parameters_to_optimize,
         bool maximize) = 0;
 
     virtual void Optimize(const IObjectiveFunction &function_to_optimize,
-        IParameters* parametrs_to_optimize,
+        IParameters* parameters_to_optimize,
         bool maximize);
 
     ///Creates deep clone of an object with resource allocation. See ICloneable

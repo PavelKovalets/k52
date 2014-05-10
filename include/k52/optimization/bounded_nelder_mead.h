@@ -18,10 +18,6 @@ class BoundedNelderMead: public ContinuousOptimizer
 public:
     BoundedNelderMead(double l, double precision, double lower_bound, double upper_bound);
 
-    virtual void Optimize(const ContinuousObjectiveFunction &function_to_optimize,
-        IContinuousParameters* parametrs_to_optimize,
-        bool maximize);
-
     ///Creates deep clone of an object with resource allocation. See ICloneable
     ///@return deep clone of an object
     virtual BoundedNelderMead* Clone() const;
@@ -37,18 +33,14 @@ public:
 #endif
 
 protected:
+    virtual std::vector<double> FindOptimalParameters(const std::vector<double>& initial_values);
+
     void CorrectByProjectingToBounds(std::vector<double>* point);
 
     std::vector<double> CountObjectiveFunctionValues(
-        const std::vector< std::vector<double> >& parameters_values,
-        IContinuousParameters* base_parameters,
-        const IObjectiveFunction & function_to_optimize,
-        bool maximize);
+        const std::vector< std::vector<double> >& parameters_values);
 
-    double CountObjectiveFunctionValue(const std::vector<double>& parameters,
-        IContinuousParameters* base_parameters,
-        const IObjectiveFunction & function_to_optimize,
-        bool maximize);
+    double CountSingleObjectiveFunctionValue(const std::vector<double>& parameters);
 
     static void GetIndexes(const std::vector<double>& values, size_t* first_max_index, size_t* secound_max_index, size_t* min_index);
     static std::vector< std::vector<double> > GetRegularSimplex(const std::vector<double>& base_point, double l);

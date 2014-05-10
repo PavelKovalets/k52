@@ -34,15 +34,15 @@ public:
 
     double operator () (const IDiscreteParameters* const iparameters) const
     {
-        const DoubleParametersArray* const parametrs = dynamic_cast<const DoubleParametersArray* const>(iparameters);
+        const DoubleParametersArray* const parameters = dynamic_cast<const DoubleParametersArray* const>(iparameters);
 
-        if (!parametrs)
+        if (!parameters)
         {
             throw std::logic_error("ExactDiscreteObjectiveFunction must accept DoubleParametersArray.");
         }
 
         double summ = 0;
-        vector<double> values = parametrs->get_values();
+        vector<double> values = parameters->get_values();
         for(size_t i=0; i<values.size(); i++)
         {
             double value = values[i];
@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
 
     for(size_t i=0; i<values.size(); i++)
     {
-        cout<<i<<"-th parametr = "<<values[i]<<endl;
+        cout<<i<<"-th parameter = "<<values[i]<<endl;
     }
 
     cout<<"Fitness = "<<of(&parameters)<<endl;
