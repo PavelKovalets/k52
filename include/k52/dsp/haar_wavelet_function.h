@@ -1,12 +1,12 @@
-#ifndef HAAR_WAVELET_FUNCTION_HEADER
-#define HAAR_WAVELET_FUNCTION_HEADER
+#ifndef K52_DSP_HAAR_WAVELET_FUNCTION_HEADER
+#define K52_DSP_HAAR_WAVELET_FUNCTION_HEADER
 
 #include <boost/shared_ptr.hpp>
-#include <k52/processing/iwavelet_function.h>
+#include <k52/dsp/iwavelet_function.h>
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 /*
@@ -23,7 +23,7 @@ public:
     virtual double imag(double x, int index = 0);
 };
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // HAAR_WAVELET_FUNCTION_HEADER
+#endif // K52_DSP_HAAR_WAVELET_FUNCTION_HEADER

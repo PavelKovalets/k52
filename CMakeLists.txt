@@ -22,8 +22,8 @@ add_subdirectory(src/parallel)
 # optimization algorithms library
 add_subdirectory(src/optimization)
 
-# sound signal processing library
-add_subdirectory(src/processing)
+# sound signal dsp library
+add_subdirectory(src/dsp)
 
 ## Test applications
 # optimization algorithms library tests

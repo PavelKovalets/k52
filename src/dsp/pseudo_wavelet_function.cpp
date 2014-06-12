@@ -1,4 +1,4 @@
-#include <k52/processing/pseudo_wavelet_function.h>
+#include <k52/dsp/pseudo_wavelet_function.h>
 #include <math.h>
 
 namespace 
@@ -8,7 +8,7 @@ double HammingModWindow(double i, double len);  // окно Хэмминга
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 /// Pseudo implementation
@@ -26,7 +26,7 @@ double PseudoWaveletFunction::imag(double x, int index)
     return HammingModWindow(index - length_ / 2, length_) * sin(5 * x) * 0.5 * 0.2;
 }
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
 namespace

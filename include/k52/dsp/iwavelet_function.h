@@ -1,11 +1,11 @@
-#ifndef IWAVELET_FUNCTION_H
-#define IWAVELET_FUNCTION_H
+#ifndef K52_DSP_IWAVELET_FUNCTION_H
+#define K52_DSP_IWAVELET_FUNCTION_H
 
 #include <boost/shared_ptr.hpp>
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 class IWaveletFunction
@@ -18,7 +18,7 @@ class IWaveletFunction
     virtual double imag(double value, int index = 0) = 0;
 };
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // IWAVELET_FUNCTION_H
+#endif // K52_DSP_IWAVELET_FUNCTION_H

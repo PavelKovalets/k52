@@ -1,7 +1,7 @@
-#ifndef WAVELET_HEADER
-#define WAVELET_HEADER
+#ifndef K52_DSP_WAVELET_HEADER
+#define K52_DSP_WAVELET_HEADER
 
-// Main header file for wavelet processing
+// Main header file for wavelet dsp
 
 #include <boost/shared_ptr.hpp>
 #include <iostream>
@@ -10,17 +10,17 @@
 #include <vector>
 
 #include <k52/common/disallow_copy_and_assign.h>
-#include <k52/processing/iwavelet_function.h>
-#include <k52/processing/bspline_wavelet_function.h>
-#include <k52/processing/haar_wavelet_function.h>
-#include <k52/processing/mhat_wavelet_function.h>
-#include <k52/processing/morlet_wavelet_function.h>
-#include <k52/processing/pseudo_wavelet_function.h>
-#include <k52/processing/spline_based_wavelet_function.h>
+#include <k52/dsp/iwavelet_function.h>
+#include <k52/dsp/bspline_wavelet_function.h>
+#include <k52/dsp/haar_wavelet_function.h>
+#include <k52/dsp/mhat_wavelet_function.h>
+#include <k52/dsp/morlet_wavelet_function.h>
+#include <k52/dsp/pseudo_wavelet_function.h>
+#include <k52/dsp/spline_based_wavelet_function.h>
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 class Wavelet
@@ -95,7 +95,7 @@ std::vector<T> Wavelet::transform(typename std::vector<T>::iterator data_begin)
     return result;
 }
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // WAVELET_HEADER
+#endif // K52_DSP_WAVELET_HEADER

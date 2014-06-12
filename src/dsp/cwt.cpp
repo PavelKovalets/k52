@@ -1,8 +1,8 @@
-#include <k52/processing/cwt.h>
+#include <k52/dsp/cwt.h>
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 std::vector<std::vector<double> > ContiniousWaveletTransformation(const std::vector<double>& source_data,
@@ -23,5 +23,5 @@ std::vector<std::vector<double> > ContiniousWaveletTransformation(const std::vec
     return wavelet_result;
 }
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
