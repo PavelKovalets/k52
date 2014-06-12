@@ -1,9 +1,9 @@
-#include <k52/processing/morlet_wavelet_function.h>
+#include <k52/dsp/morlet_wavelet_function.h>
 #include <math.h>
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 /// Morlet implementation
@@ -17,6 +17,6 @@ double MorletWaveletFunction::imag(double x, int)
     return (exp(-x * x/2.) * sin(5. * x));
 }
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 

@@ -1,11 +1,11 @@
-#ifndef CONTINIOUS_WAVELET_TRANSFORMATION_H
-#define CONTINIOUS_WAVELET_TRANSFORMATION_H
+#ifndef K52_DSP_CONTINIOUS_WAVELET_TRANSFORMATION_H
+#define K52_DSP_CONTINIOUS_WAVELET_TRANSFORMATION_H
 
-#include <k52/processing/wavelet.h>
+#include <k52/dsp/wavelet.h>
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 template <typename CallbackUnaryPredicat>
@@ -35,6 +35,6 @@ std::vector<std::vector<double> > ContiniousWaveletTransformation(const std::vec
                                                                   Wavelet::shared_ptr wavelet,
                                                                   int step = 1);
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
-#endif // CONTINIOUS_WAVELET_TRANSFORMATION_H
+#endif // K52_DSP_CONTINIOUS_WAVELET_TRANSFORMATION_H

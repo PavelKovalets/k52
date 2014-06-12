@@ -1,14 +1,14 @@
-#include <k52/processing/akima_wavelet_function.h>
+#include <k52/dsp/akima_wavelet_function.h>
 #include <stdexcept>
 
-#include "k52/processing/spline.h"
+#include "k52/dsp/spline.h"
 
 #ifdef BUILD_WITH_ALGLIB
 #include <interpolation.h>
 
 namespace
 {
-class AkimaSpline : public k52::processing::Spline
+class AkimaSpline : public k52::dsp::Spline
 {
 public:
     typedef boost::shared_ptr<AkimaSpline> shared_ptr;
@@ -58,7 +58,7 @@ private:
 
 namespace
 {
-class AkimaSpline : public k52::processing::Spline
+class AkimaSpline : public k52::dsp::Spline
 {
 public:
     typedef boost::shared_ptr<AkimaSpline> shared_ptr;
@@ -90,7 +90,7 @@ protected:
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 AkimaWavelet::shared_ptr AkimaWavelet::CreateAkimaWavelet(const std::vector<double>& real,
@@ -106,5 +106,5 @@ AkimaWavelet::AkimaWavelet()
 {
 }
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52

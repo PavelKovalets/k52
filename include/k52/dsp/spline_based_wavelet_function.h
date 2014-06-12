@@ -1,11 +1,11 @@
-#ifndef SPLINE_BASED_HEADER
-#define SPLINE_BASED_HEADER
+#ifndef K52_DSP_SPLINE_BASED_WAVELET_FUNCTION_HEADER
+#define K52_DSP_SPLINE_BASED_WAVELET_FUNCTION_HEADER
 
 #include <algorithm>
 #include <stdint.h>
 #include <vector>
 
-#include <k52/processing/iwavelet_function.h>
+#include <k52/dsp/iwavelet_function.h>
 #include "spline.h"
 
 /**
@@ -16,7 +16,7 @@
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 class SplineBased : public IWaveletFunction
@@ -38,7 +38,7 @@ private:
     Spline::shared_ptr spline_;
 };
 
-/*
+#if 0
 class CubicWavelet : public SplineBased
 {
 protected:
@@ -56,9 +56,10 @@ protected:
         std::cerr << __FUNCTION__ << ", an error :" << std::endl;
         throw;
     }
-};*/
+};
+#endif
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // SPLINE_BASED_HEADER
+#endif // K52_DSP_SPLINE_BASED_WAVELET_FUNCTION_HEADER

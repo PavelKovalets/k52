@@ -1,9 +1,9 @@
-#include <k52/processing/haar_wavelet_function.h>
+#include <k52/dsp/haar_wavelet_function.h>
 #include <math.h>
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 // Haar wavelet function implementation
@@ -37,5 +37,5 @@ double HaarWaveletFunction::imag(double x, int)
     return 1;
 }
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52

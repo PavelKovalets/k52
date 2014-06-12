@@ -1,12 +1,12 @@
-#ifndef AKIMA_WAVELET_FUNCTION_H
-#define AKIMA_WAVELET_FUNCTION_H
+#ifndef K52_DSP_AKIMA_WAVELET_FUNCTION_H
+#define K52_DSP_AKIMA_WAVELET_FUNCTION_H
 
 #include <boost/shared_ptr.hpp>
-#include <k52/processing/spline_based_wavelet_function.h>
+#include <k52/dsp/spline_based_wavelet_function.h>
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 class AkimaWavelet : public SplineBased
@@ -20,7 +20,7 @@ protected:
     AkimaWavelet();
 };
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // AKIMA_WAVELET_FUNCTION_H
+#endif // K52_DSP_AKIMA_WAVELET_FUNCTION_H

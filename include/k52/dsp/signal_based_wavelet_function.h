@@ -1,7 +1,7 @@
-#ifndef SIGNAL_BASED_HEADER
-#define SIGNAL_BASED_HEADER
+#ifndef K52_DSP_SIGNAL_BASED_WAVELET_FUNCTION_HEADER
+#define K52_DSP_SIGNAL_BASED_WAVELET_FUNCTION_HEADER
 
-#include <k52/processing/iwavelet_function.h>
+#include <k52/dsp/iwavelet_function.h>
 
 /** Класс SignalBased представляет базовую вейвлет функцию, построенную из сэмплов
     некоторого опорного сигнала.
@@ -9,7 +9,7 @@
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 #ifdef DONT_TRY_TO_COMPILE_IT_PLEASE
@@ -44,7 +44,7 @@ class SignalBased : public WaveletFunction
 };
 #endif
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // SIGNAL_BASED_HEADER
+#endif // K52_DSP_SIGNAL_BASED_WAVELET_FUNCTION_HEADER
