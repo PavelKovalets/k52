@@ -3,7 +3,6 @@
 
 namespace 
 {
-// всякая полезная математика
 double HammingModWindow(double i, double len);  // окно Хэмминга
 }
 
@@ -32,9 +31,11 @@ double PseudoWaveletFunction::imag(double x, int index)
 
 namespace
 {
+
 // some usefull mathematical functions
 double HammingModWindow(double i, double len)   // from -len/2 to len/2
 {
-    return 0.50+0.50*cos(2*3.14159265358*(double)i/(double)len);
+    return 0.5 + 0.5 * cos(2.0 * M_PI * i / len);
 }
+
 }
