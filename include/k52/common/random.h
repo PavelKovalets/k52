@@ -34,7 +34,7 @@ public:
     ///@param min_value - interval lower bound
     ///@param max_value - interval upper bound 
     ///@return vector of continuous random quantities
-    std::vector<double> GenerateRandomVector(size_t vector_size, double min_value, double max_value);
+    std::vector<double> GenerateRandomVector(std::size_t vector_size, double min_value, double max_value);
 
     ///Generates uniformly distributed boolean - 0.5 to true, 0.5 to false
     ///@return random boolean
