@@ -137,50 +137,11 @@ void GeneticAlgorithm::Optimize(const DiscreteObjectiveFunction &function_to_opt
         ReadPopulationFromFile();
     }
 
-    for (int n = 0; n < max_number_of_generations_; n++)
-    {
-        fitness_counter_->ObtainFitness(function_to_optimize, &population_);
-
-        Individual::shared_ptr best_current_individ = population_[0];
-
-        for (int i = 1; i < population_size_; i++)
-        {
-            if (best_current_individ->get_fitness() < population_[i]->get_fitness())
-            {
-                best_current_individ = population_[i];
-            }
-        }
-
-        if( (!best_individ_->HasFitness()) ||  best_individ_->get_fitness() < best_current_individ->get_fitness())
-        {
-            best_individ_ = best_current_individ;
-        }
-
-        if(callback_function_ != NULL)
-        {
-            ProcessStatistics(n);
-        }
-
-        fitness_counter_->ResetCacheHits();
-        invalid_chromosomes_ = 0;
-
-        if(best_individ_->get_fitness() >= fitness_stop_criteria_)
-        {
-            parameters_to_optimize->SetFromChromosome(
-                best_individ_->GetChromosome().begin(),
-                best_individ_->GetChromosome().end() );
-            return;
-        }
-
-        GenerateNextPopulation();
-        Mutate();
-    }
+    RunIterationsAndSetBestIndivid(function_to_optimize);
 
     parameters_to_optimize->SetFromChromosome(
         best_individ_->GetChromosome().begin(),
         best_individ_->GetChromosome().end() );
-
-    return;
 }
 
 void GeneticAlgorithm::OnNextGenerationReadyConnect(NextGenerationReadyCallback callback_function)
@@ -217,6 +178,32 @@ void GeneticAlgorithm::Initialize(IDiscreteParameters* parameters_to_optimize)
         invalid_chromosomes_ += population_[i]->SetRandomChromosome();
     }
     best_individ_ = Individual::shared_ptr(new Individual(parameters_to_optimize) );
+}
+
+void GeneticAlgorithm::RunIterationsAndSetBestIndivid(const DiscreteObjectiveFunction &function_to_optimize)
+{
+    for (int n = 0; n < max_number_of_generations_; n++)
+    {
+        fitness_counter_->ObtainFitness(function_to_optimize, &population_);
+
+        UpdateBestIndivid();
+
+        if (callback_function_ != NULL)
+        {
+            ProcessStatistics(n);
+        }
+
+        fitness_counter_->ResetCacheHits();
+        invalid_chromosomes_ = 0;
+
+        if (best_individ_->get_fitness() >= fitness_stop_criteria_)
+        {
+            return;
+        }
+
+        GenerateNextPopulation();
+        Mutate();
+    }
 }
 
 void GeneticAlgorithm::Mutate()
@@ -289,6 +276,24 @@ void GeneticAlgorithm::GenerateNextPopulation()
     GatherAllIndividualsStatistics();
 
     population_ = next_population;
+}
+
+void GeneticAlgorithm::UpdateBestIndivid()
+{
+    Individual::shared_ptr best_current_individ = population_[0];
+
+    for (int i = 1; i < population_size_; i++)
+    {
+        if (best_current_individ->get_fitness() < population_[i]->get_fitness())
+        {
+            best_current_individ = population_[i];
+        }
+    }
+
+    if ((!best_individ_->HasFitness()) || best_individ_->get_fitness() < best_current_individ->get_fitness())
+    {
+        best_individ_ = best_current_individ;
+    }
 }
 
 int GeneticAlgorithm::SelectRandomIndividualIndexForCrossover(double total_fitness)

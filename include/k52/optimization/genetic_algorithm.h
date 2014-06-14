@@ -67,8 +67,10 @@ public:
 
 protected:
     void Initialize(IDiscreteParameters* parameters_to_optimize);
+    void RunIterationsAndSetBestIndivid(const DiscreteObjectiveFunction &function_to_optimize);
     void Mutate();
     void GenerateNextPopulation();
+    void UpdateBestIndivid();
     int SelectRandomIndividualIndexForCrossover(double total_fitness);
     void ProcessStatistics(int number_of_generation);
     double GetPopulationAveradgeFitness();
@@ -98,7 +100,7 @@ private:
     double mutation_probability_;
     int  elitism_pairs_;
     int max_number_of_generations_;
-    int population_size_;    
+    int population_size_;
     int invalid_chromosomes_;
     std::string population_file_name_;
 
