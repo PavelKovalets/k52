@@ -23,6 +23,7 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/individual.h
     ${OPTIMIZATION_COMMON_INCLUDE}/initialization_checker.h
     ${OPTIMIZATION_COMMON_INCLUDE}/random_search.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/simulated_annealing.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/composite_discrete_parameters.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/const_chromosome_size_paremeters.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/continuous_parameters_array.h
@@ -68,6 +69,7 @@ set(OPTIMIZE_SOURCE
     optimization_task_result.cpp
     random_search.cpp
     simple_parameters_processor.cpp
+    simulated_annealing.cpp
 
     genetic_algorithm/generation_statistics.cpp
     genetic_algorithm/genetic_algorithm.cpp
