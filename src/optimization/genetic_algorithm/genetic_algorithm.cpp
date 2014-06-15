@@ -209,11 +209,11 @@ void GeneticAlgorithm::ValidateInitialParameters(const IDiscreteParameters* para
         throw std::invalid_argument("Initial parameters must have same size as population.");
     }
 
-    const type_info* parameters_to_optimize_type = &typeid(*parameters_to_optimize);
+    const std::type_info* parameters_to_optimize_type = &typeid(*parameters_to_optimize);
 
     for (int i = 0; i < population_size_; i++)
     {
-        const type_info* parameters_type = &typeid(*(initial_parameters_[i].get()));
+        const std::type_info* parameters_type = &typeid(*(initial_parameters_[i].get()));
 
         if ( (*parameters_type) != (*parameters_to_optimize_type) )
         {

@@ -72,7 +72,7 @@ public:
     ///Performs random mutation of an Individual
     ///@param mutator - chosen mutation operator
     ///@return number of invalid chromosomes, generated during mutate
-    int Individual::Mutate(IMutator::shared_ptr mutator);
+    int Mutate(IMutator::shared_ptr mutator);
 
     ///@return true if fitness was counted for this Individual, otherwise - false
     bool HasFitness() const;
