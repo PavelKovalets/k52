@@ -21,12 +21,15 @@ public:
 
     DoubleParametersArray* Clone() const;
 
+    bool HasSameMetaParameters(const IDiscreteParameters* parameters) const;
+
     bool CheckConstraints() const;
 
     void SetChromosome(ChromosomeType::iterator from, ChromosomeType::iterator to) const;
 
     void SetFromChromosome(ChromosomeType::const_iterator from, ChromosomeType::const_iterator to);
 
+    void SetValues(const std::vector<double>& values);
     std::vector<double> get_values() const;
     double get_max_value() const;
     double get_min_value() const;

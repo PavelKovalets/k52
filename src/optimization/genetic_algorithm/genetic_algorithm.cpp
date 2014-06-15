@@ -10,6 +10,7 @@
 #include <istream>
 #include <iterator>
 #include <algorithm>
+#include <typeinfo>
 
 #include "../objective_function_counter.h"
 
@@ -119,6 +120,7 @@ GeneticAlgorithm::GeneticAlgorithm(
     max_number_of_generations_ = max_number_of_generations;
     population_file_name_ = population_file_name;
     invalid_chromosomes_ = 0;
+    were_initial_parameters_set_ = false;
 }
 
 void GeneticAlgorithm::Optimize(const DiscreteObjectiveFunction &function_to_optimize,
@@ -144,6 +146,18 @@ void GeneticAlgorithm::Optimize(const DiscreteObjectiveFunction &function_to_opt
         best_individ_->GetChromosome().end() );
 }
 
+void GeneticAlgorithm::SetInitialParameters(std::vector<IDiscreteParameters::shared_ptr> initial_parameters)
+{
+    initial_parameters_ = std::vector<IDiscreteParameters::shared_ptr>(population_size_);
+
+    for (int i = 0; i < population_size_; ++i)
+    {
+        initial_parameters_[i] = IDiscreteParameters::shared_ptr((initial_parameters[i])->Clone());
+    }
+
+    were_initial_parameters_set_ = true;
+}
+
 void GeneticAlgorithm::OnNextGenerationReadyConnect(NextGenerationReadyCallback callback_function)
 {
     callback_function_ = callback_function;
@@ -166,18 +180,58 @@ void GeneticAlgorithm::Receive(boost::mpi::communicator* communicator, int sourc
 }
 #endif
 
-void GeneticAlgorithm::Initialize(IDiscreteParameters* parameters_to_optimize)
+void GeneticAlgorithm::Initialize(const IDiscreteParameters* parameters_to_optimize)
 {
     population_ = vector<Individual::shared_ptr>(population_size_);
     population_statistics_ = vector<IndividualStatistics>(population_size_);
 
-    for(int i =0; i<population_size_; i++)
+    if (were_initial_parameters_set_)
+    {
+        ValidateInitialParameters(parameters_to_optimize);
+    }
+
+    for (int i = 0; i < population_size_; i++)
     {
         population_[i] = Individual::shared_ptr(new Individual());
-        population_[i]->Initialize(parameters_to_optimize);
-        invalid_chromosomes_ += population_[i]->SetRandomChromosome();
+
+        if (were_initial_parameters_set_)
+        {
+            population_[i]->Initialize(initial_parameters_[i].get());
+        }
+        else
+        {
+            population_[i]->Initialize(parameters_to_optimize);
+            invalid_chromosomes_ += population_[i]->SetRandomChromosome();
+        }
     }
     best_individ_ = Individual::shared_ptr(new Individual(parameters_to_optimize) );
+}
+
+void GeneticAlgorithm::ValidateInitialParameters(const IDiscreteParameters* parameters_to_optimize)
+{
+    if (initial_parameters_.size() != population_size_)
+    {
+        throw std::invalid_argument("Initial parameters must have same size as population.");
+    }
+
+    const type_info* parameters_to_optimize_type = &typeid(*parameters_to_optimize);
+
+    for (int i = 0; i < population_size_; i++)
+    {
+        const type_info* parameters_type = &typeid(*(initial_parameters_[i].get()));
+
+        if ( (*parameters_type) != (*parameters_to_optimize_type) )
+        {
+            throw std::invalid_argument("Parameters to optimize must be of the same type as initial parameters.");
+        }
+
+        // check that all parameters have same class-wide settings (for chromosome to have same meaning and size)
+        if (!initial_parameters_[i]->HasSameMetaParameters(parameters_to_optimize))
+        {
+            throw std::invalid_argument("Initial parameters have defferent chromosome representation. "
+                "Check if their meta-parameters are equal to parameters_to_optimeze's.");
+        }
+    }
 }
 
 void GeneticAlgorithm::RunIterationsAndSetBestIndivid(const DiscreteObjectiveFunction &function_to_optimize)
@@ -302,7 +356,6 @@ int GeneticAlgorithm::SelectRandomIndividualIndexForCrossover(double total_fitne
 
     double current = 0;
 
-    //TODO following is the most hottest code in GA now (~50% of CPU time) - improve?
     for(int i =0; i<population_size_; i++)
     {
         current += population_[i]->get_fitness();

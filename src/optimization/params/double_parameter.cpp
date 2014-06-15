@@ -61,6 +61,15 @@ DoubleParameter* DoubleParameter::Clone() const
     return clone;
 }
 
+bool DoubleParameter::HasSameMetaParameters(const IDiscreteParameters* parameters) const
+{
+    const DoubleParameter* double_parameter = dynamic_cast<const DoubleParameter*>(parameters);
+    return max_value_ == double_parameter->max_value_ &&
+        min_value_ == double_parameter->min_value_ && 
+        precision_ == double_parameter->precision_ &&
+        base_int_parameter_->HasSameMetaParameters(double_parameter->base_int_parameter_.get());
+}
+
 bool DoubleParameter::CheckConstraints() const
 {
     return CheckBounds(GetValue());

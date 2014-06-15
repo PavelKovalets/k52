@@ -53,6 +53,8 @@ public:
         IDiscreteParameters* parameters_to_optimize,
         bool maximize);
 
+    void SetInitialParameters(std::vector<IDiscreteParameters::shared_ptr> initial_parameters);
+
     void OnNextGenerationReadyConnect(NextGenerationReadyCallback callback);
 
     ///Creates deep clone of an object with resource allocation. See ICloneable
@@ -66,7 +68,8 @@ public:
 #endif
 
 protected:
-    void Initialize(IDiscreteParameters* parameters_to_optimize);
+    void Initialize(const IDiscreteParameters* parameters_to_optimize);
+    void ValidateInitialParameters(const IDiscreteParameters* parameters_to_optimize);
     void RunIterationsAndSetBestIndivid(const DiscreteObjectiveFunction &function_to_optimize);
     void Mutate();
     void GenerateNextPopulation();
@@ -94,6 +97,10 @@ private:
     Individual::shared_ptr best_individ_;
     std::vector<Individual::shared_ptr> population_;
     std::vector<IndividualStatistics> population_statistics_;
+
+    std::vector<IDiscreteParameters::shared_ptr> initial_parameters_;
+    bool were_initial_parameters_set_;
+
     boost::shared_ptr<ObjectiveFunctionCounter> fitness_counter_;
     NextGenerationReadyCallback callback_function_;
     double fitness_stop_criteria_ ;

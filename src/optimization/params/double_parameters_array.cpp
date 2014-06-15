@@ -31,6 +31,13 @@ DoubleParametersArray* DoubleParametersArray::Clone() const
     return clone;
 }
 
+bool DoubleParametersArray::HasSameMetaParameters(const IDiscreteParameters* parameters) const
+{
+    const DoubleParametersArray* parameters_array = dynamic_cast<const DoubleParametersArray*>(parameters);
+    return values_.size() == parameters_array->get_number_of_parameters() &&
+        sample_parameter_->HasSameMetaParameters(parameters_array->sample_parameter_.get());
+}
+
 bool DoubleParametersArray::CheckConstraints() const
 {
     for(size_t i=0; i<values_.size(); i++)
@@ -81,6 +88,21 @@ void DoubleParametersArray::SetFromChromosome(ChromosomeType::const_iterator fro
         values_[i] = sample_parameter_->GetValue();
 
         current_from = current_to;
+    }
+}
+
+void DoubleParametersArray::SetValues(const std::vector<double>& values)
+{
+    if (values.size() != values_.size())
+    {
+        throw std::invalid_argument("Values has incorrect size.");
+    }
+
+    values_ = values;
+
+    if (!CheckConstraints())
+    {
+        throw std::invalid_argument("One of the values does not satisfy constraints.");
     }
 }
 

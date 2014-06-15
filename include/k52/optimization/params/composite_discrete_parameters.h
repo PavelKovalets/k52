@@ -18,6 +18,8 @@ public:
 
     CompositeDiscreteParameters* Clone() const;
 
+    bool HasSameMetaParameters(const IDiscreteParameters* parameters) const;
+
     bool CheckConstraints() const;
 
     void SetChromosome(ChromosomeType::iterator from, ChromosomeType::iterator to) const;

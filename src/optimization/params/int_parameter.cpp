@@ -42,6 +42,13 @@ IntParameter* IntParameter::Clone() const
     return clone;
 }
 
+bool IntParameter::HasSameMetaParameters(const IDiscreteParameters* parameters) const
+{
+    const IntParameter* int_parameter = dynamic_cast<const IntParameter*>(parameters);
+    return max_value_ == int_parameter->max_value_ &&
+        min_value_ == int_parameter->min_value_;
+}
+
 bool IntParameter::CheckConstraints() const
 {
     return (value_ <= max_value_) && (value_ >= min_value_);

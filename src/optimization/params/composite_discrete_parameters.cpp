@@ -16,6 +16,11 @@ CompositeDiscreteParameters* CompositeDiscreteParameters::Clone() const
     return clone;
 }
 
+bool CompositeDiscreteParameters::HasSameMetaParameters(const IDiscreteParameters* parameters) const
+{
+    throw std::runtime_error("HasSameMetaParameters is not implemented in CompositeDiscreteParameters");
+}
+
 bool CompositeDiscreteParameters::CheckConstraints() const
 {
     initialization_checker_.InitializationCheck();
