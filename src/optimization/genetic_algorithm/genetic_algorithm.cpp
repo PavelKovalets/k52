@@ -23,14 +23,12 @@ const std::string kElitizmPairsParameter  (kGeneticSettingsPrefix + "elitizm_pai
 const std::string kPopulationSizeParameter(kGeneticSettingsPrefix + "population_size");
 const std::string kCacheDataLimitInMegabytesParameter(kGeneticSettingsPrefix + "cache_data_limit_in_megabytes");
 const std::string kFitnessStopCriteriaParameter (kGeneticSettingsPrefix + "fitness_stop_criteria");
-const std::string kMutationProbabilityParameter (kGeneticSettingsPrefix + "mutation_probability");
 const std::string kPopulationFileNameParameter  (kGeneticSettingsPrefix + "population_filename");
 const std::string kMaxNumberOfGenerationsParameter(kGeneticSettingsPrefix + "maximum_number_of_generations");
 
 // Some default values
 const double kCacheDataLimitInMegabytes = 100;
 const double kFitnessStopCriteria  = 10000000;
-const double kMutationProbability  = 0.001;
 const std::string kPopulationFileName("");
 }
 
@@ -42,20 +40,15 @@ namespace optimization
 GeneticAlgorithm::shared_ptr GeneticAlgorithm::Create(const SettingsManager& settings_manager)
 {
     GeneticAlgorithm::shared_ptr genetic_algorithm;
-    try
-    {
-        genetic_algorithm.reset(new GeneticAlgorithm(settings_manager.get<size_t>(kPopulationSizeParameter),
-                                                     settings_manager.get<size_t>(kElitizmPairsParameter),
-                                                     settings_manager.get<size_t>(kMaxNumberOfGenerationsParameter),
-                                                     settings_manager.get<double>(kCacheDataLimitInMegabytesParameter, kCacheDataLimitInMegabytes),
-                                                     settings_manager.get<double>(kFitnessStopCriteriaParameter, kFitnessStopCriteria),
-                                                     settings_manager.get<double>(kMutationProbabilityParameter, kMutationProbability),
-                                                     settings_manager.get<std::string>(kPopulationFileNameParameter, kPopulationFileName)));
-    }
-    catch(...)
-    {
-        std::cerr << "Failed to create new instance of genetic algorithm" << std::endl;
-    }
+
+    throw std::runtime_error("Not implemented Create");
+    //TODO find architectural sulution to inject interfaces (e.g. IMutator)
+    //genetic_algorithm.reset(new GeneticAlgorithm(settings_manager.get<size_t>(kPopulationSizeParameter),
+    //                                             settings_manager.get<size_t>(kElitizmPairsParameter),
+    //                                             settings_manager.get<size_t>(kMaxNumberOfGenerationsParameter),
+    //                                             settings_manager.get<double>(kCacheDataLimitInMegabytesParameter, kCacheDataLimitInMegabytes),
+    //                                             settings_manager.get<double>(kFitnessStopCriteriaParameter, kFitnessStopCriteria),
+    //                                             settings_manager.get<std::string>(kPopulationFileNameParameter, kPopulationFileName)));
 
     return genetic_algorithm;
 }
@@ -63,16 +56,16 @@ GeneticAlgorithm::shared_ptr GeneticAlgorithm::Create(const SettingsManager& set
 GeneticAlgorithm::shared_ptr GeneticAlgorithm::Create(int population_size,
                                                       int elitism_pairs,
                                                       int max_number_of_generations,
+                                                      IMutator::shared_ptr mutator,
                                                       double cache_data_limit_in_megabytes,
                                                       double fitness_stop_criteria,
-                                                      double mutation_probability,
                                                       std::string population_file_name)
 {
     GeneticAlgorithm::shared_ptr genetic_algorithm;
     try
     {
         genetic_algorithm.reset(new GeneticAlgorithm(population_size, elitism_pairs, max_number_of_generations,
-            cache_data_limit_in_megabytes, fitness_stop_criteria, mutation_probability, population_file_name));
+            mutator, cache_data_limit_in_megabytes, fitness_stop_criteria, population_file_name));
     }
     catch(...)
     {
@@ -86,9 +79,9 @@ GeneticAlgorithm::GeneticAlgorithm(
     int population_size,
     int elitism_pairs,
     int max_number_of_generations,
+    IMutator::shared_ptr mutator,
     double cache_data_limit_in_megabytes,
     double fitness_stop_criteria,
-    double mutation_probability,
     std::string population_file_name)
         :population_(0),
          population_statistics_(0),
@@ -96,26 +89,28 @@ GeneticAlgorithm::GeneticAlgorithm(
 {
     if(population_size%2!=0)
     {
-        std::cerr << "population_size must be even!" << std::endl;
-        throw std::runtime_error("Population_size must be even");
+        throw std::invalid_argument("Population_size must be even");
     }
 
     if(population_size<=0)
     {
-        std::cout<<"population_size <= 0!"<<std::endl;
-        exit(-1);
+        throw std::invalid_argument("population_size <= 0!");
     }
 
     if(max_number_of_generations<=0)
     {
-        std::cout<<"max_number_of_generations <= 0!"<<std::endl;
-        exit(-1);
+        throw std::invalid_argument("max_number_of_generations <= 0!");
+    }
+
+    if (!mutator)
+    {
+        throw std::invalid_argument("mutator was not set.");
     }
 
     callback_function_ = NULL;
     elitism_pairs_ = elitism_pairs;
     population_size_ = population_size;
-    mutation_probability_ = mutation_probability;
+    mutator_ = mutator;
     fitness_stop_criteria_ = fitness_stop_criteria;
     max_number_of_generations_ = max_number_of_generations;
     population_file_name_ = population_file_name;
@@ -264,7 +259,7 @@ void GeneticAlgorithm::Mutate()
 {
     for(int i =0; i<population_size_; i++)
     {
-        invalid_chromosomes_ += population_[i]->Mutate(mutation_probability_);
+        invalid_chromosomes_ += population_[i]->Mutate(mutator_);
     }
 }
 

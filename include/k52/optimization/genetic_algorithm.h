@@ -32,17 +32,17 @@ public:
     ///@param population_size - size of population that will be used during GA
     ///@param elitism_pairs - number of best pairs in population to be copied to the next population every time
     ///(for example if elitism_pairs=1, 2 best individuals will be transfered to the next population)
-    ///@param max_number_of_generations - maximum number of generations for population. One of the stop criteria.
+    ///@param max_number_of_generations - maximum number of generations for population. One of the stop criteria
+    ///@param mutator - mutation operator chosen
     ///@param cache_data_limit_in_megabytes - maximum memory size allowed for cache. If this parameter is less or equal to 0, cache will not be used
     ///@param fitness_stop_criteria - the value of objective function witch consider to be optimal and further optimization has no need. One of the stop criteria.
-    ///@param mutation_probability - mutation probability per one boolean gen in chromosome
     ///@param population_file_name - file to load population from(if no load is needed - pass empty string or ignore)
     static GeneticAlgorithm::shared_ptr Create(int population_size,
                                                int elitism_pairs,
                                                int max_number_of_generations,
+                                               IMutator::shared_ptr mutator,
                                                double cache_data_limit_in_megabytes = 0,
                                                double fitness_stop_criteria = 10000000,
-                                               double mutation_probability = 0.005,
                                                std::string population_file_name = "");
 
     ///Overload for convinence
@@ -89,9 +89,9 @@ private:
     GeneticAlgorithm(int population_size,
         int elitism_pairs,
         int max_number_of_generations,
+        IMutator::shared_ptr mutator,
         double cache_data_limit_in_megabytes = 0,
         double fitness_stop_criteria = 10000000,
-        double mutation_probability = 0.005,
         std::string population_file_name = "");
 
     Individual::shared_ptr best_individ_;
@@ -104,8 +104,8 @@ private:
     boost::shared_ptr<ObjectiveFunctionCounter> fitness_counter_;
     NextGenerationReadyCallback callback_function_;
     double fitness_stop_criteria_ ;
-    double mutation_probability_;
-    int  elitism_pairs_;
+    IMutator::shared_ptr mutator_;
+    int elitism_pairs_;
     int max_number_of_generations_;
     int population_size_;
     int invalid_chromosomes_;

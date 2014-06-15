@@ -10,7 +10,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "mutator.h"
+#include <k52/optimization/i_mutator.h>
 
 namespace k52
 {
@@ -129,11 +129,10 @@ bool Individual::Crossover(Individual* another)
     }
 }
 
-int Individual::Mutate(double gen_mutation_probability)
+int Individual::Mutate(IMutator::shared_ptr mutator)
 {
     initialization_checker_.InitializationCheck();
 
-    //TODO check if Individual has changed
     has_fitness_ = false;
     int invalid_chromosomes = 0;
 
@@ -142,15 +141,15 @@ int Individual::Mutate(double gen_mutation_probability)
     {
         success = true;
 
-        Mutator::Instance().MutateBoolArray(gen_mutation_probability, &chromosome_);
+        mutator->MutateChromosome(&chromosome_);
         this->SetParametersAccordingToChromosome();
         success = this->parameters_->CheckConstraints();
 
-        if(!success)
+        if (!success)
         {
             invalid_chromosomes++;
         }
-    }while(!success);
+    } while (!success);
 
     return invalid_chromosomes;
 }

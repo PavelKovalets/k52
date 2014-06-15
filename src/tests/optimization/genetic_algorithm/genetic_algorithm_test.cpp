@@ -11,6 +11,7 @@
 
 #include <k52/common/settings_manager.h>
 #include <k52/optimization/genetic_algorithm.h>
+#include <k52/optimization/flip_bit_mutator.h>
 #include <k52/optimization/params/double_parameters_array.h>
 #include <k52/optimization/params/continuous_parameters_array.h>
 
@@ -111,7 +112,7 @@ int main(int argc, char* argv[])
     time(&begin);
     cout << "Begin" << endl;
 
-    int populationSize = 100;
+    int populationSize = 300;
     int numberOfIterations = 10;
     int elitismPairs = 25;
     double mutation = 0.000001;
@@ -129,15 +130,17 @@ int main(int argc, char* argv[])
 
     cout << "pr=" << GlobalPrecision << "    apr=" << parameters.get_actual_precision() << endl;
 
+    IMutator::shared_ptr mutator(new FlipBitMutator(mutation));
+
     k52::optimization::GeneticAlgorithm::shared_ptr ga =
-        k52::optimization::GeneticAlgorithm::Create(populationSize, elitismPairs, numberOfIterations, cacheLimitInMegabytes, std::numeric_limits<double>::max(), mutation/*, "Population.txt"*/);
+        k52::optimization::GeneticAlgorithm::Create(populationSize, elitismPairs, numberOfIterations, mutator, cacheLimitInMegabytes, std::numeric_limits<double>::max()/*, "Population.txt"*/);
 
     //TODO FIX
     ga->OnNextGenerationReadyConnect(&printStatistics);
 
     try
     {
-        ga->SetInitialParameters(GetInitialParameters(populationSize));
+        //ga->SetInitialParameters(GetInitialParameters(populationSize));
         ga->Optimize(of, &parameters, true);
     }
     catch (const std::exception& e)

@@ -6,6 +6,7 @@
 #include <k52/optimization/params/i_parameters.h>
 #include <k52/optimization/initialization_checker.h>
 #include <k52/optimization/individual_statistics.h>
+#include <k52/optimization/i_mutator.h>
 #include <k52/optimization/params/discrete_parameters.h>
 
 namespace k52
@@ -69,9 +70,9 @@ public:
     bool Crossover(Individual* another);
 
     ///Performs random mutation of an Individual
-    ///@param gen_mutation_probability - mutation probability per one boolean gen
+    ///@param mutator - chosen mutation operator
     ///@return number of invalid chromosomes, generated during mutate
-    int Mutate(double gen_mutation_probability);
+    int Individual::Mutate(IMutator::shared_ptr mutator);
 
     ///@return true if fitness was counted for this Individual, otherwise - false
     bool HasFitness() const;

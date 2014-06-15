@@ -12,11 +12,13 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/continuous_optimizer.h
     ${OPTIMIZATION_COMMON_INCLUDE}/discrete_objective_function.h
     ${OPTIMIZATION_COMMON_INCLUDE}/discrete_optimizer.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/flip_bit_mutator.h
     ${OPTIMIZATION_COMMON_INCLUDE}/generation_statistics.h
     ${OPTIMIZATION_COMMON_INCLUDE}/genetic_algorithm.h
     ${OPTIMIZATION_COMMON_INCLUDE}/grid_search.h
     ${OPTIMIZATION_COMMON_INCLUDE}/hleborodov_rosenbrock_method.h
     ${OPTIMIZATION_COMMON_INCLUDE}/i_convertable_to_chromosome.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/i_mutator.h
     ${OPTIMIZATION_COMMON_INCLUDE}/i_objective_function.h
     ${OPTIMIZATION_COMMON_INCLUDE}/i_optimizer.h
     ${OPTIMIZATION_COMMON_INCLUDE}/individual_statistics.h
@@ -46,8 +48,6 @@ set(OPTIMIZATION_HEADERS
     simple_parameters_processor.h
     stored_value.h
 
-    genetic_algorithm/mutator.h
-
     )
 
 set(OPTIMIZE_SOURCE
@@ -74,7 +74,7 @@ set(OPTIMIZE_SOURCE
     genetic_algorithm/generation_statistics.cpp
     genetic_algorithm/genetic_algorithm.cpp
     genetic_algorithm/individual.cpp
-    genetic_algorithm/mutator.cpp
+    genetic_algorithm/flip_bit_mutator.cpp
 
     params/composite_discrete_parameters.cpp
     params/const_chromosome_size_paremeters.cpp
