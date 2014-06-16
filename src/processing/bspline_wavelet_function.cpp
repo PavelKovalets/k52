@@ -26,7 +26,6 @@ double BSplineWaveletFunction::real(double x, int n)
     static double c2k[] = {1, 2, 1};
     static double c1k[] = {1, 1};
     double nn = n;
-    static double pi = 3.14159265358;
 
     for (int k=0; k<=(n+1); k++)
     {
@@ -41,7 +40,7 @@ double BSplineWaveletFunction::real(double x, int n)
         res += m1k(k) * (cnk) * xplus((x + (nn + 1) / 2 - kk), n) / (float)fact(n);
     }
 
-    res *= cos(2 * pi * x);
+    res *= cos(2 * M_PI * x);
     return res;
 }
 
@@ -57,7 +56,6 @@ double BSplineWaveletFunction::imag(double x, int n)
     static double c2k[] = {1 ,2, 1};
     static double c1k[] = {1, 1};
     double nn = n;
-    static double pi = 3.14159265358;
 
     for (int k = 0; k <= n + 1; k++)
     {
@@ -72,7 +70,7 @@ double BSplineWaveletFunction::imag(double x, int n)
         res += m1k(k) * (cnk) * xplus((x + (nn + 1) / 2 - kk), n) / (float)fact(n);
     }
 
-    res *= sin(2 * pi * x);
+    res *= sin(2 * M_PI * x);
     return res;
 }
 
