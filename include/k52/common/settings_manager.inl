@@ -13,12 +13,9 @@ try
 }
 catch (...)
 {
-    std::cerr << "Failed to get mandatory property " << property_name <<std::endl;
-
     // There is no way to recover missed mandatory property,
     // so just re-throw it to the caller
-    // TODO: define missed-mandatory-parameter exception
-    throw;
+    throw std::runtime_error("Failed to get mandatory property");
 }
 
 template <class PropertyType>
@@ -31,7 +28,6 @@ catch(...)
 {
     return default_value;
 }
-
 
 template <class PropertyType>
 bool SettingsManager::put(const std::string& property_name, const PropertyType& property_value)

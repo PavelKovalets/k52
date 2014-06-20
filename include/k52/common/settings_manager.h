@@ -4,13 +4,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <iostream>
-
-namespace
-{
-const std::string kArgPrefix("--");
-const size_t kArgPrefixStart = 0;
-const size_t kArgPrefixLenght = kArgPrefix.length();
-}
+#include <stdexcept>
 
 namespace k52
 {
@@ -35,46 +29,7 @@ public:
     /// @param configuration file
     SettingsManager(const std::string& config_filename)
     {
-        if (!ParseXmlConfigFile(config_filename))
-        {
-            std::cerr << "Configuration file is not supported" << std::endl;
-        }
-    }
-
-    /// @brief It parses command line arguments array as it arrives into main(int, const char*[])
-    /// @param argument count
-    /// @param argument values
-    void ParseCommandLine(size_t argument_count, const char* argument_values[])
-    {
-        for (size_t i = 0; i < argument_count; ++i)
-        {
-            std::string argument(argument_values[i]);
-            if (kArgPrefix == argument.substr(kArgPrefixStart, kArgPrefixLenght))
-            {
-                // split argument name and value
-                argument.erase(kArgPrefixStart, kArgPrefixLenght);
-                std::string argument_name(argument.substr(0, argument.find("=")));
-                std::string argument_value(argument.substr(argument.find("=") + 1));
-
-                property_tree_.put(argument_name, argument_value);
-            }
-        }
-    }
-
-    /// @brief Load configuration from xml
-    /// @param filename - xml file to be loaded
-    /// @return true if configuration loading succeeded
-    /// @return false otherwise
-    bool ParseXmlConfigFile(const std::string& filename)
-    try
-    {
-        boost::property_tree::xml_parser::read_xml(filename, property_tree_);
-        return true;
-    }
-    catch (...)
-    {
-        std::cerr << "Failed to parse configuration from xml file " << filename << std::endl;
-        return false;
+        ParseXmlConfigFile(config_filename);
     }
 
     /// @brief Get property value
@@ -101,6 +56,46 @@ public:
     bool put(const std::string& property_name, const T& property_value);
 
 protected:
+    const std::string& ArgPrefix()
+    {
+        static const std::string kArgPrefix("--");
+        return kArgPrefix;
+    }
+
+    /// @brief It parses command line arguments array as it arrives into main(int, const char*[])
+    /// @param argument count
+    /// @param argument values
+    void ParseCommandLine(size_t argument_count, const char* argument_values[])
+    {
+        for (size_t i = 0; i < argument_count; ++i)
+        {
+            std::string argument(argument_values[i]);
+            if (ArgPrefix() == argument.substr(0, ArgPrefix().length()))
+            {
+                // split argument name and value
+                argument.erase(0, ArgPrefix().length());
+                std::string argument_name(argument.substr(0, argument.find("=")));
+                std::string argument_value(argument.substr(argument.find("=") + 1));
+
+                property_tree_.put(argument_name, argument_value);
+            }
+        }
+    }
+
+    /// @brief Load configuration from xml
+    /// @param filename - xml file to be loaded
+    /// @return true if configuration loading succeeded
+    /// @return false otherwise
+    void ParseXmlConfigFile(const std::string& filename) throw (std::runtime_error)
+    try
+    {
+        boost::property_tree::xml_parser::read_xml(filename, property_tree_);
+    }
+    catch (...)
+    {
+        throw std::runtime_error("Failed to parse configuration from xml file");
+    }
+
     // @note Still not in boost :( - hope it will be added soon so implementation is fast,
     // straightforward and not efficient
     // Current implementation respects properties from the left tree - if the same property exists in both trees
