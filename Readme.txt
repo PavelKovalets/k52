@@ -7,3 +7,11 @@ Not completelly clear, is it a bug or feature, but according to http://www.boost
 -Run 'vagrant ssh' to connect to VM
 -Run 'cd /vagrant' to move to the project directory
 -Do what you need
+
+#Build using cmake
+git clone ...
+cd k52
+#edit config
+mkdir build
+cd build
+cmake .. && make
