@@ -1,9 +1,9 @@
-#ifndef K52_PROCESSING_SPLINE_H
-#define K52_PROCESSING_SPLINE_H
+#ifndef K52_DSP_SPLINE_H
+#define K52_DSP_SPLINE_H
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 class Spline
@@ -15,7 +15,7 @@ public:
     virtual double Value(double x) = 0;
 };
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // K52_PROCESSING_SPLINE_H
+#endif // K52_DSP_SPLINE_H

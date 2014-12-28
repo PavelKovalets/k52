@@ -1,11 +1,11 @@
-#ifndef MORLET_WAVELET_FUNCTION_HEADER
-#define MORLET_WAVELET_FUNCTION_HEADER
+#ifndef K52_DSP_MORLET_WAVELET_FUNCTION_HEADER
+#define K52_DSP_MORLET_WAVELET_FUNCTION_HEADER
 
-#include <k52/processing/iwavelet_function.h>
+#include <k52/dsp/iwavelet_function.h>
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 class MorletWaveletFunction : public IWaveletFunction
@@ -18,7 +18,7 @@ public :
     virtual double imag(double x, int index = 0);
 };
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // MORLET_WAVELET_FUNCTION_HEADER
+#endif // K52_DSP_MORLET_WAVELET_FUNCTION_HEADER

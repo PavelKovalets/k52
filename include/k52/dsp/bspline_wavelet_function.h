@@ -1,7 +1,7 @@
-#ifndef BSPLINE_WAVELET_FUNCTION_H
-#define BSPLINE_WAVELET_FUNCTION_H
+#ifndef K52_DSP_BSPLINE_WAVELET_FUNCTION_H
+#define K52_DSP_BSPLINE_WAVELET_FUNCTION_H
 
-#include <k52/processing/iwavelet_function.h>
+#include <k52/dsp/iwavelet_function.h>
 
 /*
     The BSpline base function
@@ -10,7 +10,7 @@
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 class BSplineWaveletFunction : public IWaveletFunction
@@ -24,7 +24,7 @@ public:
     virtual double imag(double value, int index = 0);
 };
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // BSPLINE_WAVELET_FUNCTION_H
+#endif // K52_DSP_BSPLINE_WAVELET_FUNCTION_H

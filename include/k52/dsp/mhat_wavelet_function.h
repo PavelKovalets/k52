@@ -1,7 +1,7 @@
-#ifndef MHAT_WAVELET_FUNCTION_H
-#define MHAT_WAVELET_FUNCTION_H
+#ifndef K52_DSP_MHAT_WAVELET_FUNCTION_H
+#define K52_DSP_MHAT_WAVELET_FUNCTION_H
 
-#include <k52/processing/iwavelet_function.h>
+#include <k52/dsp/iwavelet_function.h>
 
 /*
     The Mexican hat (MHAT) base function
@@ -10,7 +10,7 @@
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 class MhatWaveletFunction : public IWaveletFunction
@@ -28,7 +28,7 @@ private:
     double k_;
 };
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // MHAT_WAVELET_FUNCTION_H
+#endif // K52_DSP_MHAT_WAVELET_FUNCTION_H

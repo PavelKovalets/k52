@@ -1,11 +1,11 @@
-#ifndef PSEUDO_WAVELET_FUNCTION_HEADER
-#define PSEUDO_WAVELET_FUNCTION_HEADER
+#ifndef K52_DSP_PSEUDO_WAVELET_FUNCTION_HEADER
+#define K52_DSP_PSEUDO_WAVELET_FUNCTION_HEADER
 
-#include <k52/processing/iwavelet_function.h>
+#include <k52/dsp/iwavelet_function.h>
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 class PseudoWaveletFunction : public IWaveletFunction
@@ -23,7 +23,7 @@ private:
     int length_;
 };
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
-#endif // PSEUDO_WAVELET_FUNCTION_HEADER
+#endif // K52_DSP_PSEUDO_WAVELET_FUNCTION_HEADER
