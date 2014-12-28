@@ -1,4 +1,4 @@
-#include <k52/processing/wavelet.h>
+#include <k52/dsp/wavelet.h>
 
 #include <algorithm>
 #include <math.h>
@@ -7,7 +7,7 @@
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 Wavelet::Wavelet() : max_lenght_(1024), count_(256), min_lenght_(10)
@@ -101,5 +101,5 @@ void Wavelet::createScale(ScaleType type)
     }
 }
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52

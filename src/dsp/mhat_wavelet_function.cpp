@@ -1,4 +1,4 @@
-#include <k52/processing/mhat_wavelet_function.h>
+#include <k52/dsp/mhat_wavelet_function.h>
 #include <math.h>
 
 namespace
@@ -8,7 +8,7 @@ const double kDefaultSigma = 3.0;
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 MhatWaveletFunction::MhatWaveletFunction() : k_(2./sqrt(3. * kDefaultSigma) * pow(M_PI, 0.25))
@@ -26,5 +26,5 @@ double MhatWaveletFunction::imag(double value, int)
     return 0;
 }
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52

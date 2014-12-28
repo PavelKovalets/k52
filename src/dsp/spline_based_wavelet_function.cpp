@@ -1,4 +1,4 @@
-#include <k52/processing/spline_based_wavelet_function.h>
+#include <k52/dsp/spline_based_wavelet_function.h>
 
 // standart headers
 #include <algorithm>
@@ -7,7 +7,7 @@
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 void SplineBased::Init(const std::vector<double> &real, const std::vector<double> &imaj)
@@ -52,5 +52,5 @@ void SplineBased::spline(Spline::shared_ptr spline)
     spline_ = spline;
 }
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52

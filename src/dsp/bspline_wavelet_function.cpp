@@ -1,4 +1,4 @@
-#include <k52/processing/bspline_wavelet_function.h>
+#include <k52/dsp/bspline_wavelet_function.h>
 #include <math.h>
 
 namespace 
@@ -11,7 +11,7 @@ double xplus(double x, int n);                  // стремная хрень
 
 namespace k52
 {
-namespace processing
+namespace dsp
 {
 
 /// Bspline implementation
@@ -74,7 +74,7 @@ double BSplineWaveletFunction::imag(double x, int n)
     return res;
 }
 
-} // namespace processing
+} // namespace dsp
 } // namespace k52
 
 namespace
