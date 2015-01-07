@@ -14,4 +14,4 @@ cd k52
 #edit config
 mkdir build
 cd build
-cmake .. && make
+cmake .. && make (or open generated k52.sln file if using Visual Studio)
