@@ -47,7 +47,7 @@ public:
     virtual void createWavelet(ScaleType type = Log);
 
     template <typename T>
-        std::vector<T> transform(typename std::vector<T>::iterator data_begin);
+    std::vector<T> transform(typename std::vector<T>::const_iterator data_begin);
 
 protected:
     // Protect this class from direct copying but allow inheritance for mocking
@@ -68,7 +68,7 @@ private:
 };
 
 template <typename T>
-std::vector<T> Wavelet::transform(typename std::vector<T>::iterator data_begin)
+std::vector<T> Wavelet::transform(typename std::vector<T>::const_iterator data_begin)
 {
     // check if wavelet ready
     if(real_part_.empty() || imaj_part_.empty() || scale_.empty())
