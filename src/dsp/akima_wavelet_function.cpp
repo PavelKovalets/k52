@@ -1,12 +1,15 @@
 #include <k52/dsp/akima_wavelet_function.h>
 #include <stdexcept>
 
-#include "k52/dsp/spline.h"
+#include <k52/dsp/spline.h>
+#include <k52/dsp/akima_spline.h>
 
 #ifdef BUILD_WITH_ALGLIB
 #include <interpolation.h>
 
-namespace
+namespace k52
+{
+namespace dsp
 {
 class AkimaSpline : public k52::dsp::Spline
 {
@@ -52,40 +55,11 @@ protected:
 private:
     alglib::spline1dinterpolant interpolant_;
 };
-}
+} // namespace dsp
+} // namespace k52
 
 #else
-
-namespace
-{
-class AkimaSpline : public k52::dsp::Spline
-{
-public:
-    typedef boost::shared_ptr<AkimaSpline> shared_ptr;
-
-    static AkimaSpline::shared_ptr CreateAkimaSpline()
-    {
-        return AkimaSpline::shared_ptr(new AkimaSpline());
-    }
-
-    virtual void Initialize(const std::vector<double>&, const std::vector<double>&)
-    {
-        throw std::runtime_error("The k52 library must be compiled with alglib to use AkimaSpline class");
-    }
-
-    virtual double Value(double x)
-    {
-        throw std::runtime_error("The k52 library must be compiled with alglib to use AkimaSpline class");
-        return 0;
-    }
-
-protected:
-    AkimaSpline()
-    {
-        throw std::runtime_error("The k52 library must be compiled with alglib to use AkimaSpline class");
-    }
-};
-} // namespace
+#   include <k52/dsp/akima_spline.h>
 #endif // BUILD_WITH_ALGLIB
 
 namespace k52
@@ -97,7 +71,7 @@ AkimaWavelet::shared_ptr AkimaWavelet::CreateAkimaWavelet(const std::vector<doub
                                                           const std::vector<double>& imaj)
 {
     AkimaWavelet::shared_ptr akima_wavelet(new AkimaWavelet);
-    akima_wavelet->spline(AkimaSpline::CreateAkimaSpline());
+    akima_wavelet->spline(k52::dsp::AkimaSpline::Create());
     akima_wavelet->Init(real, imaj);
     return akima_wavelet;
 }

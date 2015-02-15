@@ -5,6 +5,7 @@ set(DSP_COMMON_INCLUDE ${k52_SOURCE_DIR}/include/k52/dsp)
 
 # dsp library
 set(DSP_HEADERS
+    ${DSP_COMMON_INCLUDE}/akima_spline.h
     ${DSP_COMMON_INCLUDE}/akima_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/bspline_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/cwt.h
@@ -20,6 +21,7 @@ set(DSP_HEADERS
 
 # dsp source
 set(DSP_SOURCE
+    akima_spline.cpp
     akima_wavelet_function.cpp
     bspline_wavelet_function.cpp
     cwt.cpp

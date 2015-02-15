@@ -3,7 +3,8 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
     project(${PROJECT_NAME})
     
     set(k52_UNIT_TESTS_SOURCE
-        common/settings_manager.test.cpp)
+        common/settings_manager.test.cpp
+        dsp/akima_spline.test.cpp)
 
     include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
     link_directories(${K52_BOOST_LIBRARY_DIRS})
@@ -11,6 +12,7 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
     add_executable(${PROJECT_NAME} ${k52_UNIT_TESTS_SOURCE})
     target_link_libraries(${PROJECT_NAME}
                           ${Boost_UNIT_TEST_FRAMEWORK_LIBRARIES}
+                          k52_dsp
                           )
 
     add_test(NAME "Unit_Tests" COMMAND ${PROJECT_NAME})
