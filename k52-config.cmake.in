@@ -1,0 +1,11 @@
+# this is k52 cmake config template file that is going to be used for
+# generating config in order to find k52 with fing_package function
+# from other cmake projects
+
+set( k52_VERSION      @k52_VERSION@ )
+
+# k52_DIR is autodefined by cmake variable that contains path to this config file
+# so all other paths are made relative to it to make it portable
+set( k52_INCLUDE_DIRS ${k52_DIR}/@k52_INCLUDE_DIRS@ )
+set( k52_LIBRARY_DIRS ${k52_DIR}/@k52_LIBRARY_DIRS@ )
+set( k52_LIBRARY      @k52_LIBS@ )
