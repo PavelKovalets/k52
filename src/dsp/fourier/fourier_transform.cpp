@@ -8,7 +8,7 @@ namespace dsp
 {
 
 
-std::vector< std::complex< double > > FourierTransform::Transform(std::vector< std::complex< double > > sequence)
+std::vector< std::complex< double > > FourierTransform::Transform(const std::vector< std::complex< double > >& sequence)
 {
     std::complex< double > i;
     i = -1;
@@ -24,7 +24,7 @@ std::vector< std::complex< double > > FourierTransform::Transform(std::vector< s
 
         for (size_t n = 0; n < N; ++n)
         {
-            result[k] += sequence[n] * exp( -2 * pi *i * k * n / N);
+            result[k] += sequence[n] * exp( -2 * pi * i *(double) k * (double)n /(double) N);
         }
     }
 
