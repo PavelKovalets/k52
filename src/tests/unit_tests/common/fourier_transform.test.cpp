@@ -1,12 +1,12 @@
 #include <boost/test/unit_test.hpp>
 #include <k52/dsp/fourier/fourier_transform.h>
+
+#include  <k52/common/constants.h>
+
 #include <cmath>
 
+using k52::common::Constants;
 using k52::dsp::FourierTransform;
-
-//TODO to constants
-double eps = 1e-10;
-double pi = 2 * asin(1);
 
 BOOST_AUTO_TEST_CASE(zero)
 {
@@ -25,8 +25,8 @@ BOOST_AUTO_TEST_CASE(zero)
 
     for (size_t k = 0; k < N; ++k)
     {
-        BOOST_CHECK_SMALL(result[k].real(), eps);
-        BOOST_CHECK_SMALL(result[k].imag(), eps);
+        BOOST_CHECK_SMALL(result[k].real(), Constants::Eps);
+        BOOST_CHECK_SMALL(result[k].imag(), Constants::Eps);
     }
 }
 
@@ -37,11 +37,6 @@ BOOST_AUTO_TEST_CASE(impulse)
 
     size_t N = 11;
     size_t n0 = 2;
-
-    //TODO to constants
-    std::complex< double > i;
-    i = -1;
-    i = sqrt(i);
 
     std::vector< std::complex <double >> samples(N);
     samples[n0] = 1;
@@ -54,10 +49,10 @@ BOOST_AUTO_TEST_CASE(impulse)
 
     for (size_t k = 0; k < N; ++k)
     {
-        std::complex <double > w = exp( -2 * pi * i * (double)k * (double)n0 / (double)N);
+        std::complex <double > w = exp( -2 * Constants::Pi * Constants::ImaginaryUnit * (double)k * (double)n0 / (double)N);
 
-        BOOST_CHECK_SMALL(result[k].real() - w.real(), eps);
-        BOOST_CHECK_SMALL(result[k].imag() - w.imag(), eps);
+        BOOST_CHECK_SMALL(result[k].real() - w.real(), Constants::Eps);
+        BOOST_CHECK_SMALL(result[k].imag() - w.imag(), Constants::Eps);
     }
 }
 
@@ -78,7 +73,7 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
 
     for (size_t n = 0; n < N; ++n)
     {
-        samples[n] = exp( 2 * pi * i * (double)k0 * (double)n / (double)N);
+        samples[n] = exp( 2 * Constants::Pi * Constants::ImaginaryUnit * (double)k0 * (double)n / (double)N);
     }
 
     //Test
@@ -89,7 +84,7 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
 
     for (size_t k = 0; k < N; ++k)
     {
-        BOOST_CHECK_SMALL(result[k].real() - (k == k0 ? N : 0), eps);
-        BOOST_CHECK_SMALL(result[k].imag(), eps);
+        BOOST_CHECK_SMALL(result[k].real() - (k == k0 ? N : 0), Constants::Eps);
+        BOOST_CHECK_SMALL(result[k].imag(), Constants::Eps);
     }
 }

@@ -1,20 +1,18 @@
 #include <k52/dsp/fourier/fourier_transform.h>
 
+#include  <k52/common/constants.h>
+
 #include <cmath>
+
+using k52::common::Constants;
 
 namespace k52
 {
 namespace dsp
 {
 
-
 std::vector< std::complex< double > > FourierTransform::Transform(const std::vector< std::complex< double > >& sequence)
 {
-    std::complex< double > i;
-    i = -1;
-    i = sqrt(i);
-    double pi = 2 * asin(1);
-
     size_t N = sequence.size();
     std::vector< std::complex< double > > result(N);
 
@@ -24,7 +22,7 @@ std::vector< std::complex< double > > FourierTransform::Transform(const std::vec
 
         for (size_t n = 0; n < N; ++n)
         {
-            result[k] += sequence[n] * exp( -2 * pi * i *(double) k * (double)n /(double) N);
+            result[k] += sequence[n] * exp( -2 * Constants::Pi * Constants::ImaginaryUnit *(double) k * (double)n /(double) N);
         }
     }
 
