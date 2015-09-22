@@ -23,10 +23,10 @@ BOOST_AUTO_TEST_CASE(zero)
     //Check
     BOOST_REQUIRE(result.size() == N);
 
-    for (int k = 0; k < N; ++k)
+    for (size_t k = 0; k < N; ++k)
     {
-        BOOST_REQUIRE_CLOSE(result[k].real(), 0, eps);
-        BOOST_REQUIRE_CLOSE(result[k].imag(), 0, eps);
+        BOOST_CHECK_SMALL(result[k].real(), eps);
+        BOOST_CHECK_SMALL(result[k].imag(), eps);
     }
 }
 
@@ -52,12 +52,12 @@ BOOST_AUTO_TEST_CASE(impulse)
     //Check
     BOOST_REQUIRE(result.size() == N);
 
-    for (int k = 0; k < N; ++k)
+    for (size_t k = 0; k < N; ++k)
     {
         std::complex <double > w = exp( -2 * pi * i * (double)k * (double)n0 / (double)N);
 
-        BOOST_REQUIRE_CLOSE(result[k].real(), w.real(), eps);
-        BOOST_REQUIRE_CLOSE(result[k].imag(), w.imag(), eps);
+        BOOST_CHECK_SMALL(result[k].real() - w.real(), eps);
+        BOOST_CHECK_SMALL(result[k].imag() - w.imag(), eps);
     }
 }
 
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
     //Prepare
     FourierTransform ft;
 
-    size_t N = 11;
+    size_t N = 128;
     size_t k0 = 5;
 
     //TODO to constants
@@ -76,9 +76,9 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
 
     std::vector< std::complex <double >> samples(N);
 
-    for (int n = 0; n < N; ++n)
+    for (size_t n = 0; n < N; ++n)
     {
-        samples[n] = exp( -2 * pi * i * (double)k0 * (double)n / (double)N);
+        samples[n] = exp( 2 * pi * i * (double)k0 * (double)n / (double)N);
     }
 
     //Test
@@ -87,9 +87,9 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
     //Check
     BOOST_REQUIRE(result.size() == N);
 
-    for (int k = 0; k < N; ++k)
+    for (size_t k = 0; k < N; ++k)
     {
-        BOOST_REQUIRE_CLOSE(result[k].real(), k == k0 ? 1 : 0, eps);
-        BOOST_REQUIRE_CLOSE(result[k].imag(), 0, eps);
+        BOOST_CHECK_SMALL(result[k].real() - (k == k0 ? N : 0), eps);
+        BOOST_CHECK_SMALL(result[k].imag(), eps);
     }
 }

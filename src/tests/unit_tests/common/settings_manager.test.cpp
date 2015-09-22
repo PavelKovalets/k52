@@ -18,9 +18,7 @@ public:
 BOOST_AUTO_TEST_CASE(constructors)
 {
     BOOST_REQUIRE_NO_THROW(SettingsManager sm(0, NULL));           // Empty Parameters
-    BOOST_REQUIRE_NO_THROW(SettingsManager sm(std::string("")));   // Empty Parameter
-
-    BOOST_REQUIRE_NO_THROW(SettingsManager sm(std::string("non_existed.config")));
+    BOOST_REQUIRE_THROW(SettingsManager sm(std::string("non_existed.config")), std::runtime_error);
 }
 
 BOOST_AUTO_TEST_CASE(init_from_cmd)
