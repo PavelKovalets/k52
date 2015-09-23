@@ -9,6 +9,7 @@
 #include "optimization_parameters_processor.h"
 
 using ::std::vector;
+using ::k52::common::Random;
 
 namespace k52
 {

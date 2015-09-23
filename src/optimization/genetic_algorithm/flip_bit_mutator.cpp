@@ -4,6 +4,8 @@
 #include <math.h>
 #include <stdexcept>
 
+using ::k52::common::Random;
+
 namespace k52
 {
 namespace optimization

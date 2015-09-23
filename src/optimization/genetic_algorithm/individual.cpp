@@ -12,6 +12,8 @@
 
 #include <k52/optimization/i_mutator.h>
 
+using ::k52::common::Random;
+
 namespace k52
 {
 namespace optimization
