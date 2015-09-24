@@ -14,7 +14,7 @@ class IFourierTransform
 {
 public:
 
-    virtual std::vector< std::complex< double > > Transform(const std::vector< std::complex< double > >&) = 0;
+    virtual std::vector< std::complex< double > > Transform(const std::vector< std::complex< double > >& sequence) = 0;
 
 };
 

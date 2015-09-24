@@ -1,0 +1,61 @@
+#include <boost/test/unit_test.hpp>
+#include <k52/dsp/fourier/inverse_fourier_transform.h>
+#include <k52/dsp/fourier/fourier_transform.h>
+
+#include  <k52/common/constants.h>
+
+#include <cmath>
+#include <list>
+
+using k52::common::Constants;
+using k52::dsp::FourierTransform;
+using k52::dsp::InverseFourierTransform;
+
+BOOST_AUTO_TEST_CASE(inverse_fourier_transform)
+{
+    //Prepare
+    InverseFourierTransform ift;
+    FourierTransform ft;
+
+    std::list< std::vector< std::complex <double > > > samples_list;
+    std::list< std::vector< std::complex <double > > > transformed_samples_list;
+
+    //Zeros
+    samples_list.push_back(std::vector< std::complex <double >> (10));
+    //Impulse
+    std::vector< std::complex <double >> impulse_samples(11);
+    impulse_samples[2] = 1;
+    samples_list.push_back(impulse_samples);
+    //Ladder
+    std::vector< std::complex <double >> ladder_samples(123);
+    for (size_t n = 0; n < ladder_samples.size(); ++n)
+    {
+        ladder_samples[n] = exp( 2 * Constants::Pi * Constants::ImaginaryUnit * (double)n);
+    }
+    samples_list.push_back(ladder_samples);
+
+    //Test
+    for (std::list< std::vector< std::complex <double > > >::const_iterator it = samples_list.begin();
+         it != samples_list.end();
+         ++it)
+    {
+        transformed_samples_list.push_back(ift.Transform(ft.Transform(*it)));
+    }
+
+    //Check
+    for (std::list< std::vector< std::complex <double > > >::const_iterator
+                 it_samples = samples_list.begin(),
+                 it_transformed = samples_list.begin();
+         it_samples != samples_list.end();
+         ++it_samples, ++it_transformed
+            )
+    {
+        BOOST_REQUIRE(it_samples->size() == it_transformed->size());
+
+        for (size_t n = 0; n < it_samples->size(); ++n)
+        {
+            BOOST_CHECK_SMALL((*it_samples)[n].real() - (*it_transformed)[n].real(), Constants::Eps);
+            BOOST_CHECK_SMALL((*it_samples)[n].imag() - (*it_transformed)[n].imag(), Constants::Eps);
+        }
+    }
+}

@@ -8,7 +8,7 @@
 using k52::common::Constants;
 using k52::dsp::FourierTransform;
 
-BOOST_AUTO_TEST_CASE(zero)
+BOOST_AUTO_TEST_CASE(fourier_transform_zero)
 {
     //Prepare
     FourierTransform ft;
@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(zero)
     }
 }
 
-BOOST_AUTO_TEST_CASE(impulse)
+BOOST_AUTO_TEST_CASE(fourier_transform_impulse)
 {
     //Prepare
     FourierTransform ft;
@@ -56,18 +56,13 @@ BOOST_AUTO_TEST_CASE(impulse)
     }
 }
 
-BOOST_AUTO_TEST_CASE(complex_harmonic)
+BOOST_AUTO_TEST_CASE(fourier_transform_complex_harmonic)
 {
     //Prepare
     FourierTransform ft;
 
     size_t N = 128;
     size_t k0 = 5;
-
-    //TODO to constants
-    std::complex< double > i;
-    i = -1;
-    i = sqrt(i);
 
     std::vector< std::complex <double >> samples(N);
 

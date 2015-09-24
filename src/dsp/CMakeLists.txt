@@ -17,7 +17,8 @@ set(DSP_HEADERS
     ${DSP_COMMON_INCLUDE}/spline_based_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/wavelet.h
     ${DSP_COMMON_INCLUDE}/fourier/fourier_transform.h
-    ${DSP_COMMON_INCLUDE}/fourier/i_fourier_transform.h)
+    ${DSP_COMMON_INCLUDE}/fourier/i_fourier_transform.h
+    ${DSP_COMMON_INCLUDE}/fourier/inverse_fourier_transform.h)
 
 # dsp source
 set(DSP_SOURCE
@@ -32,7 +33,7 @@ set(DSP_SOURCE
     spline_based_wavelet_function.cpp
     wavelet.cpp
     fourier/fourier_transform.cpp
-)
+    fourier/inverse_fourier_transform.cpp)
 
 include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${K52_ALGLIB_INCLUDE_DIRS} ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_ALGLIB_LIBRARY_DIRS})
