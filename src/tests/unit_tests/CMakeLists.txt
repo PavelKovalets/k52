@@ -4,7 +4,9 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
     
     set(k52_UNIT_TESTS_SOURCE
         common/settings_manager.test.cpp
-        common/fourier_transform.test.cpp common/inverse_fourier_transform.test.cpp)
+        common/fourier_transform.test.cpp
+        common/inverse_fourier_transform.test.cpp
+        common/circular_convolution.test.cpp)
 
     include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
     link_directories(${K52_BOOST_LIBRARY_DIRS})

@@ -1,6 +1,6 @@
 #include <boost/test/unit_test.hpp>
-#include <k52/dsp/fourier/inverse_fourier_transform.h>
-#include <k52/dsp/fourier/fourier_transform.h>
+#include <k52/dsp/transform/inverse_fourier_transform.h>
+#include <k52/dsp/transform/fourier_transform.h>
 
 #include  <k52/common/constants.h>
 

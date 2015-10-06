@@ -13,7 +13,7 @@ namespace dsp
 class IFourierTransform
 {
 public:
-
+    virtual ~IFourierTransform() {};
     virtual std::vector< std::complex< double > > Transform(const std::vector< std::complex< double > >& sequence) = 0;
 
 };

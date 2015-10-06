@@ -1,7 +1,7 @@
 #ifndef K52_FOURIER_TRANSFORM_H
 #define K52_FOURIER_TRANSFORM_H
 
-#include <k52/dsp/fourier/i_fourier_transform.h>
+#include <k52/dsp/transform/i_fourier_transform.h>
 
 namespace k52
 {
