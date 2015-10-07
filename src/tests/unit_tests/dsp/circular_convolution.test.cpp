@@ -6,11 +6,16 @@
 using k52::common::Constants;
 using k52::dsp::CircularConvolution;
 
-BOOST_AUTO_TEST_CASE(circular_convolution_not_equal_size)
+struct CircularConvolutionTestFixture
+{
+    CircularConvolution convolution;
+};
+
+BOOST_FIXTURE_TEST_SUITE(circular_convolution_tests, CircularConvolutionTestFixture);
+
+BOOST_AUTO_TEST_CASE(not_equal_size)
 {
     //Prepare
-    CircularConvolution convolution;
-
     std::vector< std::complex <double >> a(13);
     std::vector< std::complex <double >> b(15);
 
@@ -19,11 +24,9 @@ BOOST_AUTO_TEST_CASE(circular_convolution_not_equal_size)
     BOOST_REQUIRE_THROW(convolution.EvaluateConvolution(a, b), std::runtime_error);
 }
 
-BOOST_AUTO_TEST_CASE(circular_convolution_zero)
+BOOST_AUTO_TEST_CASE(zero)
 {
     //Prepare
-    CircularConvolution convolution;
-
     size_t N = 17;
 
     std::vector< std::complex <double >> a(N);
@@ -42,11 +45,9 @@ BOOST_AUTO_TEST_CASE(circular_convolution_zero)
     }
 }
 
-BOOST_AUTO_TEST_CASE(circular_convolution_impulse)
+BOOST_AUTO_TEST_CASE(impulse)
 {
     //Prepare
-    CircularConvolution convolution;
-
     size_t N = 29;
 
     size_t n_a = 2;
@@ -72,11 +73,9 @@ BOOST_AUTO_TEST_CASE(circular_convolution_impulse)
     }
 }
 
-BOOST_AUTO_TEST_CASE(circular_convolution_complex_harmonic)
+BOOST_AUTO_TEST_CASE(complex_harmonic)
 {
     //Prepare
-    CircularConvolution convolution;
-
     size_t N = 136;
     size_t k0 = 17;
 
@@ -109,3 +108,5 @@ BOOST_AUTO_TEST_CASE(circular_convolution_complex_harmonic)
         BOOST_CHECK_SMALL(result[n].imag() - out.imag(), Constants::Eps);
     }
 }
+
+BOOST_AUTO_TEST_SUITE_END();

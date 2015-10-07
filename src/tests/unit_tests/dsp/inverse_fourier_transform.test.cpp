@@ -11,12 +11,17 @@ using k52::common::Constants;
 using k52::dsp::FourierTransform;
 using k52::dsp::InverseFourierTransform;
 
-BOOST_AUTO_TEST_CASE(inverse_fourier_transform)
+struct InverseFourierTransformTestFixture
 {
-    //Prepare
     InverseFourierTransform ift;
     FourierTransform ft;
+};
 
+BOOST_FIXTURE_TEST_SUITE(inverse_fourier_transform_tests, InverseFourierTransformTestFixture);
+
+BOOST_AUTO_TEST_CASE(multiple_inverse)
+{
+    //Prepare
     std::list< std::vector< std::complex <double > > > samples_list;
     std::list< std::vector< std::complex <double > > > transformed_samples_list;
 
@@ -59,3 +64,5 @@ BOOST_AUTO_TEST_CASE(inverse_fourier_transform)
         }
     }
 }
+
+BOOST_AUTO_TEST_SUITE_END();

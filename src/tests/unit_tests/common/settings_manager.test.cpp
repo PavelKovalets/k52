@@ -1,9 +1,9 @@
-#define BOOST_TEST_MODULE settings_manager
 #include <boost/test/unit_test.hpp>
 #include <k52/common/settings_manager.h>
 
-namespace k52
-{
+BOOST_AUTO_TEST_SUITE(settings_manager_tests);
+
+using k52::SettingsManager;
 
 class SettingsManagerMock : public SettingsManager
 {
@@ -147,4 +147,4 @@ BOOST_AUTO_TEST_CASE(merging_subtree)
     BOOST_REQUIRE(p == 21);
 }
 
-} // namespace k52
+BOOST_AUTO_TEST_SUITE_END();

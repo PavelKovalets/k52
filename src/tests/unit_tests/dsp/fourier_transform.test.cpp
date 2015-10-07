@@ -8,11 +8,16 @@
 using k52::common::Constants;
 using k52::dsp::FourierTransform;
 
-BOOST_AUTO_TEST_CASE(fourier_transform_zero)
+struct FourierTransformTestFixture
+{
+    FourierTransform ft;
+};
+
+BOOST_FIXTURE_TEST_SUITE(fourier_transform_tests, FourierTransformTestFixture);
+
+BOOST_AUTO_TEST_CASE(zero)
 {
     //Prepare
-    FourierTransform ft;
-
     size_t N = 11;
 
     std::vector< std::complex <double >> samples(N);
@@ -30,11 +35,9 @@ BOOST_AUTO_TEST_CASE(fourier_transform_zero)
     }
 }
 
-BOOST_AUTO_TEST_CASE(fourier_transform_impulse)
+BOOST_AUTO_TEST_CASE(impulse)
 {
     //Prepare
-    FourierTransform ft;
-
     size_t N = 11;
     size_t n0 = 2;
 
@@ -56,11 +59,9 @@ BOOST_AUTO_TEST_CASE(fourier_transform_impulse)
     }
 }
 
-BOOST_AUTO_TEST_CASE(fourier_transform_complex_harmonic)
+BOOST_AUTO_TEST_CASE(complex_harmonic)
 {
     //Prepare
-    FourierTransform ft;
-
     size_t N = 128;
     size_t k0 = 5;
 
@@ -83,3 +84,5 @@ BOOST_AUTO_TEST_CASE(fourier_transform_complex_harmonic)
         BOOST_CHECK_SMALL(result[k].imag(), Constants::Eps);
     }
 }
+
+BOOST_AUTO_TEST_SUITE_END();
