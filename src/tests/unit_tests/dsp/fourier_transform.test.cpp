@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(zero)
     std::vector< std::complex <double >> result = ft.Transform(samples);
 
     //Check
-    BOOST_REQUIRE(result.size() == N);
+    BOOST_REQUIRE_EQUAL(result.size(), N);
 
     for (size_t k = 0; k < N; ++k)
     {
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(impulse)
     std::vector< std::complex <double >> result = ft.Transform(samples);
 
     //Check
-    BOOST_REQUIRE(result.size() == N);
+    BOOST_REQUIRE_EQUAL(result.size(), N);
 
     for (size_t k = 0; k < N; ++k)
     {
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
     std::vector< std::complex <double >> result = ft.Transform(samples);
 
     //Check
-    BOOST_REQUIRE(result.size() == N);
+    BOOST_REQUIRE_EQUAL(result.size(), N);
 
     for (size_t k = 0; k < N; ++k)
     {

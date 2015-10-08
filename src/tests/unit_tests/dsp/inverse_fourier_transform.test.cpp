@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_CASE(multiple_inverse)
          ++it_samples, ++it_transformed
             )
     {
-        BOOST_REQUIRE(it_samples->size() == it_transformed->size());
+        BOOST_REQUIRE_EQUAL(it_samples->size(), it_transformed->size());
 
         for (size_t n = 0; n < it_samples->size(); ++n)
         {

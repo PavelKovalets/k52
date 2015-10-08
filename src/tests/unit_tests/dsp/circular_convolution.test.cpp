@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE(zero)
     std::vector< std::complex <double >> result = convolution.EvaluateConvolution(a, b);
 
     //Check
-    BOOST_REQUIRE(result.size() == N);
+    BOOST_REQUIRE_EQUAL(result.size(), N);
 
     for (size_t n = 0; n < N; ++n)
     {
@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_CASE(impulse)
     std::vector< std::complex <double >> result = convolution.EvaluateConvolution(a, b);
 
     //Check
-    BOOST_REQUIRE(result.size() == N);
+    BOOST_REQUIRE_EQUAL(result.size(), N);
 
     for (size_t n = 0; n < N; ++n)
     {
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
     std::vector< std::complex <double >> result = convolution.EvaluateConvolution(complex_harmonic, b);
 
     //Check
-    BOOST_REQUIRE(result.size() == N);
+    BOOST_REQUIRE_EQUAL(result.size(), N);
 
     std::complex <double> eigen_value = 0;
     for (size_t n = 0; n < N; ++n)
