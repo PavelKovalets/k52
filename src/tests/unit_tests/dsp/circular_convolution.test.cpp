@@ -73,6 +73,26 @@ BOOST_AUTO_TEST_CASE(impulse)
     }
 }
 
+BOOST_AUTO_TEST_CASE(constant)
+{
+    //Prepare
+    size_t N = 12;
+
+    std::vector< std::complex <double >> a(N, 1);
+    std::vector< std::complex <double >> b(N, 1);
+
+    //Test
+    std::vector< std::complex <double >> result = convolution.EvaluateConvolution(a, b);
+
+    //Check
+    BOOST_REQUIRE_EQUAL(result.size(), N);
+
+    for (size_t n = 0; n < N; ++n)
+    {
+        CheckComplexEqual(result[n], N);
+    }
+}
+
 BOOST_AUTO_TEST_CASE(complex_harmonic)
 {
     //Prepare
