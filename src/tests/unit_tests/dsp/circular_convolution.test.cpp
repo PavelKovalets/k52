@@ -3,6 +3,8 @@
 
 #include  <k52/common/constants.h>
 
+#include "../boost_test_tools_extensions.h"
+
 using k52::common::Constants;
 using k52::dsp::CircularConvolution;
 
@@ -40,8 +42,7 @@ BOOST_AUTO_TEST_CASE(zero)
 
     for (size_t n = 0; n < N; ++n)
     {
-        BOOST_CHECK_SMALL(result[n].real(), Constants::Eps);
-        BOOST_CHECK_SMALL(result[n].imag(), Constants::Eps);
+        CheckComplexEqual(result[n], 0);
     }
 }
 
@@ -68,8 +69,7 @@ BOOST_AUTO_TEST_CASE(impulse)
     for (size_t n = 0; n < N; ++n)
     {
         bool is_impulse_index = (n_b + n_a) == n;
-        BOOST_CHECK_SMALL(result[n].real() - (is_impulse_index ? 1 : 0), Constants::Eps);
-        BOOST_CHECK_SMALL(result[n].imag(), Constants::Eps);
+        CheckComplexEqual(result[n], is_impulse_index ? 1 : 0);
     }
 }
 
@@ -88,12 +88,6 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
         b[n] = n;
     }
 
-    //Test
-    std::vector< std::complex <double >> result = convolution.EvaluateConvolution(complex_harmonic, b);
-
-    //Check
-    BOOST_REQUIRE_EQUAL(result.size(), N);
-
     std::complex <double> eigen_value = 0;
     for (size_t n = 0; n < N; ++n)
     {
@@ -101,11 +95,16 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
         eigen_value += b[n] * exp(  -2 * Constants::Pi * Constants::ImaginaryUnit * (double)k0 * (double)n / (double)N);
     }
 
+    //Test
+    std::vector< std::complex <double >> result = convolution.EvaluateConvolution(complex_harmonic, b);
+
+    //Check
+    BOOST_REQUIRE_EQUAL(result.size(), N);
+
     for (size_t n = 0; n < N; ++n)
     {
         std::complex <double> out = eigen_value * complex_harmonic[n];
-        BOOST_CHECK_SMALL(result[n].real() - out.real(), Constants::Eps);
-        BOOST_CHECK_SMALL(result[n].imag() - out.imag(), Constants::Eps);
+        CheckComplexEqual(result[n], out);
     }
 }
 

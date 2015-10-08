@@ -5,6 +5,8 @@
 
 #include <cmath>
 
+#include "../boost_test_tools_extensions.h"
+
 using k52::common::Constants;
 using k52::dsp::FourierTransform;
 
@@ -30,8 +32,7 @@ BOOST_AUTO_TEST_CASE(zero)
 
     for (size_t k = 0; k < N; ++k)
     {
-        BOOST_CHECK_SMALL(result[k].real(), Constants::Eps);
-        BOOST_CHECK_SMALL(result[k].imag(), Constants::Eps);
+        CheckComplexEqual(result[k], 0);
     }
 }
 
@@ -54,8 +55,7 @@ BOOST_AUTO_TEST_CASE(impulse)
     {
         std::complex <double > w = exp( -2 * Constants::Pi * Constants::ImaginaryUnit * (double)k * (double)n0 / (double)N);
 
-        BOOST_CHECK_SMALL(result[k].real() - w.real(), Constants::Eps);
-        BOOST_CHECK_SMALL(result[k].imag() - w.imag(), Constants::Eps);
+        CheckComplexEqual(result[k], w);
     }
 }
 
@@ -80,8 +80,7 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
 
     for (size_t k = 0; k < N; ++k)
     {
-        BOOST_CHECK_SMALL(result[k].real() - (k == k0 ? N : 0), Constants::Eps);
-        BOOST_CHECK_SMALL(result[k].imag(), Constants::Eps);
+        CheckComplexEqual(result[k], k == k0 ? N : 0);
     }
 }
 

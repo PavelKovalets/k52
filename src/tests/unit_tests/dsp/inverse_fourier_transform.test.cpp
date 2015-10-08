@@ -7,6 +7,8 @@
 #include <cmath>
 #include <list>
 
+#include "../boost_test_tools_extensions.h"
+
 using k52::common::Constants;
 using k52::dsp::FourierTransform;
 using k52::dsp::InverseFourierTransform;
@@ -59,8 +61,7 @@ BOOST_AUTO_TEST_CASE(multiple_inverse)
 
         for (size_t n = 0; n < it_samples->size(); ++n)
         {
-            BOOST_CHECK_SMALL((*it_samples)[n].real() - (*it_transformed)[n].real(), Constants::Eps);
-            BOOST_CHECK_SMALL((*it_samples)[n].imag() - (*it_transformed)[n].imag(), Constants::Eps);
+            CheckComplexEqual((*it_samples)[n], (*it_transformed)[n]);
         }
     }
 }
