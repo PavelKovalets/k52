@@ -1,5 +1,7 @@
 #include <boost/test/unit_test.hpp>
 #include <k52/dsp/transform/circular_convolution.h>
+#include <k52/dsp/transform/fourier_transform.h>
+#include <k52/dsp/transform/fourier_based_circular_convolution.h>
 
 #include  <k52/common/constants.h>
 
@@ -7,15 +9,24 @@
 
 using k52::common::Constants;
 using k52::dsp::CircularConvolution;
+using k52::dsp::ICircularConvolution;
+using k52::dsp::IFourierTransform;
+using k52::dsp::FourierTransform;
+using k52::dsp::FourierBasedCircularConvolution;
 
 struct CircularConvolutionTestFixture
 {
+    CircularConvolutionTestFixture() :
+            fourierBasedConvolution(IFourierTransform::shared_ptr(new FourierTransform()))
+    {
+    }
     CircularConvolution convolution;
+    FourierBasedCircularConvolution fourierBasedConvolution;
 };
 
 BOOST_FIXTURE_TEST_SUITE(circular_convolution_tests, CircularConvolutionTestFixture);
 
-BOOST_AUTO_TEST_CASE(not_equal_size)
+void test_not_equal_size(const ICircularConvolution* convolution)
 {
     //Prepare
     std::vector< std::complex <double >> a(13);
@@ -23,10 +34,20 @@ BOOST_AUTO_TEST_CASE(not_equal_size)
 
     //Test
     //Check
-    BOOST_REQUIRE_THROW(convolution.EvaluateConvolution(a, b), std::runtime_error);
+    BOOST_REQUIRE_THROW(convolution->EvaluateConvolution(a, b), std::runtime_error);
 }
 
-BOOST_AUTO_TEST_CASE(zero)
+BOOST_AUTO_TEST_CASE(not_equal_size)
+{
+    test_not_equal_size(&convolution);
+}
+
+BOOST_AUTO_TEST_CASE(not_equal_size_fourier)
+{
+    test_not_equal_size(&fourierBasedConvolution);
+}
+
+void test_zero(const ICircularConvolution* convolution)
 {
     //Prepare
     size_t N = 17;
@@ -35,7 +56,7 @@ BOOST_AUTO_TEST_CASE(zero)
     std::vector< std::complex <double >> b(N);
 
     //Test
-    std::vector< std::complex <double >> result = convolution.EvaluateConvolution(a, b);
+    std::vector< std::complex <double >> result = convolution->EvaluateConvolution(a, b);
 
     //Check
     BOOST_REQUIRE_EQUAL(result.size(), N);
@@ -46,7 +67,17 @@ BOOST_AUTO_TEST_CASE(zero)
     }
 }
 
-BOOST_AUTO_TEST_CASE(impulse)
+BOOST_AUTO_TEST_CASE(zero)
+{
+    test_zero(&convolution);
+}
+
+BOOST_AUTO_TEST_CASE(zero_fourier)
+{
+    test_zero(&fourierBasedConvolution);
+}
+
+void test_impulse(const ICircularConvolution* convolution)
 {
     //Prepare
     size_t N = 29;
@@ -61,7 +92,7 @@ BOOST_AUTO_TEST_CASE(impulse)
     b[n_b] = 1;
 
     //Test
-    std::vector< std::complex <double >> result = convolution.EvaluateConvolution(a, b);
+    std::vector< std::complex <double >> result = convolution->EvaluateConvolution(a, b);
 
     //Check
     BOOST_REQUIRE_EQUAL(result.size(), N);
@@ -73,7 +104,18 @@ BOOST_AUTO_TEST_CASE(impulse)
     }
 }
 
-BOOST_AUTO_TEST_CASE(constant)
+BOOST_AUTO_TEST_CASE(impulse)
+{
+    test_impulse(&convolution);
+}
+
+//TODO fix
+BOOST_AUTO_TEST_CASE(impulse_fourier)
+{
+    test_impulse(&fourierBasedConvolution);
+}
+
+void test_constant(const ICircularConvolution* convolution)
 {
     //Prepare
     size_t N = 12;
@@ -82,7 +124,7 @@ BOOST_AUTO_TEST_CASE(constant)
     std::vector< std::complex <double >> b(N, 1);
 
     //Test
-    std::vector< std::complex <double >> result = convolution.EvaluateConvolution(a, b);
+    std::vector< std::complex <double >> result = convolution->EvaluateConvolution(a, b);
 
     //Check
     BOOST_REQUIRE_EQUAL(result.size(), N);
@@ -93,7 +135,17 @@ BOOST_AUTO_TEST_CASE(constant)
     }
 }
 
-BOOST_AUTO_TEST_CASE(complex_harmonic)
+BOOST_AUTO_TEST_CASE(constant)
+{
+    test_constant(&convolution);
+}
+
+BOOST_AUTO_TEST_CASE(constant_fourier)
+{
+    test_constant(&fourierBasedConvolution);
+}
+
+void test_complex_harmonic(const ICircularConvolution* convolution)
 {
     //Prepare
     size_t N = 136;
@@ -116,7 +168,7 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
     }
 
     //Test
-    std::vector< std::complex <double >> result = convolution.EvaluateConvolution(complex_harmonic, b);
+    std::vector< std::complex <double >> result = convolution->EvaluateConvolution(complex_harmonic, b);
 
     //Check
     BOOST_REQUIRE_EQUAL(result.size(), N);
@@ -126,6 +178,17 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
         std::complex <double> out = eigen_value * complex_harmonic[n];
         CheckComplexEqual(result[n], out);
     }
+}
+
+BOOST_AUTO_TEST_CASE(complex_harmonic)
+{
+    test_complex_harmonic(&convolution);
+}
+
+//TODO fix
+BOOST_AUTO_TEST_CASE(complex_harmonic_fourier)
+{
+    test_complex_harmonic(&fourierBasedConvolution);
 }
 
 BOOST_AUTO_TEST_SUITE_END();

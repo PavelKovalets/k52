@@ -11,7 +11,7 @@ namespace dsp
 class FourierTransform : public IFourierTransform
 {
 public:
-    virtual std::vector< std::complex< double > > Transform(const std::vector< std::complex< double > >& sequence);
+    virtual std::vector< std::complex< double > > Transform(const std::vector< std::complex< double > >& sequence) const;
 };
 
 } // namespace dsp

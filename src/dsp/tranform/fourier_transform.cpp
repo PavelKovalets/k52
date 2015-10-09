@@ -11,7 +11,7 @@ namespace k52
 namespace dsp
 {
 
-std::vector< std::complex< double > > FourierTransform::Transform(const std::vector< std::complex< double > >& sequence)
+std::vector< std::complex< double > > FourierTransform::Transform(const std::vector< std::complex< double > >& sequence) const
 {
     size_t N = sequence.size();
     std::vector< std::complex< double > > result(N);

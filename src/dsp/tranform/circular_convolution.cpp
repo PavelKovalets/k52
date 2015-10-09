@@ -8,7 +8,7 @@ namespace dsp
 
 std::vector< std::complex< double > > CircularConvolution::EvaluateConvolution(
         const std::vector< std::complex< double > > &first_sequence,
-        const std::vector< std::complex< double > > &second_sequence)
+        const std::vector< std::complex< double > > &second_sequence) const
 {
     if(first_sequence.size() != second_sequence.size())
     {

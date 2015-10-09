@@ -11,10 +11,15 @@
 
 using k52::common::Constants;
 using k52::dsp::FourierTransform;
+using k52::dsp::IFourierTransform;
 using k52::dsp::InverseFourierTransform;
 
 struct InverseFourierTransformTestFixture
 {
+    InverseFourierTransformTestFixture() :
+            ift(IFourierTransform::shared_ptr(new FourierTransform()))
+    {}
+
     InverseFourierTransform ift;
     FourierTransform ft;
 };
