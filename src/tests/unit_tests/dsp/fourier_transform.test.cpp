@@ -36,6 +36,26 @@ BOOST_AUTO_TEST_CASE(zero)
     }
 }
 
+BOOST_AUTO_TEST_CASE(simple_impulse)
+{
+    //Prepare
+    size_t N = 4;
+
+    std::vector< std::complex <double >> samples(N);
+    samples[0] = 1;
+
+    //Test
+    std::vector< std::complex <double >> result = ft.Transform(samples);
+
+    //Check
+    BOOST_REQUIRE_EQUAL(result.size(), N);
+
+    for (size_t k = 0; k < N; ++k)
+    {
+        CheckComplexEqual(result[k], 1);
+    }
+}
+
 BOOST_AUTO_TEST_CASE(impulse)
 {
     //Prepare

@@ -8,11 +8,15 @@ set(COMMON_HEADERS
     ${COMMON_INCLUDE}/i_cloneable.h
     ${COMMON_INCLUDE}/random.h
     ${COMMON_INCLUDE}/settings_manager.h
-    ${COMMON_INCLUDE}/constants.h)
+    ${COMMON_INCLUDE}/constants.h
+    ${COMMON_INCLUDE}/helpers.h
+)
 
 set(COMMON_SOURCE
     random.cpp
-    constants.cpp)
+    constants.cpp
+    helpers.cpp
+)
 
 include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})
 link_directories(${K52_BOOST_LIBRARY_DIRS})

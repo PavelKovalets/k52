@@ -77,6 +77,37 @@ BOOST_AUTO_TEST_CASE(zero_fourier)
     test_zero(&fourierBasedConvolution);
 }
 
+void test_simple_impulse(const ICircularConvolution* convolution)
+{
+    //Prepare
+    size_t N = 4;
+    std::vector< std::complex <double >> a(N);
+    a[0] = 1;
+    std::vector< std::complex <double >> b(N);
+    b[0] = 1;
+
+    //Test
+    std::vector< std::complex <double >> result = convolution->EvaluateConvolution(a, b);
+
+    //Check
+    BOOST_REQUIRE_EQUAL(result.size(), N);
+
+    for (size_t n = 0; n < N; ++n)
+    {
+        CheckComplexEqual(result[n], n == 0 ? 1 : 0);
+    }
+}
+
+BOOST_AUTO_TEST_CASE(simple_impulse)
+{
+    test_simple_impulse(&convolution);
+}
+
+BOOST_AUTO_TEST_CASE(simple_impulse_fourier)
+{
+    test_simple_impulse(&fourierBasedConvolution);
+}
+
 void test_impulse(const ICircularConvolution* convolution)
 {
     //Prepare
@@ -109,7 +140,6 @@ BOOST_AUTO_TEST_CASE(impulse)
     test_impulse(&convolution);
 }
 
-//TODO fix
 BOOST_AUTO_TEST_CASE(impulse_fourier)
 {
     test_impulse(&fourierBasedConvolution);
@@ -185,7 +215,6 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
     test_complex_harmonic(&convolution);
 }
 
-//TODO fix
 BOOST_AUTO_TEST_CASE(complex_harmonic_fourier)
 {
     test_complex_harmonic(&fourierBasedConvolution);

@@ -26,49 +26,67 @@ struct InverseFourierTransformTestFixture
 
 BOOST_FIXTURE_TEST_SUITE(inverse_fourier_transform_tests, InverseFourierTransformTestFixture);
 
-BOOST_AUTO_TEST_CASE(multiple_inverse)
+void test_inverse_fourier_transform(
+        const FourierTransform& ft,
+        const InverseFourierTransform& ift,
+        const std::vector< std::complex <double > >& samples)
 {
-    //Prepare
-    std::list< std::vector< std::complex <double > > > samples_list;
-    std::list< std::vector< std::complex <double > > > transformed_samples_list;
-
-    //Zeros
-    samples_list.push_back(std::vector< std::complex <double >> (10));
-    //Impulse
-    std::vector< std::complex <double >> impulse_samples(11);
-    impulse_samples[2] = 1;
-    samples_list.push_back(impulse_samples);
-    //Ladder
-    std::vector< std::complex <double >> ladder_samples(123);
-    for (size_t n = 0; n < ladder_samples.size(); ++n)
-    {
-        ladder_samples[n] = exp( 2 * Constants::Pi * Constants::ImaginaryUnit * (double)n);
-    }
-    samples_list.push_back(ladder_samples);
-
     //Test
-    for (std::list< std::vector< std::complex <double > > >::const_iterator it = samples_list.begin();
-         it != samples_list.end();
-         ++it)
-    {
-        transformed_samples_list.push_back(ift.Transform(ft.Transform(*it)));
-    }
+    std::vector< std::complex <double > > result = ift.Transform(ft.Transform(samples));
 
     //Check
-    for (std::list< std::vector< std::complex <double > > >::const_iterator
-                 it_samples = samples_list.begin(),
-                 it_transformed = samples_list.begin();
-         it_samples != samples_list.end();
-         ++it_samples, ++it_transformed
-            )
-    {
-        BOOST_REQUIRE_EQUAL(it_samples->size(), it_transformed->size());
+    BOOST_REQUIRE_EQUAL(samples.size(), result.size());
 
-        for (size_t n = 0; n < it_samples->size(); ++n)
-        {
-            CheckComplexEqual((*it_samples)[n], (*it_transformed)[n]);
-        }
+    for (size_t n = 0; n < samples.size(); ++n)
+    {
+        CheckComplexEqual(samples[n], result[n]);
     }
+}
+
+BOOST_AUTO_TEST_CASE(zero)
+{
+    //Prepare
+    std::vector< std::complex <double >> zeros(10);
+
+    test_inverse_fourier_transform(ft, ift, zeros);
+}
+
+BOOST_AUTO_TEST_CASE(simple_impulse)
+{
+    //Prepare
+    std::vector< std::complex <double >> impulse_samples(4);
+    impulse_samples[0] = 1;
+
+    test_inverse_fourier_transform(ft, ift, impulse_samples);
+}
+
+BOOST_AUTO_TEST_CASE(impulse)
+{
+    //Prepare
+    std::vector< std::complex <double >> impulse_samples(11);
+    impulse_samples[2] = 1;
+
+    test_inverse_fourier_transform(ft, ift, impulse_samples);
+}
+
+BOOST_AUTO_TEST_CASE(ladder)
+{
+    std::vector< std::complex <double >> ladder_samples(9);
+    for (size_t n = 0; n < ladder_samples.size(); ++n)
+    {
+        ladder_samples[n] = n;
+    }
+    test_inverse_fourier_transform(ft, ift, ladder_samples);
+}
+
+BOOST_AUTO_TEST_CASE(complex)
+{
+    std::vector< std::complex <double >> complex_samples(14);
+    for (size_t n = 0; n < complex_samples.size(); ++n)
+    {
+        complex_samples[n] = (double)n * Constants::ImaginaryUnit;
+    }
+    test_inverse_fourier_transform(ft, ift, complex_samples);
 }
 
 BOOST_AUTO_TEST_SUITE_END();
