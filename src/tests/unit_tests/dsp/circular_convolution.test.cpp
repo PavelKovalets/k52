@@ -29,8 +29,8 @@ BOOST_FIXTURE_TEST_SUITE(circular_convolution_tests, CircularConvolutionTestFixt
 void test_not_equal_size(const ICircularConvolution* convolution)
 {
     //Prepare
-    std::vector< std::complex <double >> a(13);
-    std::vector< std::complex <double >> b(15);
+    std::vector< std::complex <double > > a(13);
+    std::vector< std::complex <double > > b(15);
 
     //Test
     //Check
@@ -52,11 +52,11 @@ void test_zero(const ICircularConvolution* convolution)
     //Prepare
     size_t N = 17;
 
-    std::vector< std::complex <double >> a(N);
-    std::vector< std::complex <double >> b(N);
+    std::vector< std::complex <double > > a(N);
+    std::vector< std::complex <double > > b(N);
 
     //Test
-    std::vector< std::complex <double >> result = convolution->EvaluateConvolution(a, b);
+    std::vector< std::complex <double > > result = convolution->EvaluateConvolution(a, b);
 
     //Check
     BOOST_REQUIRE_EQUAL(result.size(), N);
@@ -81,13 +81,13 @@ void test_simple_impulse(const ICircularConvolution* convolution)
 {
     //Prepare
     size_t N = 4;
-    std::vector< std::complex <double >> a(N);
+    std::vector< std::complex <double > > a(N);
     a[0] = 1;
-    std::vector< std::complex <double >> b(N);
+    std::vector< std::complex <double > > b(N);
     b[0] = 1;
 
     //Test
-    std::vector< std::complex <double >> result = convolution->EvaluateConvolution(a, b);
+    std::vector< std::complex <double > > result = convolution->EvaluateConvolution(a, b);
 
     //Check
     BOOST_REQUIRE_EQUAL(result.size(), N);
@@ -116,14 +116,14 @@ void test_impulse(const ICircularConvolution* convolution)
     size_t n_a = 2;
     size_t n_b = 7;
 
-    std::vector< std::complex <double >> a(N);
+    std::vector< std::complex <double > > a(N);
     a[n_a] = 1;
 
-    std::vector< std::complex <double >> b(N);
+    std::vector< std::complex <double > > b(N);
     b[n_b] = 1;
 
     //Test
-    std::vector< std::complex <double >> result = convolution->EvaluateConvolution(a, b);
+    std::vector< std::complex <double > > result = convolution->EvaluateConvolution(a, b);
 
     //Check
     BOOST_REQUIRE_EQUAL(result.size(), N);
@@ -150,11 +150,11 @@ void test_constant(const ICircularConvolution* convolution)
     //Prepare
     size_t N = 12;
 
-    std::vector< std::complex <double >> a(N, 1);
-    std::vector< std::complex <double >> b(N, 1);
+    std::vector< std::complex <double > > a(N, 1);
+    std::vector< std::complex <double > > b(N, 1);
 
     //Test
-    std::vector< std::complex <double >> result = convolution->EvaluateConvolution(a, b);
+    std::vector< std::complex <double > > result = convolution->EvaluateConvolution(a, b);
 
     //Check
     BOOST_REQUIRE_EQUAL(result.size(), N);
@@ -181,8 +181,8 @@ void test_complex_harmonic(const ICircularConvolution* convolution)
     size_t N = 136;
     size_t k0 = 17;
 
-    std::vector< std::complex <double >> complex_harmonic(N);
-    std::vector< std::complex <double >> b(N);
+    std::vector< std::complex <double > > complex_harmonic(N);
+    std::vector< std::complex <double > > b(N);
 
     for (size_t n = 0; n < N; ++n)
     {
@@ -198,7 +198,7 @@ void test_complex_harmonic(const ICircularConvolution* convolution)
     }
 
     //Test
-    std::vector< std::complex <double >> result = convolution->EvaluateConvolution(complex_harmonic, b);
+    std::vector< std::complex <double > > result = convolution->EvaluateConvolution(complex_harmonic, b);
 
     //Check
     BOOST_REQUIRE_EQUAL(result.size(), N);

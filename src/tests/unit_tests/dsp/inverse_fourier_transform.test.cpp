@@ -46,7 +46,7 @@ void test_inverse_fourier_transform(
 BOOST_AUTO_TEST_CASE(zero)
 {
     //Prepare
-    std::vector< std::complex <double >> zeros(10);
+    std::vector< std::complex <double > > zeros(10);
 
     test_inverse_fourier_transform(ft, ift, zeros);
 }
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(zero)
 BOOST_AUTO_TEST_CASE(simple_impulse)
 {
     //Prepare
-    std::vector< std::complex <double >> impulse_samples(4);
+    std::vector< std::complex <double > > impulse_samples(4);
     impulse_samples[0] = 1;
 
     test_inverse_fourier_transform(ft, ift, impulse_samples);
@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_CASE(simple_impulse)
 BOOST_AUTO_TEST_CASE(impulse)
 {
     //Prepare
-    std::vector< std::complex <double >> impulse_samples(11);
+    std::vector< std::complex <double > > impulse_samples(11);
     impulse_samples[2] = 1;
 
     test_inverse_fourier_transform(ft, ift, impulse_samples);
@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE(impulse)
 
 BOOST_AUTO_TEST_CASE(ladder)
 {
-    std::vector< std::complex <double >> ladder_samples(9);
+    std::vector< std::complex <double > > ladder_samples(9);
     for (size_t n = 0; n < ladder_samples.size(); ++n)
     {
         ladder_samples[n] = n;
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE(ladder)
 
 BOOST_AUTO_TEST_CASE(complex)
 {
-    std::vector< std::complex <double >> complex_samples(14);
+    std::vector< std::complex <double > > complex_samples(14);
     for (size_t n = 0; n < complex_samples.size(); ++n)
     {
         complex_samples[n] = (double)n * Constants::ImaginaryUnit;
