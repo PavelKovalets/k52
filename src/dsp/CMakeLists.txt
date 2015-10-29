@@ -12,7 +12,6 @@ set(DSP_HEADERS
     ${DSP_COMMON_INCLUDE}/haar_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/morlet_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/pseudo_wavelet_function.h
-    ${DSP_COMMON_INCLUDE}/signal_based_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/spline.h
     ${DSP_COMMON_INCLUDE}/spline_based_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/wavelet.h
@@ -22,6 +21,9 @@ set(DSP_HEADERS
     ${DSP_COMMON_INCLUDE}/transform/circular_convolution.h
     ${DSP_COMMON_INCLUDE}/transform/fourier_based_circular_convolution.h
     ${DSP_COMMON_INCLUDE}/transform/i_circular_convolution.h
+    ${DSP_COMMON_INCLUDE}/transform/wavelet/fast_wavelet_transform.h
+    ${DSP_COMMON_INCLUDE}/transform/wavelet/i_wavelet.h
+    ${DSP_COMMON_INCLUDE}/transform/wavelet/i_wavelet_transform.h
 )
 
 # dsp source
@@ -33,13 +35,13 @@ set(DSP_SOURCE
     haar_wavelet_function.cpp
     morlet_wavelet_function.cpp
     pseudo_wavelet_function.cpp
-    signal_based_wavelet_function.cpp
     spline_based_wavelet_function.cpp
     wavelet.cpp
     tranform/fourier_transform.cpp
     tranform/inverse_fourier_transform.cpp
     tranform/circular_convolution.cpp
     tranform/fourier_based_circular_convolution.cpp
+    tranform/wavelet/fast_wavelet_transform.cpp
 )
 
 include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${K52_ALGLIB_INCLUDE_DIRS} ${K52_BOOST_INCLUDE_DIRS})

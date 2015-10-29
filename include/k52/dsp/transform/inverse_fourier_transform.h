@@ -15,7 +15,7 @@ class InverseFourierTransform
 public:
     InverseFourierTransform(k52::dsp::IFourierTransform::shared_ptr fourier_transform);
 
-    virtual std::vector< std::complex< double > > Transform(const std::vector< std::complex< double>> &sequence) const;
+    virtual std::vector< std::complex< double > > Transform(const std::vector< std::complex< double > > &sequence) const;
 
 private:
     k52::dsp::IFourierTransform::shared_ptr _fourier_transform;

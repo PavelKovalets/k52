@@ -14,7 +14,7 @@ class FourierBasedCircularConvolution : public ICircularConvolution
 {
 public:
     FourierBasedCircularConvolution(
-                k52::dsp::IFourierTransform::shared_ptr fourier_transform);
+                IFourierTransform::shared_ptr fourier_transform);
 
     std::vector< std::complex< double > > EvaluateConvolution(
             const std::vector< std::complex< double > >& first_sequence,
@@ -22,8 +22,8 @@ public:
     ) const;
 
 private:
-    k52::dsp::IFourierTransform::shared_ptr _fourier_transform;
-    k52::dsp::InverseFourierTransform _inverse_fourier_transform;
+    IFourierTransform::shared_ptr _fourier_transform;
+    InverseFourierTransform _inverse_fourier_transform;
 };
 
 } // namespace dsp
