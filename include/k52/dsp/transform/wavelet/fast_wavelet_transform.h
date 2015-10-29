@@ -10,6 +10,12 @@ namespace k52
 namespace dsp
 {
 
+/**
+@class FastWaveletTransform
+Implementation of wavelet transform described in
+"A Wavelet Tour of Signal Processing"
+S. Mallat Chapter 4.3.3  Discrete Wavelets
+*/
 class FastWaveletTransform : public IWaveletTransform
 {
 

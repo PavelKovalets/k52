@@ -4,7 +4,7 @@
 using ::std::vector;
 using ::std::conj;
 using ::std::complex;
-using ::std::runtime_error;
+using ::std::invalid_argument;
 using ::k52::dsp::FastWaveletTransform;
 
 namespace k52
@@ -17,17 +17,17 @@ FastWaveletTransform::FastWaveletTransform(double min_scale, double max_scale, s
 {
     if(min_scale <= 0)
     {
-        throw runtime_error("min_scale <= 0");
+        throw invalid_argument("min_scale <= 0");
     }
 
     if(max_scale <= 0)
     {
-        throw runtime_error("max_scale <= 0");
+        throw invalid_argument("max_scale <= 0");
     }
 
     if(scale_count <= 0)
     {
-        throw runtime_error("scale_count <= 0");
+        throw invalid_argument("scale_count <= 0");
     }
 
     i_circular_convolution_ = FourierBasedCircularConvolution::shared_ptr(
