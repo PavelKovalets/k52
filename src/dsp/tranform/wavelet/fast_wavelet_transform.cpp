@@ -6,30 +6,16 @@ using ::std::conj;
 using ::std::complex;
 using ::std::invalid_argument;
 using ::k52::dsp::FastWaveletTransform;
+using ::k52::dsp::IScale;
 
 namespace k52
 {
 namespace dsp
 {
 
-FastWaveletTransform::FastWaveletTransform(double min_scale, double max_scale, size_t scale_count)
-        : min_scale_(min_scale), max_scale_(max_scale), scale_count_(scale_count)
+FastWaveletTransform::FastWaveletTransform(IScale::shared_ptr scale)
+        : i_scale_(scale)
 {
-    if(min_scale <= 0)
-    {
-        throw invalid_argument("min_scale <= 0");
-    }
-
-    if(max_scale <= 0)
-    {
-        throw invalid_argument("max_scale <= 0");
-    }
-
-    if(scale_count <= 0)
-    {
-        throw invalid_argument("scale_count <= 0");
-    }
-
     i_circular_convolution_ = FourierBasedCircularConvolution::shared_ptr(
             new FourierBasedCircularConvolution(
                     IFourierTransform::shared_ptr(
@@ -44,33 +30,29 @@ vector< vector< complex< double > > > FastWaveletTransform::Transform(
         const vector< std::complex< double > > &sequence,
         IWavelet::shared_ptr wavelet) const
 {
-    size_t N = sequence.size();
-
-    vector< double > scales = GetScales();
+    vector< double > scales = i_scale_->GetScales();
 
     vector< vector< complex< double > > > result(scales.size());
 
-    for (int i = 0; i < scales.size(); ++i)
+    for (size_t i = 0; i < scales.size(); ++i)
     {
-        result[i] = i_circular_convolution_->EvaluateConvolution(
-                sequence, GetWaveletSamplesForConvolution(wavelet, scales[i], N)
-        );
+        result[i] = TransformOneScale(sequence, wavelet, scales[i]);
     }
 
     return result;
 }
 
-vector< double > FastWaveletTransform::GetScales() const
+std::vector< std::complex< double > > FastWaveletTransform::TransformOneScale(
+        const std::vector< std::complex< double > > &sequence, IWavelet::shared_ptr wavelet, double scale) const
 {
-    //TODO precalculate?
-    double scale_step = (max_scale_ - min_scale_) / scale_count_;
-
-    vector< double > scales(scale_count_);
-    for (int i = 0; i < scale_count_; ++i)
+    if(scale <= 0)
     {
-        scales[i] = min_scale_ + scale_step * i;
+        throw invalid_argument("scale <= 0");
     }
-    return scales;
+
+    return i_circular_convolution_->EvaluateConvolution(
+            sequence, GetWaveletSamplesForConvolution(wavelet, scale, sequence.size())
+    );
 }
 
 std::vector< std::complex< double > > FastWaveletTransform::GetWaveletSamplesForConvolution(
@@ -90,7 +72,7 @@ std::vector< std::complex< double > > FastWaveletTransform::GetWaveletSamplesFor
 complex< double > FastWaveletTransform::GetScaledWaveletValue(
         IWavelet::shared_ptr wavelet, double scale, double t) const
 {
-    return wavelet->get_value(t/scale) / sqrt(scale);
+    return wavelet->GetValue(t / scale) / sqrt(scale);
 }
 
 } // namespace dsp

@@ -22,8 +22,11 @@ set(DSP_HEADERS
     ${DSP_COMMON_INCLUDE}/transform/fourier_based_circular_convolution.h
     ${DSP_COMMON_INCLUDE}/transform/i_circular_convolution.h
     ${DSP_COMMON_INCLUDE}/transform/wavelet/fast_wavelet_transform.h
+    ${DSP_COMMON_INCLUDE}/transform/wavelet/i_scale.h
     ${DSP_COMMON_INCLUDE}/transform/wavelet/i_wavelet.h
     ${DSP_COMMON_INCLUDE}/transform/wavelet/i_wavelet_transform.h
+    ${DSP_COMMON_INCLUDE}/transform/wavelet/linear_scale.h
+    ${DSP_COMMON_INCLUDE}/transform/wavelet/logarithmic_scale.h
 )
 
 # dsp source
@@ -42,6 +45,8 @@ set(DSP_SOURCE
     tranform/circular_convolution.cpp
     tranform/fourier_based_circular_convolution.cpp
     tranform/wavelet/fast_wavelet_transform.cpp
+    tranform/wavelet/linear_scale.cpp
+    tranform/wavelet/logarithmic_scale.cpp
 )
 
 include_directories(${k52_SOURCE_DIR}/src ${k52_SOURCE_DIR}/include ${K52_ALGLIB_INCLUDE_DIRS} ${K52_BOOST_INCLUDE_DIRS})

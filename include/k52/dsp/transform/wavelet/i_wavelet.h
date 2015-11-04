@@ -15,7 +15,7 @@ public :
     typedef boost::shared_ptr<IWavelet> shared_ptr;
     virtual ~IWavelet() {}
 
-    virtual std::complex< double > get_value (double t) = 0;
+    virtual std::complex< double > GetValue(double t) = 0;
 };
 
 } // namespace dsp

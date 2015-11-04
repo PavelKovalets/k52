@@ -1,6 +1,7 @@
 #ifndef FAST_WAVELET_TRANSFORM_H
 #define FAST_WAVELET_TRANSFORM_H
 
+#include <k52/dsp/transform/wavelet/i_scale.h>
 #include <k52/dsp/transform/wavelet/i_wavelet_transform.h>
 #include <k52/dsp/transform/fourier_based_circular_convolution.h>
 #include <k52/dsp/transform/fourier_transform.h>
@@ -20,15 +21,19 @@ class FastWaveletTransform : public IWaveletTransform
 {
 
 public:
-    FastWaveletTransform(double min_scale, double max_scale, size_t scale_count);
+    FastWaveletTransform(k52::dsp::IScale::shared_ptr scale);
 
     virtual std::vector< std::vector< std::complex< double > > > Transform(
             const std::vector< std::complex< double > > &sequence,
             IWavelet::shared_ptr wavelet) const;
 
-protected:
-    std::vector< double > GetScales() const;
+    virtual std::vector< std::complex< double > > TransformOneScale(
+            const std::vector< std::complex< double > > &sequence,
+            IWavelet::shared_ptr wavelet,
+            double scale
+    ) const;
 
+protected:
     std::vector< std::complex< double > > GetWaveletSamplesForConvolution(
             IWavelet::shared_ptr wavelet, double scale, size_t N) const;
 
@@ -37,9 +42,7 @@ protected:
 
 private:
     ICircularConvolution::shared_ptr i_circular_convolution_;
-    double min_scale_;
-    double max_scale_;
-    size_t scale_count_;
+    k52::dsp::IScale::shared_ptr i_scale_;
 };
 
 } // namespace dsp

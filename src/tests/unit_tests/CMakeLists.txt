@@ -5,9 +5,10 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
     set(k52_UNIT_TESTS_SOURCE
         common/helpers.test.cpp
         common/settings_manager.test.cpp
+        dsp/circular_convolution.test.cpp
         dsp/fourier_transform.test.cpp
         dsp/inverse_fourier_transform.test.cpp
-        dsp/circular_convolution.test.cpp
+        dsp/scale.test.cpp
         runner.cpp
         boost_test_tools_extensions.h
         boost_test_tools_extensions.cpp
