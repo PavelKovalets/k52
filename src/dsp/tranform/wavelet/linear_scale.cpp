@@ -22,11 +22,6 @@ LinearScale::LinearScale(double min_scale, double max_scale, size_t scale_count)
         throw invalid_argument("max_scale <= 0");
     }
 
-    if(max_scale <= 0)
-    {
-        throw invalid_argument("max_scale <= 0");
-    }
-
     if(min_scale >= max_scale)
     {
         throw invalid_argument("min_scale >= max_scale");
