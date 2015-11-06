@@ -18,11 +18,13 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
     link_directories(${K52_BOOST_LIBRARY_DIRS})
 
     add_executable(${PROJECT_NAME} ${k52_UNIT_TESTS_SOURCE})
-    target_link_libraries(${PROJECT_NAME}
-                          ${Boost_UNIT_TEST_FRAMEWORK_LIBRARIES}
-                          k52_dsp
-                          k52_common
-                          )
+    target_link_libraries(
+        ${PROJECT_NAME}
+        ${Boost_UNIT_TEST_FRAMEWORK_LIBRARIES}
+        ${FFTW3_LIBRARIES}
+        k52_dsp
+        k52_common
+    )
 
     add_test(NAME "Unit_Tests" COMMAND ${PROJECT_NAME})
 

@@ -2,19 +2,19 @@
 
 #include  <k52/common/constants.h>
 
-#include <cmath>
-
-using k52::common::Constants;
+using ::k52::common::Constants;
+using ::std::vector;
+using ::std::complex;
 
 namespace k52
 {
 namespace dsp
 {
 
-std::vector< std::complex< double > > FourierTransform::Transform(const std::vector< std::complex< double > >& sequence) const
+vector< complex< double > > FourierTransform::Transform(const vector< complex< double > >& sequence) const
 {
     size_t N = sequence.size();
-    std::vector< std::complex< double > > result(N);
+    vector< complex< double > > result(N);
 
     for (size_t k = 0; k < N; ++k)
     {

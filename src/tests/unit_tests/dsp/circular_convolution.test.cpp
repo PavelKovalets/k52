@@ -14,17 +14,9 @@ using k52::dsp::IFourierTransform;
 using k52::dsp::FourierTransform;
 using k52::dsp::FourierBasedCircularConvolution;
 
-struct CircularConvolutionTestFixture
-{
-    CircularConvolutionTestFixture() :
-            fourierBasedConvolution(IFourierTransform::shared_ptr(new FourierTransform()))
-    {
-    }
-    CircularConvolution convolution;
-    FourierBasedCircularConvolution fourierBasedConvolution;
-};
-
-BOOST_FIXTURE_TEST_SUITE(circular_convolution_tests, CircularConvolutionTestFixture);
+/**
+ * Definition of test methods
+ */
 
 void test_not_equal_size(const ICircularConvolution* convolution)
 {
@@ -35,16 +27,6 @@ void test_not_equal_size(const ICircularConvolution* convolution)
     //Test
     //Check
     BOOST_REQUIRE_THROW(convolution->EvaluateConvolution(a, b), std::runtime_error);
-}
-
-BOOST_AUTO_TEST_CASE(not_equal_size)
-{
-    test_not_equal_size(&convolution);
-}
-
-BOOST_AUTO_TEST_CASE(not_equal_size_fourier)
-{
-    test_not_equal_size(&fourierBasedConvolution);
 }
 
 void test_zero(const ICircularConvolution* convolution)
@@ -67,16 +49,6 @@ void test_zero(const ICircularConvolution* convolution)
     }
 }
 
-BOOST_AUTO_TEST_CASE(zero)
-{
-    test_zero(&convolution);
-}
-
-BOOST_AUTO_TEST_CASE(zero_fourier)
-{
-    test_zero(&fourierBasedConvolution);
-}
-
 void test_simple_impulse(const ICircularConvolution* convolution)
 {
     //Prepare
@@ -96,16 +68,6 @@ void test_simple_impulse(const ICircularConvolution* convolution)
     {
         CheckComplexEqual(result[n], n == 0 ? 1 : 0);
     }
-}
-
-BOOST_AUTO_TEST_CASE(simple_impulse)
-{
-    test_simple_impulse(&convolution);
-}
-
-BOOST_AUTO_TEST_CASE(simple_impulse_fourier)
-{
-    test_simple_impulse(&fourierBasedConvolution);
 }
 
 void test_impulse(const ICircularConvolution* convolution)
@@ -135,16 +97,6 @@ void test_impulse(const ICircularConvolution* convolution)
     }
 }
 
-BOOST_AUTO_TEST_CASE(impulse)
-{
-    test_impulse(&convolution);
-}
-
-BOOST_AUTO_TEST_CASE(impulse_fourier)
-{
-    test_impulse(&fourierBasedConvolution);
-}
-
 void test_constant(const ICircularConvolution* convolution)
 {
     //Prepare
@@ -163,16 +115,6 @@ void test_constant(const ICircularConvolution* convolution)
     {
         CheckComplexEqual(result[n], N);
     }
-}
-
-BOOST_AUTO_TEST_CASE(constant)
-{
-    test_constant(&convolution);
-}
-
-BOOST_AUTO_TEST_CASE(constant_fourier)
-{
-    test_constant(&fourierBasedConvolution);
 }
 
 void test_complex_harmonic(const ICircularConvolution* convolution)
@@ -210,14 +152,98 @@ void test_complex_harmonic(const ICircularConvolution* convolution)
     }
 }
 
+/**
+ * Actual tests are below
+ */
+
+
+BOOST_AUTO_TEST_SUITE(circular_convolution_tests);
+
+
+struct CircularConvolutionTestFixture
+{
+    CircularConvolution convolution;
+};
+
+BOOST_FIXTURE_TEST_SUITE(circular_convolution, CircularConvolutionTestFixture);
+
+BOOST_AUTO_TEST_CASE(not_equal_size)
+{
+    test_not_equal_size(&convolution);
+}
+
+BOOST_AUTO_TEST_CASE(zero)
+{
+    test_zero(&convolution);
+}
+
+BOOST_AUTO_TEST_CASE(simple_impulse)
+{
+    test_simple_impulse(&convolution);
+}
+
+BOOST_AUTO_TEST_CASE(impulse)
+{
+    test_impulse(&convolution);
+}
+
+BOOST_AUTO_TEST_CASE(constant)
+{
+    test_constant(&convolution);
+}
+
 BOOST_AUTO_TEST_CASE(complex_harmonic)
 {
     test_complex_harmonic(&convolution);
 }
 
-BOOST_AUTO_TEST_CASE(complex_harmonic_fourier)
+BOOST_AUTO_TEST_SUITE_END();
+
+
+
+struct FourierBasedCircularConvolutionTestFixture
+{
+    FourierBasedCircularConvolutionTestFixture() :
+            fourierBasedConvolution(IFourierTransform::shared_ptr(new FourierTransform()))
+    {
+    }
+    FourierBasedCircularConvolution fourierBasedConvolution;
+};
+
+BOOST_FIXTURE_TEST_SUITE(fourier_based_circular_convolution, FourierBasedCircularConvolutionTestFixture);
+
+BOOST_AUTO_TEST_CASE(not_equal_size)
+{
+    test_not_equal_size(&fourierBasedConvolution);
+}
+
+BOOST_AUTO_TEST_CASE(zero)
+{
+    test_zero(&fourierBasedConvolution);
+}
+
+BOOST_AUTO_TEST_CASE(simple_impulse_fourier)
+{
+    test_simple_impulse(&fourierBasedConvolution);
+}
+
+BOOST_AUTO_TEST_CASE(impulse)
+{
+    test_impulse(&fourierBasedConvolution);
+}
+
+BOOST_AUTO_TEST_CASE(constant)
+{
+    test_constant(&fourierBasedConvolution);
+}
+
+BOOST_AUTO_TEST_CASE(complex_harmonic)
 {
     test_complex_harmonic(&fourierBasedConvolution);
 }
+
+BOOST_AUTO_TEST_SUITE_END();
+
+
 
 BOOST_AUTO_TEST_SUITE_END();

@@ -1,4 +1,5 @@
 #include <k52/dsp/transform/wavelet/fast_wavelet_transform.h>
+#include <k52/dsp/transform/fast_fourier_transform.h>
 #include <stdexcept>
 
 using ::std::vector;
@@ -13,14 +14,16 @@ namespace k52
 namespace dsp
 {
 
-FastWaveletTransform::FastWaveletTransform(IScale::shared_ptr scale)
+FastWaveletTransform::FastWaveletTransform(
+        IScale::shared_ptr scale,
+        size_t sequence_size
+)
         : i_scale_(scale)
 {
     i_circular_convolution_ = FourierBasedCircularConvolution::shared_ptr(
             new FourierBasedCircularConvolution(
                     IFourierTransform::shared_ptr(
-                            //TODO use FFT
-                            new FourierTransform()
+                            new FastFourierTransform(sequence_size)
                     )
             )
     );

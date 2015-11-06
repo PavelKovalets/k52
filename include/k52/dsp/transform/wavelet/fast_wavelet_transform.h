@@ -4,7 +4,7 @@
 #include <k52/dsp/transform/wavelet/i_scale.h>
 #include <k52/dsp/transform/wavelet/i_wavelet_transform.h>
 #include <k52/dsp/transform/fourier_based_circular_convolution.h>
-#include <k52/dsp/transform/fourier_transform.h>
+#include <k52/dsp/transform/i_fourier_transform.h>
 
 namespace k52
 {
@@ -21,7 +21,10 @@ class FastWaveletTransform : public IWaveletTransform
 {
 
 public:
-    FastWaveletTransform(k52::dsp::IScale::shared_ptr scale);
+    FastWaveletTransform(
+            k52::dsp::IScale::shared_ptr scale,
+            size_t sequence_size
+    );
 
     virtual std::vector< std::vector< std::complex< double > > > Transform(
             const std::vector< std::complex< double > > &sequence,
