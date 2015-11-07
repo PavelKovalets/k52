@@ -21,8 +21,8 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
     target_link_libraries(
         ${PROJECT_NAME}
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARIES}
-        ${FFTW3_LIBRARIES}
         k52_dsp
+        ${FFTW3_LIBRARIES}
         k52_common
     )
 

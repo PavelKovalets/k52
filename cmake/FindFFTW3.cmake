@@ -75,7 +75,7 @@ set(_check_list)
 foreach(_lib ${_libraries})
   string(TOUPPER ${_lib} _LIB)
   find_library(${_LIB}_LIBRARY 
-    NAMES ${_lib} lib${_lib}-3
+    NAMES lib${_lib}.a ${_lib} lib${_lib}-3.a ${_lib} lib${_lib}-3
     HINTS ${FFTW3_ROOT_DIR} PATH_SUFFIXES lib)
   mark_as_advanced(${_LIB}_LIBRARY)
   list(APPEND FFTW3_LIBRARIES ${${_LIB}_LIBRARY})
