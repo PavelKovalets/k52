@@ -40,6 +40,7 @@ vector< vector< complex< double > > > FastWaveletTransform::Transform(
     for (size_t i = 0; i < scales.size(); ++i)
     {
         result[i] = TransformOneScale(sequence, wavelet, scales[i]);
+        std::rotate(result[i].begin(), result[i].begin() + result[i].size() / 2, result[i].end());
     }
 
     return result;
@@ -48,14 +49,13 @@ vector< vector< complex< double > > > FastWaveletTransform::Transform(
 std::vector< std::complex< double > > FastWaveletTransform::TransformOneScale(
         const std::vector< std::complex< double > > &sequence, IWavelet::shared_ptr wavelet, double scale) const
 {
-    if(scale <= 0)
+    if (scale <= 0)
     {
         throw invalid_argument("scale <= 0");
     }
 
-    return i_circular_convolution_->EvaluateConvolution(
-            sequence, GetWaveletSamplesForConvolution(wavelet, scale, sequence.size())
-    );
+    return i_circular_convolution_->EvaluateConvolution(sequence,
+        GetWaveletSamplesForConvolution(wavelet, scale, sequence.size()));
 }
 
 std::vector< std::complex< double > > FastWaveletTransform::GetWaveletSamplesForConvolution(
@@ -65,9 +65,8 @@ std::vector< std::complex< double > > FastWaveletTransform::GetWaveletSamplesFor
     vector< complex< double > > wavelet_samples(N);
     for (size_t n = 0; n < N; ++n)
     {
-        //TODO !!! check if we need this cyclic shift here - to include all wavelet, not its right half?
-        double t = (n < N/2) ? n : (n - N);
-        wavelet_samples[n] = conj( GetScaledWaveletValue(wavelet, scale, -t) );
+        double t = n - double(N) /2.;
+        wavelet_samples[n] = conj(GetScaledWaveletValue(wavelet, scale, -t));
     }
     return wavelet_samples;
 }
