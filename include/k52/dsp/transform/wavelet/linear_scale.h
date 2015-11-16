@@ -8,7 +8,7 @@ namespace k52
 namespace dsp
 {
 
-class LinearScale : IScale
+class LinearScale : public IScale
 {
 public:
     LinearScale(double min_scale, double max_scale, size_t scale_count);

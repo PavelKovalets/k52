@@ -8,7 +8,7 @@ namespace k52
 namespace dsp
 {
 
-class LogarithmicScale : IScale
+class LogarithmicScale : public IScale
 {
 public:
     LogarithmicScale(int min_exponent, int max_exponent);
