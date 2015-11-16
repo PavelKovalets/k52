@@ -16,6 +16,7 @@ public:
 
     static AkimaWavelet::shared_ptr CreateAkimaWavelet(const std::vector<double>& real,
                                                        const std::vector<double>& imaj);
+
 protected:
     AkimaWavelet();
 };

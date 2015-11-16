@@ -20,8 +20,9 @@ public:
 
     virtual ~BSplineWaveletFunction() {}
 
-    virtual double real(double value, int index = 0);
-    virtual double imag(double value, int index = 0);
+    // @todo: check implementation (what is index?)
+    virtual double real(double value, int index);
+    virtual double imag(double value, int index);
 };
 
 } // namespace dsp

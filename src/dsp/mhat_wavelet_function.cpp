@@ -15,6 +15,11 @@ MhatWaveletFunction::MhatWaveletFunction() : k_(2./sqrt(3. * kDefaultSigma) * po
 {
 }
 
+std::complex<double> MhatWaveletFunction::GetValue(double t)
+{
+    return std::complex<double>(real(t), imag(t));
+}
+
 double MhatWaveletFunction::real(double value, int)
 {
     double k = value / kDefaultSigma;
