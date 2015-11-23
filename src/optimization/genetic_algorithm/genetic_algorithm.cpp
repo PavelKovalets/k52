@@ -145,7 +145,7 @@ void GeneticAlgorithm::SetInitialParameters(std::vector<IDiscreteParameters::sha
 {
     initial_parameters_ = std::vector<IDiscreteParameters::shared_ptr>(population_size_);
 
-    for (int i = 0; i < population_size_; ++i)
+    for (std::size_t i = 0; i < population_size_; ++i)
     {
         initial_parameters_[i] = IDiscreteParameters::shared_ptr((initial_parameters[i])->Clone());
     }
@@ -185,7 +185,7 @@ void GeneticAlgorithm::Initialize(const IDiscreteParameters* parameters_to_optim
         ValidateInitialParameters(parameters_to_optimize);
     }
 
-    for (int i = 0; i < population_size_; i++)
+    for (std::size_t i = 0; i < population_size_; i++)
     {
         population_[i] = Individual::shared_ptr(new Individual());
 
@@ -211,7 +211,7 @@ void GeneticAlgorithm::ValidateInitialParameters(const IDiscreteParameters* para
 
     const std::type_info* parameters_to_optimize_type = &typeid(*parameters_to_optimize);
 
-    for (int i = 0; i < population_size_; i++)
+    for (std::size_t i = 0; i < population_size_; i++)
     {
         const std::type_info* parameters_type = &typeid(*(initial_parameters_[i].get()));
 
@@ -257,7 +257,7 @@ void GeneticAlgorithm::RunIterationsAndSetBestIndivid(const DiscreteObjectiveFun
 
 void GeneticAlgorithm::Mutate()
 {
-    for(int i =0; i<population_size_; i++)
+    for (std::size_t i = 0; i < population_size_; i++)
     {
         invalid_chromosomes_ += population_[i]->Mutate(mutator_);
     }
@@ -269,7 +269,7 @@ void GeneticAlgorithm::GenerateNextPopulation()
 
     vector<Individual::shared_ptr> sorted_population(population_size_);
 
-    for(int i =0; i<population_size_; i++)
+    for(std::size_t i = 0; i < population_size_; i++)
     {
         total_fitness += population_[i]->get_fitness();
         population_[i]->ResetTimesChosenForCrossover();
@@ -279,7 +279,7 @@ void GeneticAlgorithm::GenerateNextPopulation()
     vector<Individual::shared_ptr> next_population(population_size_);
 
     int elitism_ready = 0;
-    for(int i =0; i<population_size_; i+=2)
+    for(std::size_t i = 0; i < population_size_; i+=2)
     {
         if(elitism_ready<elitism_pairs_)
         {
@@ -331,7 +331,7 @@ void GeneticAlgorithm::UpdateBestIndivid()
 {
     Individual::shared_ptr best_current_individ = population_[0];
 
-    for (int i = 1; i < population_size_; i++)
+    for (std::size_t i = 1; i < population_size_; i++)
     {
         if (best_current_individ->get_fitness() < population_[i]->get_fitness())
         {
@@ -351,7 +351,7 @@ int GeneticAlgorithm::SelectRandomIndividualIndexForCrossover(double total_fitne
 
     double current = 0;
 
-    for(int i =0; i<population_size_; i++)
+    for(std::size_t i = 0; i < population_size_; i++)
     {
         current += population_[i]->get_fitness();
         if(roulette_result <= current)
@@ -396,7 +396,7 @@ void GeneticAlgorithm::ProcessStatistics(int number_of_generation)
 double GeneticAlgorithm::GetPopulationAveradgeFitness()
 {
     double averadge = 0;
-    for(int i =0; i<population_size_; i++)
+    for(std::size_t i = 0; i < population_size_; i++)
     {
         averadge += population_[i]->get_fitness();
     }
@@ -406,7 +406,7 @@ double GeneticAlgorithm::GetPopulationAveradgeFitness()
 
 void GeneticAlgorithm::GatherAllIndividualsStatistics()
 {
-    for(int i = 0; i < population_size_; i++)
+    for(std::size_t i = 0; i < population_size_; i++)
     {
         population_statistics_[i] = population_[i]->get_individual_statistics();
     }
@@ -459,20 +459,20 @@ void GeneticAlgorithm::OutputPopulation(std::ostream& out)
 void GeneticAlgorithm::InputPopulation(std::ifstream & in)
 {
     std::string info_string;
-    int population_size = 0;
-    size_t chromosome_size = 0;
+    std::size_t population_size = 0;
+    std::size_t chromosome_size = 0;
     in >> info_string; //"Population_size: "
     in >> population_size;
     std::cout << info_string << population_size << std::endl;
     in >> info_string; //"Chromosome_size: "
     in >> chromosome_size;
     std::cout << info_string << chromosome_size << std::endl;
-    if(population_size_ != population_size || chromosome_size != population_[0]->GetChromosome().size())
+    if (population_size_ != population_size || chromosome_size != population_[0]->GetChromosome().size())
     {
         throw std::logic_error("Incorrect input file (maybe old settings - Population size, Chromosome size etc.)");
     }
 
-    for(int i = 0;i < population_size;i++)
+    for(std::size_t i = 0;i < population_size; i++)
     {
         in >> *(population_[i]);
         if( !(population_[i])->IsValid() )

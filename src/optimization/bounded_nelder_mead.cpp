@@ -71,16 +71,8 @@ void BoundedNelderMead::Receive(boost::mpi::communicator* communicator, int sour
 
 std::vector<double> BoundedNelderMead::FindOptimalParameters(const std::vector<double>& initial_values)
 {
-    //Size of task
-    size_t n = initial_values.size();
-
     //Iteration index
     size_t r = 0;
-
-    //For simplex points count
-    double square_root_from_2 = std::sqrt(2.);
-    double r1 = l_ * (std::sqrt((double)(n + 1)) + n - 1) / (n * square_root_from_2);
-    double r2 = l_ * (std::sqrt((double)(n + 1)) - 1) / (n * square_root_from_2);
 
     //Build simplex based on initial_parameters
     vector< vector<double> > polygon = GetRegularSimplex(initial_values, l_);

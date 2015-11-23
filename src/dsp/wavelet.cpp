@@ -10,12 +10,15 @@ namespace k52
 namespace dsp
 {
 
-Wavelet::Wavelet() : max_lenght_(1024), count_(256), min_lenght_(10)
+Wavelet::Wavelet()
+    : count_(256)
+    , max_lenght_(1024)
+    , min_lenght_(10)
 {
 }
 
-Wavelet::shared_ptr Wavelet::BuildWavelet(IWaveletFunction::shared_ptr wavelet_function, int min_lenght, int max_lenght,
-                                          int count, ScaleType type)
+Wavelet::shared_ptr Wavelet::BuildWavelet(IWaveletFunction::shared_ptr wavelet_function, int min_lenght,
+                                          int max_lenght, int count, ScaleType type)
 {
     Wavelet::shared_ptr wavelet(new Wavelet);
 
