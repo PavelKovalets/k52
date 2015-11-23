@@ -1,5 +1,4 @@
 #include <k52/dsp/haar_wavelet_function.h>
-#include <math.h>
 
 namespace k52
 {

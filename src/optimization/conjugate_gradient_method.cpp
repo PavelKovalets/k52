@@ -194,7 +194,7 @@ double ConjugateGradientMethod::PerformOneDimensionalSearch(
         double secound_derivative = (f_incremented - 2*f + f_decremented) / (increment_of_the_argument_*increment_of_the_argument_/4);
 
         x = previous_x - dirivative/secound_derivative;
-    } while(fabs(previous_x - x) > precision_);
+    } while(std::abs(previous_x - x) > precision_);
     return x;
 }
 

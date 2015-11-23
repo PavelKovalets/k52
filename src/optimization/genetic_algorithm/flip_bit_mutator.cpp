@@ -1,7 +1,7 @@
 #include <k52/optimization/flip_bit_mutator.h>
 #include <k52/common/random.h>
 
-#include <math.h>
+#include <cmath>
 #include <stdexcept>
 
 namespace k52
@@ -29,7 +29,7 @@ FlipBitMutator::FlipBitMutator(double gen_mutation_probability)
 {
     mutation_probability_ = gen_mutation_probability;
 
-    max_number_of_skipped_gens_ = floor(1 / mutation_probability_) - 1;
+    max_number_of_skipped_gens_ = (int)std::floor(1 / mutation_probability_) - 1;
 
     if (max_number_of_skipped_gens_ <= 0)
     {

@@ -1,7 +1,7 @@
 #include <k52/dsp/wavelet.h>
 
 #include <algorithm>
-#include <math.h>
+#include <cmath>
 #include <numeric>
 #include <iostream>
 
@@ -82,7 +82,7 @@ void Wavelet::createScale(ScaleType type)
             double lg = log(static_cast<double>(max_lenght()) / min_lenght());
             for (int i = 0; i < count(); ++i)
             {
-                scale_.at(i) = exp(i / (double)count() * lg);
+                scale_.at(i) = std::exp(i / (double)count() * lg);
             }
         } break;
 

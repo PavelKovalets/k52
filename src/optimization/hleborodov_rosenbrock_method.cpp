@@ -122,7 +122,7 @@ bool HleborodovRosenbrockMethod::IsExitCriteriaFulfilled(
     // check arguments increases to escape
     for(size_t j = 0; j<dimension_; j++)
     {
-        if(fabs(arguments[j] - previous_step_arguments[j]) > precision_)
+        if(std::abs(arguments[j] - previous_step_arguments[j]) > precision_)
         {
             escape = false;
         }
@@ -254,10 +254,10 @@ double HleborodovRosenbrockMethod::ScalarComposition(
 
 void HleborodovRosenbrockMethod::CorrectStep(size_t step_index)
 {
-    if( fabs(steps_array_[step_index]) > max_step_)
+    if( std::abs(steps_array_[step_index]) > max_step_)
     {
         steps_array_[step_index] =
-            max_step_*steps_array_[step_index]/fabs(steps_array_[step_index]);
+            max_step_*steps_array_[step_index]/std::abs(steps_array_[step_index]);
     }
 }
 
