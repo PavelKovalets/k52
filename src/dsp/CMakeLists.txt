@@ -13,7 +13,6 @@ set(DSP_HEADERS
     ${DSP_COMMON_INCLUDE}/haar_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/morlet_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/pseudo_wavelet_function.h
-    ${DSP_COMMON_INCLUDE}/signal_based_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/spline.h
     ${DSP_COMMON_INCLUDE}/spline_based_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/wavelet.h
@@ -29,7 +28,6 @@ set(DSP_SOURCE
     haar_wavelet_function.cpp
     morlet_wavelet_function.cpp
     pseudo_wavelet_function.cpp
-    signal_based_wavelet_function.cpp
     spline_based_wavelet_function.cpp
     wavelet.cpp
     )
