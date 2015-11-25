@@ -1,9 +1,9 @@
-#define BOOST_TEST_MODULE settings_manager
 #include <boost/test/unit_test.hpp>
 #include <k52/common/settings_manager.h>
 
-namespace k52
-{
+BOOST_AUTO_TEST_SUITE(settings_manager_tests);
+
+using k52::SettingsManager;
 
 class SettingsManagerMock : public SettingsManager
 {
@@ -18,9 +18,7 @@ public:
 BOOST_AUTO_TEST_CASE(constructors)
 {
     BOOST_REQUIRE_NO_THROW(SettingsManager sm(0, NULL));           // Empty Parameters
-    BOOST_REQUIRE_NO_THROW(SettingsManager sm(std::string("")));   // Empty Parameter
-
-    BOOST_REQUIRE_NO_THROW(SettingsManager sm(std::string("non_existed.config")));
+    BOOST_REQUIRE_THROW(SettingsManager sm(std::string("non_existed.config")), std::runtime_error);
 }
 
 BOOST_AUTO_TEST_CASE(init_from_cmd)
@@ -31,15 +29,15 @@ BOOST_AUTO_TEST_CASE(init_from_cmd)
 
     std::string config_filename;
     BOOST_REQUIRE_NO_THROW(config_filename = sm_ptr->get<std::string>("config-file"));
-    BOOST_REQUIRE(config_filename == std::string("config.xml"));
+    BOOST_REQUIRE_EQUAL(config_filename, std::string("config.xml"));
 
     std::string database;
     BOOST_REQUIRE_NO_THROW(database = sm_ptr->get<std::string>("database"));
-    BOOST_REQUIRE(database == std::string("a.wav,b.wav"));
+    BOOST_REQUIRE_EQUAL(database, std::string("a.wav,b.wav"));
 
     int population_size(0);
     BOOST_REQUIRE_NO_THROW(population_size = sm_ptr->get<int>("genetic_algorithm.population_size"));
-    BOOST_REQUIRE(population_size == 2000);
+    BOOST_REQUIRE_EQUAL(population_size, 2000);
 }
 
 BOOST_AUTO_TEST_CASE(set_property)
@@ -53,19 +51,19 @@ BOOST_AUTO_TEST_CASE(set_property)
 
     std::string test_value;
     BOOST_REQUIRE_NO_THROW(test_value = sm->get<std::string>("test_property.string"));
-    BOOST_REQUIRE(test_value == std::string("test_string_value"));
+    BOOST_REQUIRE_EQUAL(test_value, std::string("test_string_value"));
 
     int test_int_value(0);
     BOOST_REQUIRE_NO_THROW(test_int_value = sm->get<int>("test_property.int"));
-    BOOST_REQUIRE(test_int_value == 42);
+    BOOST_REQUIRE_EQUAL(test_int_value, 42);
 
     double test_double_value(0);
     BOOST_REQUIRE_NO_THROW(test_double_value = sm->get<double>("test_property.double"));
-    BOOST_REQUIRE(test_double_value == 42.42);
+    BOOST_REQUIRE_EQUAL(test_double_value, 42.42);
 
     bool test_bool_value(true);
     BOOST_REQUIRE_NO_THROW(test_bool_value = sm->get<bool>("test_property.bool"));
-    BOOST_REQUIRE(test_bool_value == false);
+    BOOST_REQUIRE_EQUAL(test_bool_value, false);
 }
 
 BOOST_AUTO_TEST_CASE(merging_empty_trees)
@@ -88,8 +86,8 @@ BOOST_AUTO_TEST_CASE(merging_different_properties)
     int p1 = 0, p2 = 0;
     BOOST_REQUIRE_NO_THROW(p1 = merged.get<int>("some_example_property_1"));
     BOOST_REQUIRE_NO_THROW(p2 = merged.get<int>("some_example_property_2"));
-    BOOST_REQUIRE(p1 == 19);
-    BOOST_REQUIRE(p2 == 21);
+    BOOST_REQUIRE_EQUAL(p1, 19);
+    BOOST_REQUIRE_EQUAL(p2, 21);
 }
 
 BOOST_AUTO_TEST_CASE(merging_property)
@@ -104,12 +102,12 @@ BOOST_AUTO_TEST_CASE(merging_property)
     BOOST_REQUIRE(merged1.begin() != merged1.end());
     int p = 0;
     BOOST_REQUIRE_NO_THROW(p = merged1.get<int>("some_example_property"));
-    BOOST_REQUIRE(p == 19);
+    BOOST_REQUIRE_EQUAL(p, 19);
 
     BOOST_REQUIRE_NO_THROW(merged2 = SettingsManagerMock::Merge(tr2, tr1));
     BOOST_REQUIRE(merged2.begin() != merged2.end());
     BOOST_REQUIRE_NO_THROW(p = merged2.get<int>("some_example_property"));
-    BOOST_REQUIRE(p == 21);
+    BOOST_REQUIRE_EQUAL(p, 21);
 }
 
 BOOST_AUTO_TEST_CASE(merging_subtree_with_different_properties)
@@ -125,8 +123,8 @@ BOOST_AUTO_TEST_CASE(merging_subtree_with_different_properties)
     int p1 = 0, p2 = 0;
     BOOST_REQUIRE_NO_THROW(p1 = merged.get<int>("some.example.property_1"));
     BOOST_REQUIRE_NO_THROW(p2 = merged.get<int>("some.exampleproperty_2"));
-    BOOST_REQUIRE(p1 == 19);
-    BOOST_REQUIRE(p2 == 21);
+    BOOST_REQUIRE_EQUAL(p1, 19);
+    BOOST_REQUIRE_EQUAL(p2, 21);
 }
 
 BOOST_AUTO_TEST_CASE(merging_subtree)
@@ -141,12 +139,12 @@ BOOST_AUTO_TEST_CASE(merging_subtree)
     BOOST_REQUIRE(merged1.begin() != merged1.end());
     int p = 0;
     BOOST_REQUIRE_NO_THROW(p = merged1.get<int>("some.example.property"));
-    BOOST_REQUIRE(p == 19);
+    BOOST_REQUIRE_EQUAL(p, 19);
 
     BOOST_REQUIRE_NO_THROW(merged2 = SettingsManagerMock::Merge(tr2, tr1));
     BOOST_REQUIRE(merged2.begin() != merged2.end());
     BOOST_REQUIRE_NO_THROW(p = merged2.get<int>("some.example.property"));
-    BOOST_REQUIRE(p == 21);
+    BOOST_REQUIRE_EQUAL(p, 21);
 }
 
-} // namespace k52
+BOOST_AUTO_TEST_SUITE_END();

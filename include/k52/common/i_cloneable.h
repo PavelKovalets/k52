@@ -19,7 +19,7 @@ class ICloneable
 public:
     typedef boost::shared_ptr<ICloneable> shared_ptr;
 
-    ///Default counstructor should be explicitelly defined if DISALLOW_COPY_AND_ASSIGN used
+    ///Default constructor should be explicitly defined if DISALLOW_COPY_AND_ASSIGN used
     ICloneable() {}
 
     ///Virtual destructor for correct deallocation of resources in derived classes

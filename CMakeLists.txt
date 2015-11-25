@@ -10,9 +10,14 @@ set(k52_LIB_DESTINATION /lib)
 enable_testing()
 set(K52_MESSAGE_PREFIX "->-> K52 MESSAGE <-<- :")
 set(K52_MESSAGE_POSTFIX "\n")
+
+#add external modules from "cmake" folder
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+
 include(k52.config)
 include(configuration/common-config.cmake)
 include(configuration/alglib-config.cmake)
+include(configuration/fftw3-config.cmake)
 include(configuration/boost-config.cmake)
 include(configuration/mpi-config.cmake)
 

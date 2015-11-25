@@ -41,7 +41,7 @@ set(K52_BOOST_LIBRARIES)
 
 find_package(Boost COMPONENTS thread system)
 if(NOT Boost_THREAD_FOUND OR NOT Boost_SYSTEM_FOUND)
-  message("${K52_MESSAGE_PREFIX} boost components [thread,system] have not been found : ${Boost_ERROR_REASON} ${K52_MESSAGE_POSTFIX}")
+  message(WARNING "${K52_MESSAGE_PREFIX} boost components [thread,system] have not been found : ${Boost_ERROR_REASON} ${K52_MESSAGE_POSTFIX}")
 endif(NOT Boost_THREAD_FOUND OR NOT Boost_SYSTEM_FOUND)
 
 if(Boost_THREAD_FOUND AND Boost_SYSTEM_FOUND)
@@ -54,7 +54,7 @@ endif(Boost_THREAD_FOUND AND Boost_SYSTEM_FOUND)
 
 find_package(Boost COMPONENTS mpi serialization)
 if(NOT Boost_MPI_FOUND OR NOT Boost_SERIALIZATION_FOUND)
-  message("${K52_MESSAGE_PREFIX} boost components [mpi,serialization] have not been found : ${Boost_ERROR_REASON} ${K52_MESSAGE_POSTFIX}")
+  message(WARNING "${K52_MESSAGE_PREFIX} boost components [mpi,serialization] have not been found : ${Boost_ERROR_REASON} ${K52_MESSAGE_POSTFIX}")
 endif(NOT Boost_MPI_FOUND OR NOT Boost_SERIALIZATION_FOUND)
 
 if(Boost_MPI_FOUND AND Boost_SERIALIZATION_FOUND)
@@ -64,7 +64,7 @@ endif(Boost_MPI_FOUND AND Boost_SERIALIZATION_FOUND)
 # Detecting Boost.Test library - unit test framework
 find_package(Boost COMPONENTS unit_test_framework)
 if(NOT Boost_UNIT_TEST_FRAMEWORK_FOUND)
-  message("${K52_MESSAGE_PREFIX} Unit testing will be disabled because boost component [unit test framework] has not been found : ${Boost_ERROR_REASON}. ${K52_MESSAGE_POSTFIX}")
+  message(WARNING  "${K52_MESSAGE_PREFIX} Unit testing will be disabled because boost component [unit test framework] has not been found : ${Boost_ERROR_REASON}. ${K52_MESSAGE_POSTFIX}")
 endif(NOT Boost_UNIT_TEST_FRAMEWORK_FOUND)
 
 if(Boost_UNIT_TEST_FRAMEWORK_FOUND)

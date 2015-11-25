@@ -6,7 +6,7 @@
 
 namespace k52
 {
-namespace optimization
+namespace common
 {
 
 /**
@@ -57,7 +57,7 @@ private:
     DISALLOW_COPY_AND_ASSIGN(Random);
 };
 
-}/* namespace optimization */
+}/* namespace common */
 }/* namespace k52 */
 
 #endif /* RANDOM_H_ */

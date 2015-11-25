@@ -15,6 +15,7 @@
 #include "../objective_function_counter.h"
 
 using ::std::vector;
+using ::k52::common::Random;
 
 namespace
 {

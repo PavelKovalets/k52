@@ -6,27 +6,28 @@
 #include <vector>
 
 #include <k52/dsp/iwavelet_function.h>
+#include <k52/dsp/transform/wavelet/i_wavelet.h>
 #include "spline.h"
-
-/**
-  SplineBased - реализация вейвлета, базовая функция которого описывается при помощи сплайна
-*/
-
-#include <iostream>
 
 namespace k52
 {
 namespace dsp
 {
 
-class SplineBased : public IWaveletFunction
+/**
+  @todo: comment it
+*/
+class SplineBased : public IWaveletFunction, public IWavelet
 {
 public:
     typedef boost::shared_ptr<SplineBased> shared_ptr;
 
     virtual void Init(const std::vector<double> &real, const std::vector<double> &imaj);
-    virtual double real(double x, int index);
-    virtual double imag(double x, int index);
+
+    virtual std::complex<double> GetValue(double t);
+
+    virtual double real(double x, int index = 0);
+    virtual double imag(double x, int index = 0);
 
 protected:
     SplineBased() {}

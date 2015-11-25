@@ -10,6 +10,11 @@ namespace k52
 namespace dsp
 {
 
+std::complex<double> SplineBased::GetValue(double t)
+{
+    return std::complex<double>(real(t), imag(t));
+}
+
 void SplineBased::Init(const std::vector<double> &real, const std::vector<double> &imaj)
 {
     std::vector<double> points(real.size() + 2);

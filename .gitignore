@@ -5,6 +5,10 @@ build/
 lib/
 bin/
 
+# CLion files #
+###########
+.idea/
+
 # KDevelop folder and files#
 ############################
 .kdev4/

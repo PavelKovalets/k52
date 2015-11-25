@@ -7,7 +7,7 @@
 
 namespace k52
 {
-namespace optimization
+namespace common
 {
 
 Random& Random::Instance()
@@ -84,6 +84,6 @@ int Random::GetNextBitFromBoolBase()
     return bool_base_ & bitmask;
 }
 
-}/* namespace optimization */
+}/* namespace common */
 }/* namespace k52 */
 

@@ -6,6 +6,11 @@ namespace k52
 namespace dsp
 {
 
+std::complex<double> MorletWaveletFunction::GetValue(double t)
+{
+    return std::complex<double>(real(t), imag(t));
+}
+
 /// Morlet implementation
 double MorletWaveletFunction::real(double x, int)
 {
