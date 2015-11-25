@@ -181,8 +181,6 @@ const IMpiTask* MpiWorkerPool::GetMpiTask(const ITask* task)
 void MpiWorkerPool::RunWorkerLoop()
 {
     int counted = 0;
-    int errors = 0;
-
     while(true)
     {
         std::string task_id;

@@ -86,7 +86,7 @@ protected:
     /// @param filename - xml file to be loaded
     /// @return true if configuration loading succeeded
     /// @return false otherwise
-    void ParseXmlConfigFile(const std::string& filename) throw (std::runtime_error)
+    void ParseXmlConfigFile(const std::string& filename)
     try
     {
         boost::property_tree::xml_parser::read_xml(filename, property_tree_);

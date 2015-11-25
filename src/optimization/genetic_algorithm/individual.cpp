@@ -18,10 +18,14 @@ namespace optimization
 {
 
 Individual::Individual()
-    : parameters_(), initialization_checker_() {}
+    : initialization_checker_()
+    , parameters_()
+{
+}
 
 Individual::Individual(const IDiscreteParameters* const parameters)
-    : parameters_(), initialization_checker_()
+    : initialization_checker_()
+    , parameters_()
 {
     Initialize(parameters);
 }

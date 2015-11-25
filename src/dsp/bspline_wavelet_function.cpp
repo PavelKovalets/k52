@@ -1,5 +1,6 @@
 #include <k52/dsp/bspline_wavelet_function.h>
-#include <math.h>
+
+#include <cmath>
 
 namespace 
 {

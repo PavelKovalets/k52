@@ -59,10 +59,10 @@ Random::Random()
     max_bit_in_bool_base_ = 0;
     int max_bool_base_value = 1;
 
-    for(int i=0; i<sizeof(int) * 8; i++)
+    for (std::size_t i = 0; i < sizeof(int) * 8; i++)
     {
         max_bool_base_value *= 2;
-        if(max_bool_base_value > RAND_MAX)
+        if (max_bool_base_value > RAND_MAX)
         {
             break;
         }

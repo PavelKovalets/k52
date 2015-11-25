@@ -1,7 +1,7 @@
 #include <k52/dsp/wavelet.h>
 
 #include <algorithm>
-#include <math.h>
+#include <cmath>
 #include <numeric>
 #include <iostream>
 
@@ -10,12 +10,15 @@ namespace k52
 namespace dsp
 {
 
-Wavelet::Wavelet() : max_lenght_(1024), count_(256), min_lenght_(10)
+Wavelet::Wavelet()
+    : count_(256)
+    , max_lenght_(1024)
+    , min_lenght_(10)
 {
 }
 
-Wavelet::shared_ptr Wavelet::BuildWavelet(IWaveletFunction::shared_ptr wavelet_function, int min_lenght, int max_lenght,
-                                          int count, ScaleType type)
+Wavelet::shared_ptr Wavelet::BuildWavelet(IWaveletFunction::shared_ptr wavelet_function, int min_lenght,
+                                          int max_lenght, int count, ScaleType type)
 {
     Wavelet::shared_ptr wavelet(new Wavelet);
 
@@ -82,7 +85,7 @@ void Wavelet::createScale(ScaleType type)
             double lg = log(static_cast<double>(max_lenght()) / min_lenght());
             for (int i = 0; i < count(); ++i)
             {
-                scale_.at(i) = exp(i / (double)count() * lg);
+                scale_.at(i) = std::exp(i / (double)count() * lg);
             }
         } break;
 

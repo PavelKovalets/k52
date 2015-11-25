@@ -1,7 +1,5 @@
 #include "test_function.h"
 
-#include <math.h>
-
 #ifdef BUILD_WITH_MPI
 #include <k52/parallel/mpi/identifyable_objects_manager.h>
 #endif

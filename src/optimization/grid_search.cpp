@@ -1,6 +1,6 @@
 #include <k52/optimization/grid_search.h>
 
-#include <math.h>
+#include <cmath>
 #include <stdexcept>
 #include <algorithm>
 
@@ -29,7 +29,7 @@ void GridSearch::Optimize(const IObjectiveFunction& function_to_optimize, IParam
 
     vector<double> initial_parameters = continuous_parameters->GetValues();
 
-    int size_per_parameter = floor((upper_bound_ - lower_bound_)/precision_) + 1;
+    int size_per_parameter = (int)std::floor((upper_bound_ - lower_bound_)/precision_) + 1;
 
     if(size_per_parameter <= 0)
     {
@@ -60,7 +60,7 @@ void GridSearch::Optimize(const IObjectiveFunction& function_to_optimize, IParam
     }
 
     vector<double> counted_values = fitness_counter_->CountObjectiveFunctionValues(parameters, function_to_optimize);
-    size_t best_index = distance(counted_values.begin(), max_element(counted_values.begin(), counted_values.end()));
+    size_t best_index = std::distance(counted_values.begin(), max_element(counted_values.begin(), counted_values.end()));
 
     continuous_parameters->SetValues( parameters_storages[best_index]->GetValues() );
 }

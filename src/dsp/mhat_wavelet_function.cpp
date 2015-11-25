@@ -1,5 +1,5 @@
 #include <k52/dsp/mhat_wavelet_function.h>
-#include <math.h>
+#include <cmath>
 
 namespace
 {
@@ -11,14 +11,14 @@ namespace k52
 namespace dsp
 {
 
-MhatWaveletFunction::MhatWaveletFunction() : k_(2./sqrt(3. * kDefaultSigma) * pow(M_PI, 0.25))
+MhatWaveletFunction::MhatWaveletFunction() : k_(2./std::sqrt(3. * kDefaultSigma) * std::pow(M_PI, 0.25))
 {
 }
 
 double MhatWaveletFunction::real(double value, int)
 {
     double k = value / kDefaultSigma;
-    return k_ * (1. - pow(k, 2.)) * exp(-0.5 * pow(k, 2.));
+    return k_ * (1. - std::pow(k, 2.)) * std::exp(-0.5 * std::pow(k, 2.));
 }
 
 double MhatWaveletFunction::imag(double value, int)

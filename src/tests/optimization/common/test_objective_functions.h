@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string>
-#include <math.h>
+#include <cmath>
 #include <stdexcept>
 
 #include <boost/shared_ptr.hpp>
@@ -29,7 +29,7 @@ public:
         for(size_t i=0; i<values.size(); i++)
         {
             double value = values[i];
-            double diff = fabs(value*value - 2);
+            double diff = std::abs(value*value - 2);
             summ += 1/diff;
         }
 
@@ -103,13 +103,13 @@ public:
             double value = values[i];
             double add = 0;
 
-            if(fabs(value) < consts::eps)
+            if(std::abs(value) < consts::eps)
             {
                 add = 1;
             }
             else
             {
-                add = sin(value) / value;
+                add = std::sin(value) / value;
             }
 
             summ += add;
@@ -148,7 +148,7 @@ class MultiminimumObjectiveFunction : public TwoDimmensionalObjectiveFunction
 public:
     virtual double operator () (const double& x, const double& y) const
     {
-        double result = x * sin(4 * x) + 1.1 * y * sin(2 * y);
+        double result = x * std::sin(4 * x) + 1.1 * y * std::sin(2 * y);
 
         return result;
     }

@@ -49,8 +49,8 @@ double AkimaSpline::Value(double x)
     double arg = x - train_x_[i];
     return coeffs_[i][0]
             + coeffs_[i][1] * arg
-            + coeffs_[i][2] * powf(arg, 2)
-            + coeffs_[i][3] * powf(arg, 3);
+            + coeffs_[i][2] * std::pow(arg, 2)
+            + coeffs_[i][3] * std::pow(arg, 3);
 }
 
 void AkimaSpline::ReestimatePolynomials()
@@ -70,7 +70,7 @@ void AkimaSpline::ReestimatePolynomials()
         coeffs_[i][2] = (3 * (train_y_[i+1] - train_y_[i]) / (train_x_[i+1] - train_x_[i])
                 - 2 * s[i] - s[i+1]) / (train_x_[i+1] - train_x_[i]);
         coeffs_[i][3] = ( s[i+1] + s[i] - 2 * (train_y_[i+1] - train_y_[i]) / (train_x_[i+1] - train_x_[i]) )
-                / powf(train_x_[i+1] - train_x_[i], 2);
+                / std::pow(train_x_[i+1] - train_x_[i], 2);
     }
 }
 

@@ -16,12 +16,17 @@ namespace optimization
 {
 
 CountObjectiveFunctionTask::CountObjectiveFunctionTask()
-    :parameters_(NULL), function_to_optimize_(NULL), was_created_(false) {}
+    : function_to_optimize_(NULL)
+    , parameters_(NULL)
+    , was_created_(false)
+{}
 
 CountObjectiveFunctionTask::CountObjectiveFunctionTask(
     const IParameters*  parameters,
     const IObjectiveFunction* function_to_optimize)
-    :parameters_(parameters), function_to_optimize_(function_to_optimize), was_created_(true) {}
+    : function_to_optimize_(function_to_optimize)
+    , parameters_(parameters)
+    , was_created_(true) {}
 
 #ifdef BUILD_WITH_MPI
 

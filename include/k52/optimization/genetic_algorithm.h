@@ -107,7 +107,7 @@ private:
     IMutator::shared_ptr mutator_;
     int elitism_pairs_;
     int max_number_of_generations_;
-    int population_size_;
+    std::size_t population_size_;
     int invalid_chromosomes_;
     std::string population_file_name_;
 

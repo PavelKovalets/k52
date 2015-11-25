@@ -1,8 +1,8 @@
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <ctime>
 #include <limits>
-#include <stdlib.h>
+#include <cstdlib>
 
 //OA headers
 #ifdef BUILD_WITH_MPI
@@ -47,7 +47,7 @@ public:
         for (size_t i = 0; i < values.size(); i++)
         {
             double value = values[i];
-            summ += 1 / fabs(value*value - 2);
+            summ += 1 / std::abs(value*value - 2);
         }
         return summ;
     }
@@ -97,7 +97,7 @@ vector<IDiscreteParameters::shared_ptr> GetInitialParameters(size_t populationSi
     {
         values[i] = 1.4;
     }
-    for (int i = 0; i < populationSize; i++)
+    for (size_t i = 0; i < populationSize; i++)
     {
         DoubleParametersArray::shared_ptr initial_parameter(new DoubleParametersArray(GlobalMinValue, GlobalMaxValue, GlobalPrecision, GlobalNumberOfParameters));
         initial_parameter->SetValues(values);

@@ -1,7 +1,7 @@
 #include <k52/common/random.h>
 #include <k52/optimization/params/double_parameter.h>
 
-#include <math.h>
+#include <cmath>
 #include <stdexcept>
 
 namespace k52
@@ -26,7 +26,7 @@ DoubleParameter::DoubleParameter(double desired_value, double min_value, double 
 
     if(!CheckBounds(desired_value))
     {
-        throw std::invalid_argument("desired_value does not lie whithin [min_value;max_value] interval.");
+        throw std::invalid_argument("desired_value does not lie within [min_value;max_value] interval.");
     }
 
     int best_max_int = CountBestMaxInt( GetMaxInt(min_value, max_value, desired_precision) );
@@ -92,7 +92,7 @@ double DoubleParameter::GetValue() const
 
 void DoubleParameter::SetValue(double value)
 {
-    int int_value = ((value - min_value_)/precision_);
+    int int_value = (int)((value - min_value_)/precision_);
     base_int_parameter_->set_value(int_value);
 }
 
@@ -113,7 +113,7 @@ double DoubleParameter::get_actual_precision() const
 
 int DoubleParameter::GetMaxInt(double min_value, double max_value, double precision)
 {
-    int max_int = ceil((max_value - min_value)/precision);
+    int max_int = (int)std::ceil((max_value - min_value)/precision);
     if(max_int < 1)
     {
         throw std::invalid_argument("minValue maxValue or precision were set incorrect");

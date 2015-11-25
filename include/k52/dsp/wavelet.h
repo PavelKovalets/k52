@@ -4,8 +4,8 @@
 // Main header file for wavelet dsp
 
 #include <boost/shared_ptr.hpp>
+#include <cmath>
 #include <iostream>
-#include <math.h>
 #include <numeric>
 #include <vector>
 
@@ -86,8 +86,7 @@ std::vector<T> Wavelet::transform(typename std::vector<T>::const_iterator data_b
         real_res = inner_product(real_part_[i].begin(), real_part_[i].end(), data_begin, real_res);
         imaj_res = inner_product(imaj_part_[i].begin(), imaj_part_[i].end(), data_begin, imaj_res);
 
-        //result[i] = static_cast<double>(log10(sqrt(res * res + imj_res * imj_res)));
-        result[i] = sqrt(real_res * real_res + imaj_res * imaj_res);
+        result[i] = std::sqrt(real_res * real_res + imaj_res * imaj_res);
         real_res = 0;
         imaj_res = 0;
     }
