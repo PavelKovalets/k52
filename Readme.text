@@ -1,3 +1,5 @@
+# Intro #
+
 k52 is a set of c++ libraries aimed to facilitate scientific experiments
  in the fields of signal processing and sound analysis with the strong
  incline into OOP, flexibility and readability. 
@@ -27,31 +29,31 @@ It also provides the implementation of some optimization,
 
 ## Folders ##
 
-|--- cmake                  -       CMake external modules are loaded from this folder
-|--- configuration          -       contains CMake-specific configuration files,
-|                                   should not be edited unless required
-|--- include                -       contains all k52 public headers
-+--- src                    -       contains all k52 private headers and source files
-      |--- common           -       lib source files
-      |--- dsp              -       lib source files
-      |--- optimization     -       lib source files
-      |--- parallel         -       lib source files
-      +--- tests            -       unit tests and regular tests (examples)
+* |--- cmake                  -       CMake external modules are loaded from this folder
+* |--- configuration          -       contains CMake-specific configuration files,
+* |                                   should not be edited unless required
+* |--- include                -       contains all k52 public headers
+* +--- src                    -       contains all k52 private headers and source files
+*       |--- common           -       lib source files
+*       |--- dsp              -       lib source files
+*       |--- optimization     -       lib source files
+*       |--- parallel         -       lib source files
+*       +--- tests            -       unit tests and regular tests (examples)
 
 ## Files ##
 
-bootstrap.sh                -       linux shell script to setup all necessary environment
+* bootstrap.sh                -       linux shell script to setup all necessary environment
                                     to build k52, used in Vagrant box, but also could be
                                     used on any other system
-CMakeLists.txt              -       root CMake file for k52 project
-k52.config                  -       main configuration file for CMake system, normally
+* CMakeLists.txt              -       root CMake file for k52 project
+* k52.config                  -       main configuration file for CMake system, normally
                                     should be edited to contain all the settings
                                     corresponding to the machine k52 is build on
-k52-config.cmake.in         -       template file for CMake fing_package support
-Readme.txt                  -       &(*this)
-Vagrantfile                 -       file with Vagrant settings (see below how to use)
-.gitattributes              -       git settings, applied to the repository
-.gitignore                  -       used to exclude files from git tracking
+* k52-config.cmake.in         -       template file for CMake fing_package support
+* Readme.txt                  -       &(*this)
+* Vagrantfile                 -       file with Vagrant settings (see below how to use)
+* .gitattributes              -       git settings, applied to the repository
+* .gitignore                  -       used to exclude files from git tracking
 
 # Build system #
 
@@ -72,7 +74,7 @@ You need to
 
 ## Get the stuff ##
 
-* clone this repository locally with 'git clone ...'
+* clone this repository locally with 'git clone [repo url]'
 * go to its folder and familiarise yourself 'cd k52', 'ls'
 * edit 'k52.config' according to your system and libs k52 depend on. 
 
@@ -100,6 +102,7 @@ and possibly do some preparation steps (see lib's website for details):
 In case of CMake - aware IDE's you just need to open CMake file from root k52 folder and build it.
 
 Else, from k52 root dir execute following commands using cmd:
+
 * 'mkdir build'             -       create build folder
 * 'cd build'                -       go into it
 * 'cmake ..'                -       create project files for your default compiler/IDE,
