@@ -1,17 +1,134 @@
-For Visual Studio there might be problems with libs (e.g. "cannot open file 'libboost_date_time-vc120-mt-gd-1_55.lib'").
-Not completelly clear, is it a bug or feature, but according to http://www.boost.org/doc/libs/1_54_0/doc/html/thread/build.html it is fixed by compiling ALL dependant libs explicitly (bjam --build-type=complete --with-thread --with-chrono --with-date_time).
+k52 is a set of c++ libraries aimed to facilitate scientific experiments
+ in the fields of signal processing and sound analysis with the strong
+ incline into OOP, flexibility and readability. 
+It also provides the implementation of some optimization,
+ classification and other methods, as well as set of handy tools
+ to support parallel computing.
 
-#Using Vagrant box
--Install Vagrant http://www.vagrantup.com/
--From project root (containing Vagrantfile) run 'vagrant up' to create a VM
--Run 'vagrant ssh' to connect to VM
--Run 'cd /vagrant' to move to the project directory
--Do what you need
 
-#Build using cmake
-git clone ...
-cd k52
-#edit config
-mkdir build
-cd build
-cmake .. && make (or open generated k52.sln file if using Visual Studio)
+# Libs description #
+
+[Some graph with libs dependencies would be nice]
+
+* common                    -       helper classes, generic templates,
+                                    patterns implementation, regularly-used functionality 
+
+* optimization              -       implementation of various optimization methods
+                                    for both discrete and continuous objective functions
+
+* dsp                       -       implementation of various signal processing and
+                                    sound analysis algorithms and methods
+
+* parallel                  -       set of tools and helpers to support commonly-used
+                                    parallel computing technologies (threads, MPI),
+                                    with no or almost no set-up and infrastructural code required
+
+# Repository structure #
+
+## Folders ##
+
+|--- cmake                  -       CMake external modules are loaded from this folder
+|--- configuration          -       contains CMake-specific configuration files,
+|                                   should not be edited unless required
+|--- include                -       contains all k52 public headers
++--- src                    -       contains all k52 private headers and source files
+      |--- common           -       lib source files
+      |--- dsp              -       lib source files
+      |--- optimization     -       lib source files
+      |--- parallel         -       lib source files
+      +--- tests            -       unit tests and regular tests (examples)
+
+## Files ##
+
+bootstrap.sh                -       linux shell script to setup all necessary environment
+                                    to build k52, used in Vagrant box, but also could be
+                                    used on any other system
+CMakeLists.txt              -       root CMake file for k52 project
+k52.config                  -       main configuration file for CMake system, normally
+                                    should be edited to contain all the settings
+                                    corresponding to the machine k52 is build on
+k52-config.cmake.in         -       template file for CMake fing_package support
+Readme.txt                  -       &(*this)
+Vagrantfile                 -       file with Vagrant settings (see below how to use)
+.gitattributes              -       git settings, applied to the repository
+.gitignore                  -       used to exclude files from git tracking
+
+# Build system #
+
+[CMake](https://cmake.org/), the cross-platform, open-source build system is used in k52, so you must install it to build k52.
+While theoretically any platform supported by CMake will be ok, the tested are Windows and Linux.
+[make](https://ru.wikipedia.org/wiki/Make) system is fully supported.
+
+Following IDE might be helpful:
+
+* [CLion (really good one, limited evaluation)](https://www.jetbrains.com/clion/ )
+* [Visual Studio (not bad too, free)](https://www.visualstudio.com/en-us/products/visual-studio-express-vs.aspx)
+* [KDevelop (free)](https://www.kdevelop.org/)
+* [Eclipse CDT (free)](https://eclipse.org/cdt/)
+
+# To start using k52 #
+
+You need to
+
+## Get the stuff ##
+
+* clone this repository locally with 'git clone ...'
+* go to its folder and familiarise yourself 'cd k52', 'ls'
+* edit 'k52.config' according to your system and libs k52 depend on. 
+
+## Libs k52 depend on ##
+
+* [boost](http://www.boost.org/)
+* [fftw3](http://www.fftw.org/)
+
+The only requirement for now is boost, so you should either get it 
+(build it all if you can) and set BOOST_ROOT to point to its root folder
+or download corresponding packages (if on Linux). 
+Other libs are strongly advised to have too. 
+On Linux corresponding packages should be available.
+On Windows easiest way is to download binaries from website, set path to them in 'k52.config'
+and possibly do some preparation steps (see lib's website for details):
+
+* for fftw3 - dynamic libs are provided, and in order to link to them from Visual C++,
+ you will need to create .lib "import libraries"
+     'lib /def:libfftw3-3.def'
+     'lib /def:libfftw3f-3.def'
+     'lib /def:libfftw3l-3.def'
+
+## Build using CMake ##
+
+In case of CMake - aware IDE's you just need to open CMake file from root k52 folder and build it.
+
+Else, from k52 root dir execute following commands using cmd:
+* 'mkdir build'             -       create build folder
+* 'cd build'                -       go into it
+* 'cmake ..'                -       create project files for your default compiler/IDE,
+                                    check if there were no errors from ->-> K52 MESSAGE <-<-,
+                                    if there are - try to fix them
+
+Now you have all files necessary to build k52 in 'build' folder.
+* Visual Studio             -       find .sln file in 'build' folder and run it.
+* make                      -       execute 'make' from 'build' folder .
+
+## Run tests ##
+
+* Visual Studio             -       build 'RUN_TESTS' project from k52.sln and see the output.
+* make                      -       execute 'make test' from 'build' folder and see the output.
+
+# Using Vagrant box #
+
+* Install some virtualization provider (e.g. VirtualBox)
+* Install Vagrant and read about it http://www.vagrantup.com/
+* From project root (containing Vagrantfile) run 'vagrant up' to create a VM
+* Run 'vagrant ssh' to connect to VM
+* Run 'cd /vagrant' to move to the project directory
+* Do what you need, e.g. build using CMake and run tests
+
+# Known issues #
+
+* For Visual Studio there might be problems with libs 
+(e.g. "cannot open file 'libboost_date_time-vc120-mt-gd-1_55.lib'").
+Not completelly clear, is it a bug or feature, but according to
+ http://www.boost.org/doc/libs/1_54_0/doc/html/thread/build.html 
+it is fixed by compiling ALL dependant libs explicitly 
+(bjam --build-type=complete --with-thread --with-chrono --with-date_time).
