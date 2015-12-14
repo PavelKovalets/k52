@@ -56,12 +56,8 @@ set(DSP_SOURCE
 include_directories(
     ${k52_SOURCE_DIR}/src
     ${k52_SOURCE_DIR}/include
-    ${K52_ALGLIB_INCLUDE_DIRS}
     ${K52_BOOST_INCLUDE_DIRS}
     ${FFTW3_INCLUDE_DIR}
-)
-link_directories(
-    ${K52_ALGLIB_LIBRARY_DIRS}
 )
 
 set(k52_DSP_LIB k52_dsp)
@@ -75,7 +71,6 @@ add_library(
 if(K52_LIBS_TYPE_DYNAMIC)
     target_link_libraries(
         ${k52_DSP_LIB}
-        ${K52_ALGLIB_LIBRARIES}
         ${FFTW3_LIBRARIES}
     )
 endif()
