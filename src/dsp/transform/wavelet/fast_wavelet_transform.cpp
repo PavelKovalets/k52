@@ -40,6 +40,7 @@ vector< vector< complex< double > > > FastWaveletTransform::Transform(
     for (size_t i = 0; i < scales.size(); ++i)
     {
         result[i] = TransformOneScale(sequence, wavelet, scales[i]);
+        //TODO this is a hack to allow filling of wavelet samples with N/2 shift - think of a better solution
         std::rotate(result[i].begin(), result[i].begin() + result[i].size() / 2, result[i].end());
     }
 
