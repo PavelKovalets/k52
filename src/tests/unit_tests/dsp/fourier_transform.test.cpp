@@ -1,4 +1,7 @@
 #include <boost/test/unit_test.hpp>
+
+#include <boost/thread.hpp>
+
 #include <k52/dsp/transform/fourier_transform.h>
 #include <k52/dsp/transform/fast_fourier_transform.h>
 
@@ -186,6 +189,23 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
     FastFourierTransform fft(128);
     test_complex_harmonic(&fft);
 }
+
+// Functional test
+// @todo - move it out from unittests
+void test_function ()
+{
+    FastFourierTransform fft(10000000);
+    test_complex_harmonic(&fft);
+}
+
+BOOST_AUTO_TEST_CASE(multithread_test)
+{
+    for (int i = 0; i < 10; ++i)
+    {
+        boost::thread th(test_function);
+    }
+}
+
 
 BOOST_AUTO_TEST_SUITE_END();
 

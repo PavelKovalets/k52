@@ -25,6 +25,7 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
         k52_dsp
         ${FFTW3_LIBRARIES}
         k52_common
+        ${K52_BOOST_LIBRARIES}
     )
 
     add_test(NAME "Unit_Tests" COMMAND ${PROJECT_NAME})
