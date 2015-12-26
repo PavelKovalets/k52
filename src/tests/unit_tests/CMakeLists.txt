@@ -26,6 +26,8 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
         k52_dsp
         ${FFTW3_LIBRARIES}
         k52_common
+        k52_parallel
+        ${K52_MPI_LIBRARIES}
         ${K52_BOOST_LIBRARIES}
     )
 
