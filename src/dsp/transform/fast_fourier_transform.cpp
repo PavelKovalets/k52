@@ -4,6 +4,7 @@
 #ifdef BUILD_WITH_FFTW3
 
 #include <fftw3.h>
+#include <boost/thread/mutex.hpp>
 
 #endif
 
@@ -26,6 +27,8 @@ public:
     FastFourierTransformImpl(size_t sequence_size)
         : sequence_size_(sequence_size)
     {
+        boost::mutex::scoped_lock scoped_lock(fftw_mutex_);
+
         if(sequence_size <= 0)
         {
             throw std::invalid_argument("sequence_size <= 0");
@@ -38,6 +41,8 @@ public:
 
     ~FastFourierTransformImpl()
     {
+        boost::mutex::scoped_lock scoped_lock(fftw_mutex_);
+
         fftw_destroy_plan(plan_);
         fftw_free(in_);
         fftw_free(out_);
@@ -78,7 +83,11 @@ private:
     fftw_complex* in_;
     fftw_complex* out_;
     fftw_plan plan_;
+
+    static boost::mutex fftw_mutex_;
 };
+
+boost::mutex FastFourierTransform::FastFourierTransformImpl::fftw_mutex_ = boost::mutex();
 
 FastFourierTransform::FastFourierTransform(size_t sequence_size)
 {
