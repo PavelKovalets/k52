@@ -75,4 +75,4 @@ if(K52_LIBS_TYPE_DYNAMIC)
     )
 endif()
 
-install_targets(${k52_LIB_DESTINATION} ${k52_DSP_LIB})
+install(TARGETS ${k52_DSP_LIB} DESTINATION ${k52_LIB_DESTINATION})
