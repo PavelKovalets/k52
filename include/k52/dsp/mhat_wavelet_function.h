@@ -1,7 +1,7 @@
 #ifndef K52_DSP_MHAT_WAVELET_FUNCTION_H
 #define K52_DSP_MHAT_WAVELET_FUNCTION_H
 
-#include <k52/dsp/iwavelet_function.h>
+#include <boost/shared_ptr.hpp>
 #include <k52/dsp/transform/wavelet/i_wavelet.h>
 
 /*
@@ -14,7 +14,7 @@ namespace k52
 namespace dsp
 {
 
-class MhatWaveletFunction : public IWaveletFunction, public IWavelet
+class MhatWaveletFunction : public IWavelet
 {
 public:
     typedef boost::shared_ptr<MhatWaveletFunction> shared_ptr;
@@ -24,8 +24,7 @@ public:
 
     virtual std::complex<double> GetValue(double t);
 
-    virtual double real(double value, int index = 0);
-    virtual double imag(double value, int index = 0);
+    virtual double real(double value);
 
 private:
     double k_;

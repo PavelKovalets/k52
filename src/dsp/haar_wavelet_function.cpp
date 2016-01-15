@@ -11,7 +11,7 @@ std::complex<double> HaarWaveletFunction::GetValue(double t)
 }
 
 // Haar wavelet function implementation
-double HaarWaveletFunction::real(double x, int)
+double HaarWaveletFunction::real(double x)
 {
     if (x < -0.5 || x > 0.5 || x == 0 )
     {
@@ -26,7 +26,7 @@ double HaarWaveletFunction::real(double x, int)
     return 1;
 }
 
-double HaarWaveletFunction::imag(double x, int)
+double HaarWaveletFunction::imag(double x)
 {
     if (x < -0.25 || x > 0.75 || x == 0.25)
     {
