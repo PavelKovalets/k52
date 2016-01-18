@@ -194,16 +194,25 @@ BOOST_AUTO_TEST_CASE(complex_harmonic)
 // @todo - move it out from unittests
 void test_function ()
 {
-    FastFourierTransform fft(10000000);
-    test_complex_harmonic(&fft);
+    //Prepare
+    size_t N = 1000;
+    FastFourierTransform fft(N);
+    vector< complex <double> > samples(N);
+
+    //Test
+    vector< complex <double> > result = fft.Transform(samples);
 }
 
 BOOST_AUTO_TEST_CASE(multithread_test)
 {
+    boost::thread_group threads;
+
     for (int i = 0; i < 10; ++i)
     {
-        boost::thread th(test_function);
+        threads.create_thread(&test_function);
     }
+
+    threads.join_all();
 }
 
 

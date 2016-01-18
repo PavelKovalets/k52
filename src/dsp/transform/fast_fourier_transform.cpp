@@ -87,7 +87,7 @@ private:
     static boost::mutex fftw_mutex_;
 };
 
-boost::mutex FastFourierTransform::FastFourierTransformImpl::fftw_mutex_ = boost::mutex();
+boost::mutex FastFourierTransform::FastFourierTransformImpl::fftw_mutex_;
 
 FastFourierTransform::FastFourierTransform(size_t sequence_size)
 {
