@@ -10,12 +10,9 @@
 #include <vector>
 
 #include <k52/common/disallow_copy_and_assign.h>
-#include <k52/dsp/iwavelet_function.h>
-#include <k52/dsp/bspline_wavelet_function.h>
 #include <k52/dsp/haar_wavelet_function.h>
 #include <k52/dsp/mhat_wavelet_function.h>
 #include <k52/dsp/morlet_wavelet_function.h>
-#include <k52/dsp/pseudo_wavelet_function.h>
 #include <k52/dsp/spline_based_wavelet_function.h>
 
 namespace k52
@@ -29,13 +26,12 @@ public:
     typedef boost::shared_ptr<Wavelet> shared_ptr;
     typedef enum {Log = 0, Linear} ScaleType;
 
-    static Wavelet::shared_ptr BuildWavelet(IWaveletFunction::shared_ptr wavelet_function, int min_lenght,
+    static Wavelet::shared_ptr BuildWavelet(IWavelet::shared_ptr wavelet_function, int min_lenght,
                                             int max_lenght, int count, ScaleType type = Log);
 
     virtual ~Wavelet() {}
 
-    inline void base_function(IWaveletFunction::shared_ptr function) { base_function_ = function; }
-    inline IWaveletFunction::shared_ptr base_function() { return base_function_; }
+    inline void base_function(IWavelet::shared_ptr function) { base_function_ = function; }
 
     inline int  count()                    { return count_; }
     inline void count(int count)           { count_ = count; }
@@ -57,7 +53,7 @@ protected:
     void createScale(ScaleType type);
 
 private:
-    IWaveletFunction::shared_ptr base_function_;
+    IWavelet::shared_ptr base_function_;
     int count_;
     int max_lenght_;
     int min_lenght_;

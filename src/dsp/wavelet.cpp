@@ -17,7 +17,7 @@ Wavelet::Wavelet()
 {
 }
 
-Wavelet::shared_ptr Wavelet::BuildWavelet(IWaveletFunction::shared_ptr wavelet_function, int min_lenght,
+Wavelet::shared_ptr Wavelet::BuildWavelet(IWavelet::shared_ptr wavelet_function, int min_lenght,
                                           int max_lenght, int count, ScaleType type)
 {
     Wavelet::shared_ptr wavelet(new Wavelet);
@@ -37,7 +37,7 @@ Wavelet::shared_ptr Wavelet::BuildWavelet(IWaveletFunction::shared_ptr wavelet_f
 
 void Wavelet::createWavelet(ScaleType type)
 {
-    if(!base_function())
+    if(!base_function_)
     {
         std::cerr << "The base function has been never set for the wavelet\n";
         throw "The base function has been never set for the wavelet\n";
@@ -69,8 +69,9 @@ void Wavelet::createWavelet(ScaleType type)
             double x = (j - (max_lenght() / 2.0)) * scale_[i];
             x = (x * 4) / (max_lenght() / 2);
 
-            real_part_[i][j] = base_function_->real(x, j);
-            imaj_part_[i][j] = base_function_->imag(x, j);
+            std::complex<double> base_function_value = base_function_->GetValue(x);
+            real_part_[i][j] = base_function_value.real();
+            imaj_part_[i][j] = base_function_value.imag();
         }
     }
 }
