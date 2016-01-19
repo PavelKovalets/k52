@@ -1,6 +1,7 @@
 #ifndef BOUNDEDNELDERMEAD_H_
 #define BOUNDEDNELDERMEAD_H_
 
+#include <list>
 #include <boost/shared_ptr.hpp>
 
 #include <k52/common/disallow_copy_and_assign.h>
@@ -42,6 +43,13 @@ protected:
 
     double CountSingleObjectiveFunctionValue(const std::vector<double>& parameters);
 
+    bool GetTerminationCriteria(
+            size_t itreation_index,
+            const std::vector<double>& function_values,
+            const std::vector< std::vector<double> >& polygon);
+
+    bool WasSamePolygonBefore(const std::vector< std::vector<double> >& polygon);
+
     static void GetIndexes(const std::vector<double>& values, size_t* first_max_index, size_t* secound_max_index, size_t* min_index);
     static std::vector< std::vector<double> > GetRegularSimplex(const std::vector<double>& base_point, double l);
     static std::vector<double> Reflexion(const std::vector<double>& center_of_mass, const std::vector<double>& target_point);
@@ -49,6 +57,9 @@ protected:
     static std::vector<double> Contraction(const std::vector<double>& center_of_mass, const std::vector<double>& target_point);
     static void Reduction(std::vector< std::vector<double> >* polygon, size_t point_index);
     static double CountDifferance(const std::vector<double>& values);
+    static double CountPolygonDifferance(
+            const std::vector< std::vector<double> >& polygon,
+            const std::vector< std::vector<double> >& previous_polygon);
     static std::vector<double> GetCenterOfMass(const std::vector< std::vector<double> >& polygon, size_t point_index);
     static void OutputPolygon(const std::vector< std::vector<double> >& polygon);
 
@@ -57,6 +68,9 @@ private:
     double lower_bound_;
     double upper_bound_;
     double l_;
+
+    std::list< std::vector< std::vector<double> > > previous_polygons_;
+    static const int max_previous_polygons_count = 10;
 
     DISALLOW_COPY_AND_ASSIGN(BoundedNelderMead);
 };

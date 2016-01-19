@@ -14,7 +14,7 @@ int main()
 
     double l = 10;
     double precision = 1e-10;
-    size_t number_of_points = 30;
+    size_t number_of_points = 10;
 
     k52::optimization::BoundedNelderMead bounded_nelder_mead(l,
                                                              precision,

@@ -13,7 +13,10 @@
 #include <fstream>
 #include <iostream>
 
+#include  <k52/common/constants.h>
+
 using ::std::vector;
+using ::k52::common::Constants;
 
 namespace k52
 {
@@ -84,14 +87,7 @@ std::vector<double> BoundedNelderMead::FindOptimalParameters(const std::vector<d
     {
         OutputPolygon(polygon);
         r++;
-        //TODO fix terminating criteria
-        const size_t iterations_per_dimension = 1000;
-        if (r > iterations_per_dimension * initial_values.size())
-        {
-            std::cout << "WARNING: Exiting BDNM by iterations"
-                " criteria!" << std::endl;
-            break;
-        }
+
         size_t first_max_index = 0, second_max_index = 0, min_index = 0;
         //determine maximums and minimum
         GetIndexes(function_values, &first_max_index, &second_max_index, &min_index);
@@ -165,7 +161,7 @@ std::vector<double> BoundedNelderMead::FindOptimalParameters(const std::vector<d
                 }
             }
         }
-    } while (CountDifferance(function_values) > precision_);
+    } while (GetTerminationCriteria(r, function_values, polygon));
 
 
     size_t best_index = std::distance(function_values.begin(), std::max_element(function_values.begin(), function_values.end()));
@@ -208,6 +204,53 @@ double BoundedNelderMead::CountSingleObjectiveFunctionValue(
     vector< vector<double> > cover(1);
     cover[0] = parameters;
     return CountObjectiveFunctionValues(cover)[0];
+}
+
+bool BoundedNelderMead::GetTerminationCriteria(
+        size_t itreation_index,
+        const std::vector<double>& function_values,
+        const std::vector< std::vector<double> >& polygon)
+{
+    const size_t iterations_per_dimension = 1000;
+    if (itreation_index > iterations_per_dimension * polygon[0].size())
+    {
+        std::cout << "WARNING: Exiting BDNM by iterations"
+                " criteria!" << std::endl;
+        return false;
+    }
+
+    if (WasSamePolygonBefore(polygon))
+    {
+        std::cout << "WARNING: Exiting BDNM because of a polygon loop,"
+                " you migth have a special function behaviour." << std::endl;
+        return false;
+    }
+
+    return CountDifferance(function_values) > precision_;
+}
+
+bool BoundedNelderMead::WasSamePolygonBefore(const std::vector< std::vector<double> >& polygon)
+{
+    bool was_same_before = false;
+
+    for (std::list< std::vector< std::vector<double> > >::const_iterator it = previous_polygons_.begin();
+         it != previous_polygons_.end();
+         ++it)
+    {
+        if (CountPolygonDifferance(polygon, *it) < Constants::Eps)
+        {
+            was_same_before = true;
+            break;
+        }
+    }
+
+    if (previous_polygons_.size() >= max_previous_polygons_count)
+    {
+        previous_polygons_.pop_front();
+    }
+    previous_polygons_.push_back(polygon);
+
+    return was_same_before;
 }
 
 void BoundedNelderMead::GetIndexes(const vector<double>& values, size_t* first_max_index, size_t* secound_max_index, size_t* min_index)
@@ -361,6 +404,21 @@ double BoundedNelderMead::CountDifferance(const vector<double>& values)
         square_summ += diff*diff;
     }
     return sqrt( square_summ / values.size());
+}
+
+double BoundedNelderMead::CountPolygonDifferance(
+        const std::vector< std::vector<double> >& polygon,
+        const std::vector< std::vector<double> >& previous_polygon)
+{
+    double summ = 0;
+    for(size_t i = 0; i < polygon.size(); i++)
+    {
+        for(size_t j = 0; j < polygon[i].size(); j++)
+        {
+            summ += std::abs(polygon[i][j] - previous_polygon[i][j]);
+        }
+    }
+    return summ;
 }
 
 vector<double> BoundedNelderMead::GetCenterOfMass(const vector< vector<double> >& polygon, size_t point_index)
