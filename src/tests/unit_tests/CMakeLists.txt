@@ -8,6 +8,7 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
         dsp/akima_spline.test.cpp
         dsp/circular_convolution.test.cpp
         dsp/fourier_transform.test.cpp
+        dsp/fourier_functional.test.cpp
         dsp/inverse_fourier_transform.test.cpp
         dsp/scale.test.cpp
         runner.cpp

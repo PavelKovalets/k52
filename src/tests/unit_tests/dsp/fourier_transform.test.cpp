@@ -215,7 +215,6 @@ BOOST_AUTO_TEST_CASE(multithread_test)
     threads.join_all();
 }
 
-
 BOOST_AUTO_TEST_SUITE_END();
 
 BOOST_AUTO_TEST_SUITE_END();
