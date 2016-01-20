@@ -65,7 +65,7 @@ void Worker<TTask>::ProcessTasksQueue(ThreadSafeQueue<TTask>* tasks_to_do, Threa
         }
         catch(boost::thread_interrupted&)
         {
-            std::cout << "Incorrect finish" << std::endl;
+            std::cout << "Correct worker finish." << std::endl;
             break;
         }
         catch(const std::exception& ex)
@@ -79,7 +79,7 @@ void Worker<TTask>::ProcessTasksQueue(ThreadSafeQueue<TTask>* tasks_to_do, Threa
         }
         catch(boost::thread_interrupted&)
         {
-            std::cout<<"Correct finish."<<std::endl;
+            std::cout<<"Correct worker finish."<<std::endl;
             break;
         }
     }
