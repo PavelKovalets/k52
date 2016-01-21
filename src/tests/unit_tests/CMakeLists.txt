@@ -8,6 +8,7 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
         dsp/akima_spline.test.cpp
         dsp/circular_convolution.test.cpp
         dsp/fourier_transform.test.cpp
+        dsp/fourier_functional.test.cpp
         dsp/inverse_fourier_transform.test.cpp
         dsp/scale.test.cpp
         runner.cpp
@@ -25,6 +26,9 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
         k52_dsp
         ${FFTW3_LIBRARIES}
         k52_common
+        k52_parallel
+        ${K52_MPI_LIBRARIES}
+        ${K52_BOOST_LIBRARIES}
     )
 
     add_test(NAME "Unit_Tests" COMMAND ${PROJECT_NAME})
