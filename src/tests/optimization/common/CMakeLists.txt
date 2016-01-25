@@ -8,11 +8,13 @@ set(K52_OPTIMIZATION_TEST_COMMON_HEADERS
     optimizer_tester.h
     test_objective_functions.h
     test_function.h
+    test_functions_provider.h
     )
 
 set(K52_OPTIMIZATION_TEST_COMMON_SOURCE
     optimizer_tester.cpp
     test_function.cpp
+    test_functions_provider.cpp
     )
 
 include_directories(${k52_SOURCE_DIR}/include ${K52_BOOST_INCLUDE_DIRS})

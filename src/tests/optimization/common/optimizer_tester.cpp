@@ -1,4 +1,5 @@
 #include "optimizer_tester.h"
+#include "test_functions_provider.h"
 
 #include <iostream>
 
@@ -12,16 +13,14 @@ namespace k52
 namespace optimization_tests
 {
 
-OptimizerTester::OptimizerTester()
-{
-    test_functions_ = TestFunction::get_test_functions();
-}
-
 void OptimizerTester::Test(ContinuousOptimizer* optimizer)
 {
-    for (size_t i = 0; i<test_functions_.size(); i++)
+    TestFunctionsProvider provider;
+    std::vector<TestFunction::shared_ptr> test_functions = provider.get_test_functions();
+
+    for (size_t i = 0; i<test_functions.size(); i++)
     {
-        TestSingleFunction( *(test_functions_[i]), optimizer );
+        TestSingleFunction( *(test_functions[i]), optimizer );
     }
 }
 

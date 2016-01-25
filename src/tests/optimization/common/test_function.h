@@ -19,26 +19,19 @@ class TestFunction
 public:
     typedef boost::shared_ptr<TestFunction> shared_ptr;
 
-    const optimization::ContinuousObjectiveFunction& get_objective_function() const;
-    const optimization::IContinuousParameters* get_solution() const;
-    const optimization::IContinuousParameters* get_start_point() const;
-    std::string get_analitical_form() const;
-    bool maximize() const;
-
-    static void Register(optimization::ContinuousObjectiveFunction::shared_ptr function,
-                         optimization::IContinuousParameters::shared_ptr solution,
-                         optimization::IContinuousParameters::shared_ptr start_point,
-                         std::string analitical_form,
-                         bool maximize);
-    static std::vector<TestFunction::shared_ptr> get_test_functions();
-
-private:
     TestFunction(optimization::ContinuousObjectiveFunction::shared_ptr function,
                  optimization::IContinuousParameters::shared_ptr solution,
                  optimization::IContinuousParameters::shared_ptr start_point,
                  std::string analitical_form,
                  bool maximize);
 
+    const optimization::ContinuousObjectiveFunction& get_objective_function() const;
+    const optimization::IContinuousParameters* get_solution() const;
+    const optimization::IContinuousParameters* get_start_point() const;
+    std::string get_analitical_form() const;
+    bool maximize() const;
+
+private:
     optimization::ContinuousObjectiveFunction::shared_ptr function_;
     optimization::IContinuousParameters::shared_ptr solution_;
     optimization::IContinuousParameters::shared_ptr start_point_;
