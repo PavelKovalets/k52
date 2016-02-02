@@ -214,7 +214,7 @@ double ConjugateGradientMethod::CalculateWeightingCoefficient(
         previous_gradient_square += pow(previous_gradient[i], 2);
     }
 
-    //TODO usew float compare
+    //TODO use float compare
     if(previous_gradient_square == 0)
     {
         throw std::runtime_error("previous_gradient_square == 0");

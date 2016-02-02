@@ -4,10 +4,10 @@
 
 namespace 
 {
-/// всякая полезная математика
-double m1k(int k);                              // четность
-int fact(int n);                                // факториал
-double xplus(double x, int n);                  // стремная хрень
+/// useful maths
+double m1k(int k);                              // parity
+int fact(int n);                                // factorial
+double xplus(double x, int n);                  // dangerous shit
 }
 
 namespace k52

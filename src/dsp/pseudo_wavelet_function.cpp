@@ -3,7 +3,7 @@
 
 namespace 
 {
-double HammingModWindow(double i, double len);  // окно Хэмминга
+double HammingModWindow(double i, double len);  // Hamming window
 }
 
 namespace k52
