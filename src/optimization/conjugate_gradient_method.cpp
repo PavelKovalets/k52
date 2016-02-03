@@ -202,7 +202,7 @@ double ConjugateGradientMethod::CalculateWeightingCoefficient(
     const vector<double>& gradient,
     const vector<double>& previous_gradient)
 {
-    //Fletcher?Reeves coefficient
+    //Fletcher-Reeves coefficient
     double gradient_square=0;
     double previous_gradient_square=0;
 
