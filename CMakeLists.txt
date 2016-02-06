@@ -6,6 +6,7 @@ set(k52_VERSION "0.0.0")
 
 set(CMAKE_INSTALL_PREFIX ${k52_SOURCE_DIR}/install)
 set(k52_LIB_DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+set(k52_LIBS "")
 
 enable_testing()
 set(K52_MESSAGE_PREFIX "->-> K52 MESSAGE <-<- :")
@@ -53,4 +54,4 @@ set(k52_INCLUDE_DIRS "include")
 configure_file(k52-config.cmake.in "${PROJECT_BINARY_DIR}/k52-config.cmake" @ONLY)
 install(FILES "${PROJECT_BINARY_DIR}/k52-config.cmake" DESTINATION ${CMAKE_INSTALL_PREFIX})
 
-install(DIRECTORY ${k52_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include FILES_MATCHING PATTERN "*.h")
+install(DIRECTORY ${k52_SOURCE_DIR}/include/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
