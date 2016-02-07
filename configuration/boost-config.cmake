@@ -1,4 +1,4 @@
-# This cmake script detects available boost libraries
+﻿# This cmake script detects available boost libraries
 # and check mandatory boost header files
 #
 # If both boost_thread and related boost_system are found
@@ -66,9 +66,6 @@ find_package(Boost COMPONENTS unit_test_framework)
 if(NOT Boost_UNIT_TEST_FRAMEWORK_FOUND)
   message(WARNING  "${K52_MESSAGE_PREFIX} Unit testing will be disabled because boost component [unit test framework] has not been found : ${Boost_ERROR_REASON}. ${K52_MESSAGE_POSTFIX}")
 endif(NOT Boost_UNIT_TEST_FRAMEWORK_FOUND)
-
-#Do not include unit test lib into install configuration
-set(k52_LIBS ${k52_LIBS} ${K52_BOOST_LIBRARIES})
 
 if(Boost_UNIT_TEST_FRAMEWORK_FOUND)
   add_definitions(-DBUILD_WITH_BOOST_UNIT_TESTS)
