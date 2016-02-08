@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8)
 project(k52)
 
 # TODO: add versioning
@@ -6,7 +6,6 @@ set(k52_VERSION "0.0.0")
 
 set(CMAKE_INSTALL_PREFIX ${k52_SOURCE_DIR}/install)
 set(k52_LIB_DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
-set(k52_LIBS "")
 
 enable_testing()
 set(K52_MESSAGE_PREFIX "->-> K52 MESSAGE <-<- :")
@@ -48,7 +47,7 @@ foreach(k52_SUBPROJECT ${k52_SUBPROJECTS})
   set(k52_LIBS ${k52_LIBS} "\${k52_DIR}/${k52_LIBRARY_DIRS}/${TARGET_PLATFORM_SPECIFIC_FILENAME}")
 endforeach()
 
-set(k52_LIBS ${k52_LIBS} ${FFTW3_LIBRARIES} ${K52_BOOST_LIBRARIES} ${MPI_CXX_LIBRARIES})
+set(k52_LIBS ${k52_LIBS} ${FFTW3_LIBRARIES} ${K52_BOOST_LIBRARIES} ${K52_MPI_LIBRARIES})
 
 set(k52_INCLUDE_DIRS "include")
 configure_file(k52-config.cmake.in "${PROJECT_BINARY_DIR}/k52-config.cmake" @ONLY)
