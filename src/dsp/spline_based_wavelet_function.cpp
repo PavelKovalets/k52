@@ -12,7 +12,7 @@ namespace dsp
 
 std::complex<double> SplineBased::GetValue(double t)
 {
-    return std::complex<double>(real(t), imag(t));
+    return std::complex<double>(real(t));
 }
 
 void SplineBased::Init(const std::vector<double> &real, const std::vector<double> &imaj)
@@ -36,19 +36,13 @@ void SplineBased::Init(const std::vector<double> &real, const std::vector<double
     spline_->Initialize(points, values);
 }
 
-double SplineBased::real(double x, int)
+double SplineBased::real(double x)
 {
     // from -4 to +4 is effective part of wavelet, all other should be zero
     if((x >= -4) && (x <= 4))
     {
         return spline_->Value(x);
     }
-    return 0;
-}
-
-double SplineBased::imag(double x, int)
-{
-    // from -4 to +4 is effective part of wavelet, all other should be zero
     return 0;
 }
 

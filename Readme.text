@@ -118,6 +118,39 @@ Now you have all files necessary to build k52 in 'build' folder.
 * Visual Studio             -       build 'RUN_TESTS' project from k52.sln and see the output.
 * make                      -       execute 'make test' from 'build' folder and see the output.
 
+## Use k52 in other project ##
+
+k52 provides CMake config-file package during the install process.
+It can be then used by other CMake project to easily use k52.
+
+To do so first you have to run install 'make install' (or build INSTALL project in VS).
+After that you'll have 'install' folder in k52 root, which contains all necessary files - config-file package.
+
+After that you just need to link this config-file package in your project and use find_package(k52 CONFIG).
+Example CMake project file that uses such config-file package is following:
+
+```
+#!CMake
+cmake_minimum_required(VERSION 3.0)
+set(PROJECT_NAME "test_project")
+project(${PROJECT_NAME})
+
+set(CMAKE_PREFIX_PATH "e:/install/")
+
+set(BOOST_ROOT "E:/Workspace/external_libs/boost_1_59_0")
+find_package(Boost REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
+find_package(k52 CONFIG REQUIRED)
+
+include_directories(${k52_INCLUDE_DIRS})
+link_directories(${k52_LIBRARY_DIRS})
+
+add_executable(${PROJECT_NAME} main.cpp)
+message(WARNING ${k52_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${k52_LIBRARIES})
+```
+
 # Using Vagrant box #
 
 * Install some virtualization provider (e.g. VirtualBox)

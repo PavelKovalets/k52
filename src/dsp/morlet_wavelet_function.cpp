@@ -1,6 +1,10 @@
 #include <k52/dsp/morlet_wavelet_function.h>
 #include <cmath>
 
+#include <k52/common/constants.h>
+
+using ::k52::common::Constants;
+
 namespace k52
 {
 namespace dsp
@@ -8,18 +12,8 @@ namespace dsp
 
 std::complex<double> MorletWaveletFunction::GetValue(double t)
 {
-    return std::complex<double>(real(t), imag(t));
-}
-
-/// Morlet implementation
-double MorletWaveletFunction::real(double x, int)
-{
-    return (std::exp(-x * x/2.) * std::cos(5. * x));
-}
-
-double MorletWaveletFunction::imag(double x, int)
-{
-    return (std::exp(-x * x/2.) * std::sin(5. * x));
+    //TODO
+    return std::exp(-t * t/2.) * std::exp(  5* t * Constants::ImaginaryUnit);
 }
 
 } // namespace dsp

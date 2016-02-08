@@ -17,19 +17,15 @@ MhatWaveletFunction::MhatWaveletFunction() : k_(2./std::sqrt(3. * kDefaultSigma)
 
 std::complex<double> MhatWaveletFunction::GetValue(double t)
 {
-    return std::complex<double>(real(t), imag(t));
+    return std::complex<double>(real(t));
 }
 
-double MhatWaveletFunction::real(double value, int)
+double MhatWaveletFunction::real(double value)
 {
     double k = value / kDefaultSigma;
     return k_ * (1. - std::pow(k, 2.)) * std::exp(-0.5 * std::pow(k, 2.));
 }
 
-double MhatWaveletFunction::imag(double value, int)
-{
-    return 0;
-}
 
 } // namespace dsp
 } // namespace k52

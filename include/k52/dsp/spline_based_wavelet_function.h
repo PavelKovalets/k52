@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <vector>
 
-#include <k52/dsp/iwavelet_function.h>
+#include <boost/shared_ptr.hpp>
 #include <k52/dsp/transform/wavelet/i_wavelet.h>
 #include "spline.h"
 
@@ -17,7 +17,7 @@ namespace dsp
 /**
   @todo: comment it
 */
-class SplineBased : public IWaveletFunction, public IWavelet
+class SplineBased : public IWavelet
 {
 public:
     typedef boost::shared_ptr<SplineBased> shared_ptr;
@@ -26,8 +26,7 @@ public:
 
     virtual std::complex<double> GetValue(double t);
 
-    virtual double real(double x, int index = 0);
-    virtual double imag(double x, int index = 0);
+    virtual double real(double x);
 
 protected:
     SplineBased() {}
