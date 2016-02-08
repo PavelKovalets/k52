@@ -7,12 +7,10 @@ set(DSP_COMMON_INCLUDE ${k52_SOURCE_DIR}/include/k52/dsp)
 set(DSP_HEADERS
     ${DSP_COMMON_INCLUDE}/akima_spline.h
     ${DSP_COMMON_INCLUDE}/akima_wavelet_function.h
-    ${DSP_COMMON_INCLUDE}/bspline_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/cwt.h
     ${DSP_COMMON_INCLUDE}/mhat_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/haar_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/morlet_wavelet_function.h
-    ${DSP_COMMON_INCLUDE}/pseudo_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/spline.h
     ${DSP_COMMON_INCLUDE}/spline_based_wavelet_function.h
     ${DSP_COMMON_INCLUDE}/wavelet.h
@@ -35,12 +33,10 @@ set(DSP_HEADERS
 set(DSP_SOURCE
     akima_spline.cpp
     akima_wavelet_function.cpp
-    bspline_wavelet_function.cpp
     cwt.cpp
     mhat_wavelet_function.cpp
     haar_wavelet_function.cpp
     morlet_wavelet_function.cpp
-    pseudo_wavelet_function.cpp
     spline_based_wavelet_function.cpp
     wavelet.cpp
     transform/fast_fourier_transform.cpp
@@ -75,4 +71,4 @@ if(K52_LIBS_TYPE_DYNAMIC)
     )
 endif()
 
-install_targets(${k52_LIB_DESTINATION} ${k52_DSP_LIB})
+install(TARGETS ${k52_DSP_LIB} DESTINATION ${k52_LIB_DESTINATION})

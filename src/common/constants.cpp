@@ -10,7 +10,7 @@ namespace common
 {
 const double Constants::Eps = 1e-10;
 const double Constants::Pi = 2 * asin(1);
-const std::complex< double > Constants::ImaginaryUnit = sqrt((std::complex< double >)-1);
+const std::complex< double > Constants::ImaginaryUnit = std::complex<double> (0, 1);
 
 }/* namespace common */
 }/* namespace k52 */

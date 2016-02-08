@@ -3,7 +3,6 @@
 
 #include <boost/shared_ptr.hpp>
 #include <k52/dsp/transform/wavelet/i_wavelet.h>
-#include <k52/dsp/iwavelet_function.h>
 
 namespace k52
 {
@@ -15,15 +14,15 @@ namespace dsp
     http://en.wikipedia.org/wiki/Haar_wavelet
 */
 
-class HaarWaveletFunction : public IWaveletFunction, public IWavelet
+class HaarWaveletFunction : public IWavelet
 {
 public:
     typedef boost::shared_ptr<HaarWaveletFunction> shared_ptr;
 
     virtual std::complex<double> GetValue(double t);
 
-    virtual double real(double x, int index = 0);
-    virtual double imag(double x, int index = 0);
+    virtual double real(double x);
+    virtual double imag(double x);
 };
 
 } // namespace dsp

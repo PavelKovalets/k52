@@ -6,6 +6,6 @@ set( k52_VERSION      @k52_VERSION@ )
 
 # k52_DIR is autodefined by cmake variable that contains path to this config file
 # so all other paths are made relative to it to make it portable
-set(k52_INCLUDE_DIRS  ${k52_DIR}/@k52_INCLUDE_DIRS@ )
-set(k52_LIBRARY_DIRS  ${k52_DIR}/@k52_LIBRARY_DIRS@ )
-set(k52_LIBRARY       @k52_LIBS@ )
+set( k52_INCLUDE_DIRS ${k52_DIR}/@k52_INCLUDE_DIRS@ )
+set( k52_LIBRARY_DIRS ${k52_DIR}/@k52_LIBRARY_DIRS@ )
+set( k52_LIBRARIES    @k52_LIBS@ )
