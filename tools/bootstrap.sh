@@ -9,6 +9,7 @@ echo "End modifying Ubuntu repos"
 
 #Install necessary packages
 apt-get update -y
+apt-get install -y enca
 apt-get install -y openmpi-bin
 apt-get install -y libboost-all-dev
 apt-get install -y fftw3-dev
