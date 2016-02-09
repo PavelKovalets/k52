@@ -4,7 +4,7 @@ project(k52)
 # TODO: add versioning
 set(k52_VERSION "0.0.0")
 
-set(CMAKE_INSTALL_PREFIX ${k52_SOURCE_DIR}/install)
+set(CMAKE_INSTALL_PREFIX ${k52_SOURCE_DIR}/../install)
 set(k52_LIB_DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
 enable_testing()
@@ -32,9 +32,8 @@ add_subdirectory(src/optimization)
 # sound signal dsp library
 add_subdirectory(src/dsp)
 
-## Test applications
-# optimization algorithms library tests
-add_subdirectory(src/tests)
+## Unit tests
+add_subdirectory(src/unit_tests)
 
 ## Create config-file package on install
 # Generate configuration file for all subprojects

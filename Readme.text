@@ -135,13 +135,11 @@ cmake_minimum_required(VERSION 3.0)
 set(PROJECT_NAME "test_project")
 project(${PROJECT_NAME})
 
-set(CMAKE_PREFIX_PATH "e:/install/")
-
 set(BOOST_ROOT "E:/Workspace/external_libs/boost_1_59_0")
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-find_package(k52 CONFIG REQUIRED)
+find_package(k52 CONFIG REQUIRED HINTS "[your k52 install path here]")
 
 include_directories(${k52_INCLUDE_DIRS})
 link_directories(${k52_LIBRARY_DIRS})

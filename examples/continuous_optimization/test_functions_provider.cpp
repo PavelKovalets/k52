@@ -2,6 +2,7 @@
 
 #include "test_objective_functions.h"
 
+#include <cmath>
 #include <k52/optimization/params/continuous_parameters_array.h>
 
 using ::k52::optimization::ContinuousObjectiveFunction;

@@ -9,7 +9,6 @@
 #include <k52/parallel/mpi/identifyable_objects_manager.h>
 #endif
 
-#include <k52/common/settings_manager.h>
 #include <k52/optimization/genetic_algorithm.h>
 #include <k52/optimization/flip_bit_mutator.h>
 #include <k52/optimization/params/double_parameters_array.h>
