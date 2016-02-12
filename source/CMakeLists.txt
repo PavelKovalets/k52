@@ -46,6 +46,16 @@ endforeach()
 
 set(k52_LIBS ${k52_LIBS} ${FFTW3_LIBRARIES} ${K52_BOOST_LIBRARIES} ${K52_MPI_LIBRARIES})
 
+#TODO this is a temporary fix, remove it when ifdefs will be removed from headers
+if(MPI_CXX_FOUND AND Boost_MPI_FOUND AND Boost_SERIALIZATION_FOUND)
+  set(k52_DEFINES  "${k52_DEFINES} \nadd_definitions(-DBUILD_WITH_MPI)  ")
+endif()
+
+if(Boost_THREAD_FOUND AND Boost_SYSTEM_FOUND AND Boost_DATE_TIME_FOUND)
+  set(k52_DEFINES  "${k52_DEFINES} \nadd_definitions(-DBUILD_WITH_BOOST_THREAD)  ")
+endif()
+#End TODO
+
 set(k52_INCLUDE_DIRS "include")
 configure_file(k52-config.cmake.in "${PROJECT_BINARY_DIR}/k52-config.cmake" @ONLY)
 install(FILES "${PROJECT_BINARY_DIR}/k52-config.cmake" DESTINATION ${CMAKE_INSTALL_PREFIX})
