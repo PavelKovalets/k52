@@ -29,27 +29,40 @@ It also provides the implementation of some optimization,
 
 ## Folders ##
 
-* |--- cmake                  -       CMake external modules are loaded from this folder
-* |--- configuration          -       contains CMake-specific configuration files,
-* |                                   should not be edited unless required
-* |--- include                -       contains all k52 public headers
-* +--- src                    -       contains all k52 private headers and source files
-*       |--- common           -       lib source files
-*       |--- dsp              -       lib source files
-*       |--- optimization     -       lib source files
-*       |--- parallel         -       lib source files
-*       +--- tests            -       unit tests and regular tests (examples)
+* examples                      -       contains example projects of how k52 might be used
+* install                       -       will be created on k52 install and contain all files
+                                        necessary to use k52 in another project
+* source                        -       k52 source code folder  
+*   |--- cmake                  -       CMake external modules are loaded from this folder
+*   |--- configuration          -       contains CMake-specific configuration files,
+*   |                                   should not be edited unless required
+*   |--- include                -       contains all k52 public headers
+*   +--- src                    -       contains all k52 private headers and source files
+*         |--- common           -       lib source files
+*         |--- dsp              -       lib source files
+*         |--- optimization     -       lib source files
+*         |--- parallel         -       lib source files
+*         +--- unit_tests       -       unit tests for k52 libs
+* tools                         -       set of useful scripts for k52 usage
 
 ## Files ##
 
-* bootstrap.sh                -       linux shell script to setup all necessary environment
-                                    to build k52, used in Vagrant box, but also could be
-                                    used on any other system
-* CMakeLists.txt              -       root CMake file for k52 project
-* k52.config                  -       main configuration file for CMake system, normally
-                                    should be edited to contain all the settings
-                                    corresponding to the machine k52 is build on
-* k52-config.cmake.in         -       template file for CMake fing_package support
+* source/k52.config                   -       main configuration file for CMake system, normally
+                                              should be edited by the end user to contain all the settings
+                                              corresponding to the machine k52 is build on (like FFTW3_ROOT)
+* source/k52-config.cmake.in          -       template file for CMake fing_package support
+
+
+* tools/bootstrap.sh                  -       linux shell script to setup all necessary environment
+                                              to build k52, used in Vagrant box, but also could be
+                                              used on any other system
+* tools/build_k52_run_examples.sh     -       linux shell script to demonstrate the process of k52 build and usage;
+                                              builds k52 to corresponding 'tools_build' folders, installs it into 'install' folder,
+                                              builds k52 examples to corresponding 'tools_build' folders and runs examples;
+                                              can be used on Vagrant
+* tools/encoding.sh                   -       linux shell script to check if all k52 source files have ASCII 7 bit encoding (only Latin symbols);
+                                              outputs the name of files with different encoding, no output if encoding is ok
+
 * Readme.txt                  -       &(*this)
 * Vagrantfile                 -       file with Vagrant settings (see below how to use)
 * .gitattributes              -       git settings, applied to the repository
@@ -70,12 +83,10 @@ Following IDE might be helpful:
 
 # To start using k52 #
 
-You need to
-
 ## Get the stuff ##
 
 * clone this repository locally with 'git clone [repo url]'
-* go to its folder and familiarise yourself 'cd k52', 'ls'
+* go to its source code folder and familiarise yourself 'cd k52/source', 'ls'
 * edit 'k52.config' according to your system and libs k52 depend on. 
 
 ## Libs k52 depend on ##
@@ -99,9 +110,9 @@ and possibly do some preparation steps (see lib's website for details):
 
 ## Build using CMake ##
 
-In case of CMake - aware IDE's you just need to open CMake file from root k52 folder and build it.
+In case of CMake - aware IDE's you just need to open CMake file from k52 source code folder and build it.
 
-Else, from k52 root dir execute following commands using cmd:
+Else, from k52 source code folder (k52/source in our example) execute following commands using cmd:
 
 * 'mkdir build'             -       create build folder
 * 'cd build'                -       go into it
@@ -124,7 +135,8 @@ k52 provides CMake config-file package during the install process.
 It can be then used by other CMake project to easily use k52.
 
 To do so first you have to run install 'make install' (or build INSTALL project in VS).
-After that you'll have 'install' folder in k52 root, which contains all necessary files - config-file package.
+After that you'll have 'install' folder in k52 root folder,
+ which contains all necessary files - config-file package, libs, headers.
 
 After that you just need to link this config-file package in your project and use find_package(k52 CONFIG).
 Example CMake project file that uses such config-file package is following:
@@ -135,7 +147,7 @@ cmake_minimum_required(VERSION 3.0)
 set(PROJECT_NAME "test_project")
 project(${PROJECT_NAME})
 
-set(BOOST_ROOT "E:/Workspace/external_libs/boost_1_59_0")
+set(BOOST_ROOT "[your Boost root path here]")
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
@@ -145,9 +157,12 @@ include_directories(${k52_INCLUDE_DIRS})
 link_directories(${k52_LIBRARY_DIRS})
 
 add_executable(${PROJECT_NAME} main.cpp)
-message(WARNING ${k52_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${k52_LIBRARIES})
 ```
+
+**Hint** You can take a look at the 'tools/build_k52_run_examples.sh' script and try to run its commands
+ one by one to get the complete picture of how to use k52.
+ Or you can check to the 'examples' folder which contains working examples of k52 usage.
 
 # Using Vagrant box #
 
@@ -159,6 +174,10 @@ target_link_libraries(${PROJECT_NAME} ${k52_LIBRARIES})
 * Do what you need, e.g. build using CMake and run tests
 
 # Known issues #
+
+* If any script from 'tools' folder fails to run on Vagrant
+ and you are using Windows host, try to temporary change 
+ script file's EOL format to Linux (Vagrant use files directly).
 
 * For Visual Studio there might be problems with libs 
 (e.g. "cannot open file 'libboost_date_time-vc120-mt-gd-1_55.lib'").
