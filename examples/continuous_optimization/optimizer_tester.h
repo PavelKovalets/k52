@@ -15,8 +15,6 @@ namespace optimization_tests
 class OptimizerTester
 {
 public:
-    OptimizerTester();
-
     void Test(k52::optimization::ContinuousOptimizer* optimizer);
 
 protected:
@@ -25,8 +23,6 @@ protected:
 
     void PrintParameters(const k52::optimization::IContinuousParameters* parameters) const;
 
-private:
-    std::vector<TestFunction::shared_ptr> test_functions_;
 };
 
 }/* namespace optimization_tests */

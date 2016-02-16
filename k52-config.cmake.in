@@ -9,3 +9,6 @@ set( k52_VERSION      @k52_VERSION@ )
 set( k52_INCLUDE_DIRS ${k52_DIR}/@k52_INCLUDE_DIRS@ )
 set( k52_LIBRARY_DIRS ${k52_DIR}/@k52_LIBRARY_DIRS@ )
 set( k52_LIBRARIES    @k52_LIBS@ )
+
+#TODO this is a temporary fix, remove it when ifdefs will be removed from headers
+@k52_DEFINES@

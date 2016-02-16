@@ -8,6 +8,8 @@
 
 #include <boost/shared_ptr.hpp>
 
+#include <k52/common/constants.h>
+
 #include <k52/optimization/continuous_objective_function.h>
 #include <k52/optimization/params/i_continuous_parameters.h>
 
@@ -103,7 +105,7 @@ public:
             double value = values[i];
             double add = 0;
 
-            if(std::abs(value) < consts::eps)
+            if(std::abs(value) < k52::common::Constants::Eps)
             {
                 add = 1;
             }
