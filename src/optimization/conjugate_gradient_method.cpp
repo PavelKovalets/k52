@@ -11,9 +11,11 @@
 #include <stdexcept>
 #include <iostream>
 
+#include <k52/common/floating_point.h>
 #include <k52/optimization/params/i_continuous_parameters.h>
 
 using ::std::vector;
+using ::k52::common::FloatingPoint;
 
 namespace k52
 {
@@ -214,8 +216,7 @@ double ConjugateGradientMethod::CalculateWeightingCoefficient(
         previous_gradient_square += pow(previous_gradient[i], 2);
     }
 
-    //TODO use float compare
-    if(previous_gradient_square == 0)
+    if(FloatingPoint::IsZero(previous_gradient_square))
     {
         throw std::runtime_error("previous_gradient_square == 0");
     }

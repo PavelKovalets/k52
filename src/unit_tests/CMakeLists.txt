@@ -3,6 +3,7 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
     project(${PROJECT_NAME})
     
     set(k52_UNIT_TESTS_SOURCE
+        common/floating_point.test.cpp
         common/helpers.test.cpp
         common/settings_manager.test.cpp
         dsp/akima_spline.test.cpp

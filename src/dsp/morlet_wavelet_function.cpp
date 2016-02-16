@@ -12,8 +12,7 @@ namespace dsp
 
 std::complex<double> MorletWaveletFunction::GetValue(double t)
 {
-    //TODO
-    return std::exp(-t * t/2.) * std::exp(  5* t * Constants::ImaginaryUnit);
+    return std::exp(5 * t * Constants::ImaginaryUnit - t * t/2.);
 }
 
 } // namespace dsp

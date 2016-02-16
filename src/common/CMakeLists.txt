@@ -5,6 +5,7 @@ set(COMMON_INCLUDE ${k52_SOURCE_DIR}/include/k52/common)
 
 set(COMMON_HEADERS
     ${COMMON_INCLUDE}/disallow_copy_and_assign.h
+    ${COMMON_INCLUDE}/floating_point.h
     ${COMMON_INCLUDE}/i_cloneable.h
     ${COMMON_INCLUDE}/random.h
     ${COMMON_INCLUDE}/settings_manager.h
@@ -13,6 +14,7 @@ set(COMMON_HEADERS
 )
 
 set(COMMON_SOURCE
+    floating_point.cpp
     random.cpp
     constants.cpp
     helpers.cpp
