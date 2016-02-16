@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #Build and install k52
-cd ../source
+cd ..
 mkdir tools_build
 cd tools_build
 cmake ..
@@ -10,7 +10,7 @@ make test
 make install
 
 #Build examples
-cd ../../examples
+cd ../examples
 mkdir tools_build
 cd tools_build
 cmake ..

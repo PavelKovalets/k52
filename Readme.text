@@ -29,28 +29,27 @@ It also provides the implementation of some optimization,
 
 ## Folders ##
 
+* cmake                         -       CMake external modules are loaded from this folder
+* configuration                 -       contains CMake-specific configuration files,
+*                                       should not be edited unless required
 * examples                      -       contains example projects of how k52 might be used
+* include                       -       contains all k52 public headers
 * install                       -       will be created on k52 install and contain all files
                                         necessary to use k52 in another project
-* source                        -       k52 source code folder  
-*   |--- cmake                  -       CMake external modules are loaded from this folder
-*   |--- configuration          -       contains CMake-specific configuration files,
-*   |                                   should not be edited unless required
-*   |--- include                -       contains all k52 public headers
-*   +--- src                    -       contains all k52 private headers and source files
-*         |--- common           -       lib source files
-*         |--- dsp              -       lib source files
-*         |--- optimization     -       lib source files
-*         |--- parallel         -       lib source files
-*         +--- unit_tests       -       unit tests for k52 libs
+* src                           -       contains all k52 private headers and source files
+*  |--- common                  -       lib source files
+*  |--- dsp                     -       lib source files
+*  |--- optimization            -       lib source files
+*  |--- parallel                -       lib source files
+*  +--- unit_tests              -       unit tests for k52 libs
 * tools                         -       set of useful scripts for k52 usage
 
 ## Files ##
 
-* source/k52.config                   -       main configuration file for CMake system, normally
+* k52.config                          -       main configuration file for CMake system, normally
                                               should be edited by the end user to contain all the settings
                                               corresponding to the machine k52 is build on (like FFTW3_ROOT)
-* source/k52-config.cmake.in          -       template file for CMake fing_package support
+* k52-config.cmake.in                 -       template file for CMake fing_package support
 
 
 * tools/bootstrap.sh                  -       linux shell script to setup all necessary environment
@@ -86,7 +85,7 @@ Following IDE might be helpful:
 ## Get the stuff ##
 
 * clone this repository locally with 'git clone [repo url]'
-* go to its source code folder and familiarise yourself 'cd k52/source', 'ls'
+* go to its root folder and familiarise yourself 'cd k52', 'ls'
 * edit 'k52.config' according to your system and libs k52 depend on. 
 
 ## Libs k52 depend on ##
@@ -110,9 +109,9 @@ and possibly do some preparation steps (see lib's website for details):
 
 ## Build using CMake ##
 
-In case of CMake - aware IDE's you just need to open CMake file from k52 source code folder and build it.
+In case of CMake - aware IDE's you just need to open CMake file from k52 root folder and build it.
 
-Else, from k52 source code folder (k52/source in our example) execute following commands using cmd:
+Else, from k52 root folder execute following commands using cmd:
 
 * 'mkdir build'             -       create build folder
 * 'cd build'                -       go into it
