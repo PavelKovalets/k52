@@ -4,7 +4,7 @@ project(k52)
 # TODO: add versioning
 set(k52_VERSION "0.0.0")
 
-set(CMAKE_INSTALL_PREFIX ${k52_SOURCE_DIR}/../install)
+set(CMAKE_INSTALL_PREFIX ${k52_SOURCE_DIR}/install)
 set(k52_LIB_DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
 enable_testing()
