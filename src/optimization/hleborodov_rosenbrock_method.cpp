@@ -43,6 +43,11 @@ HleborodovRosenbrockMethod* HleborodovRosenbrockMethod::Clone() const
     return new HleborodovRosenbrockMethod(precision_, max_iteration_number_, first_step_, max_step_);
 }
 
+std::string HleborodovRosenbrockMethod::get_name() const
+{
+    return "Hleborodov Rosenbrock Method";
+}
+
 #ifdef BUILD_WITH_MPI
 void HleborodovRosenbrockMethod::Send(boost::mpi::communicator* communicator, int target) const
 {

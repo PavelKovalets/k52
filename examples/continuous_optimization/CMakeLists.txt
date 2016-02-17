@@ -10,7 +10,9 @@ set(CONTINUOUS_OPTIMIZATION_HEADERS
     test_objective_functions.h
     test_function.h
     test_functions_provider.h
-    optimizers_provider.h)
+    optimizers_provider.h
+    optimizer_test_result.h
+)
 
 set(CONTINUOUS_OPTIMIZATION_SOURCE
     main.cpp
@@ -18,6 +20,7 @@ set(CONTINUOUS_OPTIMIZATION_SOURCE
     test_function.cpp
     test_functions_provider.cpp
     optimizers_provider.cpp
+    optimizer_test_result.cpp
 )
 
 set(BOOST_ROOT "")

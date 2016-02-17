@@ -13,6 +13,7 @@ class Helpers
 {
 public:
     static std::vector <std::complex< double> > Conjugate(const std::vector <std::complex< double> > &sequence);
+    static void PrintVector(const std::vector<double>& values);
 };
 
 }/* namespace common */

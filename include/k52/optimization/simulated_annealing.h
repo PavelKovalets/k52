@@ -13,6 +13,7 @@ class SimulatedAnnealing : ContinuousOptimizer
 {
 public:
     SimulatedAnnealing() {}
+    virtual std::string get_name() const;
 
 protected:
     virtual std::vector<double> FindOptimalParameters(const std::vector<double>& initial_values);

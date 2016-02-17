@@ -70,6 +70,11 @@ GridSearch* GridSearch::Clone() const
     throw std::logic_error("Cloning is not implemented for GridSearch");
 }
 
+std::string GridSearch::get_name() const
+{
+    return "Grid Search";
+}
+
 #ifdef BUILD_WITH_MPI
 void GridSearch::Send(boost::mpi::communicator* communicator, int target) const
 {

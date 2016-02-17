@@ -13,17 +13,18 @@ class TestFunctionsProvider
 public:
     TestFunctionsProvider();
 
-    std::vector<TestFunction::shared_ptr> get_test_functions();
+    std::vector<TestFunction::shared_ptr> get_test_functions() const;
 
 protected:
-    TestFunction::shared_ptr get_square();
-    TestFunction::shared_ptr get_simple_square();
-    TestFunction::shared_ptr get_difraction();
-    TestFunction::shared_ptr get_square_summ();
-    TestFunction::shared_ptr get_multiminimum();
+    TestFunction::shared_ptr get_square() const;
+    TestFunction::shared_ptr get_simple_square() const;
+    TestFunction::shared_ptr get_difraction() const;
+    TestFunction::shared_ptr get_square_summ() const;
+    TestFunction::shared_ptr get_multiminimum() const;
 
 private:
-    bool were_provided_;
+    DISALLOW_COPY_AND_ASSIGN(TestFunctionsProvider);
+
     ::k52::optimization::IContinuousParameters::shared_ptr square_solution_;
     ::k52::optimization::IContinuousParameters::shared_ptr square_start_point_;
 

@@ -36,19 +36,11 @@ TestFunctionsProvider::TestFunctionsProvider()
     difraction_start_point_values[1] = 100;
     difraction_start_point_ = IContinuousParameters::shared_ptr(
             new ContinuousParametersArray(difraction_start_point_values));
-
-    were_provided_ = false;
 }
 
 
-std::vector< TestFunction::shared_ptr > TestFunctionsProvider::get_test_functions()
+std::vector< TestFunction::shared_ptr > TestFunctionsProvider::get_test_functions() const
 {
-    if (were_provided_)
-    {
-        throw std::runtime_error("Currently test functions may be provided only once because of possible MPI issues");
-    }
-    were_provided_ = true;
-
     std::vector< TestFunction::shared_ptr > functions;
 
     functions.push_back( get_square() );
@@ -60,7 +52,7 @@ std::vector< TestFunction::shared_ptr > TestFunctionsProvider::get_test_function
     return functions;
 }
 
-TestFunction::shared_ptr TestFunctionsProvider::get_square()
+TestFunction::shared_ptr TestFunctionsProvider::get_square() const
 {
     ContinuousObjectiveFunction::shared_ptr square_objective_function(new SquareObjectiveFunction());
 
@@ -73,7 +65,7 @@ TestFunction::shared_ptr TestFunctionsProvider::get_square()
     );
 }
 
-TestFunction::shared_ptr TestFunctionsProvider::get_simple_square()
+TestFunction::shared_ptr TestFunctionsProvider::get_simple_square() const
 {
     ContinuousObjectiveFunction::shared_ptr simple_square_objective_function(new SimpleSquareObjectiveFunction());
 
@@ -86,7 +78,7 @@ TestFunction::shared_ptr TestFunctionsProvider::get_simple_square()
     );
 }
 
-TestFunction::shared_ptr TestFunctionsProvider::get_difraction()
+TestFunction::shared_ptr TestFunctionsProvider::get_difraction() const
 {
     ContinuousObjectiveFunction::shared_ptr difraction_objective_function(new DifractionObjectiveFunction());
 
@@ -99,7 +91,7 @@ TestFunction::shared_ptr TestFunctionsProvider::get_difraction()
     );
 }
 
-TestFunction::shared_ptr TestFunctionsProvider::get_square_summ()
+TestFunction::shared_ptr TestFunctionsProvider::get_square_summ() const
 {
     ContinuousObjectiveFunction::shared_ptr square_summ_objective_function(new SquareSummObjectiveFunction());
 
@@ -112,7 +104,7 @@ TestFunction::shared_ptr TestFunctionsProvider::get_square_summ()
     );
 }
 
-TestFunction::shared_ptr TestFunctionsProvider::get_multiminimum()
+TestFunction::shared_ptr TestFunctionsProvider::get_multiminimum() const
 {
     ContinuousObjectiveFunction::shared_ptr multiminimum_objective_function(new MultiminimumObjectiveFunction());
 

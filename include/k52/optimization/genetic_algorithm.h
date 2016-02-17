@@ -61,6 +61,8 @@ public:
     ///@return deep clone of an object
     virtual GeneticAlgorithm* Clone() const;
 
+    virtual std::string get_name() const;
+
 #ifdef BUILD_WITH_MPI
     virtual void Send(boost::mpi::communicator* communicator, int target) const;
 

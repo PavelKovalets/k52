@@ -164,6 +164,11 @@ GeneticAlgorithm* GeneticAlgorithm::Clone() const
     throw std::logic_error("Cloning is not implemented for GA");
 }
 
+std::string GeneticAlgorithm::get_name() const
+{
+    return "Genetic Algorithm";
+}
+
 #ifdef BUILD_WITH_MPI
 void GeneticAlgorithm::Send(boost::mpi::communicator* communicator, int target) const
 {

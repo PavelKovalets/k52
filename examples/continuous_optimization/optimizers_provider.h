@@ -11,13 +11,17 @@ namespace optimization_tests
 class OptimizersProvider
 {
 public:
-    std::vector<k52::optimization::ContinuousOptimizer::shared_ptr> get_optimizers();
+    OptimizersProvider() {}
+    std::vector<k52::optimization::ContinuousOptimizer::shared_ptr> get_optimizers() const;
 
 protected:
-    k52::optimization::ContinuousOptimizer::shared_ptr get_bounded_nelder_mead();
-    k52::optimization::ContinuousOptimizer::shared_ptr get_hleborodov_rosenbrock();
-    k52::optimization::ContinuousOptimizer::shared_ptr get_conjugate_gradient();
-    k52::optimization::ContinuousOptimizer::shared_ptr get_random_search();
+    k52::optimization::ContinuousOptimizer::shared_ptr get_bounded_nelder_mead() const;
+    k52::optimization::ContinuousOptimizer::shared_ptr get_hleborodov_rosenbrock() const;
+    k52::optimization::ContinuousOptimizer::shared_ptr get_conjugate_gradient() const;
+    k52::optimization::ContinuousOptimizer::shared_ptr get_random_search() const;
+
+private:
+    DISALLOW_COPY_AND_ASSIGN(OptimizersProvider);
 };
 
 }/* namespace optimization_tests */

@@ -19,6 +19,7 @@ TestFunction::TestFunction(ContinuousObjectiveFunction::shared_ptr function,
         analitical_form_(analitical_form),
         maximize_(maximize)
 {
+    solution_value_ = function->operator()(solution.get());
 }
 
 const ContinuousObjectiveFunction& TestFunction::get_objective_function() const
@@ -29,6 +30,11 @@ const ContinuousObjectiveFunction& TestFunction::get_objective_function() const
 const IContinuousParameters* TestFunction::get_solution() const
 {
     return solution_.get();
+}
+
+double TestFunction::get_solution_value() const
+{
+    return solution_value_;
 }
 
 const IContinuousParameters* TestFunction::get_start_point() const

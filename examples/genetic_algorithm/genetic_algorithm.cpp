@@ -116,6 +116,7 @@ int main(int argc, char* argv[])
     int elitismPairs = 25;
     double mutation = 0.000001;
     double cacheLimitInMegabytes = 1;
+    bool usePrintStatistics = false;
 
     /////////////Genetic Algrythm///////////////
     DoubleParametersArray parameters(GlobalMinValue, GlobalMaxValue, GlobalPrecision, GlobalNumberOfParameters);
@@ -135,7 +136,10 @@ int main(int argc, char* argv[])
         k52::optimization::GeneticAlgorithm::Create(populationSize, elitismPairs, numberOfIterations, mutator, cacheLimitInMegabytes, std::numeric_limits<double>::max()/*, "Population.txt"*/);
 
     //TODO FIX
-    ga->OnNextGenerationReadyConnect(&printStatistics);
+    if (usePrintStatistics)
+    {
+        ga->OnNextGenerationReadyConnect(&printStatistics);
+    }
 
     try
     {

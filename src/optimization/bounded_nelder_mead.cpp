@@ -36,6 +36,11 @@ BoundedNelderMead* BoundedNelderMead::Clone() const
     return new BoundedNelderMead(l_, precision_, lower_bound_, upper_bound_);
 }
 
+std::string BoundedNelderMead::get_name() const
+{
+    return "Bounded Nelder Mead";
+}
+
 double BoundedNelderMead::get_lower_bound() const
 {
     return lower_bound_;

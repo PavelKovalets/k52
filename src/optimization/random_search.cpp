@@ -70,6 +70,11 @@ RandomSearch* RandomSearch::Clone() const
     throw std::logic_error("Cloning is not implemented for RandomSearch");
 }
 
+std::string RandomSearch::get_name() const
+{
+    return "Random Search";
+}
+
 #ifdef BUILD_WITH_MPI
 void RandomSearch::Send(boost::mpi::communicator* communicator, int target) const
 {

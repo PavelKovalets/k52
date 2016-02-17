@@ -37,6 +37,11 @@ ConjugateGradientMethod* ConjugateGradientMethod::Clone() const
     return new ConjugateGradientMethod(precision_, increment_of_the_argument_, number_of_iterations_);
 }
 
+std::string ConjugateGradientMethod::get_name() const
+{
+    return "Conjugate Gradient Method";
+}
+
 #ifdef BUILD_WITH_MPI
 void ConjugateGradientMethod::Send(boost::mpi::communicator* communicator, int target) const
 {

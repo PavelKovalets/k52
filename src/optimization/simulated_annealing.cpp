@@ -15,5 +15,10 @@ vector<double> SimulatedAnnealing::FindOptimalParameters(const vector<double>& i
     return optimal_values;
 }
 
+std::string SimulatedAnnealing::get_name() const
+{
+    return "Simulated Annealing";
+}
+
 }/* namespace optimization */
 }/* namespace k52 */

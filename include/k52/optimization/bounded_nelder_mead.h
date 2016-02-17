@@ -23,6 +23,8 @@ public:
     ///@return deep clone of an object
     virtual BoundedNelderMead* Clone() const;
 
+    virtual std::string get_name() const;
+
     double get_lower_bound() const;
 
     double get_upper_bound() const;

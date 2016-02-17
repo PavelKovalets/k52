@@ -26,7 +26,7 @@ namespace k52
 namespace optimization_tests
 {
 
-vector< ContinuousOptimizer::shared_ptr > OptimizersProvider::get_optimizers()
+vector< ContinuousOptimizer::shared_ptr > OptimizersProvider::get_optimizers() const
 {
     vector< ContinuousOptimizer::shared_ptr > optimizers;
 
@@ -38,7 +38,7 @@ vector< ContinuousOptimizer::shared_ptr > OptimizersProvider::get_optimizers()
     return optimizers;
 }
 
-ContinuousOptimizer::shared_ptr OptimizersProvider::get_bounded_nelder_mead()
+ContinuousOptimizer::shared_ptr OptimizersProvider::get_bounded_nelder_mead() const
 {
     double l = 10;
 
@@ -49,7 +49,7 @@ ContinuousOptimizer::shared_ptr OptimizersProvider::get_bounded_nelder_mead()
     );
 }
 
-ContinuousOptimizer::shared_ptr OptimizersProvider::get_hleborodov_rosenbrock()
+ContinuousOptimizer::shared_ptr OptimizersProvider::get_hleborodov_rosenbrock() const
 {
     size_t max_iteration_number = 1000;
     double first_step = 1;
@@ -62,14 +62,14 @@ ContinuousOptimizer::shared_ptr OptimizersProvider::get_hleborodov_rosenbrock()
     );
 }
 
-ContinuousOptimizer::shared_ptr OptimizersProvider::get_conjugate_gradient()
+ContinuousOptimizer::shared_ptr OptimizersProvider::get_conjugate_gradient() const
 {
     return ConjugateGradientMethod::shared_ptr(
             new ConjugateGradientMethod()
     );
 }
 
-ContinuousOptimizer::shared_ptr OptimizersProvider::get_random_search()
+ContinuousOptimizer::shared_ptr OptimizersProvider::get_random_search() const
 {
     size_t number_of_points = 10;
 

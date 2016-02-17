@@ -38,6 +38,9 @@ public:
     ///Creates deep clone of an object with resource allocation. See ICloneable
     ///@return deep clone of an object
     virtual IOptimizer* Clone() const = 0;
+
+    ///Provides a user-friendly name of the optimiser
+    virtual std::string get_name() const = 0;
 };
 
 }/* namespace optimization */

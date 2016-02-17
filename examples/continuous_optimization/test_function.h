@@ -27,21 +27,20 @@ public:
 
     const optimization::ContinuousObjectiveFunction& get_objective_function() const;
     const optimization::IContinuousParameters* get_solution() const;
+    double get_solution_value() const;
     const optimization::IContinuousParameters* get_start_point() const;
     std::string get_analitical_form() const;
     bool maximize() const;
 
 private:
+    DISALLOW_COPY_AND_ASSIGN(TestFunction);
+
     optimization::ContinuousObjectiveFunction::shared_ptr function_;
     optimization::IContinuousParameters::shared_ptr solution_;
+    double solution_value_;
     optimization::IContinuousParameters::shared_ptr start_point_;
     std::string analitical_form_;
     bool maximize_;
-
-    static void Initialize();
-
-    static bool was_initialized_;
-    static std::vector<TestFunction::shared_ptr> test_functions_;
 };
 
 }/* namespace optimization_tests */
