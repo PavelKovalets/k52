@@ -74,9 +74,9 @@ void HleborodovRosenbrockMethod::Receive(boost::mpi::communicator* communicator,
 }
 #endif
 
-vector<double> HleborodovRosenbrockMethod::FindOptimalParameters(const vector<double>& initial_values)
+vector<double> HleborodovRosenbrockMethod::FindOptimalParameters(const vector<double>& initial_parameters)
 {
-    vector<double> arguments = initial_values;
+    vector<double> arguments = initial_parameters;
     dimension_ = arguments.size();
     vector<double> next_step_arguments(arguments);
 

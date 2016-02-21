@@ -32,7 +32,7 @@ public:
 
 protected:
     virtual std::vector<double> FindOptimalParameters(
-        const std::vector<double>& initial_values);
+        const std::vector<double>& initial_parameters);
 
     double CountCorrectedObjectiveFunctionValue(
         const std::vector<double>& parameters);

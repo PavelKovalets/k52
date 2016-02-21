@@ -65,9 +65,9 @@ void ConjugateGradientMethod::Receive(boost::mpi::communicator* communicator, in
 #endif
 
 vector<double> ConjugateGradientMethod::FindOptimalParameters(
-    const vector<double>& initial_values)
+    const vector<double>& initial_parameters)
 {
-    vector<double> parameters = initial_values;
+    vector<double> parameters = initial_parameters;
 
     vector<double> gradient = CalculateGradient(parameters);
     vector<double> previous_gradient(parameters.size());

@@ -4,6 +4,7 @@
 #include <k52/optimization/conjugate_gradient_method.h>
 #include <k52/optimization/hleborodov_rosenbrock_method.h>
 #include <k52/optimization/random_search.h>
+#include <k52/optimization/simulated_annealing.h>
 #include <k52/common/constants.h>
 
 #include "consts.h"
@@ -17,6 +18,7 @@ using ::k52::optimization::BoundedNelderMead;
 using ::k52::optimization::ConjugateGradientMethod;
 using ::k52::optimization::HleborodovRosenbrockMethod;
 using ::k52::optimization::RandomSearch;
+using ::k52::optimization::SimulatedAnnealing;
 
 using ::k52::optimization_tests::consts::global_lower_bound;
 using ::k52::optimization_tests::consts::global_upper_bound;
@@ -34,6 +36,7 @@ vector< ContinuousOptimizer::shared_ptr > OptimizersProvider::get_optimizers() c
     optimizers.push_back( get_hleborodov_rosenbrock() );
     optimizers.push_back( get_conjugate_gradient() );
     optimizers.push_back( get_random_search() );
+    optimizers.push_back( get_simulated_annealing() );
 
     return optimizers;
 }
@@ -77,6 +80,15 @@ ContinuousOptimizer::shared_ptr OptimizersProvider::get_random_search() const
             new RandomSearch(
                     number_of_points, global_lower_bound, global_upper_bound
             )
+    );
+}
+
+k52::optimization::ContinuousOptimizer::shared_ptr OptimizersProvider::get_simulated_annealing() const
+{
+    size_t max_iteration_number = 1000;
+
+    return SimulatedAnnealing::shared_ptr(
+            new SimulatedAnnealing(max_iteration_number, global_lower_bound, global_upper_bound)
     );
 }
 

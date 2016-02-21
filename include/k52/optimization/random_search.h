@@ -33,7 +33,7 @@ public:
 #endif
 
 protected:
-    virtual std::vector<double> FindOptimalParameters(const std::vector<double>& initial_values);
+    virtual std::vector<double> FindOptimalParameters(const std::vector<double>& initial_parameters);
 
 private:
     boost::shared_ptr<IParametersProcessor> parameters_processor_;

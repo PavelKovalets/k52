@@ -38,9 +38,9 @@ RandomSearch::RandomSearch(size_t number_of_random_points,
     }
 }
 
-vector<double> RandomSearch::FindOptimalParameters(const vector<double>& initial_values)
+vector<double> RandomSearch::FindOptimalParameters(const vector<double>& initial_parameters)
 {
-    size_t vector_size = initial_values.size();
+    size_t vector_size = initial_parameters.size();
 
     vector< IParameters::shared_ptr > random_parameters(number_of_random_points_);
     for(size_t i=0; i<number_of_random_points_; i++)

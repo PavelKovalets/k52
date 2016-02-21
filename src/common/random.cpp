@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <time.h>
 #include <cmath>
+#include <stdexcept>
 
 namespace k52
 {
@@ -46,6 +47,16 @@ bool Random::GetRandomBool()
 int Random::GetUniformlyDistributedDiscreteRandomQuantity(int min_value, int max_value)
 {
     return rand() % (max_value-min_value+1) + min_value;
+}
+
+bool Random::CheckEventOutcome(double event_probability)
+{
+    if(event_probability < 0 || event_probability > 1)
+    {
+        throw std::invalid_argument("Invalid event_probability");
+    }
+
+    return GetBaseRandomQuantity() <= event_probability;
 }
 
 Random::Random()

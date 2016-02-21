@@ -30,7 +30,7 @@ public:
     virtual ContinuousOptimizer* Clone() const = 0;
 
 protected:
-    virtual std::vector<double> FindOptimalParameters(const std::vector<double>& initial_values) = 0;
+    virtual std::vector<double> FindOptimalParameters(const std::vector<double>& initial_parameters) = 0;
 
     double CountObjectiveFunctionValueToMaximize(const std::vector<double>& parameters) const;
     double CountObjectiveFunctionValueToMinimize(const std::vector<double>& parameters) const;

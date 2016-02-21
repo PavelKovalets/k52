@@ -77,13 +77,13 @@ void BoundedNelderMead::Receive(boost::mpi::communicator* communicator, int sour
 }
 #endif
 
-std::vector<double> BoundedNelderMead::FindOptimalParameters(const std::vector<double>& initial_values)
+std::vector<double> BoundedNelderMead::FindOptimalParameters(const std::vector<double>& initial_parameters)
 {
     //Iteration index
     size_t r = 0;
 
     //Build simplex based on initial_parameters
-    vector< vector<double> > polygon = GetRegularSimplex(initial_values, l_);
+    vector< vector<double> > polygon = GetRegularSimplex(initial_parameters, l_);
 
     //count values
     vector<double> function_values = CountObjectiveFunctionValues(polygon);

@@ -8,7 +8,7 @@
 void OutputResults(std::ostream &out,
         const std::vector < std::vector < k52::optimization_tests::OptimizerTestResult::shared_ptr > >& results)
 {
-    out << "Function \t" << "Solution value \t";
+    out << "Function \t" << "Target \t" << "Solution value \t";
     for (size_t j = 0; j < results[0].size(); j++)
     {
         out << results[0][j]->get_optimizer_name() << "\t";
@@ -17,8 +17,11 @@ void OutputResults(std::ostream &out,
 
     for (size_t i = 0; i < results.size(); i++)
     {
-        out << results[i][0]->get_test_function()->get_analitical_form() << "\t" <<
-        results[i][0]->get_test_function()->get_solution_value() << "\t" ;
+        k52::optimization_tests::TestFunction::shared_ptr function =
+                results[i][0]->get_test_function();
+        out << function->get_analitical_form() << "\t" <<
+                (function->maximize() ? "Max" : "Min") << "\t" <<
+                function->get_solution_value() << "\t" ;
 
         for (size_t j = 0; j < results[i].size(); j++)
         {

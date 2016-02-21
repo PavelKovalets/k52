@@ -46,6 +46,11 @@ public:
     ///@return random integer between min_value and max_value
     int GetUniformlyDistributedDiscreteRandomQuantity(int min_value, int max_value);
 
+    ///For the event with two outcomes (happened / not happened) checks if it happened or not
+    ///@param event_probability - the probability of event to happen
+    ///@return true if event happened, otherwize false
+    bool CheckEventOutcome(double event_probability);
+
 private:
     Random();
     int GetNextBitFromBoolBase();
