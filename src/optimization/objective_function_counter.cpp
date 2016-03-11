@@ -21,7 +21,7 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(double cache_data_limit_in_me
 
     if(use_value_caching_)
     {
-        cache_ = Cache::Create(cache_data_limit_in_megabytes);
+        cache_ = FitnessCache::Create(cache_data_limit_in_megabytes);
     }
 
 #ifdef BUILD_WITH_MPI
@@ -161,14 +161,14 @@ void ObjectiveFunctionCounter::AddNewCacheValues(
     vector<Individual::shared_ptr>* population, 
     const vector<int>&  new_cache_indexes)
 {
-    std::vector<Cache::CacheRecord> value_records;
+    std::vector<FitnessCache::CacheRecord> value_records;
 
     for(size_t i=0; i<new_cache_indexes.size(); i++)
     {
         Individual::shared_ptr current_individ = (*population)[ new_cache_indexes[i] ];
         double fitness_value = current_individ->get_fitness();
         size_t chromosome_hash_value = chromosome_hash_function_( current_individ->GetChromosome() );
-        value_records.push_back(Cache::CacheRecord(chromosome_hash_value, fitness_value));
+        value_records.push_back(FitnessCache::CacheRecord(chromosome_hash_value, fitness_value));
     }
 
     cache_->AddValues(value_records);

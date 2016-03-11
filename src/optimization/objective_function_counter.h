@@ -8,11 +8,11 @@
 #include <boost/functional/hash.hpp>
 
 #include <k52/common/disallow_copy_and_assign.h>
+#include <k52/common/cache.h>
 #include <k52/parallel/i_worker_pool.h>
 #include <k52/optimization/i_objective_function.h>
 #include <k52/optimization/individual.h>
 
-#include "cache.h"
 #include "count_objective_function_task.h"
 #include "objective_function_task_result.h"
 
@@ -25,6 +25,7 @@ class ObjectiveFunctionCounter
 {
 public:
     typedef boost::shared_ptr<ObjectiveFunctionCounter> shared_ptr;
+    typedef k52::common::Cache<std::size_t, double> FitnessCache;
 
     explicit ObjectiveFunctionCounter(double cache_data_limit_in_megabytes);
 
@@ -63,7 +64,7 @@ protected:
 private:
     bool use_value_caching_;
     k52::parallel::IWorkerPool::shared_ptr fitness_worker_pool_;
-    k52::optimization::Cache::shared_ptr cache_;
+    FitnessCache::shared_ptr cache_;
     boost::hash< ChromosomeType > chromosome_hash_function_;
     int objective_function_counts_;
     int cache_hits_;

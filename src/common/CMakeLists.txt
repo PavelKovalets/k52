@@ -9,8 +9,10 @@ set(COMMON_HEADERS
     ${COMMON_INCLUDE}/i_cloneable.h
     ${COMMON_INCLUDE}/random.h
     ${COMMON_INCLUDE}/settings_manager.h
+    ${COMMON_INCLUDE}/cache.h
     ${COMMON_INCLUDE}/constants.h
     ${COMMON_INCLUDE}/helpers.h
+    ${COMMON_INCLUDE}/stored_value.h
 )
 
 set(COMMON_SOURCE
