@@ -49,7 +49,7 @@ protected:
 private:
     Cache(double data_limit_in_megabytes);
 
-    Cache::cache_map_type cache_map_;
+    typename Cache::cache_map_type cache_map_;
     double data_limit_in_megabytes_;
 
     //DISALLOW_COPY_AND_ASSIGN
