@@ -68,7 +68,7 @@ typename Cache<TKey, TValue>::shared_ptr Cache<TKey, TValue>::Create(double data
     }
     else
     {
-        return NULL;
+        return Cache<TKey, TValue>::shared_ptr();
     }
 }
 

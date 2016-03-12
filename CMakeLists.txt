@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.8)
 project(k52)
 
+# TODO: find compiler agnostic solution to enable c++11
+#       at this moment it works for gcc
+#       and just ignored on MSVC (it doesn't need any additional flags to enable c++11)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 # TODO: add versioning
 set(k52_VERSION "0.0.0")
 

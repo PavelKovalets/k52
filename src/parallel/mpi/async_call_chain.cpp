@@ -44,7 +44,7 @@ bool AsyncCallChain::IsCurrentCallFinished()
     if(current_request_->is_initialized())
     {
         //There is a real request
-        current_request_finished_ = current_request_->get().test();
+        current_request_finished_ = current_request_->get().test().is_initialized();
     }
     else
     {
