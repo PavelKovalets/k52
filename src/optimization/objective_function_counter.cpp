@@ -17,12 +17,7 @@ ObjectiveFunctionCounter::ObjectiveFunctionCounter(double cache_data_limit_in_me
 {
     cache_hits_ = 0;
     objective_function_counts_ = 0;
-    use_value_caching_ = cache_data_limit_in_megabytes > 0;
-
-    if(use_value_caching_)
-    {
-        cache_ = FitnessCache::Create(cache_data_limit_in_megabytes);
-    }
+    cache_ = FitnessCache::Create(cache_data_limit_in_megabytes);
 
 #ifdef BUILD_WITH_MPI
     CountObjectiveFunctionTask task;
@@ -47,7 +42,7 @@ void ObjectiveFunctionCounter::ObtainFitness(
         (*population)[ indexes_to_count[i] ] -> set_fitness( counted_values[i] );
     }
 
-    if(use_value_caching_)
+    if (cache_)
     {
         AddNewCacheValues(population, indexes_to_count);
     }
@@ -95,7 +90,7 @@ void ObjectiveFunctionCounter::ProcessPopulation(
 
     for(size_t i=0; i<population->size(); i++)
     {
-        if(use_value_caching_)
+        if (cache_)
         {
             size_t chromosome_hash_value = chromosome_hash_function_( ((*population)[i])->GetChromosome() );
 

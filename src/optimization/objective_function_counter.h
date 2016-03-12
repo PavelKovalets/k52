@@ -62,7 +62,6 @@ protected:
         const std::vector<int>& new_cache_indexes);
 
 private:
-    bool use_value_caching_;
     k52::parallel::IWorkerPool::shared_ptr fitness_worker_pool_;
     FitnessCache::shared_ptr cache_;
     boost::hash< ChromosomeType > chromosome_hash_function_;

@@ -35,9 +35,11 @@ public:
 
     static typename Cache::shared_ptr Create(double data_limit_in_megabytes);
 
-    bool IsCached(TKey key);
+    bool IsCached(const TKey& key);
 
-    TValue GetCachedValue(TKey key);
+    TValue GetCachedValue(const TKey& key);
+
+    void AddValue(const TKey& key, const TValue& value);
 
     void AddValues(const std::vector<CacheRecord>& value_records);
 
@@ -60,18 +62,25 @@ private:
 template <typename TKey, typename TValue>
 typename Cache<TKey, TValue>::shared_ptr Cache<TKey, TValue>::Create(double data_limit_in_megabytes)
 {
-    return Cache<TKey, TValue>::shared_ptr(new Cache(data_limit_in_megabytes));
+    if (data_limit_in_megabytes > 0)
+    {
+        return Cache<TKey, TValue>::shared_ptr(new Cache(data_limit_in_megabytes));
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 template <typename TKey, typename TValue>
-bool Cache<TKey, TValue>::IsCached(TKey key)
+bool Cache<TKey, TValue>::IsCached(const TKey& key)
 {
     StoredValue<TValue> stored_value = cache_map_[key];
     return stored_value.has_value();
 }
 
 template <typename TKey, typename TValue>
-TValue Cache<TKey, TValue>::GetCachedValue(TKey key)
+TValue Cache<TKey, TValue>::GetCachedValue(const TKey& key)
 {
     StoredValue<TValue>& stored_value = cache_map_[key];
     if (stored_value.has_value())
@@ -83,6 +92,15 @@ TValue Cache<TKey, TValue>::GetCachedValue(TKey key)
     {
         throw std::runtime_error("Attempt to get uncached value");
     }
+}
+
+template <typename TKey, typename TValue>
+void Cache<TKey, TValue>::AddValue(const TKey& key, const TValue& value)
+{
+    //Clear before adding to not remove new value
+    ClearCacheUpToLimit();
+
+    cache_map_[key] = StoredValue<TValue>(value);
 }
 
 template <typename TKey, typename TValue>

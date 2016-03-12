@@ -16,7 +16,8 @@ namespace dsp
 
 FastWaveletTransform::FastWaveletTransform(
         IScale::shared_ptr scale,
-        size_t sequence_size
+        size_t sequence_size,
+        double cache_data_limit_in_megabytes
 )
         : i_scale_(scale)
 {
@@ -27,6 +28,8 @@ FastWaveletTransform::FastWaveletTransform(
                     )
             )
     );
+
+    cache_ = ScaledWaveletCache::Create(cache_data_limit_in_megabytes);
 }
 
 vector< vector< complex< double > > > FastWaveletTransform::Transform(
@@ -62,11 +65,30 @@ std::vector< std::complex< double > > FastWaveletTransform::TransformOneScale(
 std::vector< std::complex< double > > FastWaveletTransform::GetWaveletSamplesForConvolution(
         IWavelet::shared_ptr wavelet, double scale, size_t N) const
 {
-    //TODO precalculate?
+    ScaledWaveletKey cache_key = std::make_tuple(wavelet, scale, N);
+
+    if (cache_ && cache_->IsCached(cache_key))
+    {
+        return cache_->GetCachedValue(cache_key);
+    }
+    else
+    {
+        vector< complex< double > > wavelet_samples = CalculateWaveletSamplesForConvolution(wavelet, scale, N);
+        if (cache_)
+        {
+            cache_->AddValue(cache_key, wavelet_samples);
+        }
+        return wavelet_samples;
+    }
+}
+
+std::vector< std::complex< double > > FastWaveletTransform::CalculateWaveletSamplesForConvolution(
+    IWavelet::shared_ptr wavelet, double scale, size_t N) const
+{
     vector< complex< double > > wavelet_samples(N);
     for (size_t n = 0; n < N; ++n)
     {
-        double t = n - double(N) /2.;
+        double t = n - double(N) / 2.;
         wavelet_samples[n] = conj(GetScaledWaveletValue(wavelet, scale, -t));
     }
     return wavelet_samples;
