@@ -1,5 +1,6 @@
 #include <k52/dsp/transform/wavelet/fast_wavelet_transform.h>
 #include <k52/dsp/transform/fast_fourier_transform.h>
+#include <boost/tuple/tuple_comparison.hpp>
 #include <stdexcept>
 
 using ::std::vector;
@@ -8,6 +9,21 @@ using ::std::complex;
 using ::std::invalid_argument;
 using ::k52::dsp::FastWaveletTransform;
 using ::k52::dsp::IScale;
+
+//TODO in c++11 there is a default hash implementation for tuples,
+// so this should be removed and k52::dsp::FastWaveletTransform::ScaledWaveletKey
+// made private when k52 migrate to c++11
+namespace boost
+{
+size_t hash_value(k52::dsp::FastWaveletTransform::ScaledWaveletKey const & t)
+{
+    std::size_t seed = 0;
+    boost::hash_combine( seed, t.get<0>() );
+    boost::hash_combine( seed, t.get<1>() );
+    boost::hash_combine( seed, t.get<2>() );
+    return seed;
+}
+}
 
 namespace k52
 {
@@ -65,7 +81,7 @@ std::vector< std::complex< double > > FastWaveletTransform::TransformOneScale(
 std::vector< std::complex< double > > FastWaveletTransform::GetWaveletSamplesForConvolution(
         IWavelet::shared_ptr wavelet, double scale, size_t N) const
 {
-    ScaledWaveletKey cache_key = std::make_tuple(wavelet, scale, N);
+    ScaledWaveletKey cache_key = boost::make_tuple(wavelet, scale, N);
 
     if (cache_ && cache_->IsCached(cache_key))
     {

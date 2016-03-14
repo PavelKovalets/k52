@@ -6,6 +6,7 @@
 #include <k52/dsp/transform/wavelet/i_wavelet_transform.h>
 #include <k52/dsp/transform/fourier_based_circular_convolution.h>
 #include <k52/dsp/transform/i_fourier_transform.h>
+#include <boost/tuple/tuple.hpp>
 
 namespace k52
 {
@@ -22,6 +23,8 @@ class FastWaveletTransform : public IWaveletTransform
 {
 
 public:
+    typedef boost::tuple<IWavelet::shared_ptr, double, size_t > ScaledWaveletKey;
+
     FastWaveletTransform(
             k52::dsp::IScale::shared_ptr scale,
             size_t sequence_size,
@@ -49,7 +52,6 @@ protected:
             IWavelet::shared_ptr wavelet, double scale, double t) const;
 
 private:
-    typedef std::tuple<IWavelet::shared_ptr, double, size_t > ScaledWaveletKey;
     typedef k52::common::Cache< ScaledWaveletKey, std::vector< std::complex< double > > > ScaledWaveletCache;
 
     ScaledWaveletCache::shared_ptr cache_;
