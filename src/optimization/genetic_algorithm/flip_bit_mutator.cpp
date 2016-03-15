@@ -11,22 +11,6 @@ namespace k52
 namespace optimization
 {
 
-void FlipBitMutator::MutateChromosome(ChromosomeType* chromosome)
-{
-    for (size_t i = 0; i < chromosome->size(); i++)
-    {
-        if(currently_skipped_gens_>=gens_to_skip_now_)
-        {
-            (*chromosome)[i] = !(*chromosome)[i];
-            SetGensToSkipNow();
-        }
-        else
-        {
-            currently_skipped_gens_ ++;
-        }
-    }
-}
-
 FlipBitMutator::FlipBitMutator(double gen_mutation_probability)
 {
     mutation_probability_ = gen_mutation_probability;
@@ -39,6 +23,23 @@ FlipBitMutator::FlipBitMutator(double gen_mutation_probability)
     }
 
     SetGensToSkipNow();
+}
+
+bool FlipBitMutator::ShouldMutateCurrentGen()
+{
+    return currently_skipped_gens_ >= gens_to_skip_now_;
+}
+
+void FlipBitMutator::AfterGenProcessed(bool wasMutated)
+{
+    if ( wasMutated )
+    {
+        SetGensToSkipNow();
+    }
+    else
+    {
+        currently_skipped_gens_ ++;
+    }
 }
 
 void FlipBitMutator::SetGensToSkipNow()
