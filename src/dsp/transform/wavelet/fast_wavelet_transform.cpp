@@ -18,7 +18,7 @@ namespace boost
 size_t hash_value(k52::dsp::FastWaveletTransform::ScaledWaveletKey const & t)
 {
     std::size_t seed = 0;
-    boost::hash_combine( seed, t.get<0>() );
+    boost::hash_combine( seed, t.get<0>().get() );
     boost::hash_combine( seed, t.get<1>() );
     boost::hash_combine( seed, t.get<2>() );
     return seed;
