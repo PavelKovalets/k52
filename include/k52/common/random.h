@@ -20,6 +20,10 @@ public:
     /// @return the only instance of Random class
     static Random& Instance();
 
+    /// Throws an exception if probability has invalid value
+    /// @param probability - probability value to validate
+    static void ValidateProbability(double probability);
+
     ///Generates base random quantity - uniformly distributed on interval [0, 1]
     ///@return base random quantity
     double GetBaseRandomQuantity();

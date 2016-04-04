@@ -257,12 +257,19 @@ void GeneticAlgorithm::RunIterationsAndSetBestIndivid(const DiscreteObjectiveFun
         }
 
         GenerateNextPopulation();
-        Mutate();
+
+        MutationContext mutation_context;
+        mutation_context.current_generation = n;
+        mutation_context.max_number_of_generations = max_number_of_generations_;
+
+        Mutate(mutation_context);
     }
 }
 
-void GeneticAlgorithm::Mutate()
+void GeneticAlgorithm::Mutate(const MutationContext& mutation_context)
 {
+    mutator_->ApplyNewMutationContext(mutation_context);
+
     for (std::size_t i = 0; i < population_size_; i++)
     {
         invalid_chromosomes_ += population_[i]->Mutate(mutator_);

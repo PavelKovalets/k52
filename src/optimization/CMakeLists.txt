@@ -13,6 +13,7 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/discrete_objective_function.h
     ${OPTIMIZATION_COMMON_INCLUDE}/discrete_optimizer.h
     ${OPTIMIZATION_COMMON_INCLUDE}/flip_bit_mutator.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/gen_mutator_base.h
     ${OPTIMIZATION_COMMON_INCLUDE}/generation_statistics.h
     ${OPTIMIZATION_COMMON_INCLUDE}/genetic_algorithm.h
     ${OPTIMIZATION_COMMON_INCLUDE}/grid_search.h
@@ -24,6 +25,7 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/individual_statistics.h
     ${OPTIMIZATION_COMMON_INCLUDE}/individual.h
     ${OPTIMIZATION_COMMON_INCLUDE}/initialization_checker.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/linear_mutator.h
     ${OPTIMIZATION_COMMON_INCLUDE}/random_search.h
     ${OPTIMIZATION_COMMON_INCLUDE}/simulated_annealing.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/composite_discrete_parameters.h
@@ -68,9 +70,11 @@ set(OPTIMIZE_SOURCE
     simple_parameters_processor.cpp
     simulated_annealing.cpp
 
+    genetic_algorithm/gen_mutator_base.cpp
     genetic_algorithm/generation_statistics.cpp
     genetic_algorithm/genetic_algorithm.cpp
     genetic_algorithm/individual.cpp
+    genetic_algorithm/linear_mutator.cpp
     genetic_algorithm/flip_bit_mutator.cpp
 
     params/composite_discrete_parameters.cpp

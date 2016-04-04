@@ -17,6 +17,14 @@ Random& Random::Instance()
     return self;
 }
 
+void Random::ValidateProbability(double probability)
+{
+    if ( probability < 0 || probability > 1 )
+    {
+        throw std::invalid_argument("Invalid probability value");
+    }
+}
+
 double Random::GetBaseRandomQuantity()
 {
     return ((double) rand() / RAND_MAX);
@@ -51,10 +59,7 @@ int Random::GetUniformlyDistributedDiscreteRandomQuantity(int min_value, int max
 
 bool Random::CheckEventOutcome(double event_probability)
 {
-    if(event_probability < 0 || event_probability > 1)
-    {
-        throw std::invalid_argument("Invalid event_probability");
-    }
+    ValidateProbability(event_probability);
 
     return GetBaseRandomQuantity() <= event_probability;
 }

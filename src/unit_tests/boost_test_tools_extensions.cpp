@@ -5,6 +5,11 @@
 
 void CheckComplexEqual(std::complex< double > a, std::complex< double > b)
 {
-    BOOST_CHECK_SMALL(a.real() - b.real(), ::k52::common::Constants::Eps);
-    BOOST_CHECK_SMALL(a.imag() - b.imag(), ::k52::common::Constants::Eps);
+    CheckDoubleEqual(a.real(), b.real());
+    CheckDoubleEqual(a.imag(), b.imag());
+}
+
+void CheckDoubleEqual(double a, double b)
+{
+    BOOST_CHECK_SMALL(a - b, ::k52::common::Constants::Eps);
 }

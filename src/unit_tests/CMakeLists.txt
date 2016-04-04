@@ -5,6 +5,8 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
     set(k52_UNIT_TESTS_SOURCE
         common/floating_point.test.cpp
         common/helpers.test.cpp
+        optimization/linear_mutator.test.cpp
+        common/random.test.cpp
         common/settings_manager.test.cpp
         dsp/akima_spline.test.cpp
         dsp/circular_convolution.test.cpp
@@ -28,6 +30,7 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
         ${FFTW3_LIBRARIES}
         k52_common
         k52_parallel
+        k52_optimization
         ${K52_MPI_LIBRARIES}
         ${K52_BOOST_LIBRARIES}
     )

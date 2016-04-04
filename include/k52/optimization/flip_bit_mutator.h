@@ -3,17 +3,21 @@
 
 #include <k52/common/disallow_copy_and_assign.h>
 #include <k52/optimization/i_mutator.h>
+#include <k52/optimization/gen_mutator_base.h>
 
 namespace k52
 {
 namespace optimization
 {
 
-class FlipBitMutator : public IMutator
+class FlipBitMutator : public GenMutatorBase
 {
 public:
     FlipBitMutator(double gen_mutation_probability);
-    void MutateChromosome(ChromosomeType* chromosome);
+
+protected:
+    bool ShouldMutateCurrentGen();
+    void AfterGenProcessed(bool wasMutated);
 
 private:
     void SetGensToSkipNow();

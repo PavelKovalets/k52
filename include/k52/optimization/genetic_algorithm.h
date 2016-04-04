@@ -73,7 +73,7 @@ protected:
     void Initialize(const IDiscreteParameters* parameters_to_optimize);
     void ValidateInitialParameters(const IDiscreteParameters* parameters_to_optimize);
     void RunIterationsAndSetBestIndivid(const DiscreteObjectiveFunction &function_to_optimize);
-    void Mutate();
+    void Mutate(const MutationContext& mutation_context);
     void GenerateNextPopulation();
     void UpdateBestIndivid();
     int SelectRandomIndividualIndexForCrossover(double total_fitness);
