@@ -5,6 +5,10 @@ build/
 lib/
 bin/
 
+# Vagrant files #
+###########
+.vagrant/
+
 # CLion files #
 ###########
 .idea/
