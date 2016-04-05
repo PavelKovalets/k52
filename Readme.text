@@ -5,7 +5,7 @@ k52 is a set of c++ libraries aimed to facilitate scientific experiments
  incline into OOP, flexibility and readability. 
 It also provides the implementation of some optimization,
  classification and other methods, as well as set of handy tools
- to support parallel computing.
+ to support parallel computing. Distributed under the MIT License (see LICENSE file).
 
 
 # Libs description #
