@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/21195/PavelKovalets/k52.svg)](https://zenodo.org/badge/latestdoi/21195/PavelKovalets/k52)
 # Intro #
 
 k52 is a set of c++ libraries aimed to facilitate scientific experiments
