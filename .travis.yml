@@ -1,7 +1,6 @@
 language: cpp
 compiler:
   - gcc
-  - clang
 before_script:
    - sudo apt-get update -qq
    - sudo apt-get install -y openmpi-bin
@@ -9,4 +8,5 @@ before_script:
    - sudo apt-get install -y fftw3-dev
 script:
    - cd tools
+   - chmod +x build_k52_run_examples.sh
    - ./build_k52_run_examples.sh
