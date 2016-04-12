@@ -39,3 +39,7 @@ echo "Run continuous_optimization_example:"
 echo "Run genetic_algorithm_example:"
 mpiexec -np 2 ./genetic_algorithm/genetic_algorithm_example
 [ $? -ne 0 ] && echo "k52 genetic algorithm example failed" && exit 1
+
+# as test [] on the line above returns 1 if mpiexec succeeded 
+# we need to explicitly return 0 if everything is ok
+exit 0
