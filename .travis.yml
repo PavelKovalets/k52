@@ -4,7 +4,7 @@ compiler:
    - clang
 os:
    - linux
-   - osx
+   # - osx
 before_install:
    - sudo apt-get update -qq
    - sudo apt-get install -y openmpi-bin
