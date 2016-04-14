@@ -14,11 +14,10 @@ namespace optimization
 class HleborodovRosenbrockMethod: public ContinuousOptimizer
 {
 public:
-    HleborodovRosenbrockMethod(
-        double precision,
-        size_t max_iteration_number,
-        double first_step,
-        double max_step);
+    HleborodovRosenbrockMethod(double precision = 1e-10,
+        size_t max_iteration_number = 10000,
+        double first_step = 1,
+        double max_step = 3);
 
     /// Creates deep clone of an object with resource allocation. See ICloneable
     /// @return deep clone of an object

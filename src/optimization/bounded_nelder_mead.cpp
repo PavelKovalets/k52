@@ -62,18 +62,10 @@ void BoundedNelderMead::Send(boost::mpi::communicator* communicator, int target)
 
 void BoundedNelderMead::Receive(boost::mpi::communicator* communicator, int source)
 {
-    communicator->recv(source,
-                       k52::parallel::mpi::constants::kCommonTag,
-                       l_);
-    communicator->recv(source,
-                       k52::parallel::mpi::constants::kCommonTag,
-                       precision_);
-    communicator->recv(source,
-                       k52::parallel::mpi::constants::kCommonTag,
-                       lower_bound_);
-    communicator->recv(source,
-                       k52::parallel::mpi::constants::kCommonTag,
-                       upper_bound_);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, l_);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, precision_);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, lower_bound_);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, upper_bound_);
 }
 #endif
 
@@ -373,7 +365,7 @@ vector<double> BoundedNelderMead::Contraction(const vector<double>& center_of_ma
 
 void BoundedNelderMead::Reduction(vector< vector<double> >* polygon, size_t point_index)
 {
-    if(point_index<0 || point_index>= polygon->size())
+    if(point_index >= polygon->size())
     {
         throw std::invalid_argument("Incorrect point_index");
     }
@@ -387,7 +379,8 @@ void BoundedNelderMead::Reduction(vector< vector<double> >* polygon, size_t poin
         {
             for(size_t j = 0; j < n; j++)
             {
-                (*polygon)[i][j] = (*polygon)[point_index][j] + reduction_coefficient * ( (*polygon)[i][j]  - (*polygon)[point_index][j] );
+                (*polygon)[i][j] = (*polygon)[point_index][j] + reduction_coefficient *
+                        ((*polygon)[i][j]  - (*polygon)[point_index][j]);
             }
         }
     }
@@ -428,10 +421,11 @@ double BoundedNelderMead::CountPolygonDifferance(
 
 vector<double> BoundedNelderMead::GetCenterOfMass(const vector< vector<double> >& polygon, size_t point_index)
 {
-    if(point_index<0 || point_index>= polygon.size())
+    if(point_index>= polygon.size())
     {
         throw std::invalid_argument("Incorrect point_index");
     }
+
     size_t n = polygon[0].size();
     vector<double> center_of_mass(n);
 

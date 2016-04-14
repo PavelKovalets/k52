@@ -219,7 +219,8 @@ void GeneticAlgorithm::ValidateInitialParameters(const IDiscreteParameters* para
 
     for (std::size_t i = 0; i < population_size_; i++)
     {
-        const std::type_info* parameters_type = &typeid(*(initial_parameters_[i].get()));
+        IParameters* parameters = initial_parameters_[i].get();
+        const std::type_info* parameters_type = &typeid(*parameters);
 
         if ( (*parameters_type) != (*parameters_to_optimize_type) )
         {
