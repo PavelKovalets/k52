@@ -17,25 +17,26 @@
 
 using ::std::vector;
 
+namespace
+{
+const double kArgumentsIncreaseValue = 1.5;
+const double kArgumentsDecreaseValue = -0.5;
+}
+
 namespace k52
 {
 namespace optimization
 {
 
-HleborodovRosenbrockMethod::HleborodovRosenbrockMethod(
-    double precision = 1e-10,
-    size_t max_iteration_number = 10000,
-    double first_step = 1,
-    double max_step = 3)
+HleborodovRosenbrockMethod::HleborodovRosenbrockMethod(double precision, size_t max_iteration_number,
+    double first_step, double max_step)
+    : precision_(precision)
+    , arguments_increase_(kArgumentsIncreaseValue)
+    , arguments_decrease_(kArgumentsDecreaseValue)
+    , first_step_(first_step)
+    , max_step_(max_step)
+    , max_iteration_number_(max_iteration_number)
 {
-    precision_ = precision;
-
-    arguments_increase_ = 1.5;
-    arguments_decrease_ = -0.5;
-
-    first_step_ = first_step;
-    max_step_ = max_step;
-    max_iteration_number_ = max_iteration_number;
 }
 
 HleborodovRosenbrockMethod* HleborodovRosenbrockMethod::Clone() const
@@ -59,18 +60,10 @@ void HleborodovRosenbrockMethod::Send(boost::mpi::communicator* communicator, in
 
 void HleborodovRosenbrockMethod::Receive(boost::mpi::communicator* communicator, int source)
 {
-    communicator->recv(source,
-        k52::parallel::mpi::constants::kCommonTag,
-        precision_);
-    communicator->recv(source,
-        k52::parallel::mpi::constants::kCommonTag,
-        first_step_);
-    communicator->recv(source,
-        k52::parallel::mpi::constants::kCommonTag,
-        max_step_);
-    communicator->recv(source,
-        k52::parallel::mpi::constants::kCommonTag,
-        max_iteration_number_);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, precision_);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, first_step_);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, max_step_);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, max_iteration_number_);
 }
 #endif
 
@@ -135,8 +128,7 @@ bool HleborodovRosenbrockMethod::IsExitCriteriaFulfilled(
     return escape;
 }
 
-void HleborodovRosenbrockMethod::MakeStep(
-    vector<double> &arguments)
+void HleborodovRosenbrockMethod::MakeStep(vector<double> &arguments)
 {
     double start_function_value = CountObjectiveFunctionValueToMinimize(arguments);
 
