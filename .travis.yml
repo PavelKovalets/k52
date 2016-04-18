@@ -27,8 +27,5 @@ addons:
        description: "<Your project description here>"
     notification_email: kovalets.p.e@hotmail.com
     build_command_prepend: "<Your build preprocessing command here>"
-    build_command: 
-       - cd tools
-       - chmod +x build_k52_run_examples.sh
-       - ./build_k52_run_examples.sh
+    build_command: "cd tools && chmod +x build_k52_run_examples.sh && ./build_k52_run_examples.sh"
     branch_pattern: coverity_scan
