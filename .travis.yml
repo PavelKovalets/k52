@@ -14,3 +14,21 @@ script:
    - cd tools
    - chmod +x build_k52_run_examples.sh
    - ./build_k52_run_examples.sh
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "1m5MWbZ/Gj/vkFExn+8S1Nx7fszvwiX1LXskJ8PFb6bhxh3/Mh20XUaRCpl4by76ulLgGiJ1/emVUzcaVp6sgUSEkzIUn6N7a9bnKqdZh8Y81jTc8TlOdPTXgP4rW7FcikdubuLdYhFi58DTF6HZob6PvNceHx3CbtKMgqGK0o8O0uBkyNYpy5pJ6MZCg42S8qZz0wpdu47XF5i+hhTm42BF4fZpKBPBPh/PLKVgV7qqWQNgyRobLTsrWhsKcX97ZAmAc6eJ3L1+9O0pBs1l1MLHRVYUnEbckUyrIHFBLFJwTiO0izAYOU9rygLpfSIk13wui/cJpn270qUkxMa1jKTy0qdqhHegciSS4TCx7WZzJWmcAvqiy+JWHE4SF8v+8QnEbqp0FFjIxMeH1OXLzuVOFce67Qrub4MtggWbxp8EvVBVekfdwdDt+kQIn+YoXomru7Tw2Qh5pvV0QkU4gsfucjMp564ePb8dOpC7i1+wDKc8q6i1jEPnGlLmOZ9kNbgtnKPZJPwWqApSjRslND/VbhRizcb59k4XnT2SaLCxFOiy3IyuClN4q2XCS2Xm3tae2ErR5UzJRMTljcIqxbeP1FR52ZolaqHg75zydylcorJhO7PuuVy4CFTYNo5wlpAEnb3qYSkzbW/Kpfoi2w1mo4gFc2FNOCqoyfXkcP8="
+
+addons:
+  coverity_scan:
+    project:
+       name: "PavelKovalets/k52"
+       description: "<Your project description here>"
+    notification_email: kovalets.p.e@hotmail.com
+    build_command_prepend: "<Your build preprocessing command here>"
+    build_command: 
+       - cd tools
+       - chmod +x build_k52_run_examples.sh
+       - ./build_k52_run_examples.sh
+    branch_pattern: coverity_scan
