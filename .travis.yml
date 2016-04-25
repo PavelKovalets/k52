@@ -1,7 +1,6 @@
 language: cpp
 compiler:
    - gcc
-   - clang
 os:
    - linux
    # - osx
@@ -11,9 +10,7 @@ before_install:
    - sudo apt-get install -y libboost-all-dev
    - sudo apt-get install -y fftw3-dev
 script:
-   - cd tools
-   - chmod +x build_k52_run_examples.sh
-   - ./build_k52_run_examples.sh
+   - pwd
 env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
@@ -23,9 +20,9 @@ env:
 addons:
   coverity_scan:
     project:
-       name: "PavelKovalets/k52"
-       description: "<Your project description here>"
+       name: "k52"
+       description: "k52 libs"
     notification_email: kovalets.p.e@hotmail.com
-    build_command_prepend: "chmod +x ./tools/build_k52_run_examples.sh && ./tools/build_k52_run_examples.sh && cd build"
+    build_command_prepend: "pwd && cd build && cmake .."
     build_command: "make"
     branch_pattern: coverity_scan
