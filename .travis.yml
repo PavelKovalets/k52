@@ -20,7 +20,7 @@ env:
 addons:
   coverity_scan:
     project:
-       name: "k52"
+       name: "PavelKovalets/k52"
        description: "k52 libs"
     notification_email: kovalets.p.e@hotmail.com
     build_command_prepend: "pwd && cd build && cmake .."
