@@ -23,6 +23,6 @@ addons:
        name: "PavelKovalets/k52"
        description: "k52 libs"
     notification_email: kovalets.p.e@hotmail.com
-    build_command_prepend: "pwd && cd build && cmake .."
+    build_command_prepend: "pwd && mkdir coverity_build && cd coverity_build && cmake .."
     build_command: "make"
     branch_pattern: coverity_scan
