@@ -10,6 +10,7 @@ namespace optimization
 {
 
 DoubleParameter::DoubleParameter()
+    : min_value_(0), max_value_(0), precision_(0)
 {
     base_int_parameter_ = IntParameter::shared_ptr();
 }

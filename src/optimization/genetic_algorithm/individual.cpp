@@ -22,12 +22,14 @@ namespace optimization
 Individual::Individual()
     : initialization_checker_()
     , parameters_()
+    , times_chosen_for_crossover_(0)
+    , has_fitness_(false), fitness_(0)
 {
 }
 
 Individual::Individual(const IDiscreteParameters* const parameters)
     : initialization_checker_()
-    , parameters_()
+    , parameters_(), fitness_(0)
 {
     Initialize(parameters);
 }
