@@ -7,12 +7,14 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 
+#include "../boost_test_tools_extensions.h"
+
 #include <k52/dsp/akima_spline.h>
 
 namespace
 {
 // The double and float values in this test suit may not differ more than kTolerance%
-const double kTolerance = 0.001;
+const double kTolerance = 0.00001;
 }
 
 namespace k52
@@ -98,14 +100,14 @@ BOOST_AUTO_TEST_CASE(AkimaSplineShouldNotOscillate)
 
     // generated for the test points by
     // $aspline --points=10 <test.data>
-    BOOST_CHECK_CLOSE(spline->Value(-2.9), 0, kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(-1.9), 0, kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(-0.9), 0, kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(-0.1), 0, kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(0.1),  0, kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(0.9),  0, kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(1.9),  0, kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(2.9),  0, kTolerance);
+    CheckDoubleEqual(spline->Value(-2.9), 0, kTolerance);
+    CheckDoubleEqual(spline->Value(-1.9), 0, kTolerance);
+    CheckDoubleEqual(spline->Value(-0.9), 0, kTolerance);
+    CheckDoubleEqual(spline->Value(-0.1), 0, kTolerance);
+    CheckDoubleEqual(spline->Value(0.1),  0, kTolerance);
+    CheckDoubleEqual(spline->Value(0.9),  0, kTolerance);
+    CheckDoubleEqual(spline->Value(1.9),  0, kTolerance);
+    CheckDoubleEqual(spline->Value(2.9),  0, kTolerance);
 }
 
 // Actually check akima spline
@@ -122,19 +124,19 @@ BOOST_AUTO_TEST_CASE(CheckSimpleSet)
 
     // generated for the test points by
     // $aspline --points=10 <test.data>
-    BOOST_CHECK_CLOSE(spline->Value(-3),    -0.1,       kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(-2.4),  -0.0407385, kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(-2),    0.1,        kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(-1.8),  0.275323,   kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(-1.2),  1.04683,    kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(-1),    1,          kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(0),     0,          kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(0.6),   -0.6,       kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(1.2),   -1.04683,   kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(1.8),   -0.275323,  kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(2),     -0.1,       kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(2.4),   0.0407385,  kTolerance);
-    BOOST_CHECK_CLOSE(spline->Value(3),     0.1,        kTolerance);
+    CheckDoubleEqual(spline->Value(-3),    -0.1,       kTolerance);
+    CheckDoubleEqual(spline->Value(-2.4),  -0.0407385, kTolerance);
+    CheckDoubleEqual(spline->Value(-2),    0.1,        kTolerance);
+    CheckDoubleEqual(spline->Value(-1.8),  0.275323,   kTolerance);
+    CheckDoubleEqual(spline->Value(-1.2),  1.04683,    kTolerance);
+    CheckDoubleEqual(spline->Value(-1),    1,          kTolerance);
+    CheckDoubleEqual(spline->Value(0),     0,          kTolerance);
+    CheckDoubleEqual(spline->Value(0.6),   -0.6,       kTolerance);
+    CheckDoubleEqual(spline->Value(1.2),   -1.04683,   kTolerance);
+    CheckDoubleEqual(spline->Value(1.8),   -0.275323,  kTolerance);
+    CheckDoubleEqual(spline->Value(2),     -0.1,       kTolerance);
+    CheckDoubleEqual(spline->Value(2.4),   0.0407385,  kTolerance);
+    CheckDoubleEqual(spline->Value(3),     0.1,        kTolerance);
 }
 
 } // namespace tests
