@@ -20,6 +20,11 @@ namespace optimization
 {
 
 OptimizationTaskResult::OptimizationTaskResult(const IParameters* optimal_parameters)
+
+#ifdef BUILD_WITH_MPI
+    : communicator_(), source_(0)
+#endif
+
 {
     optimal_parameters_ = IParameters::shared_ptr( optimal_parameters->Clone() );
 }
