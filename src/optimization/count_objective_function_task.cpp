@@ -1,5 +1,7 @@
 #include "count_objective_function_task.h"
 
+#include <stdexcept>
+
 #ifdef BUILD_WITH_MPI
 
 #include <boost/mpi.hpp>
@@ -69,11 +71,19 @@ void CountObjectiveFunctionTask::Receive(boost::mpi::communicator* communicator,
     std::string objective_function_id;
     communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, objective_function_id);
     const IObjectiveFunction* function_to_optimize = dynamic_cast<const IObjectiveFunction*>( k52::parallel::mpi::IdentifyableObjectsManager::Instance().GetObject(objective_function_id) );
+    if (!function_to_optimize)
+    {
+        throw std::runtime_error("Unexpected function object received");
+    }
     received_function_ = IObjectiveFunction::shared_ptr( function_to_optimize->Clone() );
 
     std::string parameters_id;
     communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, parameters_id);
     const IParameters* parameters = dynamic_cast<const IParameters*>( k52::parallel::mpi::IdentifyableObjectsManager::Instance().GetObject(parameters_id) );
+    if (!parameters)
+    {
+        throw std::runtime_error("Unexpected parameters object received");
+    }
     received_parameters_ = IParameters::shared_ptr( parameters->Clone() );
     received_parameters_->Receive(communicator, source);
 }

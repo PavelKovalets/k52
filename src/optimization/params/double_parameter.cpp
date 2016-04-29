@@ -65,6 +65,10 @@ DoubleParameter* DoubleParameter::Clone() const
 bool DoubleParameter::HasSameMetaParameters(const IDiscreteParameters* parameters) const
 {
     const DoubleParameter* double_parameter = dynamic_cast<const DoubleParameter*>(parameters);
+    if (!double_parameter)
+    {
+        throw std::runtime_error("Unexpected object type to check for meta parameters");
+    }
     return max_value_ == double_parameter->max_value_ &&
         min_value_ == double_parameter->min_value_ && 
         precision_ == double_parameter->precision_ &&

@@ -34,6 +34,10 @@ DoubleParametersArray* DoubleParametersArray::Clone() const
 bool DoubleParametersArray::HasSameMetaParameters(const IDiscreteParameters* parameters) const
 {
     const DoubleParametersArray* parameters_array = dynamic_cast<const DoubleParametersArray*>(parameters);
+    if (!parameters_array)
+    {
+        throw std::runtime_error("Unexpected object type to check for meta parameters");
+    }
     return values_.size() == parameters_array->get_number_of_parameters() &&
         sample_parameter_->HasSameMetaParameters(parameters_array->sample_parameter_.get());
 }

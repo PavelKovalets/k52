@@ -1,5 +1,7 @@
 #include "optimization_task.h"
 
+#include <stdexcept>
+
 #ifdef BUILD_WITH_MPI
 
 #include <boost/mpi.hpp>
@@ -89,6 +91,10 @@ void OptimizationTask::Receive(boost::mpi::communicator* communicator, int sourc
             k52::parallel::mpi::IdentifyableObjectsManager::Instance()
                 .GetObject(objective_function_id)
         );
+    if (!function_to_optimize)
+    {
+        throw std::runtime_error("Unexpected function object received");
+    }
     function_to_optimize_ = IObjectiveFunction::shared_ptr( function_to_optimize->Clone() );
 
     std::string parameters_id;
@@ -100,6 +106,10 @@ void OptimizationTask::Receive(boost::mpi::communicator* communicator, int sourc
             k52::parallel::mpi::IdentifyableObjectsManager::Instance()
                 .GetObject(parameters_id)
         );
+    if (!parameters)
+    {
+        throw std::runtime_error("Unexpected parameters object received");
+    }
     initial_parameters_ = IParameters::shared_ptr( parameters->Clone() );
     initial_parameters_->Receive(communicator, source);
 
@@ -112,6 +122,10 @@ void OptimizationTask::Receive(boost::mpi::communicator* communicator, int sourc
             k52::parallel::mpi::IdentifyableObjectsManager::Instance()
                 .GetObject(optimizer_id)
         );
+    if (!optimizer)
+    {
+        throw std::runtime_error("Unexpected optimizer object received");
+    }
     optimizer_ = IOptimizer::shared_ptr( optimizer->Clone() );
     optimizer_->Receive(communicator, source);
 

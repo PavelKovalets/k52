@@ -1,6 +1,7 @@
 #include "optimization_task_result.h"
 
 #include <string>
+#include <stdexcept>
 
 #ifdef BUILD_WITH_MPI
 
@@ -60,6 +61,10 @@ boost::mpi::request OptimizationTaskResult::ReceiveParametersIdAsyncCall()
 boost::optional<boost::mpi::request> OptimizationTaskResult::ReceiveParametersAsyncCall()
 {
     const IParameters* parameters = dynamic_cast<const IParameters*>( k52::parallel::mpi::IdentifyableObjectsManager::Instance().GetObject(parameters_id_) );
+    if (!parameters)
+    {
+        throw std::runtime_error("Unexpected parameters object received");
+    }
     optimal_parameters_ = IParameters::shared_ptr( parameters->Clone() );
 
     //TODO implement ReceiveAsync for even more effectivness
