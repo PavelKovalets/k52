@@ -272,14 +272,16 @@ std::istream& operator>> (std::istream& in, Individual& individual)
     in>>s;//"\tFitness:\t"
     in>>fitness;
 
-    if(chromosome.size() != individual.GetChromosome().size())
+    size_t chromosomeSize = chromosome.size();
+
+    if(chromosomeSize != individual.GetChromosome().size())
     {
         throw std::logic_error("Attempt to read chromosome of inappropriate size");
     }
 
-    ChromosomeType new_chromosome(chromosome.size());
+    ChromosomeType new_chromosome(chromosomeSize);
 
-    for(size_t i=0; i < chromosome.size(); i++)
+    for(size_t i=0; i < chromosomeSize; i++)
     {
         if(chromosome[i] == '1')
         {

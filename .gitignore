@@ -4,6 +4,7 @@ Debug/
 build/
 lib/
 bin/
+install/
 
 # Vagrant files #
 ###########
