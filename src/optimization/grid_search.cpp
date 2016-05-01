@@ -26,6 +26,10 @@ GridSearch::GridSearch(double precision, double lower_bound, double upper_bound)
 void GridSearch::Optimize(const IObjectiveFunction& function_to_optimize, IParameters* parameters_to_optimize)
 {
     IContinuousParameters* continuous_parameters = dynamic_cast<IContinuousParameters*> (parameters_to_optimize);
+    if(!continuous_parameters)
+    {
+        throw std::runtime_error("GridSearch accepts only IContinuousParameters as parameters");
+    }
 
     vector<double> initial_parameters = continuous_parameters->GetValues();
 
