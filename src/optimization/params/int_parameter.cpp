@@ -1,6 +1,8 @@
 #include <k52/common/random.h>
 #include <k52/optimization/params/int_parameter.h>
 
+#include <stdexcept>
+
 namespace k52
 {
 namespace optimization
@@ -45,6 +47,10 @@ IntParameter* IntParameter::Clone() const
 bool IntParameter::HasSameMetaParameters(const IDiscreteParameters* parameters) const
 {
     const IntParameter* int_parameter = dynamic_cast<const IntParameter*>(parameters);
+    if (!int_parameter)
+    {
+        throw std::runtime_error("Unexpected object type to check for meta parameters");
+    }
     return max_value_ == int_parameter->max_value_ &&
         min_value_ == int_parameter->min_value_;
 }

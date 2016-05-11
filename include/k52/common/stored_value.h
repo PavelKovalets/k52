@@ -10,7 +10,7 @@ template <typename TValue>
 class StoredValue
 {
 public:
-    StoredValue() : has_value_(false) {}
+    StoredValue() : has_value_(false), value_(), number_of_usage_(0) {}
 
     explicit StoredValue(TValue value) : has_value_(true), value_(value), number_of_usage_(0) {}
 

@@ -68,9 +68,9 @@ GeneticAlgorithm::shared_ptr GeneticAlgorithm::Create(int population_size,
         genetic_algorithm.reset(new GeneticAlgorithm(population_size, elitism_pairs, max_number_of_generations,
             mutator, cache_data_limit_in_megabytes, fitness_stop_criteria, population_file_name));
     }
-    catch(...)
+    catch(std::exception& ex)
     {
-        std::cerr << "Failed to create new instance of genetic algorithm" << std::endl;
+        std::cerr << "Failed to create new instance of genetic algorithm : " << ex.what() << std::endl;
     }
 
     return genetic_algorithm;

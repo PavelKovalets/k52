@@ -5,6 +5,7 @@ using ::std::complex;
 using ::std::vector;
 using ::std::cout;
 using ::std::endl;
+using ::std::streamsize;
 
 namespace k52
 {
@@ -26,6 +27,7 @@ vector< complex< double > > Helpers::Conjugate(
 
 void Helpers::PrintVector(const std::vector<double>& values)
 {
+    const streamsize initial_precision = cout.precision();
     cout.precision(15);
 
     cout << "[ ";
@@ -38,6 +40,7 @@ void Helpers::PrintVector(const std::vector<double>& values)
         }
     }
     cout << " ]" << endl;
+    cout.precision(initial_precision);
 }
 
 }/* namespace common */
