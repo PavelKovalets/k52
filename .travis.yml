@@ -14,3 +14,5 @@ script:
    - cd tools
    - chmod +x build_k52_run_examples.sh
    - ./build_k52_run_examples.sh
+   - chmod +x encoding.sh
+   - ./encoding.sh
