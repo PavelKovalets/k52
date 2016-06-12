@@ -31,6 +31,45 @@ BOOST_AUTO_TEST_CASE(are_equal_false)
     BOOST_REQUIRE_EQUAL(result, false);
 }
 
+BOOST_AUTO_TEST_CASE(vectors_are_equal_true)
+{
+    //Prepare
+    std::vector<double> x(1, -123.000000000004);
+    std::vector<double> y(1, -123.000000000001);
+
+    //Test
+    bool result = FloatingPoint::AreEqual(x, y);
+
+    //Check
+    BOOST_REQUIRE_EQUAL(result, true);
+}
+
+BOOST_AUTO_TEST_CASE(vectors_are_equal_false)
+{
+    //Prepare
+    std::vector<double> x(1, -123.0000004);
+    std::vector<double> y(1, -123.0000001);
+
+    //Test
+    bool result = FloatingPoint::AreEqual(x, y);
+
+    //Check
+    BOOST_REQUIRE_EQUAL(result, false);
+}
+
+BOOST_AUTO_TEST_CASE(vectors_are_equal_size_false)
+{
+    //Prepare
+    std::vector<double> x(1, -123.000000000004);
+    std::vector<double> y(2, -123.000000000001);
+
+    //Test
+    bool result = FloatingPoint::AreEqual(x, y);
+
+    //Check
+    BOOST_REQUIRE_EQUAL(result, false);
+}
+
 BOOST_AUTO_TEST_CASE(is_zero_true)
 {
     //Prepare

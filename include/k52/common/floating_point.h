@@ -2,6 +2,7 @@
 #define K52_FLOATING_POINT_H
 
 #include <cmath>
+#include <vector>
 #include "constants.h"
 
 namespace k52
@@ -13,6 +14,9 @@ class FloatingPoint
 {
 public:
     static bool AreEqual(double x, double y);
+    static bool AreEqual(
+        const std::vector<double>&,
+        const std::vector<double>&);
     static bool IsZero(double x);
 };
 
