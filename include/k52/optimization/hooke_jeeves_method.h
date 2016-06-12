@@ -11,9 +11,10 @@ namespace k52
 namespace optimization
 {
 
-//sourses:	http://elib.bsu.by/handle/123456789/8648
+//Sources:
+//http://elib.bsu.by/handle/123456789/8648
 //DOC5.NB  ||  MVE - chast'2-2006.ppt
-//alternative link:
+//Alternative link:
 //https://drive.google.com/folderview?id=0B6NiSXfI55hTMjhTTF85bHpyYzQ&usp=drive_web&tid=0B6NiSXfI55hTSWpYV0g2Z25PejA#list	
 //DOC5.pdf
 
@@ -53,8 +54,8 @@ protected:
     virtual std::vector<double> FindOptimalParameters(const std::vector<double>&);
 
     /// @brief Checks if steps vector length satisfies an exit criteria.
-    /// @param steps_array - vector of steps values for diffirent coordinates. 
-    /// @return true if steps vector norm less than specified precision, false other way.
+    /// @param steps_array - vector of steps values for different coordinates.
+    /// @return true if steps vector norm is less than specified precision, false other way.
     bool IsExitCriteriaFulfilled(
         const std::vector<double>& steps_array) const;
 
@@ -72,7 +73,7 @@ private:
     /// Multiplier that increases step value for better convergence.
     double acceleration_;
 
-    /// First step by all of coordinats.
+    /// First step by all of coordinates.
     double init_step_;
 
     /// Maximum iterations number.

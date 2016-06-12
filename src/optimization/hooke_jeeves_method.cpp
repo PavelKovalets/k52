@@ -42,7 +42,8 @@ HookeJeevesMethod* HookeJeevesMethod::Clone() const
         acceleration_,
         init_step_,
         max_iteration_number_,
-        precision_);
+        precision_,
+        step_divider_);
 }
 
 std::string HookeJeevesMethod::get_name() const
@@ -57,6 +58,7 @@ void HookeJeevesMethod::Send(boost::mpi::communicator* communicator, int target)
     communicator->send(target, k52::parallel::mpi::constants::kCommonTag, precision_);
     communicator->send(target, k52::parallel::mpi::constants::kCommonTag, max_iteration_number_);
     communicator->send(target, k52::parallel::mpi::constants::kCommonTag, init_step_);
+    communicator->send(target, k52::parallel::mpi::constants::kCommonTag, step_divider_);
 }
 
 void HookeJeevesMethod::Receive(boost::mpi::communicator* communicator, int source)
@@ -65,6 +67,7 @@ void HookeJeevesMethod::Receive(boost::mpi::communicator* communicator, int sour
     communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, precision_);
     communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, max_iteration_number_);
     communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, init_step_);
+    communicator->recv(source, k52::parallel::mpi::constants::kCommonTag, step_divider_);
 }
 #endif
 
@@ -113,7 +116,7 @@ vector<double> HookeJeevesMethod::FindOptimalParameters(const vector<double>& in
                 std::cout << "Solution not found" << std::endl;
                 return arguments_after_search;
             }
-        }		
+        }
     } while (!IsExitCriteriaFulfilled(steps_array));
     return arguments_after_search;
 }
@@ -122,7 +125,7 @@ bool HookeJeevesMethod::IsExitCriteriaFulfilled(
     const vector<double>& steps_array) const
 {
     double temp = 0;
-    // check if step is small enough
+    // Check if step is small enough
     for (size_t j = 0; j<steps_array.size(); ++j)
     {
         temp += steps_array[j] * steps_array[j];
