@@ -18,6 +18,7 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/genetic_algorithm.h
     ${OPTIMIZATION_COMMON_INCLUDE}/grid_search.h
     ${OPTIMIZATION_COMMON_INCLUDE}/hleborodov_rosenbrock_method.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/hooke_jeeves_method.h
     ${OPTIMIZATION_COMMON_INCLUDE}/i_convertable_to_chromosome.h
     ${OPTIMIZATION_COMMON_INCLUDE}/i_mutator.h
     ${OPTIMIZATION_COMMON_INCLUDE}/i_objective_function.h
@@ -60,6 +61,7 @@ set(OPTIMIZE_SOURCE
     discrete_optimizer.cpp
     grid_search.cpp
     hleborodov_rosenbrock_method.cpp
+    hooke_jeeves_method.cpp
     initialization_checker.cpp
     objective_function_counter.cpp
     objective_function_task_result.cpp

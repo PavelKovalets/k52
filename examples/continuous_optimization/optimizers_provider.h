@@ -20,6 +20,7 @@ protected:
     k52::optimization::ContinuousOptimizer::shared_ptr get_conjugate_gradient() const;
     k52::optimization::ContinuousOptimizer::shared_ptr get_random_search() const;
     k52::optimization::ContinuousOptimizer::shared_ptr get_simulated_annealing() const;
+    k52::optimization::ContinuousOptimizer::shared_ptr get_hooke_jeeves() const;
 
 private:
     DISALLOW_COPY_AND_ASSIGN(OptimizersProvider);

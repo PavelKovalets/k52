@@ -6,6 +6,7 @@
 #include <k52/optimization/random_search.h>
 #include <k52/optimization/simulated_annealing.h>
 #include <k52/common/constants.h>
+#include <k52/optimization/hooke_jeeves_method.h>
 
 #include "consts.h"
 
@@ -19,6 +20,7 @@ using ::k52::optimization::ConjugateGradientMethod;
 using ::k52::optimization::HleborodovRosenbrockMethod;
 using ::k52::optimization::RandomSearch;
 using ::k52::optimization::SimulatedAnnealing;
+using ::k52::optimization::HookeJeevesMethod;
 
 using ::k52::optimization_tests::consts::global_lower_bound;
 using ::k52::optimization_tests::consts::global_upper_bound;
@@ -37,6 +39,7 @@ vector< ContinuousOptimizer::shared_ptr > OptimizersProvider::get_optimizers() c
     optimizers.push_back( get_conjugate_gradient() );
     optimizers.push_back( get_random_search() );
     optimizers.push_back( get_simulated_annealing() );
+    optimizers.push_back( get_hooke_jeeves() );
 
     return optimizers;
 }
@@ -89,6 +92,19 @@ k52::optimization::ContinuousOptimizer::shared_ptr OptimizersProvider::get_simul
 
     return SimulatedAnnealing::shared_ptr(
             new SimulatedAnnealing(max_iteration_number, global_lower_bound, global_upper_bound)
+    );
+}
+
+k52::optimization::ContinuousOptimizer::shared_ptr OptimizersProvider::get_hooke_jeeves() const
+{
+    double acceleration = 3.5;
+    double init_step = 1;
+    size_t max_iteration_number = 1000;
+    double step_divider = 10;
+
+    return HookeJeevesMethod::shared_ptr(
+        new HookeJeevesMethod(
+        acceleration, init_step, max_iteration_number, Constants::Eps, step_divider)
     );
 }
 
