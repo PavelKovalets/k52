@@ -29,6 +29,7 @@ set(OPTIMIZATION_HEADERS
     ${OPTIMIZATION_COMMON_INCLUDE}/linear_mutator.h
     ${OPTIMIZATION_COMMON_INCLUDE}/random_search.h
     ${OPTIMIZATION_COMMON_INCLUDE}/simulated_annealing.h
+    ${OPTIMIZATION_COMMON_INCLUDE}/steepest_descent_method.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/composite_discrete_parameters.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/const_chromosome_size_paremeters.h
     ${OPTIMIZATION_COMMON_INCLUDE}/params/continuous_parameters_array.h
@@ -71,6 +72,7 @@ set(OPTIMIZE_SOURCE
     random_search.cpp
     simple_parameters_processor.cpp
     simulated_annealing.cpp
+    steepest_descent_method.cpp
 
     genetic_algorithm/gen_mutator_base.cpp
     genetic_algorithm/generation_statistics.cpp

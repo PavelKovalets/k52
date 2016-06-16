@@ -5,6 +5,7 @@
 #include <k52/optimization/hleborodov_rosenbrock_method.h>
 #include <k52/optimization/random_search.h>
 #include <k52/optimization/simulated_annealing.h>
+#include <k52/optimization/steepest_descent_method.h>
 #include <k52/common/constants.h>
 #include <k52/optimization/hooke_jeeves_method.h>
 
@@ -21,6 +22,7 @@ using ::k52::optimization::HleborodovRosenbrockMethod;
 using ::k52::optimization::RandomSearch;
 using ::k52::optimization::SimulatedAnnealing;
 using ::k52::optimization::HookeJeevesMethod;
+using ::k52::optimization::SteepestDescentMethod;
 
 using ::k52::optimization_tests::consts::global_lower_bound;
 using ::k52::optimization_tests::consts::global_upper_bound;
@@ -38,8 +40,9 @@ vector< ContinuousOptimizer::shared_ptr > OptimizersProvider::get_optimizers() c
     optimizers.push_back( get_hleborodov_rosenbrock() );
     optimizers.push_back( get_conjugate_gradient() );
     optimizers.push_back( get_random_search() );
-    optimizers.push_back( get_simulated_annealing() );
     optimizers.push_back( get_hooke_jeeves() );
+    optimizers.push_back(get_simulated_annealing() );
+    optimizers.push_back(get_steepest_descent_method() );
 
     return optimizers;
 }
@@ -106,6 +109,20 @@ k52::optimization::ContinuousOptimizer::shared_ptr OptimizersProvider::get_hooke
         new HookeJeevesMethod(
         acceleration, init_step, max_iteration_number, Constants::Eps, step_divider)
     );
+}
+
+ContinuousOptimizer::shared_ptr OptimizersProvider::get_steepest_descent_method() const
+{
+    double increment_of_the_argument = 0.00001;
+    size_t max_iteration_number = 100;
+
+    return ContinuousOptimizer::shared_ptr(
+        new SteepestDescentMethod(
+            increment_of_the_argument,
+            max_iteration_number,
+            Constants::Eps 			
+            )
+        );
 }
 
 }/* namespace optimization_tests */
