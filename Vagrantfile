@@ -9,11 +9,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Used VM box
-  config.vm.box = "trusty32"
+  config.vm.box = "bento/ubuntu-16.04"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+  config.vm.box_url = "https://atlas.hashicorp.com/bento/boxes/ubuntu-16.04"
   
   # Configure virtualbox provider
   config.vm.provider :virtualbox do |vb|
