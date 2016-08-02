@@ -49,12 +49,20 @@ set(DSP_SOURCE
     transform/wavelet/logarithmic_scale.cpp
 )
 
-include_directories(
+set(k52_DSP_INCLUDE_DIRS
     ${k52_SOURCE_DIR}/src
     ${k52_SOURCE_DIR}/include
     ${K52_BOOST_INCLUDE_DIRS}
-    ${FFTW3_INCLUDE_DIR}
 )
+
+set(k52_DSP_LINK_LIBS "")
+
+if(FFTW3_FOUND)
+    set(k52_DSP_INCLUDE_DIRS ${k52_DSP_INCLUDE_DIRS} ${FFTW3_INCLUDE_DIR})
+    set(k52_DSP_LINK_LIBS ${k52_DSP_LINK_LIBS} ${FFTW3_LIBRARIES})
+endif()
+
+include_directories(${k52_DSP_INCLUDE_DIRS})
 
 set(k52_DSP_LIB k52_dsp)
 add_library(
@@ -67,7 +75,7 @@ add_library(
 if(K52_LIBS_TYPE_DYNAMIC)
     target_link_libraries(
         ${k52_DSP_LIB}
-        ${FFTW3_LIBRARIES}
+        ${k52_DSP_LINK_LIBS}
     )
 endif()
 
