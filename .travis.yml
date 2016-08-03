@@ -6,6 +6,7 @@ os:
    - linux
    # - osx
 before_install:
+   - sudo add-apt-repository ppa:george-edison55/cmake-3.x --yes
    - sudo apt-get update -qq
    - sudo apt-get install -y enca
    - sudo apt-get install -y openmpi-bin
