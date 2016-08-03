@@ -23,17 +23,22 @@ if(BUILD_WITH_BOOST_UNIT_TESTS)
     link_directories(${K52_BOOST_LIBRARY_DIRS})
 
     add_executable(${PROJECT_NAME} ${k52_UNIT_TESTS_SOURCE})
-    target_link_libraries(
-        ${PROJECT_NAME}
+
+    set(k52_UNIT_TESTS_LINK_LIBS
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARIES}
         k52_dsp
-        ${FFTW3_LIBRARIES}
         k52_common
         k52_parallel
         k52_optimization
         ${K52_MPI_LIBRARIES}
         ${K52_BOOST_LIBRARIES}
     )
+
+    if(FFTW3_FOUND)
+        set(k52_UNIT_TESTS_LINK_LIBS ${k52_UNIT_TESTS_LINK_LIBS} ${FFTW3_LIBRARIES})
+    endif()
+
+    target_link_libraries(${PROJECT_NAME} ${k52_UNIT_TESTS_LINK_LIBS})
 
     add_test(NAME "Unit_Tests" COMMAND ${PROJECT_NAME})
 

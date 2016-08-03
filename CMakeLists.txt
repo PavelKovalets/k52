@@ -44,7 +44,11 @@ foreach(k52_SUBPROJECT ${k52_SUBPROJECTS})
   set(k52_LIBS ${k52_LIBS} "${k52_SUBPROJECT}")
 endforeach()
 
-set(k52_LIBS ${k52_LIBS} ${FFTW3_LIBRARIES} ${K52_BOOST_LIBRARIES} ${K52_MPI_LIBRARIES})
+if(FFTW3_FOUND)
+    set(k52_LIBS ${k52_LIBS} ${FFTW3_LIBRARIES})
+endif()
+
+set(k52_LIBS ${k52_LIBS} ${K52_BOOST_LIBRARIES} ${K52_MPI_LIBRARIES})
 
 #TODO this is a temporary fix, remove it when ifdefs will be removed from headers
 if(MPI_CXX_FOUND AND Boost_MPI_FOUND AND Boost_SERIALIZATION_FOUND)
