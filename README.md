@@ -226,6 +226,7 @@ The k52 root folder has following content:
 - `CMakeLists.txt`              -       root CMake file
 - `LICENSE`                     -       file with license
 - `README.md`                   -       &(*this)
+- `CONTRIBUTING.md`             -       file which contains guidelines for those who wish to contribute to k52 via pull request
 - `Vagrantfile`                 -       file with Vagrant settings (see below how to use)
 - `.gitattributes`              -       git settings, applied to the repository
 - `.gitignore`                  -       used to exclude files from git tracking
