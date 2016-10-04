@@ -63,7 +63,7 @@ We try to implement k52 in an OOP way. This means that we appreciate suchcode fe
 ## Things to check when submitting a pull request ##
 - All above :)
 - Travis CI build is passed
-- You've signed the [Contributor License Agreement on CLAHub](https://www.clahub.com/agreements/PavelKovalets/k52)
+- You've signed the [Contributor License Agreement on CLAHub](https://www.clahub.com/agreements/PavelKovalets/k52) - slightly modified version on CLA provided by [Harmony](http://harmonyagreements.org/).
 - For both Windows and Linux platforms:
  - Clean build from freshly cloned repo
  - Unit tests should pass
