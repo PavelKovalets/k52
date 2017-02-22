@@ -30,13 +30,13 @@ namespace optimization
 
 HleborodovRosenbrockMethod::HleborodovRosenbrockMethod(double precision, size_t max_iteration_number,
     double first_step, double max_step)
-    : precision_(precision)
-    , arguments_increase_(kArgumentsIncreaseValue)
+    : arguments_increase_(kArgumentsIncreaseValue)
     , arguments_decrease_(kArgumentsDecreaseValue)
-    , first_step_(first_step)
-    , max_step_(max_step)
-    , max_iteration_number_(max_iteration_number)
     , dimension_(0)
+    , first_step_(first_step)
+    , max_iteration_number_(max_iteration_number)
+    , max_step_(max_step)
+    , precision_(precision)
 {
 }
 

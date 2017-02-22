@@ -71,17 +71,14 @@ private:
     /// An array of steps for each coordinate
     std::vector<double> steps_array_;
 
-    /// Number of coordinats in the function
-    size_t dimension_;
-
-    /// Used precesion
-    double precision_;
-
     /// Parameters of step increasing (it is advisable not to change)
     double arguments_increase_;
 
     /// Parameters of step decreasing (it is advisable not to change)
     double arguments_decrease_;
+
+    /// Number of coordinats in the function
+    size_t dimension_;
 
     /// First (tested) step by all of coordinats
     double first_step_;
@@ -91,6 +88,9 @@ private:
 
     /// Maximal step value (step changes in the process)
     double max_step_;
+
+    /// Used precesion
+    double precision_;
 
     DISALLOW_COPY_AND_ASSIGN(HleborodovRosenbrockMethod);
 };
