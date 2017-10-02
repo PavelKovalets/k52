@@ -32,6 +32,9 @@ add_subdirectory(src/optimization)
 # sound signal dsp library
 add_subdirectory(src/dsp)
 
+# Integration tests
+add_subdirectory(src/integration_tests)
+
 ## Unit tests
 add_subdirectory(src/unit_tests)
 
