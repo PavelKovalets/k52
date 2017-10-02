@@ -33,7 +33,7 @@ add_subdirectory(src/optimization)
 add_subdirectory(src/dsp)
 
 ## Unit tests
-add_subdirectory(src/unit_tests)
+add_subdirectory(src/unit_)
 
 ## Create config-file package on install
 # Generate configuration file for all subprojects
