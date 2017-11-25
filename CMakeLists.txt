@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.1)
 project(k52)
 
 # TODO: add versioning
@@ -18,7 +18,7 @@ include(k52.config)
 include(configuration/common-config.cmake)
 include(configuration/fftw3-config.cmake)
 include(configuration/boost-config.cmake)
-include(configuration/mpi-config.cmake)
+#include(configuration/mpi-config.cmake)
 
 ### Libraries
 add_subdirectory(src/common)
